@@ -69,6 +69,15 @@ patterns that primitive counterexamples would be forced to satisfy.
   with JSON-output metadata.
 - `beal_rsg_lab/sage_result_importer.py`: Sage JSON schema validation and
   conservative result import.
+- `beal_rsg_lab/sage_environment_detector.py`: native Sage, WSL Sage, Docker,
+  and CI execution-mode detection.
+- `beal_rsg_lab/sage_docker_runner.py`: Docker command construction for Sage
+  batch execution.
+- `beal_rsg_lab/sage_roundtrip.py`: execution and import summary row builders.
+- `beal_rsg_lab/sage_followup_cli.py`: `detect`, `generate`, `import`, and
+  `summarize` commands for Sage roundtrips.
+- `beal_rsg_lab/candidate_dossier_generator.py`: markdown dossiers for queued
+  modular-route signatures.
 - `beal_rsg_lab/modular_confidence_updater.py`: post-Sage route-confidence
   updates capped at human-review candidates.
 - `beal_rsg_lab/known_case_sage_calibration.py`: known-case safety checks after
@@ -90,6 +99,9 @@ patterns that primitive counterexamples would be forced to satisfy.
 ```powershell
 python -m unittest discover
 python run_experiment.py --prime-limit 31 --control-samples 16
+python -m beal_rsg_lab.sage_followup_cli detect
+python -m beal_rsg_lab.sage_followup_cli import --run-dir runs/<run-id>
+python -m beal_rsg_lab.sage_followup_cli summarize --run-dir runs/<run-id>
 ```
 
 For a faster smoke run:
@@ -119,4 +131,5 @@ See:
 - [docs/reports/route_collision_20260620_181500.md](docs/reports/route_collision_20260620_181500.md)
 - [docs/reports/sage_followup_20260620_183000.md](docs/reports/sage_followup_20260620_183000.md)
 - [docs/SAGE_FOLLOWUP.md](docs/SAGE_FOLLOWUP.md)
+- [docs/dossiers/candidate_dossier_index.md](docs/dossiers/candidate_dossier_index.md)
 - [docs/AGENT_GUIDE.md](docs/AGENT_GUIDE.md)

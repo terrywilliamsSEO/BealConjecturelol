@@ -280,22 +280,32 @@ Output summary:
 - Sage import rows: `13`.
 - Sage import `completed`: `0`.
 - Sage import `unavailable`: `13`.
+- Sage execution mode: `unavailable`.
+- Sage execution manifest rows: `13`.
+- Candidate dossiers generated: `13`.
 - Known-case overpromotion rows after Sage import: `0`.
 - Post-Sage `modular_followup_candidate`: `0`.
 - Committed report: [reports/sage_followup_20260620_183000.md](reports/sage_followup_20260620_183000.md).
 
 Interpretation:
 
-The Sage follow-up layer turns external-check routes into executable jobs and
-machine-readable JSON imports. Since SageMath was not available locally, every
-job was written and every import row was marked `unavailable`. This preserves
-the conservative route label `needs_external_sage_check` and prevents missing
+The Sage follow-up layer turns external-check routes into executable jobs,
+machine-readable JSON imports, environment reports, execution manifests, and
+candidate dossiers. Since SageMath was not available locally, native Sage was
+missing, WSL Sage timed out, and Docker was not found on PATH. Every job was
+written and every import row was marked `unavailable`. This preserves the
+conservative route label `needs_external_sage_check` and prevents missing
 external data from becoming route confidence.
 
 The generated queue contains 13 signatures, including the route-collision
 signatures `(5,5,7)`, `(5,3,5)`, and `(5,4,5)`, plus the repeated
 newform-check candidates `(3,4,3)` and `(4,3,3)`. Known artifacts remain
 demoted and no known case is overpromoted after Sage import.
+
+The committed dossier index is
+[dossiers/candidate_dossier_index.md](dossiers/candidate_dossier_index.md).
+The Docker runners and GitHub Actions workflow are now the preferred execution
+paths when local Sage is absent.
 
 ## Reproducibility Note
 

@@ -231,6 +231,21 @@ collects signatures labeled `needs_external_sage_check`,
 `trace_rigid_candidate`, writes one `.sage` job per signature, and expects JSON
 under `sage_results/`.
 
+The reproducible execution sequence is:
+
+1. `python -m beal_rsg_lab.sage_followup_cli detect --run-dir runs/<run-id>`
+2. run native Sage, WSL Sage, Docker, or the GitHub Actions workflow;
+3. `python -m beal_rsg_lab.sage_followup_cli import --run-dir runs/<run-id>`
+4. `python -m beal_rsg_lab.sage_followup_cli summarize --run-dir runs/<run-id>`
+
+Docker runners are available as:
+
+- `scripts/run_sage_jobs_docker.sh`
+- `scripts/run_sage_jobs_docker.ps1`
+
+The Docker image is controlled by `SAGE_DOCKER_IMAGE`, defaulting to
+`sagemath/sagemath:latest`.
+
 Allowed Sage import statuses are:
 
 - `unavailable`
@@ -250,6 +265,10 @@ Every imported JSON row must set `contradiction_claim_allowed` to `false`.
 `modular_followup_candidate` means worth human modular-method review; it is not
 a theorem claim. If Sage is missing locally, the experiment still passes and
 the rows remain `needs_external_sage_check`.
+
+Candidate dossiers are required for queued signatures before human review. They
+must explain the terrain, artifact risk, Sage status, current route label, and
+the exact missing mathematical checks.
 
 ## Recommended Iteration
 

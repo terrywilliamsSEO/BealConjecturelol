@@ -9,6 +9,9 @@ outputs structured, and make each experiment reproducible.
 python -m unittest discover
 python run_experiment.py --prime-limit 31 --control-samples 16
 python run_experiment.py --primes 5,7,11 --control-samples 6 --no-lift
+python -m beal_rsg_lab.sage_followup_cli detect --run-dir runs\<run-id>
+python -m beal_rsg_lab.sage_followup_cli import --run-dir runs\<run-id>
+python -m beal_rsg_lab.sage_followup_cli summarize --run-dir runs\<run-id>
 ```
 
 ## Source Map
@@ -48,8 +51,14 @@ python run_experiment.py --primes 5,7,11 --control-samples 6 --no-lift
 - `beal_rsg_lab/route_prior_model.py`: calibrated route-priority scoring.
 - `beal_rsg_lab/sage_export_scripts.py`: optional `.sage` script generation.
 - `beal_rsg_lab/sage_job_generator.py`: external Sage/newform job generation.
+- `beal_rsg_lab/sage_environment_detector.py`: native, WSL, Docker, and CI
+  execution detection.
+- `beal_rsg_lab/sage_docker_runner.py`: Docker command construction.
+- `beal_rsg_lab/sage_followup_cli.py`: Sage roundtrip CLI.
 - `beal_rsg_lab/sage_result_importer.py`: Sage JSON schema validation and
   import.
+- `beal_rsg_lab/candidate_dossier_generator.py`: queued-signature dossier
+  generation.
 - `beal_rsg_lab/modular_confidence_updater.py`: conservative post-Sage route
   confidence updates.
 - `beal_rsg_lab/known_case_sage_calibration.py`: known-case safety checks after
@@ -91,6 +100,10 @@ PATH, the default run still succeeds and marks the imports `unavailable`.
 Imported Sage rows must keep `contradiction_claim_allowed` false, and the
 strongest post-import label is `modular_followup_candidate`, meaning human
 review is worthwhile.
+
+Before handing Sage candidates to a human, generate dossiers with
+`python -m beal_rsg_lab.sage_followup_cli summarize`. Committed dossiers live in
+`docs/dossiers/`; run-local dossier indexes live in `runs/<run-id>/`.
 
 ## Documentation Rules
 

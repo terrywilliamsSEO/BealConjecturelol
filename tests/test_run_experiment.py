@@ -56,6 +56,11 @@ class RunExperimentTests(unittest.TestCase):
             self.assertTrue((output / "sage_import_results.csv").exists())
             self.assertTrue((output / "sage_known_case_calibration.csv").exists())
             self.assertTrue((output / "modular_confidence_summary.csv").exists())
+            self.assertTrue((output / "sage_environment.json").exists())
+            self.assertTrue((output / "sage_environment_report.md").exists())
+            self.assertTrue((output / "sage_execution_manifest.csv").exists())
+            self.assertTrue((output / "sage_roundtrip_summary.csv").exists())
+            self.assertTrue((output / "candidate_dossier_index.md").exists())
             self.assertTrue((output / "README_KNOWN_CASE_CALIBRATION_REPORT.md").exists())
             self.assertTrue((output / "README_THEOREM_TERRAIN_REPORT.md").exists())
             self.assertTrue((output / "README_ROUTE_COLLISION_REPORT.md").exists())
@@ -69,8 +74,10 @@ class RunExperimentTests(unittest.TestCase):
             self.assertIn("known_case_theorem_terrain_route_count", metadata)
             self.assertIn("resolved_known_mismatch_count", metadata)
             self.assertIn("sage_job_count", metadata)
+            self.assertIn("sage_execution_mode", metadata)
             self.assertIn("sage_import_unavailable_count", metadata)
             self.assertIn("sage_known_case_overpromotion_count", metadata)
+            self.assertIn("candidate_dossier_count", metadata)
 
 
 if __name__ == "__main__":

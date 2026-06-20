@@ -1,0 +1,73 @@
+name: Sage follow-up
+
+on:
+  workflow_dispatch:
+    inputs:
+      timestamp:
+        description: Run folder timestamp/name
+        required: false
+        default: sage_followup_ci
+
+jobs:
+  sage-followup:
+    runs-on: ubuntu-latest
+    env:
+      SAGE_DOCKER_IMAGE: ${{ vars.SAGE_DOCKER_IMAGE || 'sagemath/sagemath:latest' }}
+      RUN_ID: ${{ github.event.inputs.timestamp || 'sage_followup_ci' }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate Sage follow-up jobs
+        run: |
+          python -m beal_rsg_lab.sage_followup_cli generate \
+            --prime-limit 31 \
+            --control-samples 16 \
+            --timestamp "$RUN_ID"
+
+      - name: Detect execution environment
+        run: python -m beal_rsg_lab.sage_followup_cli detect --run-dir "runs/$RUN_ID"
+
+      - name: Run Sage jobs through Docker
+        run: bash scripts/run_sage_jobs_docker.sh "runs/$RUN_ID"
+
+      - name: Import Sage JSON
+        run: python -m beal_rsg_lab.sage_followup_cli import --run-dir "runs/$RUN_ID"
+
+      - name: Generate candidate dossiers
+        run: python -m beal_rsg_lab.sage_followup_cli summarize --run-dir "runs/$RUN_ID" --dossier-dir "runs/$RUN_ID/dossiers"
+
+      - name: Confirm conservative labels
+        run: |
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+          root = Path("runs") / "${{ env.RUN_ID }}"
+          imports = list(csv.DictReader((root / "sage_import_results.csv").open()))
+          confidence = list(csv.DictReader((root / "modular_confidence_summary.csv").open()))
+          known = list(csv.DictReader((root / "sage_known_case_calibration.csv").open()))
+          forbidden = {"proof", "proven", "disproven"}
+          for row in imports:
+              assert row["contradiction_claim_allowed"] == "False", row
+          for row in confidence:
+              label = row["updated_followup_label"]
+              assert label not in forbidden, row
+          for row in known:
+              assert row["overpromoted"] == "False", row
+          PY
+
+      - name: Upload Sage results
+        uses: actions/upload-artifact@v4
+        with:
+          name: sage-results-${{ env.RUN_ID }}
+          path: |
+            runs/${{ env.RUN_ID }}/sage_results/
+            runs/${{ env.RUN_ID }}/sage_import_results.csv
+            runs/${{ env.RUN_ID }}/modular_confidence_summary.csv
+            runs/${{ env.RUN_ID }}/sage_roundtrip_summary.csv
+            runs/${{ env.RUN_ID }}/dossiers/

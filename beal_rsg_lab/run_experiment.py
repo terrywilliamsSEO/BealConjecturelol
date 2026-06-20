@@ -11,6 +11,7 @@ from typing import Iterable
 
 from .artifact_explainer import explain_artifacts
 from .calibration_runner import build_known_case_calibration
+from .candidate_dossier_generator import generate_candidate_dossiers
 from .character_fingerprint import compute_character_fingerprints
 from .cross_prime_trace_compatibility import analyze_cross_prime_traces
 from .exact_explanation_generator import generate_explanations
@@ -29,9 +30,11 @@ from .primitive_obstruction_classifier import classify_primitive_obstructions, s
 from .rsg_modular_shadow import ShadowRecord, build_shadow_records
 from .rsg_residue_engine import DEFAULT_EXPONENTS, parse_prime_list, run_sweep
 from .rsg_valuation_engine import analyze_results
+from .sage_environment_detector import write_sage_environment_report
 from .sage_job_generator import generate_sage_jobs
 from .sage_optional_newform_probe import run_optional_newform_probe
 from .sage_result_importer import import_sage_results
+from .sage_roundtrip import sage_execution_manifest_rows, sage_roundtrip_summary_rows
 from .signature_normalizer import normalize_signature
 from .unit_survivor_geometry import analyze_sparse_unit_geometries
 from .zero_support_engine import analyze_zero_support_results
@@ -777,6 +780,7 @@ def run_experiment(
         route_prior_scores=calibration_artifacts.route_prior_scores,
         modular_route_classifications=modular_route_classifications,
     )
+    sage_environment = write_sage_environment_report(output_dir)
     sage_import_records = import_sage_results(sage_job_records)
     modular_confidence_records = update_modular_confidence(sage_job_records, sage_import_records)
     known_case_sage_records = calibrate_known_cases_with_sage(
@@ -833,6 +837,28 @@ def run_experiment(
     sage_import_rows = [record.to_flat_dict() for record in sage_import_records]
     modular_confidence_rows = [record.to_flat_dict() for record in modular_confidence_records]
     known_case_sage_rows = [record.to_flat_dict() for record in known_case_sage_records]
+    sage_execution_rows = sage_execution_manifest_rows(
+        job_rows=sage_job_rows,
+        environment=sage_environment,
+        repo_root=Path.cwd(),
+        run_dir=output_dir,
+    )
+    sage_roundtrip_rows = sage_roundtrip_summary_rows(
+        job_rows=sage_job_rows,
+        import_rows=sage_import_rows,
+        confidence_rows=modular_confidence_rows,
+        known_case_sage_rows=known_case_sage_rows,
+    )
+    dossier_records, dossier_index = generate_candidate_dossiers(
+        run_dir=output_dir,
+        dossier_dir=output_dir / "dossiers",
+        job_rows=sage_job_rows,
+        import_rows=sage_import_rows,
+        confidence_rows=modular_confidence_rows,
+        known_case_rows=known_case_rows,
+        unit_rows=unit_summary_rows,
+    )
+    candidate_dossier_rows = [record.to_flat_dict() for record in dossier_records]
 
     _write_csv(output_dir / "summary.csv", summary_rows)
     _write_csv(output_dir / "interesting_cases.csv", interesting_rows)
@@ -868,6 +894,10 @@ def run_experiment(
     _write_csv(output_dir / "sage_import_results.csv", sage_import_rows)
     _write_csv(output_dir / "sage_known_case_calibration.csv", known_case_sage_rows)
     _write_csv(output_dir / "modular_confidence_summary.csv", modular_confidence_rows)
+    _write_csv(output_dir / "sage_execution_manifest.csv", sage_execution_rows)
+    _write_csv(output_dir / "sage_roundtrip_summary.csv", sage_roundtrip_rows)
+    _write_csv(output_dir / "candidate_dossier_manifest.csv", candidate_dossier_rows)
+    (output_dir / "candidate_dossier_index.md").write_text(dossier_index, encoding="utf-8")
 
     promoted_count = sum(1 for shadow in shadows if shadow.promotion_status == "promoted_candidate")
     classification_counts: dict[str, int] = {}
@@ -910,12 +940,14 @@ def run_experiment(
         "resolved_known_mismatch_count": len(resolved_known_mismatch_rows),
         "still_blocked_mismatch_count": len(still_blocked_mismatch_rows),
         "sage_job_count": len(sage_job_rows),
+        "sage_execution_mode": sage_environment.execution_mode,
         "sage_import_completed_count": sum(1 for row in sage_import_rows if row["sage_status"] == "completed"),
         "sage_import_unavailable_count": sum(1 for row in sage_import_rows if row["sage_status"] == "unavailable"),
         "sage_known_case_overpromotion_count": sum(1 for row in known_case_sage_rows if row["overpromoted"]),
         "modular_confidence_followup_candidate_count": sum(
             1 for row in modular_confidence_rows if row["updated_followup_label"] == "modular_followup_candidate"
         ),
+        "candidate_dossier_count": len(candidate_dossier_rows),
     }
     (output_dir / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     report = _report_markdown(

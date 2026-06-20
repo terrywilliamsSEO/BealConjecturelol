@@ -230,12 +230,24 @@ involved, symbolic Frey template, heuristic conductor-like levels, and explicit
 limitations. The generated Sage code computes finite-field trace rows and small
 newform counts where supported, then writes JSON.
 
+`sage_environment_detector.py` detects native Sage, WSL Sage, Docker, CI mode,
+or unavailable execution. `sage_docker_runner.py` builds container commands
+using `SAGE_DOCKER_IMAGE` when provided. `sage_followup_cli.py` exposes the
+roundtrip as `detect`, `generate`, `import`, and `summarize`.
+
 `sage_result_importer.py` validates Sage JSON and rejects any row that attempts
 to allow contradiction claims. `modular_confidence_updater.py` can move a row
 only to conservative labels such as `needs_external_sage_check`,
 `sage_checked_inconclusive`, `modular_followup_candidate`, `artifact_like`, or
-`not_promising_yet`. `known_case_sage_calibration.py` verifies that artifacts
-remain demoted and known theorem/modular terrain does not become overpromoted.
+`not_promising_yet`. In roundtrip reports, the highest human-facing review label
+is `worth_human_modular_review`. `known_case_sage_calibration.py` verifies that
+artifacts remain demoted and known theorem/modular terrain does not become
+overpromoted.
+
+`candidate_dossier_generator.py` writes one markdown dossier per queued
+signature. Each dossier records terrain, artifact risk, sparse rows, p-adic
+status, Frey-template confidence, Sage status, the gap to a theorem claim, and
+the recommended next mathematical check.
 
 If SageMath is unavailable, the default run still passes. Jobs are generated,
 imports are marked `unavailable`, and the route remains queued for external
@@ -280,9 +292,15 @@ The runner writes each sweep to `runs/<timestamp>/`:
 - `route_prior_scores.csv`: calibrated route-priority scores.
 - `sage_export_manifest.csv`: optional Sage script manifest.
 - `sage_job_manifest.csv`: generated Sage/newform job metadata.
+- `sage_environment.json`: machine-readable execution-mode detection.
+- `sage_environment_report.md`: human-readable Sage environment report.
+- `sage_execution_manifest.csv`: native, WSL, Docker, or CI command hints.
 - `sage_import_results.csv`: validated Sage JSON imports or skip rows.
 - `sage_known_case_calibration.csv`: known-case safety after Sage import.
 - `modular_confidence_summary.csv`: conservative post-Sage route confidence.
+- `sage_roundtrip_summary.csv`: import and human-review label per job.
+- `candidate_dossier_manifest.csv`: generated dossier paths and labels.
+- `candidate_dossier_index.md`: run-local dossier index.
 - `metadata.json`: parameters and reproducibility data.
 - `README_REPORT.md`: human-readable report.
 - `README_ZERO_SUPPORT_REPORT.md`: exact zero-support report.
