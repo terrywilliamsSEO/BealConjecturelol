@@ -62,6 +62,10 @@
       "family_label": "repeated_exponent",
       "known_status": "open_or_unknown",
       "expected_route": "modular_method",
+      "terrain_label": "known_modular_method_shape",
+      "known_status_label": "generalized_fermat_terrain",
+      "artifact_collision_expected": true,
+      "should_resolve_to": "needs_external_sage_check",
       "notes": "Repeated-exponent calibration case for modular-method routing.",
       "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
     },
@@ -98,6 +102,10 @@
       "family_label": "fourth_power_bridge",
       "known_status": "open_or_unknown",
       "expected_route": "modular_method",
+      "terrain_label": "fourth_power_bridge",
+      "known_status_label": "generalized_fermat_terrain",
+      "artifact_collision_expected": true,
+      "should_resolve_to": "needs_external_sage_check",
       "notes": "A/B-swapped fourth-power bridge case from the modular-shadow target list.",
       "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
     },
@@ -125,6 +133,10 @@
       "family_label": "mixed_bridge",
       "known_status": "open_or_unknown",
       "expected_route": "modular_method",
+      "terrain_label": "known_modular_method_shape",
+      "known_status_label": "generalized_fermat_terrain",
+      "artifact_collision_expected": true,
+      "should_resolve_to": "needs_external_sage_check",
       "notes": "A/B-swapped mixed signature retained as modular-shadow follow-up.",
       "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
     },

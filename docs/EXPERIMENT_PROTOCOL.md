@@ -154,6 +154,7 @@ Every candidate now passes through this route ladder before promotion:
 6. Classify theorem terrain.
 7. Route modular-shadow or Sage follow-up.
 8. Assign the final calibrated route label.
+9. Resolve route collisions at signature level.
 
 Terrain labels include:
 
@@ -170,6 +171,30 @@ Known solved terrain calibrates the router. For example, diagonal FLT-style
 cases should become `theorem_terrain_route`, not `known_case_mismatch`, even
 when local residue tools find no obstruction. This is route recognition, not a
 new proof.
+
+## Route-Collision Triage
+
+A local artifact row is not automatically a global signature artifact. The
+resolver aggregates all primes for the signature and separates:
+
+- `local_artifact_evidence`
+- `signature_terrain_evidence`
+- `modular_route_evidence`
+- `unit_geometry_evidence`
+- `padic_lift_evidence`
+
+Collision classes are:
+
+- `artifact_dominates`
+- `terrain_dominates`
+- `mixed_needs_external_check`
+- `insufficient_evidence`
+- `overpromotion_risk`
+
+Known modular or generalized Fermat terrain can override weak local artifacts
+only to `needs_external_sage_check` or `theorem_terrain_route`. It cannot
+create a proof claim. Unknown Beal candidates remain blocked unless they pass
+the full calibrated ladder.
 
 ## What Counts As Evidence
 
@@ -191,6 +216,8 @@ Insufficient evidence:
 - A `needs_newform_check` label without trace rigidity.
 - A route label that fails known-case calibration.
 - Local-only sparsity without theorem-terrain calibration.
+- Global artifact demotion caused by one local row when modular terrain is
+  otherwise validated.
 - Any result phrased as a proof of Beal.
 
 ## Recommended Iteration

@@ -804,6 +804,9 @@ def run_experiment(
     route_confusion_rows = [record.to_flat_dict() for record in calibration_artifacts.route_matrix_records]
     theorem_terrain_rows = calibration_artifacts.terrain_summary_rows
     remaining_true_mismatch_rows = calibration_artifacts.remaining_true_mismatch_rows
+    route_collision_rows = [record.to_flat_dict() for record in calibration_artifacts.collision_records]
+    resolved_known_mismatch_rows = calibration_artifacts.resolved_known_mismatch_rows
+    still_blocked_mismatch_rows = calibration_artifacts.still_blocked_mismatch_rows
     family_expansion_rows = [record.to_flat_dict() for record in calibration_artifacts.family_expansion_records]
     route_prior_rows = [record.to_flat_dict() for record in calibration_artifacts.route_prior_scores]
     sage_export_rows = [record.to_flat_dict() for record in calibration_artifacts.sage_export_records]
@@ -832,6 +835,9 @@ def run_experiment(
     _write_csv(output_dir / "theorem_terrain_summary.csv", theorem_terrain_rows)
     _write_csv(output_dir / "known_case_route_matrix.csv", route_confusion_rows)
     _write_csv(output_dir / "remaining_true_mismatches.csv", remaining_true_mismatch_rows)
+    _write_csv(output_dir / "route_collision_summary.csv", route_collision_rows)
+    _write_csv(output_dir / "resolved_known_mismatches.csv", resolved_known_mismatch_rows)
+    _write_csv(output_dir / "still_blocked_mismatches.csv", still_blocked_mismatch_rows)
     _write_csv(output_dir / "family_expansion_results.csv", family_expansion_rows)
     _write_csv(output_dir / "route_prior_scores.csv", route_prior_rows)
     _write_csv(output_dir / "sage_export_manifest.csv", sage_export_rows)
@@ -872,6 +878,10 @@ def run_experiment(
         "known_case_external_sage_count": sum(1 for row in known_case_rows if row["actual_route_label"] == "needs_external_sage_check"),
         "known_case_calibrated_route_count": sum(1 for row in known_case_rows if row["actual_route_label"] == "calibrated_route_candidate"),
         "remaining_true_mismatch_count": len(remaining_true_mismatch_rows),
+        "route_collision_mixed_external_count": sum(1 for row in route_collision_rows if row["collision_class"] == "mixed_needs_external_check"),
+        "route_collision_artifact_dominates_count": sum(1 for row in route_collision_rows if row["collision_class"] == "artifact_dominates"),
+        "resolved_known_mismatch_count": len(resolved_known_mismatch_rows),
+        "still_blocked_mismatch_count": len(still_blocked_mismatch_rows),
     }
     (output_dir / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     report = _report_markdown(
@@ -928,6 +938,10 @@ def run_experiment(
     )
     (output_dir / "README_THEOREM_TERRAIN_REPORT.md").write_text(
         calibration_artifacts.terrain_report_markdown,
+        encoding="utf-8",
+    )
+    (output_dir / "README_ROUTE_COLLISION_REPORT.md").write_text(
+        calibration_artifacts.collision_report_markdown,
         encoding="utf-8",
     )
     return output_dir

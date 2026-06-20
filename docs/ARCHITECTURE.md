@@ -189,6 +189,9 @@ The calibration runner produces:
   `correct_artifact_demotion`, `correct_theorem_terrain_route`,
   `correct_external_sage_route`, `route_unknown`, `true_mismatch`, and
   `overpromoted_candidate`;
+- route-collision triage that separates `local_artifact_evidence`,
+  `signature_terrain_evidence`, `modular_route_evidence`,
+  `unit_geometry_evidence`, and `padic_lift_evidence`;
 - structured family-expansion rows that test whether nearby signatures preserve
   or break residue fingerprints;
 - route-prior scores with artifact likelihood and discovery readiness;
@@ -202,6 +205,12 @@ not match known artifact behavior.
 The theorem-terrain classifier runs after artifact/local/lift checks and before
 modular-shadow promotion. Diagonal FLT-style cases are routed to known theorem
 terrain instead of being treated as failures of local RSG methods.
+
+The route-collision resolver runs at signature level. A single artifact-prone
+local prime can force caution, but it cannot globally demote a known
+modular-method signature unless artifact evidence dominates the signature. The
+only conservative resolutions are external Sage/newform checks, theorem-terrain
+routes, artifact demotion, or continued blocking; never proof promotion.
 
 ## 9. Experiment Runner
 
@@ -234,6 +243,10 @@ The runner writes each sweep to `runs/<timestamp>/`:
 - `theorem_terrain_summary.csv`: structural theorem-terrain route rows.
 - `known_case_route_matrix.csv`: theorem-terrain-aware calibration buckets.
 - `remaining_true_mismatches.csv`: true mismatch and overpromotion rows.
+- `route_collision_summary.csv`: signature-level collision evidence.
+- `resolved_known_mismatches.csv`: collisions resolved to external/theorem
+  routes.
+- `still_blocked_mismatches.csv`: collisions still blocking promotion.
 - `family_expansion_results.csv`: nearby-signature fingerprint comparisons.
 - `route_prior_scores.csv`: calibrated route-priority scores.
 - `sage_export_manifest.csv`: optional Sage script manifest.
@@ -244,5 +257,6 @@ The runner writes each sweep to `runs/<timestamp>/`:
 - `README_MODULAR_SHADOW_REPORT.md`: proof-route sketch report.
 - `README_KNOWN_CASE_CALIBRATION_REPORT.md`: known-case calibration report.
 - `README_THEOREM_TERRAIN_REPORT.md`: theorem-terrain calibration report.
+- `README_ROUTE_COLLISION_REPORT.md`: route-collision triage report.
 
 The generated report explicitly avoids proof language.

@@ -19,6 +19,8 @@ class CalibrationScoreInput(Protocol):
     theorem_route_label: str
     actual_route_label: str
     comparison_flag: str
+    collision_class: str
+    collision_resolved_route_label: str
     should_promote_without_external_check: bool
     prime_count: int
     local_obstruction_rows: int
@@ -46,6 +48,7 @@ class RoutePriorScore:
     theorem_route_label: str
     terrain_label: str
     known_status_label: str
+    collision_class: str
     local_obstruction_score: float
     artifact_score: float
     zero_support_score: float
@@ -104,6 +107,8 @@ def _output_label(
     readiness: float,
 ) -> str:
     if artifact_likelihood >= 0.65 or record.actual_route_label == "artifact_like":
+        if record.collision_class == "mixed_needs_external_check":
+            return "needs_external_sage_check"
         return "artifact_like"
     if record.actual_route_label == "theorem_terrain_route":
         return "theorem_terrain_route"
@@ -148,7 +153,10 @@ def score_route_priors(
             + route_similarity,
             10,
         )
-        artifact_likelihood = round(min(1.0, artifact_score + (0.25 if record.expected_route == "artifact" else 0.0)), 10)
+        artifact_likelihood = artifact_score + (0.25 if record.expected_route == "artifact" else 0.0)
+        if record.collision_class == "mixed_needs_external_check":
+            artifact_likelihood = min(0.5, artifact_likelihood)
+        artifact_likelihood = round(min(1.0, artifact_likelihood), 10)
         mismatch_penalty = 3.0 if record.comparison_flag in {"overpromotion", "underpromotion", "route_mismatch"} else 0.0
         readiness = round(max(0.0, priority - 4.0 * artifact_likelihood - mismatch_penalty), 10)
         label = _output_label(
@@ -168,6 +176,7 @@ def score_route_priors(
                 theorem_route_label=record.theorem_route_label,
                 terrain_label=record.terrain_label,
                 known_status_label=record.known_status_label,
+                collision_class=record.collision_class,
                 local_obstruction_score=local_score,
                 artifact_score=artifact_score,
                 zero_support_score=zero_score,

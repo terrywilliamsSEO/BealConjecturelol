@@ -218,6 +218,45 @@ observed signal is artifact-like sparse-unit behavior at `ell = 11` despite a
 modular-method expected route. These should block promotion until a stronger
 non-artifact route is found or the calibration library is refined.
 
+## Route-Collision Triage
+
+Run folder:
+
+```text
+runs/route_collision_20260620_181500
+```
+
+Command:
+
+```powershell
+python run_experiment.py --prime-limit 31 --control-samples 16 --timestamp route_collision_20260620_181500
+```
+
+Output summary:
+
+- Known/calibration cases: `19`.
+- `theorem_terrain_route`: `5`.
+- `needs_external_sage_check`: `12`.
+- `artifact_like`: `2`.
+- `known_case_mismatch`: `0`.
+- `calibrated_route_candidate`: `0`.
+- Resolved known mismatches: `5`.
+- Still blocked mismatches: `0`.
+- Committed report: [reports/route_collision_20260620_181500.md](reports/route_collision_20260620_181500.md).
+
+Interpretation:
+
+The route-collision resolver separates local artifact rows from global
+signature terrain. The three previous known-case mismatches `(5,5,7)`,
+`(5,3,5)`, and `(5,4,5)` no longer get globally demoted by the artifact-prone
+`ell = 11` row. They resolve conservatively to `needs_external_sage_check`, not
+to proof promotion.
+
+Two adjacent fourth-power bridge rows, `(4,5,5)` and `(5,5,4)`, show the same
+artifact-collision pattern and also resolve to external Sage checks. The true
+subgroup artifacts `(11,11,13)` and `(11,11,5)` remain correctly demoted as
+`artifact_like`.
+
 ## Reproducibility Note
 
 Generated `runs/` artifacts are intentionally ignored by Git to avoid turning

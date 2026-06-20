@@ -51,6 +51,8 @@ python run_experiment.py --primes 5,7,11 --control-samples 6 --no-lift
   routing.
 - `beal_rsg_lab/calibration_confusion_matrix.py`: terrain-aware route matrix.
 - `beal_rsg_lab/terrain_report_generator.py`: theorem-terrain reports.
+- `beal_rsg_lab/route_collision_resolver.py`: signature-level artifact/terrain
+  collision triage.
 - `beal_rsg_lab/run_experiment.py`: orchestration and file outputs.
 - `tests/`: deterministic unit and smoke tests.
 
@@ -71,6 +73,11 @@ Theorem-terrain routing is also part of the default run. Diagonal FLT-style
 cases should route to `theorem_terrain_route`; this is a calibration success,
 not a new proof. `true_mismatch` and `overpromoted_candidate` rows block
 discovery-mode promotion until explained.
+
+Route-collision triage is the final calibration pass. A known modular signature
+with one artifact-prone local prime may resolve to `needs_external_sage_check`,
+but never to a proof route. True subgroup artifacts should remain
+`artifact_like`.
 
 ## Documentation Rules
 

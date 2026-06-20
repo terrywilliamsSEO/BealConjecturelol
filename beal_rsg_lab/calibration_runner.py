@@ -20,6 +20,13 @@ from .padic_lift_audit import audit_padic_lifts
 from .padic_unit_lift import analyze_padic_unit_lifts
 from .primitive_obstruction_classifier import classify_primitive_obstructions
 from .route_prior_model import RoutePriorScore, score_route_priors
+from .route_collision_resolver import (
+    RouteCollisionRecord,
+    resolved_known_mismatch_rows,
+    resolve_route_collision,
+    route_collision_report_markdown,
+    still_blocked_mismatch_rows,
+)
 from .rsg_residue_engine import ResidueSweepResult, Signature, run_signature_prime
 from .sage_export_scripts import SageExportRecord, export_sage_scripts
 from .signature_family_expander import FamilyExpansionRecord, expand_signature_families
@@ -49,6 +56,12 @@ class KnownCaseCalibrationRecord:
     theorem_route_label: str
     theorem_match_id: str
     should_promote_without_external_check: bool
+    artifact_collision_expected: bool
+    should_resolve_to: str
+    pre_collision_route_label: str
+    collision_class: str
+    collision_resolved_route_label: str
+    collision_rationale: str
     prime_count: int
     local_obstruction_rows: int
     mandatory_single_divisor_rows: int
@@ -82,14 +95,18 @@ class KnownCaseCalibrationArtifacts:
 
     case_records: list[KnownCaseCalibrationRecord]
     terrain_records: list[TheoremTerrainRecord]
+    collision_records: list[RouteCollisionRecord]
     route_matrix_records: list[CalibrationMatrixRecord]
     terrain_summary_rows: list[dict[str, object]]
     remaining_true_mismatch_rows: list[dict[str, object]]
+    resolved_known_mismatch_rows: list[dict[str, object]]
+    still_blocked_mismatch_rows: list[dict[str, object]]
     family_expansion_records: list[FamilyExpansionRecord]
     route_prior_scores: list[RoutePriorScore]
     sage_export_records: list[SageExportRecord]
     report_markdown: str
     terrain_report_markdown: str
+    collision_report_markdown: str
 
 
 def _signature_text(signature: Signature) -> str:
@@ -208,7 +225,7 @@ def _calibration_records(
     padic_unit_lifts,
     trace_records,
     route_classifications,
-) -> tuple[list[KnownCaseCalibrationRecord], list[TheoremTerrainRecord]]:
+) -> tuple[list[KnownCaseCalibrationRecord], list[TheoremTerrainRecord], list[RouteCollisionRecord]]:
     primitive_by_key = {(item.signature, item.ell): item for item in primitive_classifications}
     artifact_by_key = {(item.signature, item.ell): item for item in artifact_assessments}
     unit_lift_by_key = {(item.signature, item.ell): item for item in padic_unit_lifts}
@@ -220,6 +237,7 @@ def _calibration_records(
 
     records: list[KnownCaseCalibrationRecord] = []
     terrain_records: list[TheoremTerrainRecord] = []
+    collision_records: list[RouteCollisionRecord] = []
     for case in cases:
         keys = [(case.signature, ell) for ell in primes if (case.signature, ell) in result_keys]
         local_rows = sum(1 for key in keys if primitive_by_key[key].classification == "direct_primitive_obstruction")
@@ -251,7 +269,7 @@ def _calibration_records(
         )
         terrain_records.append(terrain)
         expected_route = terrain.expected_route if terrain.expected_route != "unknown" else case.expected_route
-        system_label = _system_label(
+        pre_collision_label = _system_label(
             terrain_route_label=terrain.terrain_route_label,
             local_obstruction_rows=local_rows,
             mandatory_single_divisor_rows=mandatory_rows,
@@ -264,6 +282,21 @@ def _calibration_records(
             frey_template_candidate_rows=frey_rows,
             expected_route=expected_route,
         )
+        collision = resolve_route_collision(
+            case_id=case.case_id,
+            signature=case.signature,
+            keys=keys,
+            terrain=terrain,
+            primitive_by_key=primitive_by_key,
+            artifact_by_key=artifact_by_key,
+            route_by_key=route_by_key,
+            unit_lift_by_key=unit_lift_by_key,
+            padic_by_key=padic_by_key,
+            expected_route=expected_route,
+            initial_route_label=pre_collision_label,
+        )
+        collision_records.append(collision)
+        system_label = collision.resolved_route_label
         flag = _comparison_flag(case, terrain, system_label)
         records.append(
             KnownCaseCalibrationRecord(
@@ -279,6 +312,12 @@ def _calibration_records(
                 theorem_route_label=terrain.terrain_route_label,
                 theorem_match_id=terrain.theorem_match_id,
                 should_promote_without_external_check=terrain.should_promote_without_external_check,
+                artifact_collision_expected=terrain.artifact_collision_expected,
+                should_resolve_to=terrain.should_resolve_to,
+                pre_collision_route_label=pre_collision_label,
+                collision_class=collision.collision_class,
+                collision_resolved_route_label=collision.resolved_route_label,
+                collision_rationale=collision.rationale,
                 prime_count=len(keys),
                 local_obstruction_rows=local_rows,
                 mandatory_single_divisor_rows=mandatory_rows,
@@ -309,14 +348,14 @@ def _calibration_records(
         ),
         reverse=True,
     )
-    return records, terrain_records
+    return records, terrain_records, collision_records
 
 
 def _report_markdown(
     *,
     output_dir: Path,
     records: list[KnownCaseCalibrationRecord],
-    confusion: list[RouteConfusionRecord],
+    confusion: list[CalibrationMatrixRecord],
     priors: list[RoutePriorScore],
     sage_exports: list[SageExportRecord],
 ) -> str:
@@ -435,7 +474,7 @@ def build_known_case_calibration(
         templates,
         cross_prime_records,
     )
-    case_records, terrain_records = _calibration_records(
+    case_records, terrain_records, collision_records = _calibration_records(
         case_list,
         primes,
         results,
@@ -461,6 +500,9 @@ def build_known_case_calibration(
     terrain_rows = theorem_terrain_summary_rows(case_records, terrain_records)
     matrix_rows = [record.to_flat_dict() for record in route_matrix]
     mismatch_rows = remaining_true_mismatch_rows(case_records, route_matrix)
+    resolved_collision_rows = resolved_known_mismatch_rows(case_records, collision_records)
+    blocked_collision_rows = still_blocked_mismatch_rows(case_records, collision_records)
+    collision_rows = [record.to_flat_dict() for record in collision_records]
     report = _report_markdown(
         output_dir=output_dir,
         records=case_records,
@@ -474,15 +516,25 @@ def build_known_case_calibration(
         matrix_rows=matrix_rows,
         mismatch_rows=mismatch_rows,
     )
+    collision_report = route_collision_report_markdown(
+        output_dir=output_dir,
+        collision_rows=collision_rows,
+        resolved_rows=resolved_collision_rows,
+        blocked_rows=blocked_collision_rows,
+    )
     return KnownCaseCalibrationArtifacts(
         case_records=case_records,
         terrain_records=terrain_records,
+        collision_records=collision_records,
         route_matrix_records=route_matrix,
         terrain_summary_rows=terrain_rows,
         remaining_true_mismatch_rows=mismatch_rows,
+        resolved_known_mismatch_rows=resolved_collision_rows,
+        still_blocked_mismatch_rows=blocked_collision_rows,
         family_expansion_records=family_expansions,
         route_prior_scores=priors,
         sage_export_records=sage_exports,
         report_markdown=report,
         terrain_report_markdown=terrain_report,
+        collision_report_markdown=collision_report,
     )

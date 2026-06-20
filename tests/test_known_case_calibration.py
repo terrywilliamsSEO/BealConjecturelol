@@ -9,6 +9,7 @@ from unittest.mock import patch
 from beal_rsg_lab.calibration_confusion_matrix import build_calibration_confusion_matrix
 from beal_rsg_lab.known_case_library import load_known_cases
 from beal_rsg_lab.route_prior_model import score_route_priors
+from beal_rsg_lab.route_collision_resolver import resolve_route_collision
 from beal_rsg_lab.sage_export_scripts import export_sage_scripts, sage_script_text
 from beal_rsg_lab.signature_family_expander import expanded_signatures
 from beal_rsg_lab.theorem_terrain_classifier import classify_theorem_terrain, load_known_theorem_library
@@ -62,6 +63,7 @@ class KnownCaseCalibrationTests(unittest.TestCase):
                 system_route_label="artifact_like",
                 actual_route_label="artifact_like",
                 comparison_flag="artifact_match",
+                collision_class="artifact_dominates",
                 should_promote_without_external_check=False,
             ),
             SimpleNamespace(
@@ -74,6 +76,7 @@ class KnownCaseCalibrationTests(unittest.TestCase):
                 system_route_label="theorem_terrain_route",
                 actual_route_label="theorem_terrain_route",
                 comparison_flag="terrain_match",
+                collision_class="terrain_dominates",
                 should_promote_without_external_check=False,
             ),
         ]
@@ -95,6 +98,8 @@ class KnownCaseCalibrationTests(unittest.TestCase):
             theorem_route_label="artifact_like",
             actual_route_label="artifact_like",
             comparison_flag="artifact_match",
+            collision_class="artifact_dominates",
+            collision_resolved_route_label="artifact_like",
             should_promote_without_external_check=False,
             prime_count=2,
             local_obstruction_rows=0,
@@ -112,6 +117,46 @@ class KnownCaseCalibrationTests(unittest.TestCase):
         self.assertEqual(scores[0].output_label, "artifact_like")
         self.assertGreaterEqual(scores[0].artifact_likelihood, 0.65)
 
+    def test_artifact_row_does_not_globally_demote_known_modular_signature(self) -> None:
+        terrain = classify_theorem_terrain((5, 3, 5), ell=11)
+        signature = (5, 3, 5)
+        key = (signature, 11)
+        collision = resolve_route_collision(
+            case_id="mixed_5_3_5",
+            signature=signature,
+            keys=[key],
+            terrain=terrain,
+            primitive_by_key={key: SimpleNamespace(classification="sparse_unit_survivor")},
+            artifact_by_key={key: SimpleNamespace(verdict="artifact_explained")},
+            route_by_key={},
+            unit_lift_by_key={},
+            padic_by_key={},
+            expected_route="modular_method",
+            initial_route_label="artifact_like",
+        )
+        self.assertEqual(collision.collision_class, "mixed_needs_external_check")
+        self.assertEqual(collision.resolved_route_label, "needs_external_sage_check")
+
+    def test_true_subgroup_artifacts_still_demote(self) -> None:
+        terrain = classify_theorem_terrain((11, 11, 13), ell=23)
+        signature = (11, 11, 13)
+        key = (signature, 23)
+        collision = resolve_route_collision(
+            case_id="artifact_11_11_13",
+            signature=signature,
+            keys=[key],
+            terrain=terrain,
+            primitive_by_key={key: SimpleNamespace(classification="sparse_unit_survivor")},
+            artifact_by_key={key: SimpleNamespace(verdict="artifact_explained")},
+            route_by_key={},
+            unit_lift_by_key={},
+            padic_by_key={},
+            expected_route="artifact",
+            initial_route_label="artifact_like",
+        )
+        self.assertEqual(collision.collision_class, "artifact_dominates")
+        self.assertEqual(collision.resolved_route_label, "artifact_like")
+
     def test_no_candidate_promotes_without_terrain_calibration(self) -> None:
         record = SimpleNamespace(
             case_id="unknown_case",
@@ -124,6 +169,8 @@ class KnownCaseCalibrationTests(unittest.TestCase):
             theorem_route_label="calibrated_route_candidate",
             actual_route_label="calibrated_route_candidate",
             comparison_flag="uncertain",
+            collision_class="overpromotion_risk",
+            collision_resolved_route_label="not_promising_yet",
             should_promote_without_external_check=False,
             prime_count=2,
             local_obstruction_rows=2,

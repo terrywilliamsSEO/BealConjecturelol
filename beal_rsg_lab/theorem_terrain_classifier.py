@@ -33,6 +33,8 @@ class KnownTheoremTerrain:
     notes: str
     source_placeholder: str
     should_promote_without_external_check: bool
+    artifact_collision_expected: bool = False
+    should_resolve_to: str = ""
     ell: int | None = None
 
     def to_flat_dict(self) -> dict[str, object]:
@@ -56,6 +58,8 @@ class TheoremTerrainRecord:
     expected_route: str
     theorem_match_id: str
     should_promote_without_external_check: bool
+    artifact_collision_expected: bool
+    should_resolve_to: str
     diagonal_flt_style: bool
     two_equal_exponents: bool
     fourth_power_bridge: bool
@@ -104,6 +108,8 @@ def _terrain_from_dict(raw: dict[str, Any]) -> KnownTheoremTerrain:
         notes=str(raw.get("notes", "")).strip(),
         source_placeholder=str(raw.get("source_placeholder", "")).strip(),
         should_promote_without_external_check=bool(raw.get("should_promote_without_external_check", False)),
+        artifact_collision_expected=bool(raw.get("artifact_collision_expected", False)),
+        should_resolve_to=str(raw.get("should_resolve_to", "")).strip(),
     )
 
 
@@ -286,6 +292,8 @@ def classify_theorem_terrain(
         expected_route=expected_route,
         theorem_match_id=match.case_id if match is not None else "",
         should_promote_without_external_check=match.should_promote_without_external_check if match is not None else False,
+        artifact_collision_expected=match.artifact_collision_expected if match is not None else False,
+        should_resolve_to=match.should_resolve_to if match is not None else "",
         diagonal_flt_style=diagonal,
         two_equal_exponents=two_equal,
         fourth_power_bridge=fourth_bridge,

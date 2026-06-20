@@ -71,6 +71,8 @@ patterns that primitive counterexamples would be forced to satisfy.
   matrix.
 - `beal_rsg_lab/terrain_report_generator.py`: terrain summary and mismatch
   reports.
+- `beal_rsg_lab/route_collision_resolver.py`: signature-level triage that
+  separates local artifact primes from global theorem/modular terrain.
 - `beal_rsg_lab/run_experiment.py`: full sweep runner that writes
   the broad RSG files plus zero-support, unit-geometry, modular-shadow, and
   theorem-terrain calibration reports under `runs/<timestamp>/`.
@@ -106,4 +108,5 @@ See:
 - [docs/reports/modular_shadow_20260620_154000.md](docs/reports/modular_shadow_20260620_154000.md)
 - [docs/reports/known_case_calibration_20260620_163000.md](docs/reports/known_case_calibration_20260620_163000.md)
 - [docs/reports/theorem_terrain_20260620_174500.md](docs/reports/theorem_terrain_20260620_174500.md)
+- [docs/reports/route_collision_20260620_181500.md](docs/reports/route_collision_20260620_181500.md)
 - [docs/AGENT_GUIDE.md](docs/AGENT_GUIDE.md)

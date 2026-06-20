@@ -48,6 +48,8 @@
       "terrain_label": "known_modular_method_shape",
       "known_status_label": "generalized_fermat_terrain",
       "expected_route": "modular_method",
+      "artifact_collision_expected": false,
+      "should_resolve_to": "needs_external_sage_check",
       "notes": "Repeated-exponent generalized Fermat terrain likely requiring external Frey/newform work.",
       "source_placeholder": "TODO: cite generalized Fermat survey if used.",
       "should_promote_without_external_check": false
@@ -58,6 +60,8 @@
       "terrain_label": "known_modular_method_shape",
       "known_status_label": "generalized_fermat_terrain",
       "expected_route": "modular_method",
+      "artifact_collision_expected": true,
+      "should_resolve_to": "needs_external_sage_check",
       "notes": "Repeated-exponent generalized Fermat terrain likely requiring external Frey/newform work.",
       "source_placeholder": "TODO: cite generalized Fermat survey if used.",
       "should_promote_without_external_check": false
@@ -98,6 +102,8 @@
       "terrain_label": "known_modular_method_shape",
       "known_status_label": "generalized_fermat_terrain",
       "expected_route": "modular_method",
+      "artifact_collision_expected": true,
+      "should_resolve_to": "needs_external_sage_check",
       "notes": "A/B-swapped mixed generalized Fermat terrain requiring external modular checks.",
       "source_placeholder": "TODO: cite generalized Fermat survey if used.",
       "should_promote_without_external_check": false
@@ -118,6 +124,8 @@
       "terrain_label": "fourth_power_bridge",
       "known_status_label": "generalized_fermat_terrain",
       "expected_route": "modular_method",
+      "artifact_collision_expected": true,
+      "should_resolve_to": "needs_external_sage_check",
       "notes": "A/B-swapped fourth-power bridge terrain requiring external modular/descent checks.",
       "source_placeholder": "TODO: cite generalized Fermat survey if used.",
       "should_promote_without_external_check": false
