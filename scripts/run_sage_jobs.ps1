@@ -9,15 +9,18 @@ if (-not $sage) {
     exit 0
 }
 
-$jobDir = Join-Path $RunDir "sage_jobs"
-if (-not (Test-Path -LiteralPath $jobDir -PathType Container)) {
-    Write-Error "No sage_jobs directory found at: $jobDir"
+$manifest = Join-Path $RunDir "sage_job_manifest.csv"
+if (-not (Test-Path -LiteralPath $manifest -PathType Leaf)) {
+    Write-Error "No Sage job manifest found at $manifest"
     exit 2
 }
 
-Get-ChildItem -LiteralPath $jobDir -Filter "sage_*.sage" | ForEach-Object {
-    Write-Host "Running $($_.FullName)"
-    & $sage.Source $_.FullName
-}
+$timeout = if ($env:SAGE_JOB_TIMEOUT_SECONDS) { $env:SAGE_JOB_TIMEOUT_SECONDS } else { "600" }
+python -m beal_rsg_lab.sage_followup_cli roundtrip `
+    --run-dir $RunDir `
+    --skip-generate `
+    --backend native_sage `
+    --timeout-seconds $timeout `
+    --dossier-dir (Join-Path $RunDir "dossiers")
 
 Write-Host "Sage jobs finished. JSON outputs should be in $(Join-Path $RunDir 'sage_results')."

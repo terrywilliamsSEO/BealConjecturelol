@@ -16,15 +16,16 @@ if ! command -v docker >/dev/null 2>&1; then
   exit 0
 fi
 
-if [[ ! -f "$RUN_DIR/sage_jobs/run_all_sage_jobs.sage" ]]; then
-  echo "No Sage batch file found at $RUN_DIR/sage_jobs/run_all_sage_jobs.sage"
+if [[ ! -f "$RUN_DIR/sage_job_manifest.csv" ]]; then
+  echo "No Sage job manifest found at $RUN_DIR/sage_job_manifest.csv"
   exit 2
 fi
 
-docker run --rm \
-  -v "$PWD:/work" \
-  -w /work \
-  "$IMAGE" \
-  sage "$RUN_DIR/sage_jobs/run_all_sage_jobs.sage"
+SAGE_DOCKER_IMAGE="$IMAGE" python -m beal_rsg_lab.sage_followup_cli roundtrip \
+  --run-dir "$RUN_DIR" \
+  --skip-generate \
+  --backend docker \
+  --timeout-seconds "${SAGE_JOB_TIMEOUT_SECONDS:-600}" \
+  --dossier-dir "$RUN_DIR/dossiers"
 
 echo "Docker Sage jobs finished. JSON outputs should be in $RUN_DIR/sage_results."

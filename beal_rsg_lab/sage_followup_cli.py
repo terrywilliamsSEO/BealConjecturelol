@@ -13,6 +13,7 @@ from .known_case_sage_calibration import calibrate_known_cases_with_sage
 from .modular_confidence_updater import sage_followup_report_markdown, update_modular_confidence
 from .run_experiment import run_experiment
 from .sage_environment_detector import detect_sage_environment, write_sage_environment_report
+from .sage_job_runner import run_sage_jobs
 from .sage_result_importer import import_sage_results
 from .sage_roundtrip import sage_execution_manifest_rows, sage_roundtrip_summary_rows
 
@@ -69,6 +70,7 @@ def _row_to_job(row: Mapping[str, str]) -> SimpleNamespace:
         candidate_rows=_tuple_str(row.get("candidate_rows", "")),
         primes_involved=_tuple_int(row.get("primes_involved", "")),
         candidate_levels=_tuple_int(row.get("candidate_levels", "")),
+        job_path=row.get("job_path", ""),
         result_path=row.get("result_path", ""),
         sage_available=_bool(row.get("sage_available", "False")),
     )
@@ -114,6 +116,29 @@ def command_generate(args: argparse.Namespace) -> int:
     )
     print(output.as_posix())
     return 0
+
+
+def run_jobs_for_run(
+    run_dir: Path,
+    *,
+    backend: str = "auto",
+    timeout_seconds: int = 600,
+) -> list[dict[str, object]]:
+    """Run generated Sage jobs for a run and write execution results."""
+    job_rows = _read_csv(run_dir / "sage_job_manifest.csv")
+    jobs = [_row_to_job(row) for row in job_rows]
+    environment = write_sage_environment_report(run_dir)
+    execution_records = run_sage_jobs(
+        run_dir=run_dir,
+        jobs=jobs,
+        repo_root=Path.cwd(),
+        environment=environment,
+        backend=backend,
+        timeout_seconds=timeout_seconds,
+    )
+    execution_rows = [record.to_flat_dict() for record in execution_records]
+    _write_csv(run_dir / "sage_execution_results.csv", execution_rows)
+    return execution_rows
 
 
 def import_run(run_dir: Path) -> tuple[list[dict[str, object]], list[dict[str, object]], list[dict[str, object]]]:
@@ -171,6 +196,21 @@ def command_import(args: argparse.Namespace) -> int:
     return 0
 
 
+def command_run(args: argparse.Namespace) -> int:
+    run_dir = _run_dir_arg(args.run_dir)
+    rows = run_jobs_for_run(
+        run_dir,
+        backend=args.backend,
+        timeout_seconds=args.timeout_seconds,
+    )
+    statuses: dict[str, int] = {}
+    for row in rows:
+        status = str(row["sage_status"])
+        statuses[status] = statuses.get(status, 0) + 1
+    print(statuses)
+    return 1 if statuses.get("failed") or statuses.get("timeout") else 0
+
+
 def summarize_run(run_dir: Path, dossier_dir: Path) -> list[dict[str, object]]:
     """Generate dossiers for a run and write the run-local dossier index."""
     job_rows = _read_csv(run_dir / "sage_job_manifest.csv")
@@ -200,6 +240,47 @@ def command_summarize(args: argparse.Namespace) -> int:
     return 0
 
 
+def command_roundtrip(args: argparse.Namespace) -> int:
+    if args.skip_generate:
+        run_dir = _run_dir_arg(args.run_dir)
+    else:
+        run_dir = run_experiment(
+            output_root=Path(args.output_root),
+            prime_limit=args.prime_limit,
+            control_samples=args.control_samples,
+            compute_lift=not args.no_lift,
+            timestamp=args.timestamp,
+        )
+    environment = write_sage_environment_report(run_dir)
+    jobs = [_row_to_job(row) for row in _read_csv(run_dir / "sage_job_manifest.csv")]
+    execution_records = run_sage_jobs(
+        run_dir=run_dir,
+        jobs=jobs,
+        repo_root=Path.cwd(),
+        environment=environment,
+        backend=args.backend,
+        timeout_seconds=args.timeout_seconds,
+    )
+    _write_csv(run_dir / "sage_execution_results.csv", [record.to_flat_dict() for record in execution_records])
+    import_rows, confidence_rows, known_case_sage_rows = import_run(run_dir)
+    dossier_rows = summarize_run(run_dir, Path(args.dossier_dir))
+    status_counts: dict[str, int] = {}
+    for row in import_rows:
+        status = str(row["sage_status"])
+        status_counts[status] = status_counts.get(status, 0) + 1
+    print(
+        {
+            "run_dir": run_dir.as_posix(),
+            "execution_mode": environment.execution_mode if args.backend == "auto" else args.backend,
+            "import_statuses": status_counts,
+            "confidence_rows": len(confidence_rows),
+            "known_case_sage_rows": len(known_case_sage_rows),
+            "dossiers": len(dossier_rows),
+        }
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Run Sage follow-up support commands.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -221,10 +302,29 @@ def build_parser() -> argparse.ArgumentParser:
     importer.add_argument("--run-dir", help="Run directory. Defaults to latest run.")
     importer.set_defaults(func=command_import)
 
+    runner = subparsers.add_parser("run", help="Run generated Sage jobs through the selected backend.")
+    runner.add_argument("--run-dir", help="Run directory. Defaults to latest run.")
+    runner.add_argument("--backend", default="auto", choices=("auto", "native_sage", "wsl_sage", "docker", "unavailable"))
+    runner.add_argument("--timeout-seconds", type=int, default=600)
+    runner.set_defaults(func=command_run)
+
     summarize = subparsers.add_parser("summarize", help="Generate queued-signature dossiers.")
     summarize.add_argument("--run-dir", help="Run directory. Defaults to latest run.")
     summarize.add_argument("--dossier-dir", default="docs/dossiers")
     summarize.set_defaults(func=command_summarize)
+
+    roundtrip = subparsers.add_parser("roundtrip", help="Detect, optionally generate, run Sage jobs, import, and summarize.")
+    roundtrip.add_argument("--run-dir", help="Existing run directory. Defaults to latest run when --skip-generate is used.")
+    roundtrip.add_argument("--skip-generate", action="store_true", help="Use an existing run instead of generating a new one.")
+    roundtrip.add_argument("--output-root", default="runs")
+    roundtrip.add_argument("--prime-limit", type=int, default=31)
+    roundtrip.add_argument("--control-samples", type=int, default=16)
+    roundtrip.add_argument("--timestamp")
+    roundtrip.add_argument("--no-lift", action="store_true")
+    roundtrip.add_argument("--backend", default="auto", choices=("auto", "native_sage", "wsl_sage", "docker", "unavailable"))
+    roundtrip.add_argument("--timeout-seconds", type=int, default=600)
+    roundtrip.add_argument("--dossier-dir", default="docs/dossiers")
+    roundtrip.set_defaults(func=command_roundtrip)
 
     return parser
 

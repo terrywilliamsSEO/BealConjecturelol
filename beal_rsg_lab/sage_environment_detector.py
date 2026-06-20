@@ -27,6 +27,11 @@ class SageEnvironmentReport:
     wsl_sage: bool
     docker_available: bool
     ci_mode: bool
+    wsl_command_attempted: str = ""
+    wsl_timeout_seconds: int = 5
+    wsl_launched: bool = False
+    wsl_sage_binary_found: bool = False
+    wsl_recommended_command: str = "wsl sh -lc 'command -v sage && sage --version'"
 
     def to_dict(self) -> dict[str, object]:
         data = asdict(self)
@@ -69,6 +74,7 @@ def detect_sage_environment(
     env = environ if environ is not None else os.environ
     commands: list[str] = []
     failures: list[str] = []
+    timeout_seconds = 5
 
     ci_mode = bool(env.get("GITHUB_ACTIONS") or env.get("CI"))
 
@@ -89,16 +95,38 @@ def detect_sage_environment(
 
     wsl_sage = False
     wsl_version = ""
+    wsl_launched = False
+    wsl_sage_binary_found = False
+    wsl_command_attempted = ""
+    wsl_recommended_command = "wsl sh -lc 'command -v sage && sage --version'"
     wsl_path = which_func("wsl")
     if wsl_path:
-        command = [wsl_path, "sage", "--version"]
-        commands.append(_command_text(command))
-        code, stdout, stderr = run(command)
-        if code == 0:
-            wsl_sage = True
-            wsl_version = _version_from_output(stdout, stderr)
+        launch_command = [wsl_path, "sh", "-lc", "printf wsl-ok"]
+        commands.append(_command_text(launch_command))
+        launch_code, launch_stdout, launch_stderr = run(launch_command)
+        wsl_launched = launch_code == 0 and "wsl-ok" in launch_stdout
+        if not wsl_launched:
+            failures.append(f"WSL launch failed: {launch_stderr or launch_stdout or launch_code}")
         else:
-            failures.append(f"WSL sage failed: {stderr or stdout or code}")
+            find_command = [wsl_path, "sh", "-lc", "command -v sage"]
+            commands.append(_command_text(find_command))
+            find_code, find_stdout, find_stderr = run(find_command)
+            wsl_sage_binary_found = find_code == 0 and bool(find_stdout.strip())
+            if not wsl_sage_binary_found:
+                failures.append(f"WSL launched but Sage binary was not found: {find_stderr or find_stdout or find_code}")
+            else:
+                command = [wsl_path, "sh", "-lc", "sage --version"]
+                wsl_command_attempted = _command_text(command)
+                commands.append(wsl_command_attempted)
+                code, stdout, stderr = run(command)
+                if code == 0:
+                    wsl_sage = True
+                    wsl_version = _version_from_output(stdout, stderr)
+                else:
+                    failures.append(
+                        f"WSL sage failed or timed out after {timeout_seconds} seconds: {stderr or stdout or code}; "
+                        f"manual test: {wsl_recommended_command}"
+                    )
     else:
         failures.append("wsl not found on PATH")
 
@@ -147,6 +175,11 @@ def detect_sage_environment(
         wsl_sage=wsl_sage,
         docker_available=docker_available,
         ci_mode=ci_mode,
+        wsl_command_attempted=wsl_command_attempted,
+        wsl_timeout_seconds=timeout_seconds,
+        wsl_launched=wsl_launched,
+        wsl_sage_binary_found=wsl_sage_binary_found,
+        wsl_recommended_command=wsl_recommended_command,
     )
 
 
@@ -161,6 +194,9 @@ def environment_report_markdown(report: SageEnvironmentReport) -> str:
         f"- WSL Sage: `{report.wsl_sage}`.",
         f"- Docker available: `{report.docker_available}`.",
         f"- CI mode: `{report.ci_mode}`.",
+        f"- WSL launched: `{report.wsl_launched}`.",
+        f"- WSL Sage binary found: `{report.wsl_sage_binary_found}`.",
+        f"- WSL timeout seconds: `{report.wsl_timeout_seconds}`.",
     ]
     if report.failure_reason:
         lines.append(f"- Failure reason: `{report.failure_reason}`.")
@@ -172,6 +208,11 @@ def environment_report_markdown(report: SageEnvironmentReport) -> str:
         lines.append("No executable probes were run.")
     lines.extend(
         [
+            "",
+            "## WSL Diagnosis",
+            "",
+            f"- Command attempted: `{report.wsl_command_attempted or 'none'}`",
+            f"- Recommended manual command: `{report.wsl_recommended_command}`",
             "",
             "## Interpretation",
             "",

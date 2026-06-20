@@ -233,7 +233,13 @@ newform counts where supported, then writes JSON.
 `sage_environment_detector.py` detects native Sage, WSL Sage, Docker, CI mode,
 or unavailable execution. `sage_docker_runner.py` builds container commands
 using `SAGE_DOCKER_IMAGE` when provided. `sage_followup_cli.py` exposes the
-roundtrip as `detect`, `generate`, `import`, and `summarize`.
+roundtrip as `detect`, `generate`, `run`, `import`, `summarize`, and
+`roundtrip`.
+
+`sage_smoke.py` writes a deterministic Sage smoke job before the real queue.
+`sage_job_runner.py` executes smoke and real jobs with per-job timeout handling.
+When Sage times out or fails before writing output, the runner writes
+importer-compatible JSON with `sage_status` set to `timeout` or `failed`.
 
 `sage_result_importer.py` validates Sage JSON and rejects any row that attempts
 to allow contradiction claims. `modular_confidence_updater.py` can move a row

@@ -31,14 +31,18 @@ Use the module CLI for repeatable operations:
 ```powershell
 python -m beal_rsg_lab.sage_followup_cli detect --run-dir runs\<run-id>
 python -m beal_rsg_lab.sage_followup_cli generate --timestamp sage_followup_local
+python -m beal_rsg_lab.sage_followup_cli run --run-dir runs\<run-id> --backend native_sage
 python -m beal_rsg_lab.sage_followup_cli import --run-dir runs\<run-id>
 python -m beal_rsg_lab.sage_followup_cli summarize --run-dir runs\<run-id>
+python -m beal_rsg_lab.sage_followup_cli roundtrip --run-dir runs\<run-id> --skip-generate --backend docker
 ```
 
 `detect` writes `sage_environment.json` and `sage_environment_report.md`.
+`run` executes the smoke job and generated jobs with per-job timeout JSON.
 `import` refreshes Sage JSON imports, modular confidence, known-case safety, and
 roundtrip summaries. `summarize` writes dossiers under `docs/dossiers/` by
-default.
+default. `roundtrip` chains detection, optional generation, execution, import,
+and dossier generation.
 
 ## Running Sage Jobs
 
@@ -92,7 +96,7 @@ Each Sage result should include:
 
 - `job_id`
 - `signature`
-- `sage_status`: `completed`, `partial`, `failed`, or `unavailable`
+- `sage_status`: `completed`, `partial`, `failed`, `timeout`, or `unavailable`
 - `checked_levels`
 - `newform_count`
 - `trace_match_status`
@@ -116,6 +120,17 @@ human modular-method review. It is not a proof label.
 
 In roundtrip summaries, `modular_followup_candidate` is surfaced as the review
 label `worth_human_modular_review`.
+
+## Smoke And Timeout Behavior
+
+Every execution backend runs `sage_smoke.sage` before the real queue. The smoke
+job checks that Sage starts, finite-field elliptic curve point counts work, and
+JSON can be written. If the smoke job fails, times out, or is unavailable, the
+real queue is not executed.
+
+If a real job times out, the Python runner writes importer-compatible JSON with
+`sage_status = "timeout"` and `contradiction_claim_allowed = false`. This keeps
+the roundtrip auditable even when a backend is too slow.
 
 ## Dossiers
 

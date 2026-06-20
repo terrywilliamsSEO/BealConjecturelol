@@ -54,7 +54,7 @@ class ModularConfidenceRecord:
 def _updated_label(import_record: SageImportConfidenceLike) -> str:
     if import_record.sage_status == "unavailable":
         return "needs_external_sage_check"
-    if import_record.sage_status in {"partial", "failed"}:
+    if import_record.sage_status in {"partial", "failed", "timeout"}:
         return "needs_external_sage_check"
     if import_record.trace_match_status in {"rigid", "narrow", "candidate_match"}:
         return "modular_followup_candidate"
@@ -69,6 +69,8 @@ def _confidence_score(import_record: SageImportConfidenceLike) -> float:
     if import_record.sage_status == "unavailable":
         return 1.5
     if import_record.sage_status == "failed":
+        return 1.0
+    if import_record.sage_status == "timeout":
         return 1.0
     if import_record.sage_status == "partial":
         return 2.0
@@ -88,6 +90,8 @@ def _rationale(label: str, import_record: SageImportConfidenceLike) -> str:
         return "SageMath was unavailable, so the signature remains queued for external Sage/newform review."
     if import_record.sage_status == "failed":
         return "Sage JSON import failed or the job reported failure; keep the route as an external-check item."
+    if import_record.sage_status == "timeout":
+        return "Sage execution timed out; keep the route as an external-check item until a longer external run completes."
     if import_record.sage_status == "partial":
         return "Sage output is missing or incomplete; keep the route as an external-check item."
     if label == "modular_followup_candidate":

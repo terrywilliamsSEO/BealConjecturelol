@@ -76,6 +76,9 @@ patterns that primitive counterexamples would be forced to satisfy.
 - `beal_rsg_lab/sage_roundtrip.py`: execution and import summary row builders.
 - `beal_rsg_lab/sage_followup_cli.py`: `detect`, `generate`, `import`, and
   `summarize` commands for Sage roundtrips.
+- `beal_rsg_lab/sage_smoke.py`: deterministic Sage smoke job generation.
+- `beal_rsg_lab/sage_job_runner.py`: timeout-aware native, WSL, and Docker
+  Sage execution.
 - `beal_rsg_lab/candidate_dossier_generator.py`: markdown dossiers for queued
   modular-route signatures.
 - `beal_rsg_lab/modular_confidence_updater.py`: post-Sage route-confidence
@@ -102,6 +105,7 @@ python run_experiment.py --prime-limit 31 --control-samples 16
 python -m beal_rsg_lab.sage_followup_cli detect
 python -m beal_rsg_lab.sage_followup_cli import --run-dir runs/<run-id>
 python -m beal_rsg_lab.sage_followup_cli summarize --run-dir runs/<run-id>
+python -m beal_rsg_lab.sage_followup_cli roundtrip --run-dir runs/<run-id> --skip-generate --backend docker
 ```
 
 For a faster smoke run:

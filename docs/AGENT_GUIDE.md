@@ -10,8 +10,10 @@ python -m unittest discover
 python run_experiment.py --prime-limit 31 --control-samples 16
 python run_experiment.py --primes 5,7,11 --control-samples 6 --no-lift
 python -m beal_rsg_lab.sage_followup_cli detect --run-dir runs\<run-id>
+python -m beal_rsg_lab.sage_followup_cli run --run-dir runs\<run-id> --backend native_sage
 python -m beal_rsg_lab.sage_followup_cli import --run-dir runs\<run-id>
 python -m beal_rsg_lab.sage_followup_cli summarize --run-dir runs\<run-id>
+python -m beal_rsg_lab.sage_followup_cli roundtrip --run-dir runs\<run-id> --skip-generate --backend docker
 ```
 
 ## Source Map
@@ -55,6 +57,8 @@ python -m beal_rsg_lab.sage_followup_cli summarize --run-dir runs\<run-id>
   execution detection.
 - `beal_rsg_lab/sage_docker_runner.py`: Docker command construction.
 - `beal_rsg_lab/sage_followup_cli.py`: Sage roundtrip CLI.
+- `beal_rsg_lab/sage_smoke.py`: deterministic Sage smoke job.
+- `beal_rsg_lab/sage_job_runner.py`: timeout-aware Sage backend runner.
 - `beal_rsg_lab/sage_result_importer.py`: Sage JSON schema validation and
   import.
 - `beal_rsg_lab/candidate_dossier_generator.py`: queued-signature dossier

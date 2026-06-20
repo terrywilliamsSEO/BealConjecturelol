@@ -87,11 +87,11 @@ class SageFollowupPipelineTests(unittest.TestCase):
         self.assertFalse(valid)
         self.assertIn("must be false", error)
 
-    def test_import_completed_partial_and_failed_outputs(self) -> None:
+    def test_import_completed_partial_failed_and_timeout_outputs(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             jobs = []
-            for status in ("completed", "partial", "failed"):
+            for status in ("completed", "partial", "failed", "timeout"):
                 result_path = root / f"sage_{status}.json"
                 job = SimpleNamespace(
                     job_id=f"sage_{status}",
@@ -116,6 +116,7 @@ class SageFollowupPipelineTests(unittest.TestCase):
             self.assertEqual(by_status["completed"].followup_label, "modular_followup_candidate")
             self.assertEqual(by_status["partial"].followup_label, "needs_external_sage_check")
             self.assertEqual(by_status["failed"].followup_label, "needs_external_sage_check")
+            self.assertEqual(by_status["timeout"].followup_label, "needs_external_sage_check")
 
     def test_missing_sage_safety_marks_unavailable(self) -> None:
         job = SimpleNamespace(

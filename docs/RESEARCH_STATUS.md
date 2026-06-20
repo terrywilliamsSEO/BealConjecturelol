@@ -292,10 +292,11 @@ Interpretation:
 The Sage follow-up layer turns external-check routes into executable jobs,
 machine-readable JSON imports, environment reports, execution manifests, and
 candidate dossiers. Since SageMath was not available locally, native Sage was
-missing, WSL Sage timed out, and Docker was not found on PATH. Every job was
-written and every import row was marked `unavailable`. This preserves the
-conservative route label `needs_external_sage_check` and prevents missing
-external data from becoming route confidence.
+missing, WSL launch timed out after 5 seconds, and Docker was not found on PATH.
+The roundtrip command wrote an unavailable smoke JSON result and every real-job
+import row stayed `unavailable`. This preserves the conservative route label
+`needs_external_sage_check` and prevents missing external data from becoming
+route confidence.
 
 The generated queue contains 13 signatures, including the route-collision
 signatures `(5,5,7)`, `(5,3,5)`, and `(5,4,5)`, plus the repeated

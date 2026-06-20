@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any, Iterable, Protocol
 
 
-VALID_SAGE_STATUSES = {"unavailable", "completed", "failed", "partial"}
+VALID_SAGE_STATUSES = {"unavailable", "completed", "failed", "partial", "timeout"}
 VALID_TRACE_STATUSES = {
     "not_checked",
     "inconclusive",
@@ -106,7 +106,7 @@ def validate_sage_result(payload: Any) -> tuple[bool, str]:
 
 
 def _followup_label(sage_status: str, trace_match_status: str) -> str:
-    if sage_status in {"unavailable", "partial", "failed"}:
+    if sage_status in {"unavailable", "partial", "failed", "timeout"}:
         return "needs_external_sage_check"
     if trace_match_status in {"rigid", "narrow", "candidate_match"}:
         return "modular_followup_candidate"

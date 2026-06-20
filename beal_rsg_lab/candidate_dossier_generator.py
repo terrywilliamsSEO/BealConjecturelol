@@ -103,12 +103,18 @@ def _sparse_unit_summary(unit_rows: list[Mapping[str, Any]]) -> str:
 def _trace_summary(import_row: Mapping[str, Any] | None) -> str:
     if import_row is None:
         return "No Sage import row is available."
-    return (
+    status = _value(import_row, "sage_status")
+    summary = (
         f"sage_status={_value(import_row, 'sage_status')}; "
         f"trace_match_status={_value(import_row, 'trace_match_status')}; "
         f"newform_count={_value(import_row, 'newform_count')}; "
         f"checked_levels={_value(import_row, 'checked_levels') or 'none'}"
     )
+    if status != "completed":
+        error = _value(import_row, "error_message") or _value(import_row, "raw_summary")
+        if error:
+            summary += f"; failure_or_timeout_reason={error}"
+    return summary
 
 
 def _dossier_text(

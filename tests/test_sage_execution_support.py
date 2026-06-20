@@ -2,14 +2,19 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import subprocess
 from types import SimpleNamespace
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from beal_rsg_lab.candidate_dossier_generator import generate_candidate_dossiers
 from beal_rsg_lab.sage_docker_runner import docker_batch_command
 from beal_rsg_lab.sage_environment_detector import detect_sage_environment
-from beal_rsg_lab.sage_followup_cli import build_parser, import_run, summarize_run
+from beal_rsg_lab.sage_followup_cli import build_parser, import_run, summarize_run, command_roundtrip
+from beal_rsg_lab.sage_job_runner import run_one_sage_job
+from beal_rsg_lab.sage_result_importer import validate_sage_result
+from beal_rsg_lab.sage_smoke import sage_smoke_script_text
 
 
 class SageExecutionSupportTests(unittest.TestCase):
@@ -34,11 +39,20 @@ class SageExecutionSupportTests(unittest.TestCase):
             return {"wsl": "wsl"}.get(name)
 
         def runner(command: list[str]) -> tuple[int, str, str]:
-            return 0, "SageMath version 10.2", "" if command[:2] == ["wsl", "sage"] else "bad"
+            text = " ".join(command)
+            if "printf wsl-ok" in text:
+                return 0, "wsl-ok", ""
+            if "command -v sage" in text:
+                return 0, "/usr/bin/sage", ""
+            if "sage --version" in text:
+                return 0, "SageMath version 10.2", ""
+            return 1, "", "bad"
 
         report = detect_sage_environment(which=which, runner=runner, environ={})
         self.assertEqual(report.execution_mode, "wsl_sage")
         self.assertTrue(report.wsl_sage)
+        self.assertTrue(report.wsl_launched)
+        self.assertTrue(report.wsl_sage_binary_found)
 
     def test_environment_detector_detects_docker(self) -> None:
         def which(name: str) -> str | None:
@@ -71,16 +85,84 @@ class SageExecutionSupportTests(unittest.TestCase):
         self.assertIn("sage:test", command)
         self.assertIn("runs/demo/sage_jobs/run_all_sage_jobs.sage", command)
 
+    def test_ci_manifest_contains_roundtrip_and_artifact_upload(self) -> None:
+        workflow = Path(".github/workflows/sage-followup.yml").read_text(encoding="utf-8")
+        self.assertIn("sage_followup_cli roundtrip", workflow)
+        self.assertIn("sage_smoke.json", workflow)
+        self.assertIn("actions/upload-artifact", workflow)
+        self.assertIn("sage_job_manifest.csv", workflow)
+
     def test_cli_command_parsing(self) -> None:
         parser = build_parser()
         detect = parser.parse_args(["detect", "--run-dir", "runs/demo"])
         generate = parser.parse_args(["generate", "--timestamp", "demo", "--no-lift"])
         importer = parser.parse_args(["import", "--run-dir", "runs/demo"])
+        runner = parser.parse_args(["run", "--run-dir", "runs/demo", "--backend", "docker"])
         summarize = parser.parse_args(["summarize", "--run-dir", "runs/demo", "--dossier-dir", "docs/dossiers"])
+        roundtrip = parser.parse_args(["roundtrip", "--run-dir", "runs/demo", "--skip-generate", "--backend", "docker"])
         self.assertEqual(detect.command, "detect")
         self.assertEqual(generate.command, "generate")
         self.assertEqual(importer.command, "import")
+        self.assertEqual(runner.command, "run")
         self.assertEqual(summarize.command, "summarize")
+        self.assertEqual(roundtrip.command, "roundtrip")
+
+    def test_smoke_json_schema_fields(self) -> None:
+        script = sage_smoke_script_text(Path("sage_results/sage_smoke.json"))
+        self.assertIn('"job_id": "sage_smoke"', script)
+        self.assertIn('"contradiction_claim_allowed": False', script)
+        payload = {
+            "job_id": "sage_smoke",
+            "signature": [0, 0, 0],
+            "sage_status": "completed",
+            "checked_levels": [11],
+            "newform_count": 1,
+            "trace_match_status": "not_checked",
+            "contradiction_claim_allowed": False,
+        }
+        valid, error = validate_sage_result(payload)
+        self.assertTrue(valid, error)
+
+    def test_timeout_json_import_schema(self) -> None:
+        payload = {
+            "job_id": "sage_3_5_5",
+            "signature": [3, 5, 5],
+            "sage_status": "timeout",
+            "checked_levels": [],
+            "newform_count": 0,
+            "trace_match_status": "not_checked",
+            "contradiction_claim_allowed": False,
+        }
+        valid, error = validate_sage_result(payload)
+        self.assertTrue(valid, error)
+
+    def test_timeout_runner_writes_json(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            job_path = root / "job.sage"
+            result_path = root / "result.json"
+            job_path.write_text("print('slow')", encoding="utf-8")
+            job = SimpleNamespace(
+                job_id="sage_3_5_5",
+                signature="3-5-5",
+                route_label="needs_external_sage_check",
+                job_path=job_path.as_posix(),
+                result_path=result_path.as_posix(),
+            )
+            with patch(
+                "beal_rsg_lab.sage_job_runner.subprocess.run",
+                side_effect=subprocess.TimeoutExpired(["sage"], 1),
+            ):
+                record = run_one_sage_job(
+                    job,
+                    mode="native_sage",
+                    repo_root=root,
+                    timeout_seconds=1,
+                )
+            payload = json.loads(result_path.read_text(encoding="utf-8"))
+            self.assertEqual(record.sage_status, "timeout")
+            self.assertEqual(payload["sage_status"], "timeout")
+            self.assertFalse(payload["contradiction_claim_allowed"])
 
     def test_sage_json_roundtrip_import_command(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -111,6 +193,66 @@ class SageExecutionSupportTests(unittest.TestCase):
             self.assertIn("sage_checked_inconclusive", summary)
             known = (run_dir / "sage_known_case_calibration.csv").read_text(encoding="utf-8")
             self.assertIn("False", known)
+
+    def test_roundtrip_command_with_mocked_backend(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            run_dir = Path(temp_dir) / "run"
+            run_dir.mkdir()
+            (run_dir / "sage_job_manifest.csv").write_text(
+                "job_id,signature,route_label,candidate_case_ids,candidate_rows,primes_involved,candidate_levels,job_path,result_path,sage_available\n"
+                f"sage_3_5_5,3-5-5,needs_external_sage_check,mixed_3_5_5,row,31,30,{(run_dir / 'job.sage').as_posix()},{(run_dir / 'sage_results' / 'sage_3_5_5.json').as_posix()},True\n",
+                encoding="utf-8",
+            )
+            (run_dir / "known_case_calibration_summary.csv").write_text(
+                "case_id,signature,expected_route,actual_route_label,known_status_label,collision_class\n"
+                "mixed_3_5_5,3-5-5,modular_method,needs_external_sage_check,generalized_fermat_terrain,terrain_dominates\n",
+                encoding="utf-8",
+            )
+            (run_dir / "unit_survivor_summary.csv").write_text("", encoding="utf-8")
+
+            def fake_run_sage_jobs(**kwargs):
+                result_dir = run_dir / "sage_results"
+                result_dir.mkdir()
+                smoke = {
+                    "job_id": "sage_smoke",
+                    "signature": [0, 0, 0],
+                    "sage_status": "completed",
+                    "checked_levels": [11],
+                    "newform_count": 1,
+                    "trace_match_status": "not_checked",
+                    "contradiction_claim_allowed": False,
+                }
+                real = {
+                    "job_id": "sage_3_5_5",
+                    "signature": [3, 5, 5],
+                    "route_label": "needs_external_sage_check",
+                    "sage_status": "completed",
+                    "checked_levels": [30],
+                    "newform_count": 1,
+                    "trace_match_status": "inconclusive",
+                    "contradiction_claim_allowed": False,
+                }
+                (result_dir / "sage_smoke.json").write_text(json.dumps(smoke), encoding="utf-8")
+                (result_dir / "sage_3_5_5.json").write_text(json.dumps(real), encoding="utf-8")
+                return []
+
+            args = SimpleNamespace(
+                skip_generate=True,
+                run_dir=run_dir.as_posix(),
+                output_root=temp_dir,
+                prime_limit=31,
+                control_samples=1,
+                no_lift=True,
+                timestamp=None,
+                backend="native_sage",
+                timeout_seconds=1,
+                dossier_dir=(Path(temp_dir) / "dossiers").as_posix(),
+            )
+            with patch("beal_rsg_lab.sage_followup_cli.run_sage_jobs", side_effect=fake_run_sage_jobs):
+                code = command_roundtrip(args)
+            self.assertEqual(code, 0)
+            self.assertTrue((run_dir / "sage_roundtrip_summary.csv").exists())
+            self.assertTrue((Path(temp_dir) / "dossiers" / "3-5-5.md").exists())
 
     def test_dossier_generation(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

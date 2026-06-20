@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SAGE_DOCKER_IMAGE: ${{ vars.SAGE_DOCKER_IMAGE || 'sagemath/sagemath:latest' }}
+      SAGE_JOB_TIMEOUT_SECONDS: ${{ vars.SAGE_JOB_TIMEOUT_SECONDS || '900' }}
       RUN_ID: ${{ github.event.inputs.timestamp || 'sage_followup_ci' }}
     steps:
       - name: Check out repository
@@ -22,6 +23,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: "pip"
 
       - name: Generate Sage follow-up jobs
         run: |
@@ -33,30 +35,52 @@ jobs:
       - name: Detect execution environment
         run: python -m beal_rsg_lab.sage_followup_cli detect --run-dir "runs/$RUN_ID"
 
-      - name: Run Sage jobs through Docker
-        run: bash scripts/run_sage_jobs_docker.sh "runs/$RUN_ID"
+      - name: Show Docker version
+        run: docker --version
 
-      - name: Import Sage JSON
-        run: python -m beal_rsg_lab.sage_followup_cli import --run-dir "runs/$RUN_ID"
+      - name: Pull Sage Docker image
+        run: docker pull "$SAGE_DOCKER_IMAGE"
 
-      - name: Generate candidate dossiers
-        run: python -m beal_rsg_lab.sage_followup_cli summarize --run-dir "runs/$RUN_ID" --dossier-dir "runs/$RUN_ID/dossiers"
+      - name: Run Sage smoke and real jobs through Docker
+        run: |
+          python -m beal_rsg_lab.sage_followup_cli roundtrip \
+            --run-dir "runs/$RUN_ID" \
+            --skip-generate \
+            --backend docker \
+            --timeout-seconds "$SAGE_JOB_TIMEOUT_SECONDS" \
+            --dossier-dir "runs/$RUN_ID/dossiers"
 
-      - name: Confirm conservative labels
+      - name: Confirm Sage JSON and conservative labels
         run: |
           python - <<'PY'
           import csv
+          import json
           from pathlib import Path
           root = Path("runs") / "${{ env.RUN_ID }}"
+          smoke_path = root / "sage_results" / "sage_smoke.json"
+          assert smoke_path.exists(), "missing Sage smoke JSON"
+          smoke = json.loads(smoke_path.read_text())
+          assert smoke["sage_status"] == "completed", smoke
+          assert smoke["contradiction_claim_allowed"] is False, smoke
           imports = list(csv.DictReader((root / "sage_import_results.csv").open()))
           confidence = list(csv.DictReader((root / "modular_confidence_summary.csv").open()))
           known = list(csv.DictReader((root / "sage_known_case_calibration.csv").open()))
           forbidden = {"proof", "proven", "disproven"}
+          bad_statuses = {"failed", "timeout", "unavailable"}
           for row in imports:
               assert row["contradiction_claim_allowed"] == "False", row
+              assert row["schema_valid"] == "True", row
+              assert row["sage_status"] not in bad_statuses, row
           for row in confidence:
               label = row["updated_followup_label"]
               assert label not in forbidden, row
+              assert label in {
+                  "needs_external_sage_check",
+                  "sage_checked_inconclusive",
+                  "modular_followup_candidate",
+                  "artifact_like",
+                  "not_promising_yet",
+              }, row
           for row in known:
               assert row["overpromoted"] == "False", row
           PY
@@ -67,7 +91,14 @@ jobs:
           name: sage-results-${{ env.RUN_ID }}
           path: |
             runs/${{ env.RUN_ID }}/sage_results/
+            runs/${{ env.RUN_ID }}/sage_job_manifest.csv
+            runs/${{ env.RUN_ID }}/sage_environment.json
+            runs/${{ env.RUN_ID }}/sage_environment_report.md
+            runs/${{ env.RUN_ID }}/sage_execution_manifest.csv
+            runs/${{ env.RUN_ID }}/sage_execution_results.csv
             runs/${{ env.RUN_ID }}/sage_import_results.csv
+            runs/${{ env.RUN_ID }}/sage_known_case_calibration.csv
             runs/${{ env.RUN_ID }}/modular_confidence_summary.csv
             runs/${{ env.RUN_ID }}/sage_roundtrip_summary.csv
+            runs/${{ env.RUN_ID }}/README_SAGE_FOLLOWUP_REPORT.md
             runs/${{ env.RUN_ID }}/dossiers/

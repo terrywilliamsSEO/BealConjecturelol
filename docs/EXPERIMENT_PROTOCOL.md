@@ -234,9 +234,15 @@ under `sage_results/`.
 The reproducible execution sequence is:
 
 1. `python -m beal_rsg_lab.sage_followup_cli detect --run-dir runs/<run-id>`
-2. run native Sage, WSL Sage, Docker, or the GitHub Actions workflow;
+2. `python -m beal_rsg_lab.sage_followup_cli run --run-dir runs/<run-id> --backend <mode>`
 3. `python -m beal_rsg_lab.sage_followup_cli import --run-dir runs/<run-id>`
 4. `python -m beal_rsg_lab.sage_followup_cli summarize --run-dir runs/<run-id>`
+
+The combined command is:
+
+```powershell
+python -m beal_rsg_lab.sage_followup_cli roundtrip --run-dir runs/<run-id> --skip-generate --backend docker
+```
 
 Docker runners are available as:
 
@@ -252,6 +258,7 @@ Allowed Sage import statuses are:
 - `completed`
 - `failed`
 - `partial`
+- `timeout`
 
 Allowed post-import labels are:
 
@@ -265,6 +272,10 @@ Every imported JSON row must set `contradiction_claim_allowed` to `false`.
 `modular_followup_candidate` means worth human modular-method review; it is not
 a theorem claim. If Sage is missing locally, the experiment still passes and
 the rows remain `needs_external_sage_check`.
+
+The smoke job runs before the real queue. If it fails, times out, or is
+unavailable, do not run the real queue on that backend. A timeout must produce
+valid JSON rather than a missing result file.
 
 Candidate dossiers are required for queued signatures before human review. They
 must explain the terrain, artifact risk, Sage status, current route label, and
