@@ -28,6 +28,7 @@ Output summary:
 - Watchlist rows: `619`.
 - Generated files: `summary.csv`, `interesting_cases.csv`, `clusters.csv`,
   `metadata.json`, and `README_REPORT.md`.
+- Committed report: [reports/initial_20260620_103500.md](reports/initial_20260620_103500.md).
 
 ## Current Leading Pattern
 

@@ -47,4 +47,5 @@ See:
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 - [docs/EXPERIMENT_PROTOCOL.md](docs/EXPERIMENT_PROTOCOL.md)
 - [docs/RESEARCH_STATUS.md](docs/RESEARCH_STATUS.md)
+- [docs/reports/initial_20260620_103500.md](docs/reports/initial_20260620_103500.md)
 - [docs/AGENT_GUIDE.md](docs/AGENT_GUIDE.md)
