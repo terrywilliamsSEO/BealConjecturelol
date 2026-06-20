@@ -51,6 +51,26 @@ uses this stricter ranking:
 4. Demoted: `likely_small_prime_artifact`, including tiny primes and trivial
    power-subgroup collapse.
 
+## Unit-Geometry Upgrade
+
+Sparse unit rows are not promoted until they survive artifact checks.
+
+Demote rows when:
+
+- sparsity is explained by an order-two image such as `{1,-1}`;
+- identical subgroup-size controls reproduce the same density;
+- the row is dominated by tiny-prime behavior.
+
+Promote rows only when:
+
+- the row remains unusually sparse against same-size structured controls; and
+- unit survivors collapse or become rigid under `ell^2`/`ell^3` lifts; or
+- repeated prime constraints become extremely rigid under CRT-style combined
+  density.
+
+Rows that survive artifact checks but do not collapse under unit lifts are
+ranked as `needs modular-shadow follow-up`.
+
 ## What Counts As Evidence
 
 Useful evidence:

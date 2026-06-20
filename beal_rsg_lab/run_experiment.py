@@ -9,13 +9,19 @@ import json
 from pathlib import Path
 from typing import Iterable
 
+from .artifact_explainer import explain_artifacts
+from .character_fingerprint import compute_character_fingerprints
 from .exact_explanation_generator import generate_explanations
+from .exact_sparse_lemma_generator import generate_sparse_lemma_explanations
+from .multi_prime_compatibility import analyze_multi_prime_compatibility
 from .number_theory import primes_up_to
 from .padic_lift_audit import audit_padic_lifts
+from .padic_unit_lift import analyze_padic_unit_lifts
 from .primitive_obstruction_classifier import classify_primitive_obstructions, sparse_unit_clusters
 from .rsg_modular_shadow import ShadowRecord, build_shadow_records
 from .rsg_residue_engine import DEFAULT_EXPONENTS, parse_prime_list, run_sweep
 from .rsg_valuation_engine import analyze_results
+from .unit_survivor_geometry import analyze_sparse_unit_geometries
 from .zero_support_engine import analyze_zero_support_results
 
 
@@ -129,6 +135,45 @@ def _mandatory_rows(classifications, zero_records, audits, explanations) -> list
                 continue
             row[f"padic_{field}"] = value
     return rows
+
+
+def _unit_geometry_summary_rows(geometries, assessments, characters, lifts) -> list[dict[str, object]]:
+    """Return joined sparse unit-geometry rows."""
+    assessment_by_key = {(item.signature, item.ell): item for item in assessments}
+    character_by_key = {(item.signature, item.ell): item for item in characters}
+    lift_by_key = {(item.signature, item.ell): item for item in lifts}
+    rows: list[dict[str, object]] = []
+    for geometry in geometries:
+        key = (geometry.signature, geometry.ell)
+        row: dict[str, object] = {}
+        for prefix, payload in (
+            ("geometry", geometry.to_flat_dict()),
+            ("artifact", assessment_by_key[key].to_flat_dict()),
+            ("character", character_by_key[key].to_flat_dict()),
+            ("unit_lift", lift_by_key[key].to_flat_dict()),
+        ):
+            for field, value in payload.items():
+                if field in {"signature", "ell"} and prefix != "geometry":
+                    continue
+                row[f"{prefix}_{field}" if field not in {"signature", "ell"} else field] = value
+        rows.append(row)
+    rows.sort(
+        key=lambda row: (
+            row["artifact_verdict"] != "artifact_explained",
+            row["unit_lift_collapse_or_rigid"],
+            float(row["unit_lift_unit_lift_rigidity_score"]),
+        ),
+        reverse=True,
+    )
+    return rows
+
+
+def _artifact_rows(unit_summary_rows: list[dict[str, object]]) -> list[dict[str, object]]:
+    return [row for row in unit_summary_rows if row["artifact_verdict"] == "artifact_explained"]
+
+
+def _unexplained_sparse_rows(unit_summary_rows: list[dict[str, object]]) -> list[dict[str, object]]:
+    return [row for row in unit_summary_rows if row["artifact_verdict"] != "artifact_explained"]
 
 
 def _interesting_rows(shadows: Iterable[ShadowRecord], limit: int | None = None) -> list[dict[str, object]]:
@@ -357,6 +402,141 @@ def _zero_support_report_markdown(
     return "\n".join(lines)
 
 
+def _unit_geometry_report_markdown(
+    *,
+    output_dir: Path,
+    sparse_count: int,
+    artifact_count: int,
+    unexplained_count: int,
+    rigid_lift_count: int,
+    multi_prime_count: int,
+    unit_rows: list[dict[str, object]],
+    unexplained_rows: list[dict[str, object]],
+    artifact_rows: list[dict[str, object]],
+    multi_prime_rows: list[dict[str, object]],
+    sparse_explanations: list[dict[str, object]],
+) -> str:
+    generated = datetime.now().isoformat(timespec="seconds")
+    lines = [
+        "# Unit-Survivor Geometry Report",
+        "",
+        f"Generated: `{generated}`",
+        f"Output directory: `{output_dir.as_posix()}`",
+        "",
+        "## Interpretation Guardrail",
+        "",
+        "This report studies sparse nonzero unit survivors. It does not claim a proof of Beal.",
+        "",
+        "Rows are demoted when sparsity is explained by tiny power images, order-two subgroups, or identical subgroup-size controls. Remaining rows are ranked as lemma candidates only when p-adic unit lifts collapse or become rigid; otherwise they need modular-shadow follow-up.",
+        "",
+        "## Counts",
+        "",
+        f"- Sparse unit rows analyzed: `{sparse_count}`.",
+        f"- Artifact explained rows: `{artifact_count}`.",
+        f"- Unexplained sparse rows: `{unexplained_count}`.",
+        f"- Collapse/rigid unit-lift rows: `{rigid_lift_count}`.",
+        f"- Multi-prime compatibility records: `{multi_prime_count}`.",
+        "",
+        "## Highest Ranked Unexplained Rows",
+        "",
+    ]
+    if not unexplained_rows:
+        lines.append("No sparse rows survived artifact demotion.")
+    else:
+        lines.extend(
+            [
+                "| rank | signature | ell | density | status | lift | score |",
+                "| ---: | --- | ---: | ---: | --- | --- | ---: |",
+            ]
+        )
+        for index, row in enumerate(unexplained_rows[:12], start=1):
+            lines.append(
+                f"| {index} | {row['signature']} | {row['ell']} | {row['geometry_density']} | "
+                f"{row['artifact_lemma_candidate_rank']} | {row['unit_lift_unit_lift_status']} | "
+                f"{row['unit_lift_unit_lift_rigidity_score']} |"
+            )
+
+    lines.extend(
+        [
+            "",
+            "## Artifact Demotions",
+            "",
+        ]
+    )
+    if not artifact_rows:
+        lines.append("No artifacts were identified.")
+    else:
+        lines.extend(
+            [
+                "| rank | signature | ell | subgroup sizes | reasons |",
+                "| ---: | --- | ---: | --- | --- |",
+            ]
+        )
+        for index, row in enumerate(artifact_rows[:12], start=1):
+            lines.append(
+                f"| {index} | {row['signature']} | {row['ell']} | {row['geometry_subgroup_size_shape']} | "
+                f"{row['artifact_artifact_reasons']} |"
+            )
+
+    lines.extend(
+        [
+            "",
+            "## Multi-Prime Compatibility",
+            "",
+        ]
+    )
+    if not multi_prime_rows:
+        lines.append("No non-artifact sparse signature repeated across multiple primes in this run.")
+    else:
+        lines.extend(
+            [
+                "| rank | signature | primes | density | rigidity | status |",
+                "| ---: | --- | --- | ---: | ---: | --- |",
+            ]
+        )
+        for index, row in enumerate(multi_prime_rows[:12], start=1):
+            lines.append(
+                f"| {index} | {row['signature']} | {row['primes']} | {row['combined_density']} | "
+                f"{row['cross_prime_rigidity_score']} | {row['compatibility_status']} |"
+            )
+
+    lines.extend(
+        [
+            "",
+            "## Sparse Lemma Explanations",
+            "",
+        ]
+    )
+    for row in sparse_explanations[:8]:
+        lines.extend(
+            [
+                f"### {row['signature']} at ell={row['ell']}",
+                "",
+                f"Rank: {row['rank']}",
+                "",
+                row["modular_explanation"],
+                "",
+                f"Proof gap: {row['proof_gap']}",
+                "",
+            ]
+        )
+
+    lines.extend(
+        [
+            "## Files",
+            "",
+            "- `unit_survivor_summary.csv`: joined sparse-row geometry, artifact, character, and unit-lift data.",
+            "- `artifact_demotions.csv`: rows explained by subgroup-size or simple group artifacts.",
+            "- `unexplained_sparse_rows.csv`: sparse rows not explained by first-pass artifact checks.",
+            "- `padic_unit_lift_results.csv`: `ell^2`/`ell^3` unit-lift behavior.",
+            "- `multi_prime_cluster_results.csv`: CRT-style combined-density compatibility records.",
+            "- `exact_sparse_lemma_explanations.csv`: generated sparse-row explanations.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def run_experiment(
     *,
     output_root: Path = Path("runs"),
@@ -388,6 +568,17 @@ def run_experiment(
     classifications = classify_primitive_obstructions(results, zero_records)
     padic_audits = audit_padic_lifts(classifications)
     explanations = generate_explanations(results, zero_records, classifications, padic_audits)
+    unit_geometries = analyze_sparse_unit_geometries(results, classifications)
+    artifact_assessments = explain_artifacts(unit_geometries)
+    character_fingerprints = compute_character_fingerprints(unit_geometries)
+    padic_unit_lifts = analyze_padic_unit_lifts(unit_geometries)
+    multi_prime_records = analyze_multi_prime_compatibility(unit_geometries, artifact_assessments)
+    sparse_lemma_explanations = generate_sparse_lemma_explanations(
+        unit_geometries,
+        artifact_assessments,
+        character_fingerprints,
+        padic_unit_lifts,
+    )
 
     summary_rows = _merged_summary_rows(results, valuations, shadows)
     interesting_rows = _interesting_rows(shadows)
@@ -402,6 +593,17 @@ def run_experiment(
     )
     mandatory_candidate_rows = _mandatory_rows(classifications, zero_records, padic_audits, explanations)
     sparse_cluster_rows = [cluster.to_flat_dict() for cluster in sparse_unit_clusters(classifications)]
+    unit_summary_rows = _unit_geometry_summary_rows(
+        unit_geometries,
+        artifact_assessments,
+        character_fingerprints,
+        padic_unit_lifts,
+    )
+    artifact_demotion_rows = _artifact_rows(unit_summary_rows)
+    unexplained_rows = _unexplained_sparse_rows(unit_summary_rows)
+    padic_unit_lift_rows = [record.to_flat_dict() for record in padic_unit_lifts]
+    multi_prime_rows = [record.to_flat_dict() for record in multi_prime_records]
+    sparse_lemma_rows = [explanation.to_flat_dict() for explanation in sparse_lemma_explanations]
 
     _write_csv(output_dir / "summary.csv", summary_rows)
     _write_csv(output_dir / "interesting_cases.csv", interesting_rows)
@@ -411,6 +613,12 @@ def run_experiment(
     _write_csv(output_dir / "mandatory_single_divisor_candidates.csv", mandatory_candidate_rows)
     _write_csv(output_dir / "sparse_unit_clusters.csv", sparse_cluster_rows)
     _write_csv(output_dir / "exact_explanations.csv", explanation_rows)
+    _write_csv(output_dir / "unit_survivor_summary.csv", unit_summary_rows)
+    _write_csv(output_dir / "artifact_demotions.csv", artifact_demotion_rows)
+    _write_csv(output_dir / "unexplained_sparse_rows.csv", unexplained_rows)
+    _write_csv(output_dir / "padic_unit_lift_results.csv", padic_unit_lift_rows)
+    _write_csv(output_dir / "multi_prime_cluster_results.csv", multi_prime_rows)
+    _write_csv(output_dir / "exact_sparse_lemma_explanations.csv", sparse_lemma_rows)
 
     promoted_count = sum(1 for shadow in shadows if shadow.promotion_status == "promoted_candidate")
     classification_counts: dict[str, int] = {}
@@ -430,6 +638,11 @@ def run_experiment(
         "direct_obstruction_count": len(direct_rows),
         "mandatory_single_divisor_count": len(mandatory_candidate_rows),
         "sparse_unit_cluster_count": len(sparse_cluster_rows),
+        "unit_geometry_sparse_count": len(unit_geometries),
+        "unit_geometry_artifact_demotions": len(artifact_demotion_rows),
+        "unit_geometry_unexplained_sparse_rows": len(unexplained_rows),
+        "unit_geometry_rigid_or_collapsed_lifts": sum(1 for row in padic_unit_lift_rows if row["collapse_or_rigid"]),
+        "unit_geometry_multi_prime_records": len(multi_prime_rows),
     }
     (output_dir / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     report = _report_markdown(
@@ -453,6 +666,20 @@ def run_experiment(
         explanation_rows=explanation_rows,
     )
     (output_dir / "README_ZERO_SUPPORT_REPORT.md").write_text(zero_report, encoding="utf-8")
+    unit_report = _unit_geometry_report_markdown(
+        output_dir=output_dir,
+        sparse_count=len(unit_geometries),
+        artifact_count=len(artifact_demotion_rows),
+        unexplained_count=len(unexplained_rows),
+        rigid_lift_count=sum(1 for row in padic_unit_lift_rows if row["collapse_or_rigid"]),
+        multi_prime_count=len(multi_prime_rows),
+        unit_rows=unit_summary_rows,
+        unexplained_rows=unexplained_rows,
+        artifact_rows=artifact_demotion_rows,
+        multi_prime_rows=multi_prime_rows,
+        sparse_explanations=sparse_lemma_rows,
+    )
+    (output_dir / "README_UNIT_GEOMETRY_REPORT.md").write_text(unit_report, encoding="utf-8")
     return output_dir
 
 

@@ -88,7 +88,37 @@ feasible. The audit is conservative: for exponents greater than `2`, a variable
 divisible exactly once by `ell` already contributes `0` modulo `ell^3`, so no
 valuation growth is claimed unless the branch actually dies.
 
-## 6. Modular Shadow
+## 6. Unit-Survivor Geometry
+
+Sparse nonzero rows are analyzed more deeply before they are treated as
+potential lemma candidates.
+
+For each sparse unit row, the geometry layer records:
+
+- actual survivor triples `(u,v,w)`;
+- subgroup sizes and `gcd(e, ell - 1)` shape;
+- marginal/coset concentration;
+- orbit structure under common multiplicative scaling;
+- symmetry under swapping the `A` and `B` variables;
+- additive energy of `H_p + H_q`;
+- intersection size of `H_p + H_q` with `H_r`;
+- survivor entropy and compression.
+
+The artifact explainer demotes rows explained by:
+
+- tiny primes;
+- trivial or order-two power images such as `{1,-1}`;
+- identical subgroup-size families that reproduce the same sparse behavior.
+
+Character fingerprints record Legendre and higher-character distributions. The
+unit lift audit checks whether unit survivor triples persist, expand, or
+collapse through `ell^2` and `ell^3`.
+
+Multi-prime compatibility uses CRT-style products honestly: nonempty local unit
+constraints remain nonempty under independent CRT products. The module ranks
+combined density and rigidity instead of claiming a contradiction.
+
+## 7. Modular Shadow
 
 The modular-shadow layer creates symbolic obstruction records:
 
@@ -99,7 +129,7 @@ The modular-shadow layer creates symbolic obstruction records:
   would need to instantiate.
 - Cluster keys that group cases with the same obstruction shape.
 
-## 7. Experiment Runner
+## 8. Experiment Runner
 
 The runner writes each sweep to `runs/<timestamp>/`:
 
@@ -111,8 +141,15 @@ The runner writes each sweep to `runs/<timestamp>/`:
 - `mandatory_single_divisor_candidates.csv`: exact one-variable candidates with
   p-adic audit fields.
 - `sparse_unit_clusters.csv`: larger-prime sparse unit-survivor clusters.
+- `unit_survivor_summary.csv`: sparse-row geometry, artifact, character, and
+  unit-lift data.
+- `artifact_demotions.csv`: rows explained by subgroup artifacts.
+- `unexplained_sparse_rows.csv`: rows that need modular-shadow follow-up.
+- `padic_unit_lift_results.csv`: `ell^2`/`ell^3` unit-lift behavior.
+- `multi_prime_cluster_results.csv`: CRT-style combined-density records.
 - `metadata.json`: parameters and reproducibility data.
 - `README_REPORT.md`: human-readable report.
 - `README_ZERO_SUPPORT_REPORT.md`: exact zero-support report.
+- `README_UNIT_GEOMETRY_REPORT.md`: sparse unit-geometry report.
 
 The generated report explicitly avoids proof language.

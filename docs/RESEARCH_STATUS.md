@@ -73,6 +73,37 @@ local subgroup-collapse phenomena, but not primitive contradictions. The active
 research track is now larger-prime sparse unit-survivor clusters such as
 `4-11-11` at `ell = 23`, `4-7-7` at `ell = 29`, and `7-7-4` at `ell = 29`.
 
+## Unit-Geometry Upgrade
+
+Run folder:
+
+```text
+runs/unit_geometry_20260620_111500
+```
+
+Command:
+
+```powershell
+python run_experiment.py --prime-limit 31 --control-samples 16 --timestamp unit_geometry_20260620_111500
+```
+
+Output summary:
+
+- Sparse unit rows analyzed: `105`.
+- Artifact explained rows: `85`.
+- Unexplained sparse rows: `20`.
+- Collapse or rigid unit-lift rows: `0`.
+- Multi-prime compatibility records: `1`.
+- Committed report: [reports/unit_geometry_20260620_111500.md](reports/unit_geometry_20260620_111500.md).
+
+Interpretation:
+
+Most previously interesting sparse rows are explained by order-two power images
+or identical subgroup-size families. In particular, the `ell = 23` rows with
+11th powers are now demoted because the 11th-power image is `{1,-1}`. The
+remaining 20 rows need modular-shadow follow-up, but none collapse or become
+rigid under the current `ell^2`/`ell^3` unit-lift audit.
+
 ## Reproducibility Note
 
 Generated `runs/` artifacts are intentionally ignored by Git to avoid turning

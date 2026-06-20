@@ -27,6 +27,18 @@ patterns that primitive counterexamples would be forced to satisfy.
   mandatory single-divisor rows.
 - `beal_rsg_lab/exact_explanation_generator.py`: human-readable modular
   explanations for top rows.
+- `beal_rsg_lab/unit_survivor_geometry.py`: geometry metrics for sparse nonzero
+  unit survivors, including triples, orbits, additive energy, entropy, and
+  compression.
+- `beal_rsg_lab/artifact_explainer.py`: demotes sparse rows explained by tiny
+  power images, order-two images, or identical subgroup-size controls.
+- `beal_rsg_lab/character_fingerprint.py`: Legendre and higher-character
+  fingerprints for survivor triples.
+- `beal_rsg_lab/padic_unit_lift.py`: `ell^2`/`ell^3` unit-survivor lift audit.
+- `beal_rsg_lab/multi_prime_compatibility.py`: CRT-style combined-density
+  compatibility for repeated sparse signatures.
+- `beal_rsg_lab/exact_sparse_lemma_generator.py`: human-readable sparse
+  unit-survivor lemma explanations.
 - `beal_rsg_lab/rsg_modular_shadow.py`: symbolic obstruction records,
   conductor-like complexity, Frey-curve placeholder data, and candidate ranking.
 - `beal_rsg_lab/run_experiment.py`: full sweep runner that writes
@@ -58,4 +70,5 @@ See:
 - [docs/RESEARCH_STATUS.md](docs/RESEARCH_STATUS.md)
 - [docs/reports/initial_20260620_103500.md](docs/reports/initial_20260620_103500.md)
 - [docs/reports/zero_support_20260620_105000.md](docs/reports/zero_support_20260620_105000.md)
+- [docs/reports/unit_geometry_20260620_111500.md](docs/reports/unit_geometry_20260620_111500.md)
 - [docs/AGENT_GUIDE.md](docs/AGENT_GUIDE.md)

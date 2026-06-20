@@ -29,9 +29,16 @@ class RunExperimentTests(unittest.TestCase):
             self.assertTrue((output / "mandatory_single_divisor_candidates.csv").exists())
             self.assertTrue((output / "sparse_unit_clusters.csv").exists())
             self.assertTrue((output / "README_ZERO_SUPPORT_REPORT.md").exists())
+            self.assertTrue((output / "unit_survivor_summary.csv").exists())
+            self.assertTrue((output / "artifact_demotions.csv").exists())
+            self.assertTrue((output / "unexplained_sparse_rows.csv").exists())
+            self.assertTrue((output / "padic_unit_lift_results.csv").exists())
+            self.assertTrue((output / "multi_prime_cluster_results.csv").exists())
+            self.assertTrue((output / "README_UNIT_GEOMETRY_REPORT.md").exists())
             metadata = json.loads((output / "metadata.json").read_text(encoding="utf-8"))
             self.assertEqual(metadata["result_count"], 16)
             self.assertIn("zero_support_classification_counts", metadata)
+            self.assertIn("unit_geometry_sparse_count", metadata)
 
 
 if __name__ == "__main__":

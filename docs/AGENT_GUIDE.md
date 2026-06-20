@@ -22,9 +22,20 @@ python run_experiment.py --primes 5,7,11 --control-samples 6 --no-lift
 - `beal_rsg_lab/padic_lift_audit.py`: conservative lift audit for mandatory
   single-divisor candidates.
 - `beal_rsg_lab/exact_explanation_generator.py`: modular explanation text.
+- `beal_rsg_lab/unit_survivor_geometry.py`: survivor triples and unit-geometry
+  metrics.
+- `beal_rsg_lab/artifact_explainer.py`: subgroup-artifact demotion logic.
+- `beal_rsg_lab/character_fingerprint.py`: multiplicative-character summaries.
+- `beal_rsg_lab/padic_unit_lift.py`: sparse unit lift audit through `ell^3`.
+- `beal_rsg_lab/multi_prime_compatibility.py`: combined-density CRT checks.
+- `beal_rsg_lab/exact_sparse_lemma_generator.py`: sparse lemma explanation text.
 - `beal_rsg_lab/rsg_modular_shadow.py`: symbolic obstruction and clustering.
 - `beal_rsg_lab/run_experiment.py`: orchestration and file outputs.
 - `tests/`: deterministic unit and smoke tests.
+
+The full unit-geometry sweep with `--prime-limit 31 --control-samples 16` can
+take several minutes because it enumerates unit lifts through `ell^3` for sparse
+rows.
 
 ## Documentation Rules
 
