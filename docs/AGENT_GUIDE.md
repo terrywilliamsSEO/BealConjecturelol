@@ -47,6 +47,10 @@ python run_experiment.py --primes 5,7,11 --control-samples 6 --no-lift
   expansion around known families.
 - `beal_rsg_lab/route_prior_model.py`: calibrated route-priority scoring.
 - `beal_rsg_lab/sage_export_scripts.py`: optional `.sage` script generation.
+- `beal_rsg_lab/theorem_terrain_classifier.py`: structural theorem-terrain
+  routing.
+- `beal_rsg_lab/calibration_confusion_matrix.py`: terrain-aware route matrix.
+- `beal_rsg_lab/terrain_report_generator.py`: theorem-terrain reports.
 - `beal_rsg_lab/run_experiment.py`: orchestration and file outputs.
 - `tests/`: deterministic unit and smoke tests.
 
@@ -62,6 +66,11 @@ Known-case calibration is now part of the default run. Treat
 `known_case_mismatch` rows as calibration debt and `artifact_like` rows as
 controls. Do not promote a new Beal candidate until the same route type behaves
 correctly on the calibration library.
+
+Theorem-terrain routing is also part of the default run. Diagonal FLT-style
+cases should route to `theorem_terrain_route`; this is a calibration success,
+not a new proof. `true_mismatch` and `overpromoted_candidate` rows block
+discovery-mode promotion until explained.
 
 ## Documentation Rules
 

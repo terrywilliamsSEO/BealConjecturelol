@@ -178,6 +178,46 @@ No row reached `calibrated_route_candidate`. Discovery mode should stay gated
 until the engine can either recognize FLT/descent terrain or explicitly route
 those cases to a separate known-proof recognizer.
 
+This specific FLT-terrain gap is addressed by the theorem-terrain layer below.
+
+## Theorem-Terrain Calibration Layer
+
+Run folder:
+
+```text
+runs/theorem_terrain_20260620_174500
+```
+
+Command:
+
+```powershell
+python run_experiment.py --prime-limit 31 --control-samples 16 --timestamp theorem_terrain_20260620_174500
+```
+
+Output summary:
+
+- Known/calibration cases: `19`.
+- `theorem_terrain_route`: `5`.
+- `needs_external_sage_check`: `9`.
+- `artifact_like`: `2`.
+- `known_case_mismatch`: `3`.
+- `calibrated_route_candidate`: `0`.
+- Remaining true mismatches: `3`.
+- Committed report: [reports/theorem_terrain_20260620_174500.md](reports/theorem_terrain_20260620_174500.md).
+
+Interpretation:
+
+The theorem-terrain layer fixes the earlier FLT calibration problem. Diagonal
+FLT-style signatures `(3,3,3)`, `(4,4,4)`, `(5,5,5)`, and `(7,7,7)` now route
+to `theorem_terrain_route` instead of `known_case_mismatch`. The descent-style
+bridge `(4,3,3)` also routes as theorem terrain.
+
+The modular-method terrain cases mostly remain external-check only. The current
+true mismatches are `(5,5,7)`, `(5,3,5)`, and `(5,4,5)`, where the strongest
+observed signal is artifact-like sparse-unit behavior at `ell = 11` despite a
+modular-method expected route. These should block promotion until a stronger
+non-artifact route is found or the calibration library is refined.
+
 ## Reproducibility Note
 
 Generated `runs/` artifacts are intentionally ignored by Git to avoid turning

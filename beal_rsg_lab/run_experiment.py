@@ -801,7 +801,9 @@ def run_experiment(
     cross_prime_trace_rows = [record.to_flat_dict() for record in cross_prime_traces]
     newform_probe_rows = [record.to_flat_dict() for record in newform_probe_records]
     known_case_rows = [record.to_flat_dict() for record in calibration_artifacts.case_records]
-    route_confusion_rows = [record.to_flat_dict() for record in calibration_artifacts.confusion_records]
+    route_confusion_rows = [record.to_flat_dict() for record in calibration_artifacts.route_matrix_records]
+    theorem_terrain_rows = calibration_artifacts.terrain_summary_rows
+    remaining_true_mismatch_rows = calibration_artifacts.remaining_true_mismatch_rows
     family_expansion_rows = [record.to_flat_dict() for record in calibration_artifacts.family_expansion_records]
     route_prior_rows = [record.to_flat_dict() for record in calibration_artifacts.route_prior_scores]
     sage_export_rows = [record.to_flat_dict() for record in calibration_artifacts.sage_export_records]
@@ -827,6 +829,9 @@ def run_experiment(
     _write_csv(output_dir / "newform_probe_results.csv", newform_probe_rows)
     _write_csv(output_dir / "known_case_calibration_summary.csv", known_case_rows)
     _write_csv(output_dir / "route_confusion_matrix.csv", route_confusion_rows)
+    _write_csv(output_dir / "theorem_terrain_summary.csv", theorem_terrain_rows)
+    _write_csv(output_dir / "known_case_route_matrix.csv", route_confusion_rows)
+    _write_csv(output_dir / "remaining_true_mismatches.csv", remaining_true_mismatch_rows)
     _write_csv(output_dir / "family_expansion_results.csv", family_expansion_rows)
     _write_csv(output_dir / "route_prior_scores.csv", route_prior_rows)
     _write_csv(output_dir / "sage_export_manifest.csv", sage_export_rows)
@@ -862,9 +867,11 @@ def run_experiment(
         "sage_available": any(row["sage_available"] for row in newform_probe_rows),
         "known_case_calibration_count": len(known_case_rows),
         "known_case_mismatch_count": sum(1 for row in known_case_rows if row["actual_route_label"] == "known_case_mismatch"),
+        "known_case_theorem_terrain_route_count": sum(1 for row in known_case_rows if row["actual_route_label"] == "theorem_terrain_route"),
         "known_case_artifact_like_count": sum(1 for row in known_case_rows if row["actual_route_label"] == "artifact_like"),
         "known_case_external_sage_count": sum(1 for row in known_case_rows if row["actual_route_label"] == "needs_external_sage_check"),
         "known_case_calibrated_route_count": sum(1 for row in known_case_rows if row["actual_route_label"] == "calibrated_route_candidate"),
+        "remaining_true_mismatch_count": len(remaining_true_mismatch_rows),
     }
     (output_dir / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     report = _report_markdown(
@@ -917,6 +924,10 @@ def run_experiment(
     (output_dir / "README_MODULAR_SHADOW_REPORT.md").write_text(modular_report, encoding="utf-8")
     (output_dir / "README_KNOWN_CASE_CALIBRATION_REPORT.md").write_text(
         calibration_artifacts.report_markdown,
+        encoding="utf-8",
+    )
+    (output_dir / "README_THEOREM_TERRAIN_REPORT.md").write_text(
+        calibration_artifacts.terrain_report_markdown,
         encoding="utf-8",
     )
     return output_dir

@@ -6,11 +6,12 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+from beal_rsg_lab.calibration_confusion_matrix import build_calibration_confusion_matrix
 from beal_rsg_lab.known_case_library import load_known_cases
-from beal_rsg_lab.route_confusion_matrix import build_route_confusion_matrix
 from beal_rsg_lab.route_prior_model import score_route_priors
 from beal_rsg_lab.sage_export_scripts import export_sage_scripts, sage_script_text
 from beal_rsg_lab.signature_family_expander import expanded_signatures
+from beal_rsg_lab.theorem_terrain_classifier import classify_theorem_terrain, load_known_theorem_library
 
 
 class KnownCaseCalibrationTests(unittest.TestCase):
@@ -27,6 +28,28 @@ class KnownCaseCalibrationTests(unittest.TestCase):
         self.assertEqual(signatures[(4, 5, 5)], "beal_candidate_neighborhood")
         self.assertEqual(signatures[(3, 4, 5)], "mixed_bridge")
 
+    def test_diagonal_signatures_route_to_theorem_terrain(self) -> None:
+        terrain = classify_theorem_terrain((3, 3, 3))
+        self.assertEqual(terrain.terrain_label, "diagonal_flt_style")
+        self.assertEqual(terrain.terrain_route_label, "theorem_terrain_route")
+        self.assertEqual(terrain.known_status_label, "known_solved_terrain")
+
+    def test_artifact_calibrators_remain_demoted(self) -> None:
+        terrain = classify_theorem_terrain((11, 11, 13), ell=23)
+        self.assertEqual(terrain.terrain_label, "artifact_prone_shape")
+        self.assertEqual(terrain.terrain_route_label, "artifact_like")
+
+    def test_sage_needed_cases_remain_external_check_only(self) -> None:
+        terrain = classify_theorem_terrain((3, 5, 5))
+        self.assertEqual(terrain.terrain_route_label, "needs_external_sage_check")
+        self.assertFalse(terrain.should_promote_without_external_check)
+
+    def test_known_theorem_library_loads(self) -> None:
+        terrains = load_known_theorem_library()
+        labels = {terrain.terrain_label for terrain in terrains}
+        self.assertIn("diagonal_flt_style", labels)
+        self.assertIn("artifact_prone_shape", labels)
+
     def test_route_confusion_matrix_generation(self) -> None:
         records = [
             SimpleNamespace(
@@ -34,24 +57,31 @@ class KnownCaseCalibrationTests(unittest.TestCase):
                 signature_text="11-11-13",
                 known_status="calibration_only",
                 expected_route="artifact",
+                terrain_label="artifact_prone_shape",
+                known_status_label="subgroup_artifact",
                 system_route_label="artifact_like",
                 actual_route_label="artifact_like",
                 comparison_flag="artifact_match",
+                should_promote_without_external_check=False,
             ),
             SimpleNamespace(
                 case_id="flt_case",
                 signature_text="3-3-3",
                 known_status="known_impossible",
-                expected_route="FLT_style",
-                system_route_label="not_promising_yet",
-                actual_route_label="known_case_mismatch",
-                comparison_flag="underpromotion",
+                expected_route="descent_or_modularity",
+                terrain_label="diagonal_flt_style",
+                known_status_label="known_solved_terrain",
+                system_route_label="theorem_terrain_route",
+                actual_route_label="theorem_terrain_route",
+                comparison_flag="terrain_match",
+                should_promote_without_external_check=False,
             ),
         ]
-        matrix = build_route_confusion_matrix(records)
+        matrix = build_calibration_confusion_matrix(records)
         buckets = {row.bucket: row.case_count for row in matrix}
-        self.assertEqual(buckets["artifact_correctly_demoted"], 1)
-        self.assertEqual(buckets["known_impossible_system_weak"], 1)
+        self.assertEqual(buckets["correct_artifact_demotion"], 1)
+        self.assertEqual(buckets["correct_theorem_terrain_route"], 1)
+        self.assertNotIn("true_mismatch", buckets)
 
     def test_route_prior_scoring_penalizes_artifacts(self) -> None:
         record = SimpleNamespace(
@@ -60,8 +90,12 @@ class KnownCaseCalibrationTests(unittest.TestCase):
             family_label="artifact_calibrator",
             known_status="calibration_only",
             expected_route="artifact",
+            terrain_label="artifact_prone_shape",
+            known_status_label="subgroup_artifact",
+            theorem_route_label="artifact_like",
             actual_route_label="artifact_like",
             comparison_flag="artifact_match",
+            should_promote_without_external_check=False,
             prime_count=2,
             local_obstruction_rows=0,
             mandatory_single_divisor_rows=0,
@@ -77,6 +111,34 @@ class KnownCaseCalibrationTests(unittest.TestCase):
         scores = score_route_priors([record], [])
         self.assertEqual(scores[0].output_label, "artifact_like")
         self.assertGreaterEqual(scores[0].artifact_likelihood, 0.65)
+
+    def test_no_candidate_promotes_without_terrain_calibration(self) -> None:
+        record = SimpleNamespace(
+            case_id="unknown_case",
+            signature_text="3-7-11",
+            family_label="unknown",
+            known_status="open_or_unknown",
+            expected_route="unknown",
+            terrain_label="mixed_prime_signature",
+            known_status_label="unclassified_terrain",
+            theorem_route_label="calibrated_route_candidate",
+            actual_route_label="calibrated_route_candidate",
+            comparison_flag="uncertain",
+            should_promote_without_external_check=False,
+            prime_count=2,
+            local_obstruction_rows=2,
+            mandatory_single_divisor_rows=0,
+            sparse_unit_rows=0,
+            artifact_rows=0,
+            nonartifact_sparse_rows=0,
+            padic_descent_rows=0,
+            trace_rigid_rows=0,
+            newform_check_rows=0,
+            frey_template_candidate_rows=0,
+            average_template_confidence=0.5,
+        )
+        scores = score_route_priors([record], [])
+        self.assertNotEqual(scores[0].output_label, "calibrated_route_candidate")
 
     def test_sage_script_export_formatting(self) -> None:
         script = sage_script_text(case_id="demo", signature=(3, 4, 5), ell=11)

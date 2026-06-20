@@ -65,9 +65,15 @@ patterns that primitive counterexamples would be forced to satisfy.
   scoring.
 - `beal_rsg_lab/sage_export_scripts.py`: optional Sage scripts for modular
   follow-up cases.
+- `beal_rsg_lab/theorem_terrain_classifier.py`: structural theorem-terrain
+  routing for diagonal FLT-style, descent, modular, local, and artifact terrain.
+- `beal_rsg_lab/calibration_confusion_matrix.py`: theorem-terrain-aware route
+  matrix.
+- `beal_rsg_lab/terrain_report_generator.py`: terrain summary and mismatch
+  reports.
 - `beal_rsg_lab/run_experiment.py`: full sweep runner that writes
   the broad RSG files plus zero-support, unit-geometry, modular-shadow, and
-  known-case calibration reports under `runs/<timestamp>/`.
+  theorem-terrain calibration reports under `runs/<timestamp>/`.
 
 ## Quick Start
 
@@ -99,4 +105,5 @@ See:
 - [docs/reports/unit_geometry_20260620_111500.md](docs/reports/unit_geometry_20260620_111500.md)
 - [docs/reports/modular_shadow_20260620_154000.md](docs/reports/modular_shadow_20260620_154000.md)
 - [docs/reports/known_case_calibration_20260620_163000.md](docs/reports/known_case_calibration_20260620_163000.md)
+- [docs/reports/theorem_terrain_20260620_174500.md](docs/reports/theorem_terrain_20260620_174500.md)
 - [docs/AGENT_GUIDE.md](docs/AGENT_GUIDE.md)

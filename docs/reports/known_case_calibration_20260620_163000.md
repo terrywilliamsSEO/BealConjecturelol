@@ -1,5 +1,10 @@
 # Known-Case Calibration Report
 
+Note: this report records the pre-theorem-terrain calibration pass. The FLT
+diagonal mismatch described here is superseded by
+[theorem_terrain_20260620_174500.md](theorem_terrain_20260620_174500.md), where
+diagonal FLT-style signatures route correctly to theorem terrain.
+
 Run folder:
 
 ```text

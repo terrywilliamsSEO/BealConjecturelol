@@ -43,16 +43,21 @@ class RunExperimentTests(unittest.TestCase):
             self.assertTrue((output / "README_MODULAR_SHADOW_REPORT.md").exists())
             self.assertTrue((output / "known_case_calibration_summary.csv").exists())
             self.assertTrue((output / "route_confusion_matrix.csv").exists())
+            self.assertTrue((output / "theorem_terrain_summary.csv").exists())
+            self.assertTrue((output / "known_case_route_matrix.csv").exists())
+            self.assertTrue((output / "remaining_true_mismatches.csv").exists())
             self.assertTrue((output / "family_expansion_results.csv").exists())
             self.assertTrue((output / "route_prior_scores.csv").exists())
             self.assertTrue((output / "sage_export_manifest.csv").exists())
             self.assertTrue((output / "README_KNOWN_CASE_CALIBRATION_REPORT.md").exists())
+            self.assertTrue((output / "README_THEOREM_TERRAIN_REPORT.md").exists())
             metadata = json.loads((output / "metadata.json").read_text(encoding="utf-8"))
             self.assertEqual(metadata["result_count"], 16)
             self.assertIn("zero_support_classification_counts", metadata)
             self.assertIn("unit_geometry_sparse_count", metadata)
             self.assertIn("modular_shadow_target_rows", metadata)
             self.assertIn("known_case_calibration_count", metadata)
+            self.assertIn("known_case_theorem_terrain_route_count", metadata)
 
 
 if __name__ == "__main__":

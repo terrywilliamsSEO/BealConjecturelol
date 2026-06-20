@@ -21,4 +21,4 @@ beal-rsg-run = "beal_rsg_lab.run_experiment:main"
 include = ["beal_rsg_lab*"]
 
 [tool.setuptools.package-data]
-beal_rsg_lab = ["known_cases.json"]
+beal_rsg_lab = ["known_cases.json", "known_theorem_library.json"]

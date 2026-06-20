@@ -180,8 +180,15 @@ The calibration runner produces:
 - expected-vs-actual labels: `calibrated_route_candidate`, `artifact_like`,
   `known_case_mismatch`, `needs_external_sage_check`, or
   `not_promising_yet`;
+- theorem-terrain route labels such as `diagonal_flt_style`,
+  `known_modular_method_shape`, `fourth_power_bridge`,
+  `local_obstruction_shape`, and `artifact_prone_shape`;
 - route confusion buckets for false positives, false negatives, artifact
   matches, and modular-method routing;
+- a theorem-terrain-aware route matrix with
+  `correct_artifact_demotion`, `correct_theorem_terrain_route`,
+  `correct_external_sage_route`, `route_unknown`, `true_mismatch`, and
+  `overpromoted_candidate`;
 - structured family-expansion rows that test whether nearby signatures preserve
   or break residue fingerprints;
 - route-prior scores with artifact likelihood and discovery readiness;
@@ -191,6 +198,10 @@ The calibration runner produces:
 Promotion discipline is strict: a Beal candidate should not move into discovery
 mode unless the same route type behaves correctly on calibration cases and does
 not match known artifact behavior.
+
+The theorem-terrain classifier runs after artifact/local/lift checks and before
+modular-shadow promotion. Diagonal FLT-style cases are routed to known theorem
+terrain instead of being treated as failures of local RSG methods.
 
 ## 9. Experiment Runner
 
@@ -220,6 +231,9 @@ The runner writes each sweep to `runs/<timestamp>/`:
 - `known_case_calibration_summary.csv`: known-case expected-vs-actual route
   comparison.
 - `route_confusion_matrix.csv`: calibration confusion buckets.
+- `theorem_terrain_summary.csv`: structural theorem-terrain route rows.
+- `known_case_route_matrix.csv`: theorem-terrain-aware calibration buckets.
+- `remaining_true_mismatches.csv`: true mismatch and overpromotion rows.
 - `family_expansion_results.csv`: nearby-signature fingerprint comparisons.
 - `route_prior_scores.csv`: calibrated route-priority scores.
 - `sage_export_manifest.csv`: optional Sage script manifest.
@@ -229,5 +243,6 @@ The runner writes each sweep to `runs/<timestamp>/`:
 - `README_UNIT_GEOMETRY_REPORT.md`: sparse unit-geometry report.
 - `README_MODULAR_SHADOW_REPORT.md`: proof-route sketch report.
 - `README_KNOWN_CASE_CALIBRATION_REPORT.md`: known-case calibration report.
+- `README_THEOREM_TERRAIN_REPORT.md`: theorem-terrain calibration report.
 
 The generated report explicitly avoids proof language.

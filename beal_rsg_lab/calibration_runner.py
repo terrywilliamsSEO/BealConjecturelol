@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Iterable
 
 from .artifact_explainer import explain_artifacts
+from .calibration_confusion_matrix import CalibrationMatrixRecord, build_calibration_confusion_matrix
 from .cross_prime_trace_compatibility import analyze_cross_prime_traces
 from .finite_field_trace_probe import trace_probes_for_geometries
 from .frey_template_library import build_template_records, candidate_frey_template
@@ -18,11 +19,16 @@ from .modular_shadow_engine import build_modular_shadow_routes
 from .padic_lift_audit import audit_padic_lifts
 from .padic_unit_lift import analyze_padic_unit_lifts
 from .primitive_obstruction_classifier import classify_primitive_obstructions
-from .route_confusion_matrix import RouteConfusionRecord, build_route_confusion_matrix
 from .route_prior_model import RoutePriorScore, score_route_priors
 from .rsg_residue_engine import ResidueSweepResult, Signature, run_signature_prime
 from .sage_export_scripts import SageExportRecord, export_sage_scripts
 from .signature_family_expander import FamilyExpansionRecord, expand_signature_families
+from .terrain_report_generator import (
+    remaining_true_mismatch_rows,
+    theorem_terrain_report_markdown,
+    theorem_terrain_summary_rows,
+)
+from .theorem_terrain_classifier import TheoremTerrainRecord, classify_theorem_terrain
 from .unit_survivor_geometry import analyze_sparse_unit_geometries
 from .zero_support_engine import analyze_zero_support_results
 
@@ -37,6 +43,12 @@ class KnownCaseCalibrationRecord:
     family_label: str
     known_status: str
     expected_route: str
+    terrain_label: str
+    structural_terrain_labels: tuple[str, ...]
+    known_status_label: str
+    theorem_route_label: str
+    theorem_match_id: str
+    should_promote_without_external_check: bool
     prime_count: int
     local_obstruction_rows: int
     mandatory_single_divisor_rows: int
@@ -60,6 +72,7 @@ class KnownCaseCalibrationRecord:
     def to_flat_dict(self) -> dict[str, object]:
         data = asdict(self)
         data["signature"] = self.signature_text
+        data["structural_terrain_labels"] = ";".join(self.structural_terrain_labels)
         return data
 
 
@@ -68,11 +81,15 @@ class KnownCaseCalibrationArtifacts:
     """All generated calibration artifacts."""
 
     case_records: list[KnownCaseCalibrationRecord]
-    confusion_records: list[RouteConfusionRecord]
+    terrain_records: list[TheoremTerrainRecord]
+    route_matrix_records: list[CalibrationMatrixRecord]
+    terrain_summary_rows: list[dict[str, object]]
+    remaining_true_mismatch_rows: list[dict[str, object]]
     family_expansion_records: list[FamilyExpansionRecord]
     route_prior_scores: list[RoutePriorScore]
     sage_export_records: list[SageExportRecord]
     report_markdown: str
+    terrain_report_markdown: str
 
 
 def _signature_text(signature: Signature) -> str:
@@ -105,6 +122,7 @@ def _run_known_case_residues(
 
 def _system_label(
     *,
+    terrain_route_label: str,
     local_obstruction_rows: int,
     mandatory_single_divisor_rows: int,
     padic_descent_rows: int,
@@ -116,17 +134,25 @@ def _system_label(
     frey_template_candidate_rows: int,
     expected_route: str,
 ) -> str:
+    if terrain_route_label in {"artifact_like", "theorem_terrain_route"}:
+        return terrain_route_label
     if sparse_unit_rows and artifact_rows == sparse_unit_rows:
         return "artifact_like"
     if local_obstruction_rows or (mandatory_single_divisor_rows and padic_descent_rows) or trace_rigid_rows:
         return "calibrated_route_candidate"
-    if newform_check_rows or (expected_route == "modular_method" and frey_template_candidate_rows and nonartifact_sparse_rows):
+    if terrain_route_label == "needs_external_sage_check" or newform_check_rows or (expected_route == "modular_method" and frey_template_candidate_rows and nonartifact_sparse_rows):
         return "needs_external_sage_check"
     return "not_promising_yet"
 
 
-def _comparison_flag(case: KnownCase, system_label: str) -> str:
+def _comparison_flag(case: KnownCase, terrain: TheoremTerrainRecord, system_label: str) -> str:
     strong = {"calibrated_route_candidate", "needs_external_sage_check"}
+    if terrain.expected_route == "artifact" or terrain.known_status_label == "subgroup_artifact":
+        return "artifact_match" if system_label == "artifact_like" else "route_mismatch"
+    if terrain.known_status_label in {"known_solved_terrain", "follows_FLT_style_reduction", "descent_terrain"}:
+        return "terrain_match" if system_label == "theorem_terrain_route" else "route_mismatch"
+    if terrain.expected_route == "modular_method":
+        return "calibrated_match" if system_label == "needs_external_sage_check" else "route_mismatch"
     if case.known_status == "known_possible" and system_label in strong:
         return "overpromotion"
     if case.known_status == "known_impossible" and system_label in {"not_promising_yet", "artifact_like"}:
@@ -141,7 +167,7 @@ def _comparison_flag(case: KnownCase, system_label: str) -> str:
 
 
 def _final_label(system_label: str, comparison_flag: str) -> str:
-    if comparison_flag in {"overpromotion", "underpromotion", "route_mismatch"}:
+    if comparison_flag in {"overpromotion", "underpromotion", "route_mismatch", "true_mismatch"}:
         return "known_case_mismatch"
     return system_label
 
@@ -182,7 +208,7 @@ def _calibration_records(
     padic_unit_lifts,
     trace_records,
     route_classifications,
-) -> list[KnownCaseCalibrationRecord]:
+) -> tuple[list[KnownCaseCalibrationRecord], list[TheoremTerrainRecord]]:
     primitive_by_key = {(item.signature, item.ell): item for item in primitive_classifications}
     artifact_by_key = {(item.signature, item.ell): item for item in artifact_assessments}
     unit_lift_by_key = {(item.signature, item.ell): item for item in padic_unit_lifts}
@@ -193,6 +219,7 @@ def _calibration_records(
     result_keys = {(item.signature, item.ell) for item in results}
 
     records: list[KnownCaseCalibrationRecord] = []
+    terrain_records: list[TheoremTerrainRecord] = []
     for case in cases:
         keys = [(case.signature, ell) for ell in primes if (case.signature, ell) in result_keys]
         local_rows = sum(1 for key in keys if primitive_by_key[key].classification == "direct_primitive_obstruction")
@@ -206,7 +233,26 @@ def _calibration_records(
         newform_rows = sum(1 for key in keys if key in route_by_key and route_by_key[key].route_classification == "newform_check_candidate")
         frey_rows = sum(1 for key in keys if key in route_by_key and route_by_key[key].route_classification == "frey_template_candidate")
         template_confidence = candidate_frey_template(case.signature).template_confidence
+        strongest_prime, strongest_signal = _strongest_signal(
+            case.signature,
+            primes,
+            primitive_by_key,
+            route_by_key,
+            artifact_by_key,
+        )
+        terrain_key = (case.signature, strongest_prime)
+        terrain = classify_theorem_terrain(
+            case.signature,
+            ell=strongest_prime or None,
+            primitive_classification=primitive_by_key.get(terrain_key),
+            artifact_assessment=artifact_by_key.get(terrain_key),
+            trace_record=trace_by_key.get(terrain_key),
+            route_classification=route_by_key.get(terrain_key),
+        )
+        terrain_records.append(terrain)
+        expected_route = terrain.expected_route if terrain.expected_route != "unknown" else case.expected_route
         system_label = _system_label(
+            terrain_route_label=terrain.terrain_route_label,
             local_obstruction_rows=local_rows,
             mandatory_single_divisor_rows=mandatory_rows,
             padic_descent_rows=padic_descent_rows,
@@ -216,16 +262,9 @@ def _calibration_records(
             trace_rigid_rows=trace_rigid_rows,
             newform_check_rows=newform_rows,
             frey_template_candidate_rows=frey_rows,
-            expected_route=case.expected_route,
+            expected_route=expected_route,
         )
-        flag = _comparison_flag(case, system_label)
-        strongest_prime, strongest_signal = _strongest_signal(
-            case.signature,
-            primes,
-            primitive_by_key,
-            route_by_key,
-            artifact_by_key,
-        )
+        flag = _comparison_flag(case, terrain, system_label)
         records.append(
             KnownCaseCalibrationRecord(
                 case_id=case.case_id,
@@ -233,7 +272,13 @@ def _calibration_records(
                 signature_text=_signature_text(case.signature),
                 family_label=case.family_label,
                 known_status=case.known_status,
-                expected_route=case.expected_route,
+                expected_route=expected_route,
+                terrain_label=terrain.terrain_label,
+                structural_terrain_labels=terrain.structural_terrain_labels,
+                known_status_label=terrain.known_status_label,
+                theorem_route_label=terrain.terrain_route_label,
+                theorem_match_id=terrain.theorem_match_id,
+                should_promote_without_external_check=terrain.should_promote_without_external_check,
                 prime_count=len(keys),
                 local_obstruction_rows=local_rows,
                 mandatory_single_divisor_rows=mandatory_rows,
@@ -264,7 +309,7 @@ def _calibration_records(
         ),
         reverse=True,
     )
-    return records
+    return records, terrain_records
 
 
 def _report_markdown(
@@ -301,7 +346,7 @@ def _report_markdown(
         [
             f"- Sage scripts exported: `{len(sage_exports)}`.",
             "",
-            "## Route Confusion Matrix",
+            "## Known Case Route Matrix",
             "",
             "| bucket | cases | interpretation |",
             "| --- | ---: | --- |",
@@ -331,14 +376,17 @@ def _report_markdown(
             "## Files",
             "",
             "- `known_case_calibration_summary.csv`: expected-vs-actual route comparison per calibration case.",
-            "- `route_confusion_matrix.csv`: aggregate mismatch and match buckets.",
+            "- `route_confusion_matrix.csv`: compatibility copy of the terrain-aware route matrix.",
+            "- `known_case_route_matrix.csv`: theorem-terrain-aware route buckets.",
+            "- `theorem_terrain_summary.csv`: structural terrain route rows.",
+            "- `remaining_true_mismatches.csv`: true mismatch and overpromotion rows.",
             "- `family_expansion_results.csv`: structured nearby-signature fingerprint comparisons.",
             "- `route_prior_scores.csv`: calibrated route-priority and artifact-likelihood scores.",
             "- `sage_export_manifest.csv`: optional Sage scripts for modular follow-up sketches.",
             "",
             "## Next Work",
             "",
-            "Treat `known_case_mismatch` rows as calibration debt. Treat `artifact_like` rows as useful controls. Only rows that become `calibrated_route_candidate` or `needs_external_sage_check` for the right reason should feed later discovery mode.",
+            "Treat `true_mismatch` and `overpromoted_candidate` rows as calibration debt. Treat `artifact_like` rows as useful controls. Theorem-terrain rows calibrate known proof terrain without creating new proof claims.",
             "",
         ]
     )
@@ -387,7 +435,7 @@ def build_known_case_calibration(
         templates,
         cross_prime_records,
     )
-    case_records = _calibration_records(
+    case_records, terrain_records = _calibration_records(
         case_list,
         primes,
         results,
@@ -407,21 +455,34 @@ def build_known_case_calibration(
         control_samples=control_samples,
         seed=seed + 9001,
     )
-    confusion = build_route_confusion_matrix(case_records)
+    route_matrix = build_calibration_confusion_matrix(case_records)
     priors = score_route_priors(case_records, family_expansions)
     sage_exports = export_sage_scripts(priors, case_records, output_dir)
+    terrain_rows = theorem_terrain_summary_rows(case_records, terrain_records)
+    matrix_rows = [record.to_flat_dict() for record in route_matrix]
+    mismatch_rows = remaining_true_mismatch_rows(case_records, route_matrix)
     report = _report_markdown(
         output_dir=output_dir,
         records=case_records,
-        confusion=confusion,
+        confusion=route_matrix,
         priors=priors,
         sage_exports=sage_exports,
     )
+    terrain_report = theorem_terrain_report_markdown(
+        output_dir=output_dir,
+        terrain_rows=terrain_rows,
+        matrix_rows=matrix_rows,
+        mismatch_rows=mismatch_rows,
+    )
     return KnownCaseCalibrationArtifacts(
         case_records=case_records,
-        confusion_records=confusion,
+        terrain_records=terrain_records,
+        route_matrix_records=route_matrix,
+        terrain_summary_rows=terrain_rows,
+        remaining_true_mismatch_rows=mismatch_rows,
         family_expansion_records=family_expansions,
         route_prior_scores=priors,
         sage_export_records=sage_exports,
         report_markdown=report,
+        terrain_report_markdown=terrain_report,
     )

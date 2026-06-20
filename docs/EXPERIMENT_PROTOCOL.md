@@ -142,6 +142,35 @@ The current rule is conservative: do not promote a Beal candidate unless the
 same route type performs correctly on known calibration cases and differs from
 subgroup-size controls.
 
+## Theorem-Terrain Ladder
+
+Every candidate now passes through this route ladder before promotion:
+
+1. Normalize the signature up to `A/B` swapping.
+2. Apply artifact and subgroup-size explanations.
+3. Check exact zero-support obstruction data.
+4. Check sparse unit-survivor geometry.
+5. Check p-adic lift persistence or collapse.
+6. Classify theorem terrain.
+7. Route modular-shadow or Sage follow-up.
+8. Assign the final calibrated route label.
+
+Terrain labels include:
+
+- `diagonal_flt_style`
+- `two_equal_exponents`
+- `fourth_power_bridge`
+- `mixed_prime_signature`
+- `known_modular_method_shape`
+- `local_obstruction_shape`
+- `artifact_prone_shape`
+- `unknown_route`
+
+Known solved terrain calibrates the router. For example, diagonal FLT-style
+cases should become `theorem_terrain_route`, not `known_case_mismatch`, even
+when local residue tools find no obstruction. This is route recognition, not a
+new proof.
+
 ## What Counts As Evidence
 
 Useful evidence:
@@ -161,6 +190,7 @@ Insufficient evidence:
 - A lift failure with no repeated cluster.
 - A `needs_newform_check` label without trace rigidity.
 - A route label that fails known-case calibration.
+- Local-only sparsity without theorem-terrain calibration.
 - Any result phrased as a proof of Beal.
 
 ## Recommended Iteration

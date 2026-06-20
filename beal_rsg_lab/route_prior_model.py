@@ -14,8 +14,12 @@ class CalibrationScoreInput(Protocol):
     family_label: str
     known_status: str
     expected_route: str
+    terrain_label: str
+    known_status_label: str
+    theorem_route_label: str
     actual_route_label: str
     comparison_flag: str
+    should_promote_without_external_check: bool
     prime_count: int
     local_obstruction_rows: int
     mandatory_single_divisor_rows: int
@@ -39,6 +43,9 @@ class RoutePriorScore:
     known_status: str
     expected_route: str
     actual_route_label: str
+    theorem_route_label: str
+    terrain_label: str
+    known_status_label: str
     local_obstruction_score: float
     artifact_score: float
     zero_support_score: float
@@ -63,12 +70,18 @@ def _ratio(count: int, total: int) -> float:
 
 
 def _known_route_similarity(record: CalibrationScoreInput) -> float:
+    if record.actual_route_label == "theorem_terrain_route" and record.known_status_label in {
+        "known_solved_terrain",
+        "follows_FLT_style_reduction",
+        "descent_terrain",
+    }:
+        return 1.0
     if record.expected_route == "artifact":
         return 1.0 if record.actual_route_label == "artifact_like" else 0.0
     if record.expected_route == "modular_method":
         return 1.0 if record.actual_route_label in {"needs_external_sage_check", "calibrated_route_candidate"} else 0.25
-    if record.expected_route in {"descent", "local_obstruction", "FLT_style"}:
-        return 1.0 if record.actual_route_label == "calibrated_route_candidate" else 0.15
+    if record.expected_route in {"descent", "descent_or_modularity", "local_obstruction", "FLT_style"}:
+        return 1.0 if record.actual_route_label in {"calibrated_route_candidate", "theorem_terrain_route"} else 0.15
     if record.expected_route == "unknown":
         return 0.5 if record.actual_route_label in {"not_promising_yet", "artifact_like"} else 0.25
     return 0.0
@@ -92,11 +105,14 @@ def _output_label(
 ) -> str:
     if artifact_likelihood >= 0.65 or record.actual_route_label == "artifact_like":
         return "artifact_like"
-    if record.comparison_flag in {"overpromotion", "underpromotion", "route_mismatch"}:
+    if record.actual_route_label == "theorem_terrain_route":
+        return "theorem_terrain_route"
+    if record.comparison_flag in {"overpromotion", "underpromotion", "route_mismatch", "true_mismatch"}:
         return "known_case_mismatch"
     if record.actual_route_label == "needs_external_sage_check":
         return "needs_external_sage_check"
-    if readiness >= 5.0 and route_similarity >= 0.65:
+    terrain_validated = record.comparison_flag == "calibrated_match" and record.should_promote_without_external_check
+    if record.actual_route_label == "calibrated_route_candidate" and readiness >= 5.0 and route_similarity >= 0.65 and terrain_validated:
         return "calibrated_route_candidate"
     return "not_promising_yet"
 
@@ -116,6 +132,7 @@ def score_route_priors(
         artifact_score = round(_ratio(record.artifact_rows, max(1, record.sparse_unit_rows)), 10)
         padic_score = round(3.0 * _ratio(record.padic_descent_rows, total), 10)
         trace_score = round(4.0 * _ratio(record.trace_rigid_rows, total), 10)
+        terrain_score = 1.0 if record.actual_route_label == "theorem_terrain_route" else 0.0
         family_score = _family_similarity(record.case_id, expansion_list)
         route_similarity = _known_route_similarity(record)
         frey_confidence = round(record.average_template_confidence, 10)
@@ -125,6 +142,7 @@ def score_route_priors(
             + unit_score
             + padic_score
             + trace_score
+            + terrain_score
             + 2.0 * frey_confidence
             + family_score
             + route_similarity,
@@ -147,6 +165,9 @@ def score_route_priors(
                 known_status=record.known_status,
                 expected_route=record.expected_route,
                 actual_route_label=record.actual_route_label,
+                theorem_route_label=record.theorem_route_label,
+                terrain_label=record.terrain_label,
+                known_status_label=record.known_status_label,
                 local_obstruction_score=local_score,
                 artifact_score=artifact_score,
                 zero_support_score=zero_score,

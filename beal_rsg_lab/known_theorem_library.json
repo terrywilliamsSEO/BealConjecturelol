@@ -1,0 +1,188 @@
+{
+  "version": 1,
+  "notes": "Theorem-terrain routing metadata. This is not a theorem database and does not provide proofs.",
+  "terrains": [
+    {
+      "case_id": "terrain_diag_3",
+      "signature": [3, 3, 3],
+      "terrain_label": "diagonal_flt_style",
+      "known_status_label": "known_solved_terrain",
+      "expected_route": "descent_or_modularity",
+      "notes": "Diagonal FLT-style terrain; local RSG obstruction is not expected to explain the known proof.",
+      "source_placeholder": "TODO: cite FLT or standard Fermat survey.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_diag_4",
+      "signature": [4, 4, 4],
+      "terrain_label": "diagonal_flt_style",
+      "known_status_label": "follows_FLT_style_reduction",
+      "expected_route": "descent_or_modularity",
+      "notes": "Fourth-power diagonal terrain; route recognition should not depend on local sparsity.",
+      "source_placeholder": "TODO: cite Fermat n=4 descent or standard FLT reference.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_diag_5",
+      "signature": [5, 5, 5],
+      "terrain_label": "diagonal_flt_style",
+      "known_status_label": "known_solved_terrain",
+      "expected_route": "descent_or_modularity",
+      "notes": "Diagonal FLT-style terrain for exponent 5.",
+      "source_placeholder": "TODO: cite FLT or standard Fermat survey.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_diag_7",
+      "signature": [7, 7, 7],
+      "terrain_label": "diagonal_flt_style",
+      "known_status_label": "known_solved_terrain",
+      "expected_route": "descent_or_modularity",
+      "notes": "Diagonal FLT-style terrain for exponent 7.",
+      "source_placeholder": "TODO: cite FLT or standard Fermat survey.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_3_3_5",
+      "signature": [3, 3, 5],
+      "terrain_label": "known_modular_method_shape",
+      "known_status_label": "generalized_fermat_terrain",
+      "expected_route": "modular_method",
+      "notes": "Repeated-exponent generalized Fermat terrain likely requiring external Frey/newform work.",
+      "source_placeholder": "TODO: cite generalized Fermat survey if used.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_5_5_7",
+      "signature": [5, 5, 7],
+      "terrain_label": "known_modular_method_shape",
+      "known_status_label": "generalized_fermat_terrain",
+      "expected_route": "modular_method",
+      "notes": "Repeated-exponent generalized Fermat terrain likely requiring external Frey/newform work.",
+      "source_placeholder": "TODO: cite generalized Fermat survey if used.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_4_3_3",
+      "signature": [4, 3, 3],
+      "terrain_label": "fourth_power_bridge",
+      "known_status_label": "descent_terrain",
+      "expected_route": "descent",
+      "notes": "Fourth-power bridge terrain; RSG should route it structurally even if local tests are weak.",
+      "source_placeholder": "TODO: cite or replace with project terrain note.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_3_4_3",
+      "signature": [3, 4, 3],
+      "terrain_label": "known_modular_method_shape",
+      "known_status_label": "modular_shadow_terrain",
+      "expected_route": "modular_method",
+      "notes": "Repeated modular-shadow calibration signature from previous RSG runs.",
+      "source_placeholder": "TODO: cite future project note.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_3_5_5",
+      "signature": [3, 5, 5],
+      "terrain_label": "known_modular_method_shape",
+      "known_status_label": "generalized_fermat_terrain",
+      "expected_route": "modular_method",
+      "notes": "Mixed generalized Fermat terrain requiring external modular checks.",
+      "source_placeholder": "TODO: cite generalized Fermat survey if used.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_5_3_5",
+      "signature": [5, 3, 5],
+      "terrain_label": "known_modular_method_shape",
+      "known_status_label": "generalized_fermat_terrain",
+      "expected_route": "modular_method",
+      "notes": "A/B-swapped mixed generalized Fermat terrain requiring external modular checks.",
+      "source_placeholder": "TODO: cite generalized Fermat survey if used.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_4_5_5",
+      "signature": [4, 5, 5],
+      "terrain_label": "fourth_power_bridge",
+      "known_status_label": "generalized_fermat_terrain",
+      "expected_route": "modular_method",
+      "notes": "Fourth-power bridge terrain requiring external modular/descent checks.",
+      "source_placeholder": "TODO: cite generalized Fermat survey if used.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_5_4_5",
+      "signature": [5, 4, 5],
+      "terrain_label": "fourth_power_bridge",
+      "known_status_label": "generalized_fermat_terrain",
+      "expected_route": "modular_method",
+      "notes": "A/B-swapped fourth-power bridge terrain requiring external modular/descent checks.",
+      "source_placeholder": "TODO: cite generalized Fermat survey if used.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_5_5_4",
+      "signature": [5, 5, 4],
+      "terrain_label": "fourth_power_bridge",
+      "known_status_label": "generalized_fermat_terrain",
+      "expected_route": "modular_method",
+      "notes": "Output-side fourth-power bridge terrain.",
+      "source_placeholder": "TODO: cite generalized Fermat survey if used.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_4_7_7",
+      "signature": [4, 7, 7],
+      "terrain_label": "fourth_power_bridge",
+      "known_status_label": "generalized_fermat_terrain",
+      "expected_route": "modular_method",
+      "notes": "Fourth-power bridge terrain from previous sparse cluster work.",
+      "source_placeholder": "TODO: cite generalized Fermat survey if used.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_7_4_7",
+      "signature": [7, 4, 7],
+      "terrain_label": "fourth_power_bridge",
+      "known_status_label": "generalized_fermat_terrain",
+      "expected_route": "modular_method",
+      "notes": "A/B-swapped fourth-power bridge terrain from previous sparse cluster work.",
+      "source_placeholder": "TODO: cite generalized Fermat survey if used.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_7_7_4",
+      "signature": [7, 7, 4],
+      "terrain_label": "fourth_power_bridge",
+      "known_status_label": "generalized_fermat_terrain",
+      "expected_route": "modular_method",
+      "notes": "Output-side fourth-power bridge terrain from previous sparse cluster work.",
+      "source_placeholder": "TODO: cite generalized Fermat survey if used.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_artifact_11_11_13_ell23",
+      "signature": [11, 11, 13],
+      "ell": 23,
+      "terrain_label": "artifact_prone_shape",
+      "known_status_label": "subgroup_artifact",
+      "expected_route": "artifact",
+      "notes": "Sparse behavior explained by order-two 11th-power images at ell=23.",
+      "source_placeholder": "TODO: cite project artifact report.",
+      "should_promote_without_external_check": false
+    },
+    {
+      "case_id": "terrain_artifact_11_11_5_ell23",
+      "signature": [11, 11, 5],
+      "ell": 23,
+      "terrain_label": "artifact_prone_shape",
+      "known_status_label": "subgroup_artifact",
+      "expected_route": "artifact",
+      "notes": "Sparse behavior explained by order-two 11th-power images at ell=23.",
+      "source_placeholder": "TODO: cite project artifact report.",
+      "should_promote_without_external_check": false
+    }
+  ]
+}
