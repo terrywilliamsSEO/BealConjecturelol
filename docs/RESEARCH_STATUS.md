@@ -41,6 +41,38 @@ next serious step is to restate the strongest clusters as exact local lemmas and
 then test them against a wider prime range and stricter lift/modular-shadow
 consistency checks.
 
+## Zero-Support Upgrade
+
+Run folder:
+
+```text
+runs/zero_support_20260620_105000
+```
+
+Command:
+
+```powershell
+python run_experiment.py --prime-limit 31 --control-samples 16 --timestamp zero_support_20260620_105000
+```
+
+Output summary:
+
+- Rows: `2160`.
+- Direct primitive obstructions: `0`.
+- Mandatory single-divisor candidates: `0`.
+- Sparse unit-survivor rows: `105`.
+- Likely small-prime artifacts: `640`.
+- Control-like rows: `1415`.
+- Sparse unit clusters: `53`.
+- Committed report: [reports/zero_support_20260620_105000.md](reports/zero_support_20260620_105000.md).
+
+Interpretation:
+
+The stricter pass demotes the earlier `ell = 5` fourth-power rows. They are real
+local subgroup-collapse phenomena, but not primitive contradictions. The active
+research track is now larger-prime sparse unit-survivor clusters such as
+`4-11-11` at `ell = 23`, `4-7-7` at `ell = 29`, and `7-7-4` at `ell = 29`.
+
 ## Reproducibility Note
 
 Generated `runs/` artifacts are intentionally ignored by Git to avoid turning

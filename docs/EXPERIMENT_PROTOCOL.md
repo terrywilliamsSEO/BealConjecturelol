@@ -34,6 +34,23 @@ A case is promoted only if it satisfies all of the following:
 Rows that are suggestive but miss one gate are listed as `watchlist`, not
 `promoted_candidate`.
 
+## Zero-Support Upgrade
+
+Zero-class dominance is not enough. A primitive generalized Fermat solution may
+have one variable divisible by `ell`. The exact zero-support pass therefore
+uses this stricter ranking:
+
+1. Highest value: `direct_primitive_obstruction`, where every local survivor has
+   at least two variables zero modulo `ell`.
+2. Second value: `mandatory_single_divisor`, where every local survivor has the
+   same exact one-variable zero mask and the p-adic audit kills or strengthens
+   the branch.
+3. Third value: `sparse_unit_survivor`, where unit survivors exist but are
+   unusually sparse against controls and are not explained by tiny-prime
+   subgroup collapse.
+4. Demoted: `likely_small_prime_artifact`, including tiny primes and trivial
+   power-subgroup collapse.
+
 ## What Counts As Evidence
 
 Useful evidence:

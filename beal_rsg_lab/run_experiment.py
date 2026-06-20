@@ -9,10 +9,14 @@ import json
 from pathlib import Path
 from typing import Iterable
 
+from .exact_explanation_generator import generate_explanations
 from .number_theory import primes_up_to
+from .padic_lift_audit import audit_padic_lifts
+from .primitive_obstruction_classifier import classify_primitive_obstructions, sparse_unit_clusters
 from .rsg_modular_shadow import ShadowRecord, build_shadow_records
 from .rsg_residue_engine import DEFAULT_EXPONENTS, parse_prime_list, run_sweep
 from .rsg_valuation_engine import analyze_results
+from .zero_support_engine import analyze_zero_support_results
 
 
 def _write_csv(path: Path, rows: Iterable[dict[str, object]]) -> None:
@@ -49,6 +53,81 @@ def _merged_summary_rows(results, valuations, shadows) -> list[dict[str, object]
                     continue
                 row[f"{prefix}_{field}"] = value
         rows.append(row)
+    return rows
+
+
+def _zero_support_summary_rows(results, zero_records, classifications) -> list[dict[str, object]]:
+    """Return CSV rows joining residue, zero-support, and primitive classification."""
+    result_by_key = {(result.signature, result.ell): result for result in results}
+    classification_by_key = {
+        (classification.signature, classification.ell): classification
+        for classification in classifications
+    }
+    rows: list[dict[str, object]] = []
+    for zero in zero_records:
+        key = (zero.signature, zero.ell)
+        row = result_by_key[key].to_flat_dict()
+        for prefix, payload in (
+            ("zero", zero.to_flat_dict()),
+            ("primitive", classification_by_key[key].to_flat_dict()),
+        ):
+            for field, value in payload.items():
+                if field in {"signature", "ell"}:
+                    continue
+                row[f"{prefix}_{field}"] = value
+        rows.append(row)
+    return rows
+
+
+def _classification_rows(classifications, zero_records, explanations, *, classification_name: str) -> list[dict[str, object]]:
+    zero_by_key = {(zero.signature, zero.ell): zero for zero in zero_records}
+    explanation_by_key = {
+        (explanation.signature, explanation.ell): explanation
+        for explanation in explanations
+    }
+    rows: list[dict[str, object]] = []
+    for item in classifications:
+        if item.classification != classification_name:
+            continue
+        key = (item.signature, item.ell)
+        row = item.to_flat_dict()
+        zero = zero_by_key[key]
+        row.update(
+            {
+                "zero_forced_zero_masks": ";".join(zero.forced_zero_masks),
+                "zero_occurring_zero_masks": ";".join(zero.occurring_zero_masks),
+                "zero_minimum_zero_support_size": zero.minimum_zero_support_size,
+                "zero_dominant_zero_mask": zero.dominant_zero_mask,
+                "zero_nonzero_survivor_count": zero.nonzero_survivor_count,
+                "zero_adjoined_survivor_count": zero.zero_adjoined_survivor_count,
+            }
+        )
+        if key in explanation_by_key:
+            row["modular_explanation"] = explanation_by_key[key].modular_explanation
+            row["proof_gap"] = explanation_by_key[key].proof_gap
+        rows.append(row)
+    rows.sort(key=lambda row: float(row["lemma_candidate_score"]), reverse=True)
+    return rows
+
+
+def _mandatory_rows(classifications, zero_records, audits, explanations) -> list[dict[str, object]]:
+    rows = _classification_rows(
+        classifications,
+        zero_records,
+        explanations,
+        classification_name="mandatory_single_divisor",
+    )
+    audit_by_key = {(audit.signature, audit.ell): audit for audit in audits}
+    for row in rows:
+        signature = tuple(int(part) for part in row["signature"].split("-"))
+        key = (signature, int(row["ell"]))
+        audit = audit_by_key.get(key)
+        if audit is None:
+            continue
+        for field, value in audit.to_flat_dict().items():
+            if field in {"signature", "ell"}:
+                continue
+            row[f"padic_{field}"] = value
     return rows
 
 
@@ -144,6 +223,140 @@ def _report_markdown(
     return "\n".join(lines)
 
 
+def _zero_support_report_markdown(
+    *,
+    output_dir: Path,
+    result_count: int,
+    classification_counts: dict[str, int],
+    direct_rows: list[dict[str, object]],
+    mandatory_rows: list[dict[str, object]],
+    sparse_clusters: list[dict[str, object]],
+    explanation_rows: list[dict[str, object]],
+) -> str:
+    generated = datetime.now().isoformat(timespec="seconds")
+    lines = [
+        "# Zero-Support Obstruction Report",
+        "",
+        f"Generated: `{generated}`",
+        f"Output directory: `{output_dir.as_posix()}`",
+        "",
+        "## Interpretation Guardrail",
+        "",
+        "This report upgrades zero-class dominance into exact zero-support classification. It does not claim a proof of Beal.",
+        "",
+        "A primitive contradiction is only suggested when local survival forces at least two variables to be divisible by the same prime, or when a single forced divisor strengthens under p-adic lifting.",
+        "",
+        "## Classification Counts",
+        "",
+        f"- Rows analyzed: `{result_count}`.",
+    ]
+    for name in sorted(classification_counts):
+        lines.append(f"- `{name}`: `{classification_counts[name]}`.")
+
+    lines.extend(
+        [
+            "",
+            "## Direct Primitive Obstructions",
+            "",
+        ]
+    )
+    if not direct_rows:
+        lines.append("No non-artifact direct primitive obstructions were found in this run.")
+    else:
+        lines.extend(
+            [
+                "| rank | signature | ell | score | forced masks | rationale |",
+                "| ---: | --- | ---: | ---: | --- | --- |",
+            ]
+        )
+        for index, row in enumerate(direct_rows[:12], start=1):
+            lines.append(
+                f"| {index} | {row['signature']} | {row['ell']} | {row['lemma_candidate_score']} | "
+                f"{row['zero_forced_zero_masks']} | {row['rationale']} |"
+            )
+
+    lines.extend(
+        [
+            "",
+            "## Mandatory Single-Divisor Candidates",
+            "",
+        ]
+    )
+    if not mandatory_rows:
+        lines.append("No exact mandatory single-divisor candidates survived the artifact filters in this run.")
+    else:
+        lines.extend(
+            [
+                "| rank | signature | ell | variable | score | p-adic estimate |",
+                "| ---: | --- | ---: | --- | ---: | --- |",
+            ]
+        )
+        for index, row in enumerate(mandatory_rows[:12], start=1):
+            lines.append(
+                f"| {index} | {row['signature']} | {row['ell']} | {row['forced_variable']} | "
+                f"{row['lemma_candidate_score']} | {row.get('padic_valuation_growth_estimate', '')} |"
+            )
+
+    lines.extend(
+        [
+            "",
+            "## Sparse Unit Clusters",
+            "",
+        ]
+    )
+    if not sparse_clusters:
+        lines.append("No larger-prime sparse unit-survivor clusters survived the exact zero-support filters.")
+    else:
+        lines.extend(
+            [
+                "| rank | cluster | size | primes | signatures | best score |",
+                "| ---: | --- | ---: | --- | ---: | ---: |",
+            ]
+        )
+        for index, row in enumerate(sparse_clusters[:12], start=1):
+            lines.append(
+                f"| {index} | {row['cluster_key']} | {row['size']} | {row['primes']} | "
+                f"{row['signature_count']} | {row['best_score']} |"
+            )
+
+    lines.extend(
+        [
+            "",
+            "## Exact Explanations",
+            "",
+        ]
+    )
+    for row in explanation_rows[:8]:
+        lines.extend(
+            [
+                f"### {row['signature']} at ell={row['ell']}",
+                "",
+                row["modular_explanation"],
+                "",
+                f"Proof gap: {row['proof_gap']}",
+                "",
+            ]
+        )
+
+    lines.extend(
+        [
+            "## Files",
+            "",
+            "- `zero_support_summary.csv`: row-level zero-support and classification data.",
+            "- `direct_obstructions.csv`: exact direct primitive obstruction candidates.",
+            "- `mandatory_single_divisor_candidates.csv`: exact one-variable candidates with p-adic audit fields.",
+            "- `sparse_unit_clusters.csv`: larger-prime sparse unit-survivor clusters.",
+            "- `exact_explanations.csv`: generated modular explanations for top rows.",
+            "",
+            "## Next Proof Work",
+            "",
+            "Rows in `likely_small_prime_artifact` are useful controls, not headline evidence. The best next proof work is to search for non-artifact direct rows, or mandatory single-divisor rows whose lift branch dies or forces valuation growth beyond v_ell=1.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def run_experiment(
     *,
     output_root: Path = Path("runs"),
@@ -171,16 +384,38 @@ def run_experiment(
     )
     valuations = analyze_results(results)
     shadows, clusters = build_shadow_records(results, valuations)
+    zero_records = analyze_zero_support_results(results)
+    classifications = classify_primitive_obstructions(results, zero_records)
+    padic_audits = audit_padic_lifts(classifications)
+    explanations = generate_explanations(results, zero_records, classifications, padic_audits)
 
     summary_rows = _merged_summary_rows(results, valuations, shadows)
     interesting_rows = _interesting_rows(shadows)
     cluster_rows = [cluster.to_flat_dict() for cluster in clusters]
+    zero_summary_rows = _zero_support_summary_rows(results, zero_records, classifications)
+    explanation_rows = [explanation.to_flat_dict() for explanation in explanations]
+    direct_rows = _classification_rows(
+        classifications,
+        zero_records,
+        explanations,
+        classification_name="direct_primitive_obstruction",
+    )
+    mandatory_candidate_rows = _mandatory_rows(classifications, zero_records, padic_audits, explanations)
+    sparse_cluster_rows = [cluster.to_flat_dict() for cluster in sparse_unit_clusters(classifications)]
 
     _write_csv(output_dir / "summary.csv", summary_rows)
     _write_csv(output_dir / "interesting_cases.csv", interesting_rows)
     _write_csv(output_dir / "clusters.csv", cluster_rows)
+    _write_csv(output_dir / "zero_support_summary.csv", zero_summary_rows)
+    _write_csv(output_dir / "direct_obstructions.csv", direct_rows)
+    _write_csv(output_dir / "mandatory_single_divisor_candidates.csv", mandatory_candidate_rows)
+    _write_csv(output_dir / "sparse_unit_clusters.csv", sparse_cluster_rows)
+    _write_csv(output_dir / "exact_explanations.csv", explanation_rows)
 
     promoted_count = sum(1 for shadow in shadows if shadow.promotion_status == "promoted_candidate")
+    classification_counts: dict[str, int] = {}
+    for classification in classifications:
+        classification_counts[classification.classification] = classification_counts.get(classification.classification, 0) + 1
     metadata = {
         "run_id": run_id,
         "exponents": exponents,
@@ -191,6 +426,10 @@ def run_experiment(
         "result_count": len(results),
         "interesting_count": len(interesting_rows),
         "promoted_count": promoted_count,
+        "zero_support_classification_counts": classification_counts,
+        "direct_obstruction_count": len(direct_rows),
+        "mandatory_single_divisor_count": len(mandatory_candidate_rows),
+        "sparse_unit_cluster_count": len(sparse_cluster_rows),
     }
     (output_dir / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     report = _report_markdown(
@@ -204,6 +443,16 @@ def run_experiment(
         top_cases=interesting_rows,
     )
     (output_dir / "README_REPORT.md").write_text(report, encoding="utf-8")
+    zero_report = _zero_support_report_markdown(
+        output_dir=output_dir,
+        result_count=len(results),
+        classification_counts=classification_counts,
+        direct_rows=direct_rows,
+        mandatory_rows=mandatory_candidate_rows,
+        sparse_clusters=sparse_cluster_rows,
+        explanation_rows=explanation_rows,
+    )
+    (output_dir / "README_ZERO_SUPPORT_REPORT.md").write_text(zero_report, encoding="utf-8")
     return output_dir
 
 

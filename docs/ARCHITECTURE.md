@@ -50,7 +50,45 @@ It records:
 These are diagnostics, not theorems. They are intended to help identify
 patterns worth turning into precise lemmas.
 
-## 3. Modular Shadow
+## 3. Zero-Support Engine
+
+The zero-support layer converts coarse zero-class dominance into exact masks.
+For every zero-adjoined local survivor it records whether the support is:
+
+```text
+none, A_only, B_only, C_only, AB, AC, BC, ABC
+```
+
+This distinction matters because one-variable divisibility is not a primitive
+contradiction. A primitive counterexample may have `ell | A` while
+`ell` does not divide `B` or `C`. The promising cases are:
+
+- every local survivor has at least two variables zero modulo `ell`;
+- every local survivor has the same exact one-variable mask, and p-adic lifting
+  makes that branch impossible or forces valuation growth;
+- unit survivors exist but are unusually sparse against controls.
+
+## 4. Primitive Obstruction Classifier
+
+Rows are classified as:
+
+- `direct_primitive_obstruction`
+- `mandatory_single_divisor`
+- `sparse_unit_survivor`
+- `likely_small_prime_artifact`
+- `control_like`
+
+Small-prime and trivial subgroup-collapse rows are intentionally demoted so they
+do not masquerade as Beal-type contradictions.
+
+## 5. P-Adic Lift Audit
+
+Mandatory single-divisor rows are lifted through `ell^2` and `ell^3` where
+feasible. The audit is conservative: for exponents greater than `2`, a variable
+divisible exactly once by `ell` already contributes `0` modulo `ell^3`, so no
+valuation growth is claimed unless the branch actually dies.
+
+## 6. Modular Shadow
 
 The modular-shadow layer creates symbolic obstruction records:
 
@@ -61,14 +99,20 @@ The modular-shadow layer creates symbolic obstruction records:
   would need to instantiate.
 - Cluster keys that group cases with the same obstruction shape.
 
-## 4. Experiment Runner
+## 7. Experiment Runner
 
 The runner writes each sweep to `runs/<timestamp>/`:
 
 - `summary.csv`: one row per `(p,q,r,ell)`.
 - `interesting_cases.csv`: ranked candidate/watchlist rows.
 - `clusters.csv`: repeated obstruction fingerprints.
+- `zero_support_summary.csv`: exact zero-support and primitive classification.
+- `direct_obstructions.csv`: exact direct primitive obstruction candidates.
+- `mandatory_single_divisor_candidates.csv`: exact one-variable candidates with
+  p-adic audit fields.
+- `sparse_unit_clusters.csv`: larger-prime sparse unit-survivor clusters.
 - `metadata.json`: parameters and reproducibility data.
 - `README_REPORT.md`: human-readable report.
+- `README_ZERO_SUPPORT_REPORT.md`: exact zero-support report.
 
 The generated report explicitly avoids proof language.

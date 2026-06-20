@@ -24,8 +24,14 @@ class RunExperimentTests(unittest.TestCase):
             self.assertTrue((output / "interesting_cases.csv").exists())
             self.assertTrue((output / "clusters.csv").exists())
             self.assertTrue((output / "README_REPORT.md").exists())
+            self.assertTrue((output / "zero_support_summary.csv").exists())
+            self.assertTrue((output / "direct_obstructions.csv").exists())
+            self.assertTrue((output / "mandatory_single_divisor_candidates.csv").exists())
+            self.assertTrue((output / "sparse_unit_clusters.csv").exists())
+            self.assertTrue((output / "README_ZERO_SUPPORT_REPORT.md").exists())
             metadata = json.loads((output / "metadata.json").read_text(encoding="utf-8"))
             self.assertEqual(metadata["result_count"], 16)
+            self.assertIn("zero_support_classification_counts", metadata)
 
 
 if __name__ == "__main__":

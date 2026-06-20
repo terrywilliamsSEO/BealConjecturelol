@@ -16,6 +16,12 @@ python run_experiment.py --primes 5,7,11 --control-samples 6 --no-lift
 - `beal_rsg_lab/number_theory.py`: small pure-Python number theory helpers.
 - `beal_rsg_lab/rsg_residue_engine.py`: core residue and control computations.
 - `beal_rsg_lab/rsg_valuation_engine.py`: valuation-style diagnostics.
+- `beal_rsg_lab/zero_support_engine.py`: exact zero-support masks.
+- `beal_rsg_lab/primitive_obstruction_classifier.py`: primitive obstruction
+  classification and structured subgroup-size controls.
+- `beal_rsg_lab/padic_lift_audit.py`: conservative lift audit for mandatory
+  single-divisor candidates.
+- `beal_rsg_lab/exact_explanation_generator.py`: modular explanation text.
 - `beal_rsg_lab/rsg_modular_shadow.py`: symbolic obstruction and clustering.
 - `beal_rsg_lab/run_experiment.py`: orchestration and file outputs.
 - `tests/`: deterministic unit and smoke tests.
