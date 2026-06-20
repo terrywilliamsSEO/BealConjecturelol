@@ -19,3 +19,6 @@ beal-rsg-run = "beal_rsg_lab.run_experiment:main"
 
 [tool.setuptools.packages.find]
 include = ["beal_rsg_lab*"]
+
+[tool.setuptools.package-data]
+beal_rsg_lab = ["known_cases.json"]

@@ -155,7 +155,44 @@ unit survivor density is low. It must survive artifact checks, have reasonable
 template confidence, and show trace behavior that separates from structured
 same-size controls.
 
-## 8. Experiment Runner
+## 8. Known-Case Calibration
+
+The known-case calibration harness turns the scanner into a route recognizer.
+It runs the existing RSG layers over a JSON-backed library of generalized
+Fermat calibration cases and compares expected proof shape with actual system
+labels.
+
+The bundled library includes:
+
+- diagonal `(p,p,p)` Fermat-style cases;
+- repeated-exponent `(p,p,q)` cases;
+- fourth-power bridges `(4,p,p)`, `(p,4,p)`, and `(p,p,4)`;
+- mixed cases such as `(3,4,3)`, `(3,5,5)`, `(4,7,7)`,
+  `(5,4,5)`, and `(7,7,4)`;
+- artifact calibrators such as previous order-two subgroup rows.
+
+Each case stores a signature, family label, known status, expected route,
+notes, and a citation placeholder. The file is a calibration harness, not a
+complete theorem database.
+
+The calibration runner produces:
+
+- expected-vs-actual labels: `calibrated_route_candidate`, `artifact_like`,
+  `known_case_mismatch`, `needs_external_sage_check`, or
+  `not_promising_yet`;
+- route confusion buckets for false positives, false negatives, artifact
+  matches, and modular-method routing;
+- structured family-expansion rows that test whether nearby signatures preserve
+  or break residue fingerprints;
+- route-prior scores with artifact likelihood and discovery readiness;
+- optional `.sage` scripts for finite-field trace checks and later newform
+  placeholders.
+
+Promotion discipline is strict: a Beal candidate should not move into discovery
+mode unless the same route type behaves correctly on calibration cases and does
+not match known artifact behavior.
+
+## 9. Experiment Runner
 
 The runner writes each sweep to `runs/<timestamp>/`:
 
@@ -180,10 +217,17 @@ The runner writes each sweep to `runs/<timestamp>/`:
 - `cross_prime_trace_results.csv`: canonical trace compatibility records.
 - `newform_probe_results.csv`: Sage availability or optional newform-check
   instructions.
+- `known_case_calibration_summary.csv`: known-case expected-vs-actual route
+  comparison.
+- `route_confusion_matrix.csv`: calibration confusion buckets.
+- `family_expansion_results.csv`: nearby-signature fingerprint comparisons.
+- `route_prior_scores.csv`: calibrated route-priority scores.
+- `sage_export_manifest.csv`: optional Sage script manifest.
 - `metadata.json`: parameters and reproducibility data.
 - `README_REPORT.md`: human-readable report.
 - `README_ZERO_SUPPORT_REPORT.md`: exact zero-support report.
 - `README_UNIT_GEOMETRY_REPORT.md`: sparse unit-geometry report.
 - `README_MODULAR_SHADOW_REPORT.md`: proof-route sketch report.
+- `README_KNOWN_CASE_CALIBRATION_REPORT.md`: known-case calibration report.
 
 The generated report explicitly avoids proof language.

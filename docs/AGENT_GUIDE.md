@@ -40,6 +40,13 @@ python run_experiment.py --primes 5,7,11 --control-samples 6 --no-lift
 - `beal_rsg_lab/sage_optional_newform_probe.py`: optional Sage newform probe
   hooks and skip instructions.
 - `beal_rsg_lab/modular_route_classifier.py`: proof-route sketch labels.
+- `beal_rsg_lab/known_case_library.py`: JSON-backed calibration cases.
+- `beal_rsg_lab/calibration_runner.py`: known-case calibration orchestration.
+- `beal_rsg_lab/route_confusion_matrix.py`: known-vs-system route buckets.
+- `beal_rsg_lab/signature_family_expander.py`: structured nearby-signature
+  expansion around known families.
+- `beal_rsg_lab/route_prior_model.py`: calibrated route-priority scoring.
+- `beal_rsg_lab/sage_export_scripts.py`: optional `.sage` script generation.
 - `beal_rsg_lab/run_experiment.py`: orchestration and file outputs.
 - `tests/`: deterministic unit and smoke tests.
 
@@ -50,6 +57,11 @@ rows.
 The modular-shadow outputs should be read as route triage only. Trace-rigid
 rows may become proof-route candidates; `needs_newform_check` rows are logged
 for later Sage or modular-form work and do not count as contradictions.
+
+Known-case calibration is now part of the default run. Treat
+`known_case_mismatch` rows as calibration debt and `artifact_like` rows as
+controls. Do not promote a new Beal candidate until the same route type behaves
+correctly on the calibration library.
 
 ## Documentation Rules
 

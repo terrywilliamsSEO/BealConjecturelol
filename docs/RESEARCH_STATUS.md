@@ -140,6 +140,44 @@ The `ell = 29` and `ell = 31` fourth-power bridge rows remain Frey-template
 follow-up sketches. They have reasonable symbolic template confidence, but the
 trace probes do not separate from structured controls.
 
+## Known-Case Calibration Harness
+
+Run folder:
+
+```text
+runs/known_case_calibration_20260620_163000
+```
+
+Command:
+
+```powershell
+python run_experiment.py --prime-limit 31 --control-samples 16 --timestamp known_case_calibration_20260620_163000
+```
+
+Output summary:
+
+- Known/calibration cases: `19`.
+- `known_case_mismatch`: `6`.
+- `artifact_like`: `2`.
+- `needs_external_sage_check`: `10`.
+- `calibrated_route_candidate`: `0`.
+- Sage available: `False`.
+- Sage scripts exported: `11`.
+- Committed report: [reports/known_case_calibration_20260620_163000.md](reports/known_case_calibration_20260620_163000.md).
+
+Interpretation:
+
+The calibration pass is doing useful triage. It correctly demotes the two
+order-two subgroup artifact calibrators and routes ten modular-method-style
+cases to external Sage follow-up instead of proof claims. It also exposes
+calibration debt: the current RSG layers do not recognize diagonal FLT-style
+impossibility, so `(3,3,3)`, `(4,4,4)`, `(5,5,5)`, and `(7,7,7)` are marked
+`known_case_mismatch`.
+
+No row reached `calibrated_route_candidate`. Discovery mode should stay gated
+until the engine can either recognize FLT/descent terrain or explicitly route
+those cases to a separate known-proof recognizer.
+
 ## Reproducibility Note
 
 Generated `runs/` artifacts are intentionally ignored by Git to avoid turning

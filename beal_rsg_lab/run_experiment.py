@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Iterable
 
 from .artifact_explainer import explain_artifacts
+from .calibration_runner import build_known_case_calibration
 from .character_fingerprint import compute_character_fingerprints
 from .cross_prime_trace_compatibility import analyze_cross_prime_traces
 from .exact_explanation_generator import generate_explanations
@@ -757,6 +758,14 @@ def run_experiment(
         cross_prime_traces,
     )
     newform_probe_records = run_optional_newform_probe(modular_routes)
+    calibration_artifacts = build_known_case_calibration(
+        output_dir=output_dir,
+        primes=prime_values,
+        exponents=exponents,
+        compute_lift=compute_lift,
+        control_samples=control_samples,
+        seed=seed,
+    )
 
     summary_rows = _merged_summary_rows(results, valuations, shadows)
     interesting_rows = _interesting_rows(shadows)
@@ -791,6 +800,11 @@ def run_experiment(
     trace_probe_rows = [record.to_flat_dict() for record in target_traces]
     cross_prime_trace_rows = [record.to_flat_dict() for record in cross_prime_traces]
     newform_probe_rows = [record.to_flat_dict() for record in newform_probe_records]
+    known_case_rows = [record.to_flat_dict() for record in calibration_artifacts.case_records]
+    route_confusion_rows = [record.to_flat_dict() for record in calibration_artifacts.confusion_records]
+    family_expansion_rows = [record.to_flat_dict() for record in calibration_artifacts.family_expansion_records]
+    route_prior_rows = [record.to_flat_dict() for record in calibration_artifacts.route_prior_scores]
+    sage_export_rows = [record.to_flat_dict() for record in calibration_artifacts.sage_export_records]
 
     _write_csv(output_dir / "summary.csv", summary_rows)
     _write_csv(output_dir / "interesting_cases.csv", interesting_rows)
@@ -811,6 +825,11 @@ def run_experiment(
     _write_csv(output_dir / "trace_probe_results.csv", trace_probe_rows)
     _write_csv(output_dir / "cross_prime_trace_results.csv", cross_prime_trace_rows)
     _write_csv(output_dir / "newform_probe_results.csv", newform_probe_rows)
+    _write_csv(output_dir / "known_case_calibration_summary.csv", known_case_rows)
+    _write_csv(output_dir / "route_confusion_matrix.csv", route_confusion_rows)
+    _write_csv(output_dir / "family_expansion_results.csv", family_expansion_rows)
+    _write_csv(output_dir / "route_prior_scores.csv", route_prior_rows)
+    _write_csv(output_dir / "sage_export_manifest.csv", sage_export_rows)
 
     promoted_count = sum(1 for shadow in shadows if shadow.promotion_status == "promoted_candidate")
     classification_counts: dict[str, int] = {}
@@ -841,6 +860,11 @@ def run_experiment(
         "modular_shadow_trace_rigid_candidates": sum(1 for row in modular_summary_rows if row["route_route_classification"] == "trace_rigid_candidate"),
         "modular_shadow_newform_candidates": sum(1 for row in modular_summary_rows if row["route_route_classification"] == "newform_check_candidate"),
         "sage_available": any(row["sage_available"] for row in newform_probe_rows),
+        "known_case_calibration_count": len(known_case_rows),
+        "known_case_mismatch_count": sum(1 for row in known_case_rows if row["actual_route_label"] == "known_case_mismatch"),
+        "known_case_artifact_like_count": sum(1 for row in known_case_rows if row["actual_route_label"] == "artifact_like"),
+        "known_case_external_sage_count": sum(1 for row in known_case_rows if row["actual_route_label"] == "needs_external_sage_check"),
+        "known_case_calibrated_route_count": sum(1 for row in known_case_rows if row["actual_route_label"] == "calibrated_route_candidate"),
     }
     (output_dir / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     report = _report_markdown(
@@ -891,6 +915,10 @@ def run_experiment(
         template_rows=frey_template_rows,
     )
     (output_dir / "README_MODULAR_SHADOW_REPORT.md").write_text(modular_report, encoding="utf-8")
+    (output_dir / "README_KNOWN_CASE_CALIBRATION_REPORT.md").write_text(
+        calibration_artifacts.report_markdown,
+        encoding="utf-8",
+    )
     return output_dir
 
 

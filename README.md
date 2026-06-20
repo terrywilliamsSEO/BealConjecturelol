@@ -55,9 +55,19 @@ patterns that primitive counterexamples would be forced to satisfy.
   newform-check instructions.
 - `beal_rsg_lab/modular_route_classifier.py`: final proof-route sketch
   classification.
+- `beal_rsg_lab/known_case_library.py`: JSON-backed generalized Fermat
+  calibration cases.
+- `beal_rsg_lab/calibration_runner.py`: known-case route calibration harness.
+- `beal_rsg_lab/route_confusion_matrix.py`: expected-vs-actual route buckets.
+- `beal_rsg_lab/signature_family_expander.py`: structured family expansion
+  around known signatures.
+- `beal_rsg_lab/route_prior_model.py`: calibrated proof-route and artifact
+  scoring.
+- `beal_rsg_lab/sage_export_scripts.py`: optional Sage scripts for modular
+  follow-up cases.
 - `beal_rsg_lab/run_experiment.py`: full sweep runner that writes
-  the broad RSG files plus zero-support, unit-geometry, and modular-shadow
-  reports under `runs/<timestamp>/`.
+  the broad RSG files plus zero-support, unit-geometry, modular-shadow, and
+  known-case calibration reports under `runs/<timestamp>/`.
 
 ## Quick Start
 
@@ -76,7 +86,8 @@ python run_experiment.py --primes 5,7,11 --control-samples 6 --no-lift
 
 The report ranks possible publishable obstruction candidates. It must not be
 read as a proof. A pattern is promoted only when it repeats across multiple
-prime/signature contexts and beats randomized subgroup-coset controls.
+prime/signature contexts, beats randomized subgroup-coset controls, and passes
+known-case calibration without matching artifact behavior.
 
 See:
 
@@ -87,4 +98,5 @@ See:
 - [docs/reports/zero_support_20260620_105000.md](docs/reports/zero_support_20260620_105000.md)
 - [docs/reports/unit_geometry_20260620_111500.md](docs/reports/unit_geometry_20260620_111500.md)
 - [docs/reports/modular_shadow_20260620_154000.md](docs/reports/modular_shadow_20260620_154000.md)
+- [docs/reports/known_case_calibration_20260620_163000.md](docs/reports/known_case_calibration_20260620_163000.md)
 - [docs/AGENT_GUIDE.md](docs/AGENT_GUIDE.md)

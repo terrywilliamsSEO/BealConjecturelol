@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "notes": "Calibration library for RSG route behavior. This is not a complete theorem database.",
+  "cases": [
+    {
+      "case_id": "diag_3",
+      "signature": [3, 3, 3],
+      "family_label": "diagonal_FLT",
+      "known_status": "known_impossible",
+      "expected_route": "FLT_style",
+      "notes": "Diagonal Fermat-style calibration case for exponent 3.",
+      "source_placeholder": "TODO: cite FLT proof source or standard Fermat survey."
+    },
+    {
+      "case_id": "diag_4",
+      "signature": [4, 4, 4],
+      "family_label": "diagonal_FLT",
+      "known_status": "known_impossible",
+      "expected_route": "FLT_style",
+      "notes": "Diagonal fourth-power Fermat-style calibration case.",
+      "source_placeholder": "TODO: cite Fermat n=4 descent or standard FLT reference."
+    },
+    {
+      "case_id": "diag_5",
+      "signature": [5, 5, 5],
+      "family_label": "diagonal_FLT",
+      "known_status": "known_impossible",
+      "expected_route": "FLT_style",
+      "notes": "Diagonal Fermat-style calibration case for exponent 5.",
+      "source_placeholder": "TODO: cite FLT proof source or standard Fermat survey."
+    },
+    {
+      "case_id": "diag_7",
+      "signature": [7, 7, 7],
+      "family_label": "diagonal_FLT",
+      "known_status": "known_impossible",
+      "expected_route": "FLT_style",
+      "notes": "Diagonal Fermat-style calibration case for exponent 7.",
+      "source_placeholder": "TODO: cite FLT proof source or standard Fermat survey."
+    },
+    {
+      "case_id": "repeat_3_3_4_imprimitive",
+      "signature": [3, 3, 4],
+      "family_label": "repeated_exponent",
+      "known_status": "known_possible",
+      "expected_route": "unknown",
+      "notes": "Imprimitive calibration example: 2^3 + 2^3 = 2^4. Included to penalize primitive-obstruction overreach, not as a primitive Beal example.",
+      "source_placeholder": "TODO: replace with explicit imprimitive-example note."
+    },
+    {
+      "case_id": "repeat_3_3_5",
+      "signature": [3, 3, 5],
+      "family_label": "repeated_exponent",
+      "known_status": "open_or_unknown",
+      "expected_route": "modular_method",
+      "notes": "Repeated-exponent generalized Fermat calibration case.",
+      "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
+    },
+    {
+      "case_id": "repeat_5_5_7",
+      "signature": [5, 5, 7],
+      "family_label": "repeated_exponent",
+      "known_status": "open_or_unknown",
+      "expected_route": "modular_method",
+      "notes": "Repeated-exponent calibration case for modular-method routing.",
+      "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
+    },
+    {
+      "case_id": "bridge_4_3_3",
+      "signature": [4, 3, 3],
+      "family_label": "fourth_power_bridge",
+      "known_status": "calibration_only",
+      "expected_route": "descent",
+      "notes": "Fourth-power bridge orientation for descent/modular-shadow calibration.",
+      "source_placeholder": "TODO: cite or replace with local project note."
+    },
+    {
+      "case_id": "mixed_3_4_3",
+      "signature": [3, 4, 3],
+      "family_label": "mixed_bridge",
+      "known_status": "calibration_only",
+      "expected_route": "modular_method",
+      "notes": "Repeated modular-shadow signature from previous RSG runs.",
+      "source_placeholder": "TODO: cite future project note."
+    },
+    {
+      "case_id": "bridge_4_5_5",
+      "signature": [4, 5, 5],
+      "family_label": "fourth_power_bridge",
+      "known_status": "open_or_unknown",
+      "expected_route": "modular_method",
+      "notes": "Fourth-power bridge case from the modular-shadow target list.",
+      "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
+    },
+    {
+      "case_id": "bridge_5_4_5",
+      "signature": [5, 4, 5],
+      "family_label": "fourth_power_bridge",
+      "known_status": "open_or_unknown",
+      "expected_route": "modular_method",
+      "notes": "A/B-swapped fourth-power bridge case from the modular-shadow target list.",
+      "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
+    },
+    {
+      "case_id": "bridge_5_5_4",
+      "signature": [5, 5, 4],
+      "family_label": "fourth_power_bridge",
+      "known_status": "open_or_unknown",
+      "expected_route": "modular_method",
+      "notes": "Output-side fourth-power bridge calibration case.",
+      "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
+    },
+    {
+      "case_id": "mixed_3_5_5",
+      "signature": [3, 5, 5],
+      "family_label": "mixed_bridge",
+      "known_status": "open_or_unknown",
+      "expected_route": "modular_method",
+      "notes": "Mixed signature retained as modular-shadow follow-up, not a lemma claim.",
+      "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
+    },
+    {
+      "case_id": "mixed_5_3_5",
+      "signature": [5, 3, 5],
+      "family_label": "mixed_bridge",
+      "known_status": "open_or_unknown",
+      "expected_route": "modular_method",
+      "notes": "A/B-swapped mixed signature retained as modular-shadow follow-up.",
+      "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
+    },
+    {
+      "case_id": "bridge_4_7_7",
+      "signature": [4, 7, 7],
+      "family_label": "fourth_power_bridge",
+      "known_status": "open_or_unknown",
+      "expected_route": "modular_method",
+      "notes": "Fourth-power bridge case from previous larger-prime sparse cluster.",
+      "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
+    },
+    {
+      "case_id": "bridge_7_4_7",
+      "signature": [7, 4, 7],
+      "family_label": "fourth_power_bridge",
+      "known_status": "open_or_unknown",
+      "expected_route": "modular_method",
+      "notes": "A/B-swapped fourth-power bridge case from previous larger-prime sparse cluster.",
+      "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
+    },
+    {
+      "case_id": "bridge_7_7_4",
+      "signature": [7, 7, 4],
+      "family_label": "fourth_power_bridge",
+      "known_status": "open_or_unknown",
+      "expected_route": "modular_method",
+      "notes": "Output-side fourth-power bridge case from previous larger-prime sparse cluster.",
+      "source_placeholder": "TODO: cite generalized Fermat survey entry if used."
+    },
+    {
+      "case_id": "artifact_11_11_13",
+      "signature": [11, 11, 13],
+      "family_label": "artifact_calibrator",
+      "known_status": "calibration_only",
+      "expected_route": "artifact",
+      "notes": "Previous sparse row was explained by order-two 11th-power images at ell=23.",
+      "source_placeholder": "TODO: cite project artifact report."
+    },
+    {
+      "case_id": "artifact_11_11_5",
+      "signature": [11, 11, 5],
+      "family_label": "artifact_calibrator",
+      "known_status": "calibration_only",
+      "expected_route": "artifact",
+      "notes": "Previous sparse row was explained by order-two 11th-power images at ell=23.",
+      "source_placeholder": "TODO: cite project artifact report."
+    }
+  ]
+}

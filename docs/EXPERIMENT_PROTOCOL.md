@@ -108,6 +108,40 @@ Repeated non-artifact trace fingerprints across primes may be logged as
 `needs_newform_check`, but that status is not a proof claim and is not by itself
 a promoted route.
 
+## Known-Case Calibration Gate
+
+Before discovery mode, run the known-case calibration harness. It checks whether
+RSG recognizes familiar generalized Fermat route shapes and avoids false
+breakthroughs.
+
+The calibration library is JSON-backed and intentionally incomplete. It
+includes:
+
+- diagonal `(p,p,p)` FLT-style cases;
+- repeated-exponent `(p,p,q)` cases;
+- fourth-power bridges `(4,p,p)`, `(p,4,p)`, and `(p,p,4)`;
+- mixed bridge signatures from previous Beal-first runs;
+- artifact calibrators from subgroup-size behavior.
+
+Allowed calibration output labels are:
+
+- `calibrated_route_candidate`
+- `artifact_like`
+- `known_case_mismatch`
+- `needs_external_sage_check`
+- `not_promising_yet`
+
+A new Beal candidate must be penalized or held back when:
+
+- it matches known artifact behavior;
+- its route type fails on known calibration cases;
+- it is trace-control-like but is being promoted as modular evidence;
+- it needs Sage/newform work but no external check has been run.
+
+The current rule is conservative: do not promote a Beal candidate unless the
+same route type performs correctly on known calibration cases and differs from
+subgroup-size controls.
+
 ## What Counts As Evidence
 
 Useful evidence:
@@ -126,6 +160,7 @@ Insufficient evidence:
 - A pattern that randomized controls produce just as often.
 - A lift failure with no repeated cluster.
 - A `needs_newform_check` label without trace rigidity.
+- A route label that fails known-case calibration.
 - Any result phrased as a proof of Beal.
 
 ## Recommended Iteration
