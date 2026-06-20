@@ -11,9 +11,14 @@ from typing import Iterable
 
 from .artifact_explainer import explain_artifacts
 from .character_fingerprint import compute_character_fingerprints
+from .cross_prime_trace_compatibility import analyze_cross_prime_traces
 from .exact_explanation_generator import generate_explanations
 from .exact_sparse_lemma_generator import generate_sparse_lemma_explanations
+from .finite_field_trace_probe import trace_probes_for_geometries
+from .frey_template_library import build_template_records
 from .multi_prime_compatibility import analyze_multi_prime_compatibility
+from .modular_route_classifier import classify_modular_routes
+from .modular_shadow_engine import build_modular_shadow_routes
 from .number_theory import primes_up_to
 from .padic_lift_audit import audit_padic_lifts
 from .padic_unit_lift import analyze_padic_unit_lifts
@@ -21,6 +26,8 @@ from .primitive_obstruction_classifier import classify_primitive_obstructions, s
 from .rsg_modular_shadow import ShadowRecord, build_shadow_records
 from .rsg_residue_engine import DEFAULT_EXPONENTS, parse_prime_list, run_sweep
 from .rsg_valuation_engine import analyze_results
+from .sage_optional_newform_probe import run_optional_newform_probe
+from .signature_normalizer import normalize_signature
 from .unit_survivor_geometry import analyze_sparse_unit_geometries
 from .zero_support_engine import analyze_zero_support_results
 
@@ -174,6 +181,40 @@ def _artifact_rows(unit_summary_rows: list[dict[str, object]]) -> list[dict[str,
 
 def _unexplained_sparse_rows(unit_summary_rows: list[dict[str, object]]) -> list[dict[str, object]]:
     return [row for row in unit_summary_rows if row["artifact_verdict"] != "artifact_explained"]
+
+
+def _target_geometries(geometries) -> list[object]:
+    return [geometry for geometry in geometries if normalize_signature(geometry.signature).target_route]
+
+
+def _modular_shadow_summary_rows(routes, classifications, traces) -> list[dict[str, object]]:
+    classification_by_key = {
+        (classification.signature, classification.ell): classification
+        for classification in classifications
+    }
+    trace_by_key = {(trace.signature, trace.ell): trace for trace in traces}
+    rows: list[dict[str, object]] = []
+    for route in routes:
+        key = (route.signature, route.ell)
+        row = route.to_flat_dict()
+        for prefix, payload in (
+            ("route", classification_by_key[key].to_flat_dict()),
+            ("trace", trace_by_key[key].to_flat_dict()),
+        ):
+            for field, value in payload.items():
+                if field in {"signature", "ell"}:
+                    continue
+                row[f"{prefix}_{field}"] = value
+        rows.append(row)
+    rows.sort(
+        key=lambda row: (
+            row["route_promotion_status"] == "proof-route candidate",
+            row["route_route_classification"] == "newform_check_candidate",
+            float(row["route_route_rank_score"]),
+        ),
+        reverse=True,
+    )
+    return rows
 
 
 def _interesting_rows(shadows: Iterable[ShadowRecord], limit: int | None = None) -> list[dict[str, object]]:
@@ -537,6 +578,123 @@ def _unit_geometry_report_markdown(
     return "\n".join(lines)
 
 
+def _modular_shadow_report_markdown(
+    *,
+    output_dir: Path,
+    target_count: int,
+    artifact_count: int,
+    proof_route_count: int,
+    trace_rigid_count: int,
+    newform_candidate_count: int,
+    sage_available: bool,
+    modular_rows: list[dict[str, object]],
+    cross_prime_rows: list[dict[str, object]],
+    template_rows: list[dict[str, object]],
+) -> str:
+    generated = datetime.now().isoformat(timespec="seconds")
+    lines = [
+        "# Modular-Shadow Routing Report",
+        "",
+        f"Generated: `{generated}`",
+        f"Output directory: `{output_dir.as_posix()}`",
+        "",
+        "## Interpretation Guardrail",
+        "",
+        "This report ranks modular proof-route candidates. It does not claim a Beal proof or a local obstruction.",
+        "",
+        "Rows are promoted only when non-artifact sparse unit geometry has reasonable Frey-template support and trace behavior that separates from same-size structured controls.",
+        "",
+        "## Counts",
+        "",
+        f"- Target sparse rows routed: `{target_count}`.",
+        f"- Artifact explained route rows: `{artifact_count}`.",
+        f"- Proof-route candidate rows: `{proof_route_count}`.",
+        f"- Trace-rigid candidate rows: `{trace_rigid_count}`.",
+        f"- Newform-check candidate rows: `{newform_candidate_count}`.",
+        f"- Sage available: `{sage_available}`.",
+        "",
+        "## Ranked Routes",
+        "",
+    ]
+    if not modular_rows:
+        lines.append("No target sparse rows were available for modular-shadow routing.")
+    else:
+        lines.extend(
+            [
+                "| rank | signature | ell | class | score | trace support | control support | rationale |",
+                "| ---: | --- | ---: | --- | ---: | ---: | ---: | --- |",
+            ]
+        )
+        for index, row in enumerate(modular_rows[:16], start=1):
+            lines.append(
+                f"| {index} | {row['signature']} | {row['ell']} | {row['route_route_classification']} | "
+                f"{row['route_route_rank_score']} | {row['trace_trace_support_size']} | "
+                f"{row['trace_same_size_control_trace_support_size']} | {row['route_rationale']} |"
+            )
+
+    lines.extend(
+        [
+            "",
+            "## Cross-Prime Trace Compatibility",
+            "",
+        ]
+    )
+    if not cross_prime_rows:
+        lines.append("No canonical target signature appeared across multiple routed primes.")
+    else:
+        lines.extend(
+            [
+                "| rank | canonical signature | primes | class | rigidity | explanation |",
+                "| ---: | --- | --- | --- | ---: | --- |",
+            ]
+        )
+        for index, row in enumerate(cross_prime_rows[:12], start=1):
+            lines.append(
+                f"| {index} | {row['canonical_signature_id']} | {row['primes']} | "
+                f"{row['trace_compatibility_class']} | {row['combined_trace_rigidity_score']} | "
+                f"{row['explanation']} |"
+            )
+
+    lines.extend(
+        [
+            "",
+            "## Frey Template Notes",
+            "",
+        ]
+    )
+    for row in template_rows[:8]:
+        lines.extend(
+            [
+                f"### {row['signature']}",
+                "",
+                f"Template: `{row['equation']}`",
+                "",
+                f"Confidence: `{row['template_confidence']}`",
+                "",
+                f"Uncertainty flags: `{row['uncertainty_flags']}`",
+                "",
+            ]
+        )
+
+    lines.extend(
+        [
+            "## Files",
+            "",
+            "- `modular_shadow_summary.csv`: joined route, classifier, and trace data.",
+            "- `frey_template_candidates.csv`: symbolic Frey-template records.",
+            "- `trace_probe_results.csv`: finite-field trace distributions for target sparse rows.",
+            "- `cross_prime_trace_results.csv`: canonical signature trace compatibility.",
+            "- `newform_probe_results.csv`: Sage availability and newform-check instructions.",
+            "",
+            "## Next Work",
+            "",
+            "Only rows that survive artifact checks and show trace rigidity should be promoted toward proof-route status. Repeated non-artifact rows without trace rigidity may be logged as newform-check sketches, not obstruction claims.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def run_experiment(
     *,
     output_root: Path = Path("runs"),
@@ -579,6 +737,26 @@ def run_experiment(
         character_fingerprints,
         padic_unit_lifts,
     )
+    target_geometries = _target_geometries(unit_geometries)
+    target_keys = {(geometry.signature, geometry.ell) for geometry in target_geometries}
+    target_artifacts = [item for item in artifact_assessments if (item.signature, item.ell) in target_keys]
+    target_templates = build_template_records([geometry.signature for geometry in target_geometries])
+    target_traces = trace_probes_for_geometries(target_geometries)
+    modular_routes = build_modular_shadow_routes(
+        target_geometries,
+        target_artifacts,
+        target_templates,
+        target_traces,
+    )
+    cross_prime_traces = analyze_cross_prime_traces(target_traces, target_artifacts)
+    modular_route_classifications = classify_modular_routes(
+        modular_routes,
+        target_artifacts,
+        target_traces,
+        target_templates,
+        cross_prime_traces,
+    )
+    newform_probe_records = run_optional_newform_probe(modular_routes)
 
     summary_rows = _merged_summary_rows(results, valuations, shadows)
     interesting_rows = _interesting_rows(shadows)
@@ -604,6 +782,15 @@ def run_experiment(
     padic_unit_lift_rows = [record.to_flat_dict() for record in padic_unit_lifts]
     multi_prime_rows = [record.to_flat_dict() for record in multi_prime_records]
     sparse_lemma_rows = [explanation.to_flat_dict() for explanation in sparse_lemma_explanations]
+    modular_summary_rows = _modular_shadow_summary_rows(
+        modular_routes,
+        modular_route_classifications,
+        target_traces,
+    )
+    frey_template_rows = [record.to_flat_dict() for record in target_templates]
+    trace_probe_rows = [record.to_flat_dict() for record in target_traces]
+    cross_prime_trace_rows = [record.to_flat_dict() for record in cross_prime_traces]
+    newform_probe_rows = [record.to_flat_dict() for record in newform_probe_records]
 
     _write_csv(output_dir / "summary.csv", summary_rows)
     _write_csv(output_dir / "interesting_cases.csv", interesting_rows)
@@ -619,6 +806,11 @@ def run_experiment(
     _write_csv(output_dir / "padic_unit_lift_results.csv", padic_unit_lift_rows)
     _write_csv(output_dir / "multi_prime_cluster_results.csv", multi_prime_rows)
     _write_csv(output_dir / "exact_sparse_lemma_explanations.csv", sparse_lemma_rows)
+    _write_csv(output_dir / "modular_shadow_summary.csv", modular_summary_rows)
+    _write_csv(output_dir / "frey_template_candidates.csv", frey_template_rows)
+    _write_csv(output_dir / "trace_probe_results.csv", trace_probe_rows)
+    _write_csv(output_dir / "cross_prime_trace_results.csv", cross_prime_trace_rows)
+    _write_csv(output_dir / "newform_probe_results.csv", newform_probe_rows)
 
     promoted_count = sum(1 for shadow in shadows if shadow.promotion_status == "promoted_candidate")
     classification_counts: dict[str, int] = {}
@@ -643,6 +835,12 @@ def run_experiment(
         "unit_geometry_unexplained_sparse_rows": len(unexplained_rows),
         "unit_geometry_rigid_or_collapsed_lifts": sum(1 for row in padic_unit_lift_rows if row["collapse_or_rigid"]),
         "unit_geometry_multi_prime_records": len(multi_prime_rows),
+        "modular_shadow_target_rows": len(modular_summary_rows),
+        "modular_shadow_artifact_routes": sum(1 for row in modular_summary_rows if row["artifact_verdict"] == "artifact_explained"),
+        "modular_shadow_proof_route_candidates": sum(1 for row in modular_summary_rows if row["route_promotion_status"] == "proof-route candidate"),
+        "modular_shadow_trace_rigid_candidates": sum(1 for row in modular_summary_rows if row["route_route_classification"] == "trace_rigid_candidate"),
+        "modular_shadow_newform_candidates": sum(1 for row in modular_summary_rows if row["route_route_classification"] == "newform_check_candidate"),
+        "sage_available": any(row["sage_available"] for row in newform_probe_rows),
     }
     (output_dir / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     report = _report_markdown(
@@ -680,6 +878,19 @@ def run_experiment(
         sparse_explanations=sparse_lemma_rows,
     )
     (output_dir / "README_UNIT_GEOMETRY_REPORT.md").write_text(unit_report, encoding="utf-8")
+    modular_report = _modular_shadow_report_markdown(
+        output_dir=output_dir,
+        target_count=len(modular_summary_rows),
+        artifact_count=sum(1 for row in modular_summary_rows if row["artifact_verdict"] == "artifact_explained"),
+        proof_route_count=sum(1 for row in modular_summary_rows if row["route_promotion_status"] == "proof-route candidate"),
+        trace_rigid_count=sum(1 for row in modular_summary_rows if row["route_route_classification"] == "trace_rigid_candidate"),
+        newform_candidate_count=sum(1 for row in modular_summary_rows if row["route_route_classification"] == "newform_check_candidate"),
+        sage_available=any(row["sage_available"] for row in newform_probe_rows),
+        modular_rows=modular_summary_rows,
+        cross_prime_rows=cross_prime_trace_rows,
+        template_rows=frey_template_rows,
+    )
+    (output_dir / "README_MODULAR_SHADOW_REPORT.md").write_text(modular_report, encoding="utf-8")
     return output_dir
 
 

@@ -30,12 +30,26 @@ python run_experiment.py --primes 5,7,11 --control-samples 6 --no-lift
 - `beal_rsg_lab/multi_prime_compatibility.py`: combined-density CRT checks.
 - `beal_rsg_lab/exact_sparse_lemma_generator.py`: sparse lemma explanation text.
 - `beal_rsg_lab/rsg_modular_shadow.py`: symbolic obstruction and clustering.
+- `beal_rsg_lab/signature_normalizer.py`: canonical modular-route signatures.
+- `beal_rsg_lab/frey_template_library.py`: symbolic Frey-style template records.
+- `beal_rsg_lab/finite_field_trace_probe.py`: finite-field point counts and
+  trace distributions for nonsingular candidate Frey curves.
+- `beal_rsg_lab/modular_shadow_engine.py`: modular route scoring.
+- `beal_rsg_lab/cross_prime_trace_compatibility.py`: repeated trace
+  fingerprints across primes.
+- `beal_rsg_lab/sage_optional_newform_probe.py`: optional Sage newform probe
+  hooks and skip instructions.
+- `beal_rsg_lab/modular_route_classifier.py`: proof-route sketch labels.
 - `beal_rsg_lab/run_experiment.py`: orchestration and file outputs.
 - `tests/`: deterministic unit and smoke tests.
 
 The full unit-geometry sweep with `--prime-limit 31 --control-samples 16` can
 take several minutes because it enumerates unit lifts through `ell^3` for sparse
 rows.
+
+The modular-shadow outputs should be read as route triage only. Trace-rigid
+rows may become proof-route candidates; `needs_newform_check` rows are logged
+for later Sage or modular-form work and do not count as contradictions.
 
 ## Documentation Rules
 

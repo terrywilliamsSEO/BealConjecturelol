@@ -41,8 +41,23 @@ patterns that primitive counterexamples would be forced to satisfy.
   unit-survivor lemma explanations.
 - `beal_rsg_lab/rsg_modular_shadow.py`: symbolic obstruction records,
   conductor-like complexity, Frey-curve placeholder data, and candidate ranking.
+- `beal_rsg_lab/signature_normalizer.py`: canonical signature IDs under
+  `A/B` swapping, with repeated-exponent and fourth-power flags.
+- `beal_rsg_lab/frey_template_library.py`: symbolic Frey-style template records
+  with uncertainty flags rather than proof claims.
+- `beal_rsg_lab/finite_field_trace_probe.py`: point-count and trace probes for
+  nonsingular candidate Frey curves over finite fields.
+- `beal_rsg_lab/modular_shadow_engine.py`: route scoring that combines
+  non-artifact survivor geometry, Frey templates, and trace rigidity.
+- `beal_rsg_lab/cross_prime_trace_compatibility.py`: canonical-signature trace
+  compatibility across repeated prime shadows.
+- `beal_rsg_lab/sage_optional_newform_probe.py`: optional Sage availability and
+  newform-check instructions.
+- `beal_rsg_lab/modular_route_classifier.py`: final proof-route sketch
+  classification.
 - `beal_rsg_lab/run_experiment.py`: full sweep runner that writes
-  the broad RSG files plus zero-support reports under `runs/<timestamp>/`.
+  the broad RSG files plus zero-support, unit-geometry, and modular-shadow
+  reports under `runs/<timestamp>/`.
 
 ## Quick Start
 
@@ -71,4 +86,5 @@ See:
 - [docs/reports/initial_20260620_103500.md](docs/reports/initial_20260620_103500.md)
 - [docs/reports/zero_support_20260620_105000.md](docs/reports/zero_support_20260620_105000.md)
 - [docs/reports/unit_geometry_20260620_111500.md](docs/reports/unit_geometry_20260620_111500.md)
+- [docs/reports/modular_shadow_20260620_154000.md](docs/reports/modular_shadow_20260620_154000.md)
 - [docs/AGENT_GUIDE.md](docs/AGENT_GUIDE.md)

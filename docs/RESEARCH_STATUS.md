@@ -104,6 +104,42 @@ or identical subgroup-size families. In particular, the `ell = 23` rows with
 remaining 20 rows need modular-shadow follow-up, but none collapse or become
 rigid under the current `ell^2`/`ell^3` unit-lift audit.
 
+## Modular-Shadow Router
+
+Run folder:
+
+```text
+runs/modular_shadow_20260620_154000
+```
+
+Command:
+
+```powershell
+python run_experiment.py --prime-limit 31 --control-samples 16 --timestamp modular_shadow_20260620_154000
+```
+
+Output summary:
+
+- Target sparse rows routed: `17`.
+- Artifact explained route rows: `6`.
+- Proof-route candidate rows: `0`.
+- Trace-rigid candidate rows: `0`.
+- Newform-check sketch rows: `4`.
+- Sage available: `False`.
+- Committed report: [reports/modular_shadow_20260620_154000.md](reports/modular_shadow_20260620_154000.md).
+
+Interpretation:
+
+The router found no Beal obstruction and no promoted proof-route candidate.
+Every target trace distribution matched the same-size subgroup trace support in
+the current finite-field probe. The repeated canonical signature `3-4-3`
+appears across `ell = 13, 19, 31` and is therefore logged as a
+`needs_newform_check` sketch, but it is not trace-rigid and not promoted.
+
+The `ell = 29` and `ell = 31` fourth-power bridge rows remain Frey-template
+follow-up sketches. They have reasonable symbolic template confidence, but the
+trace probes do not separate from structured controls.
+
 ## Reproducibility Note
 
 Generated `runs/` artifacts are intentionally ignored by Git to avoid turning

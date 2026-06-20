@@ -71,6 +71,43 @@ Promote rows only when:
 Rows that survive artifact checks but do not collapse under unit lifts are
 ranked as `needs modular-shadow follow-up`.
 
+## Modular-Shadow Routing
+
+The modular-shadow router is a proof-route ranking stage for the current
+non-artifact follow-up signatures:
+
+```text
+(4,7,7), (7,4,7), (5,4,5), (4,5,5),
+(3,5,5), (5,3,5), (7,7,4), (3,4,3)
+```
+
+It combines exact unit-survivor geometry with symbolic Frey-template metadata
+and finite-field trace probes. The candidate Frey template
+
+```text
+E: y^2 = x(x - A^p)(x + B^q)
+```
+
+is stored as a template record, not as a theorem. Each row carries uncertainty
+flags for minimal models, conductor computation, irreducibility, and newform
+comparison.
+
+Demote rows when:
+
+- the sparse behavior is explained by subgroup size or tiny power images;
+- finite-field trace support is no narrower than same-size structured controls;
+- the only evidence is local density.
+
+Promote only proof-route sketches when:
+
+- the row is non-artifact under the unit-geometry audit;
+- Frey-template confidence is reasonable;
+- trace distributions are unusually rigid versus structured controls.
+
+Repeated non-artifact trace fingerprints across primes may be logged as
+`needs_newform_check`, but that status is not a proof claim and is not by itself
+a promoted route.
+
 ## What Counts As Evidence
 
 Useful evidence:
@@ -80,12 +117,15 @@ Useful evidence:
 - Stable lift failure to `ell^2`.
 - Zero-class dominance that suggests shared-prime collapse.
 - Clusters with coherent radical/bad-prime support.
+- Finite-field trace distributions that separate from same-size subgroup
+  controls.
 
 Insufficient evidence:
 
 - A single sparse prime.
 - A pattern that randomized controls produce just as often.
 - A lift failure with no repeated cluster.
+- A `needs_newform_check` label without trace rigidity.
 - Any result phrased as a proof of Beal.
 
 ## Recommended Iteration

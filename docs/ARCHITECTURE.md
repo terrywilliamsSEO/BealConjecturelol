@@ -120,14 +120,40 @@ combined density and rigidity instead of claiming a contradiction.
 
 ## 7. Modular Shadow
 
-The modular-shadow layer creates symbolic obstruction records:
+The modular-shadow router is the follow-up stage for sparse unit rows that are
+not already explained as subgroup artifacts. It does not claim local
+contradictions. It ranks proof-route sketches that would need a separate
+Frey-curve, conductor, irreducibility, or newform argument.
 
-- Radical support from the exponent signature and local prime.
-- Bad-prime support using `2`, exponent radicals, and `ell`.
-- A conductor-like complexity score.
-- Placeholder Frey-curve metadata that records what a later modular method
-  would need to instantiate.
-- Cluster keys that group cases with the same obstruction shape.
+The router currently targets:
+
+```text
+(4,7,7), (7,4,7), (5,4,5), (4,5,5),
+(3,5,5), (5,3,5), (7,7,4), (3,4,3)
+```
+
+The stage is split into small records:
+
+- `signature_normalizer.py` canonicalizes signatures up to swapping `A/B` and
+  records repeated exponents, fourth-power involvement, and mixed-prime shape.
+- `frey_template_library.py` records symbolic Frey-style templates such as
+  `E: y^2 = x(x - A^p)(x + B^q)`, together with discriminant support,
+  bad-prime support, confidence, and uncertainty flags.
+- `finite_field_trace_probe.py` instantiates nonsingular candidate curves over
+  `F_ell`, counts points, computes `a_ell`, and compares trace distributions
+  against same-size subgroup controls.
+- `cross_prime_trace_compatibility.py` groups trace fingerprints by canonical
+  signature and labels repeated patterns as `trace_rigid`,
+  `trace_control_like`, `trace_artifact`, or `needs_newform_check`.
+- `sage_optional_newform_probe.py` runs only when SageMath is available. If
+  Sage is missing, it writes skip rows and instructions.
+- `modular_route_classifier.py` labels rows as proof-route sketches, artifact
+  explained rows, or follow-up candidates.
+
+Promotion is stricter than local sparsity. A row is not promoted because its
+unit survivor density is low. It must survive artifact checks, have reasonable
+template confidence, and show trace behavior that separates from structured
+same-size controls.
 
 ## 8. Experiment Runner
 
@@ -147,9 +173,17 @@ The runner writes each sweep to `runs/<timestamp>/`:
 - `unexplained_sparse_rows.csv`: rows that need modular-shadow follow-up.
 - `padic_unit_lift_results.csv`: `ell^2`/`ell^3` unit-lift behavior.
 - `multi_prime_cluster_results.csv`: CRT-style combined-density records.
+- `modular_shadow_summary.csv`: joined route, classifier, template, and trace
+  data for target signatures.
+- `frey_template_candidates.csv`: symbolic Frey-template records.
+- `trace_probe_results.csv`: finite-field trace fingerprints.
+- `cross_prime_trace_results.csv`: canonical trace compatibility records.
+- `newform_probe_results.csv`: Sage availability or optional newform-check
+  instructions.
 - `metadata.json`: parameters and reproducibility data.
 - `README_REPORT.md`: human-readable report.
 - `README_ZERO_SUPPORT_REPORT.md`: exact zero-support report.
 - `README_UNIT_GEOMETRY_REPORT.md`: sparse unit-geometry report.
+- `README_MODULAR_SHADOW_REPORT.md`: proof-route sketch report.
 
 The generated report explicitly avoids proof language.
