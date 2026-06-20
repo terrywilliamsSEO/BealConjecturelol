@@ -65,6 +65,14 @@ patterns that primitive counterexamples would be forced to satisfy.
   scoring.
 - `beal_rsg_lab/sage_export_scripts.py`: optional Sage scripts for modular
   follow-up cases.
+- `beal_rsg_lab/sage_job_generator.py`: per-signature Sage/newform job files
+  with JSON-output metadata.
+- `beal_rsg_lab/sage_result_importer.py`: Sage JSON schema validation and
+  conservative result import.
+- `beal_rsg_lab/modular_confidence_updater.py`: post-Sage route-confidence
+  updates capped at human-review candidates.
+- `beal_rsg_lab/known_case_sage_calibration.py`: known-case safety checks after
+  Sage result import.
 - `beal_rsg_lab/theorem_terrain_classifier.py`: structural theorem-terrain
   routing for diagonal FLT-style, descent, modular, local, and artifact terrain.
 - `beal_rsg_lab/calibration_confusion_matrix.py`: theorem-terrain-aware route
@@ -109,4 +117,6 @@ See:
 - [docs/reports/known_case_calibration_20260620_163000.md](docs/reports/known_case_calibration_20260620_163000.md)
 - [docs/reports/theorem_terrain_20260620_174500.md](docs/reports/theorem_terrain_20260620_174500.md)
 - [docs/reports/route_collision_20260620_181500.md](docs/reports/route_collision_20260620_181500.md)
+- [docs/reports/sage_followup_20260620_183000.md](docs/reports/sage_followup_20260620_183000.md)
+- [docs/SAGE_FOLLOWUP.md](docs/SAGE_FOLLOWUP.md)
 - [docs/AGENT_GUIDE.md](docs/AGENT_GUIDE.md)

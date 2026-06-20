@@ -197,6 +197,8 @@ The calibration runner produces:
 - route-prior scores with artifact likelihood and discovery readiness;
 - optional `.sage` scripts for finite-field trace checks and later newform
   placeholders.
+- Sage/newform follow-up jobs with machine-readable JSON imports, conservative
+  route-confidence updates, and known-case safety checks.
 
 Promotion discipline is strict: a Beal candidate should not move into discovery
 mode unless the same route type behaves correctly on calibration cases and does
@@ -212,7 +214,34 @@ modular-method signature unless artifact evidence dominates the signature. The
 only conservative resolutions are external Sage/newform checks, theorem-terrain
 routes, artifact demotion, or continued blocking; never proof promotion.
 
-## 9. Experiment Runner
+## 9. Sage/Newform Follow-Up
+
+The Sage follow-up loop starts where route collision leaves off. It collects
+signatures labeled `needs_external_sage_check`, `mixed_needs_external_check`,
+`newform_check_candidate`, or `trace_rigid_candidate` and writes:
+
+- one `.sage` job per signature;
+- a combined `run_all_sage_jobs.sage` batch file;
+- a `sage_job_manifest.csv` metadata table;
+- a `sage_results/` directory for JSON outputs.
+
+Each job includes the signature, route label, source run, candidate rows, primes
+involved, symbolic Frey template, heuristic conductor-like levels, and explicit
+limitations. The generated Sage code computes finite-field trace rows and small
+newform counts where supported, then writes JSON.
+
+`sage_result_importer.py` validates Sage JSON and rejects any row that attempts
+to allow contradiction claims. `modular_confidence_updater.py` can move a row
+only to conservative labels such as `needs_external_sage_check`,
+`sage_checked_inconclusive`, `modular_followup_candidate`, `artifact_like`, or
+`not_promising_yet`. `known_case_sage_calibration.py` verifies that artifacts
+remain demoted and known theorem/modular terrain does not become overpromoted.
+
+If SageMath is unavailable, the default run still passes. Jobs are generated,
+imports are marked `unavailable`, and the route remains queued for external
+Sage/newform review.
+
+## 10. Experiment Runner
 
 The runner writes each sweep to `runs/<timestamp>/`:
 
@@ -250,6 +279,10 @@ The runner writes each sweep to `runs/<timestamp>/`:
 - `family_expansion_results.csv`: nearby-signature fingerprint comparisons.
 - `route_prior_scores.csv`: calibrated route-priority scores.
 - `sage_export_manifest.csv`: optional Sage script manifest.
+- `sage_job_manifest.csv`: generated Sage/newform job metadata.
+- `sage_import_results.csv`: validated Sage JSON imports or skip rows.
+- `sage_known_case_calibration.csv`: known-case safety after Sage import.
+- `modular_confidence_summary.csv`: conservative post-Sage route confidence.
 - `metadata.json`: parameters and reproducibility data.
 - `README_REPORT.md`: human-readable report.
 - `README_ZERO_SUPPORT_REPORT.md`: exact zero-support report.
@@ -258,5 +291,6 @@ The runner writes each sweep to `runs/<timestamp>/`:
 - `README_KNOWN_CASE_CALIBRATION_REPORT.md`: known-case calibration report.
 - `README_THEOREM_TERRAIN_REPORT.md`: theorem-terrain calibration report.
 - `README_ROUTE_COLLISION_REPORT.md`: route-collision triage report.
+- `README_SAGE_FOLLOWUP_REPORT.md`: Sage/newform follow-up report.
 
 The generated report explicitly avoids proof language.

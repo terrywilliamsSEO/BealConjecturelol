@@ -17,7 +17,9 @@ from .exact_explanation_generator import generate_explanations
 from .exact_sparse_lemma_generator import generate_sparse_lemma_explanations
 from .finite_field_trace_probe import trace_probes_for_geometries
 from .frey_template_library import build_template_records
+from .known_case_sage_calibration import calibrate_known_cases_with_sage
 from .multi_prime_compatibility import analyze_multi_prime_compatibility
+from .modular_confidence_updater import sage_followup_report_markdown, update_modular_confidence
 from .modular_route_classifier import classify_modular_routes
 from .modular_shadow_engine import build_modular_shadow_routes
 from .number_theory import primes_up_to
@@ -27,7 +29,9 @@ from .primitive_obstruction_classifier import classify_primitive_obstructions, s
 from .rsg_modular_shadow import ShadowRecord, build_shadow_records
 from .rsg_residue_engine import DEFAULT_EXPONENTS, parse_prime_list, run_sweep
 from .rsg_valuation_engine import analyze_results
+from .sage_job_generator import generate_sage_jobs
 from .sage_optional_newform_probe import run_optional_newform_probe
+from .sage_result_importer import import_sage_results
 from .signature_normalizer import normalize_signature
 from .unit_survivor_geometry import analyze_sparse_unit_geometries
 from .zero_support_engine import analyze_zero_support_results
@@ -766,6 +770,21 @@ def run_experiment(
         control_samples=control_samples,
         seed=seed,
     )
+    sage_job_records = generate_sage_jobs(
+        output_dir=output_dir,
+        source_run=run_id,
+        calibration_records=calibration_artifacts.case_records,
+        route_prior_scores=calibration_artifacts.route_prior_scores,
+        modular_route_classifications=modular_route_classifications,
+    )
+    sage_import_records = import_sage_results(sage_job_records)
+    modular_confidence_records = update_modular_confidence(sage_job_records, sage_import_records)
+    known_case_sage_records = calibrate_known_cases_with_sage(
+        calibration_artifacts.case_records,
+        sage_job_records,
+        sage_import_records,
+        modular_confidence_records,
+    )
 
     summary_rows = _merged_summary_rows(results, valuations, shadows)
     interesting_rows = _interesting_rows(shadows)
@@ -810,6 +829,10 @@ def run_experiment(
     family_expansion_rows = [record.to_flat_dict() for record in calibration_artifacts.family_expansion_records]
     route_prior_rows = [record.to_flat_dict() for record in calibration_artifacts.route_prior_scores]
     sage_export_rows = [record.to_flat_dict() for record in calibration_artifacts.sage_export_records]
+    sage_job_rows = [record.to_flat_dict() for record in sage_job_records]
+    sage_import_rows = [record.to_flat_dict() for record in sage_import_records]
+    modular_confidence_rows = [record.to_flat_dict() for record in modular_confidence_records]
+    known_case_sage_rows = [record.to_flat_dict() for record in known_case_sage_records]
 
     _write_csv(output_dir / "summary.csv", summary_rows)
     _write_csv(output_dir / "interesting_cases.csv", interesting_rows)
@@ -841,6 +864,10 @@ def run_experiment(
     _write_csv(output_dir / "family_expansion_results.csv", family_expansion_rows)
     _write_csv(output_dir / "route_prior_scores.csv", route_prior_rows)
     _write_csv(output_dir / "sage_export_manifest.csv", sage_export_rows)
+    _write_csv(output_dir / "sage_job_manifest.csv", sage_job_rows)
+    _write_csv(output_dir / "sage_import_results.csv", sage_import_rows)
+    _write_csv(output_dir / "sage_known_case_calibration.csv", known_case_sage_rows)
+    _write_csv(output_dir / "modular_confidence_summary.csv", modular_confidence_rows)
 
     promoted_count = sum(1 for shadow in shadows if shadow.promotion_status == "promoted_candidate")
     classification_counts: dict[str, int] = {}
@@ -882,6 +909,13 @@ def run_experiment(
         "route_collision_artifact_dominates_count": sum(1 for row in route_collision_rows if row["collision_class"] == "artifact_dominates"),
         "resolved_known_mismatch_count": len(resolved_known_mismatch_rows),
         "still_blocked_mismatch_count": len(still_blocked_mismatch_rows),
+        "sage_job_count": len(sage_job_rows),
+        "sage_import_completed_count": sum(1 for row in sage_import_rows if row["sage_status"] == "completed"),
+        "sage_import_unavailable_count": sum(1 for row in sage_import_rows if row["sage_status"] == "unavailable"),
+        "sage_known_case_overpromotion_count": sum(1 for row in known_case_sage_rows if row["overpromoted"]),
+        "modular_confidence_followup_candidate_count": sum(
+            1 for row in modular_confidence_rows if row["updated_followup_label"] == "modular_followup_candidate"
+        ),
     }
     (output_dir / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     report = _report_markdown(
@@ -942,6 +976,17 @@ def run_experiment(
     )
     (output_dir / "README_ROUTE_COLLISION_REPORT.md").write_text(
         calibration_artifacts.collision_report_markdown,
+        encoding="utf-8",
+    )
+    sage_followup_report = sage_followup_report_markdown(
+        output_dir=output_dir.as_posix(),
+        jobs=sage_job_records,
+        imports=sage_import_records,
+        confidence_rows=modular_confidence_records,
+        known_case_rows=known_case_sage_records,
+    )
+    (output_dir / "README_SAGE_FOLLOWUP_REPORT.md").write_text(
+        sage_followup_report,
         encoding="utf-8",
     )
     return output_dir

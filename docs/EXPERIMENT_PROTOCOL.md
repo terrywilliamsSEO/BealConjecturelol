@@ -155,6 +155,7 @@ Every candidate now passes through this route ladder before promotion:
 7. Route modular-shadow or Sage follow-up.
 8. Assign the final calibrated route label.
 9. Resolve route collisions at signature level.
+10. Export/import Sage follow-up jobs when external checks are needed.
 
 Terrain labels include:
 
@@ -219,6 +220,36 @@ Insufficient evidence:
 - Global artifact demotion caused by one local row when modular terrain is
   otherwise validated.
 - Any result phrased as a proof of Beal.
+- A Sage route without imported JSON evidence, unless it remains explicitly
+  labeled `needs_external_sage_check`.
+
+## Sage/Newform Follow-Up
+
+Sage follow-up is an evidence-import loop, not a theorem engine. The pipeline
+collects signatures labeled `needs_external_sage_check`,
+`mixed_needs_external_check`, `newform_check_candidate`, or
+`trace_rigid_candidate`, writes one `.sage` job per signature, and expects JSON
+under `sage_results/`.
+
+Allowed Sage import statuses are:
+
+- `unavailable`
+- `completed`
+- `failed`
+- `partial`
+
+Allowed post-import labels are:
+
+- `needs_external_sage_check`
+- `sage_checked_inconclusive`
+- `modular_followup_candidate`
+- `artifact_like`
+- `not_promising_yet`
+
+Every imported JSON row must set `contradiction_claim_allowed` to `false`.
+`modular_followup_candidate` means worth human modular-method review; it is not
+a theorem claim. If Sage is missing locally, the experiment still passes and
+the rows remain `needs_external_sage_check`.
 
 ## Recommended Iteration
 

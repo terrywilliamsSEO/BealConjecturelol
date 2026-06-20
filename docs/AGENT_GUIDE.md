@@ -47,6 +47,13 @@ python run_experiment.py --primes 5,7,11 --control-samples 6 --no-lift
   expansion around known families.
 - `beal_rsg_lab/route_prior_model.py`: calibrated route-priority scoring.
 - `beal_rsg_lab/sage_export_scripts.py`: optional `.sage` script generation.
+- `beal_rsg_lab/sage_job_generator.py`: external Sage/newform job generation.
+- `beal_rsg_lab/sage_result_importer.py`: Sage JSON schema validation and
+  import.
+- `beal_rsg_lab/modular_confidence_updater.py`: conservative post-Sage route
+  confidence updates.
+- `beal_rsg_lab/known_case_sage_calibration.py`: known-case safety checks after
+  Sage import.
 - `beal_rsg_lab/theorem_terrain_classifier.py`: structural theorem-terrain
   routing.
 - `beal_rsg_lab/calibration_confusion_matrix.py`: terrain-aware route matrix.
@@ -78,6 +85,12 @@ Route-collision triage is the final calibration pass. A known modular signature
 with one artifact-prone local prime may resolve to `needs_external_sage_check`,
 but never to a proof route. True subgroup artifacts should remain
 `artifact_like`.
+
+Sage follow-up is now a generated-job and JSON-import loop. If Sage is not on
+PATH, the default run still succeeds and marks the imports `unavailable`.
+Imported Sage rows must keep `contradiction_claim_allowed` false, and the
+strongest post-import label is `modular_followup_candidate`, meaning human
+review is worthwhile.
 
 ## Documentation Rules
 

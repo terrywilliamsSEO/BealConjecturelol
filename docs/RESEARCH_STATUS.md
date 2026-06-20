@@ -257,6 +257,46 @@ artifact-collision pattern and also resolve to external Sage checks. The true
 subgroup artifacts `(11,11,13)` and `(11,11,5)` remain correctly demoted as
 `artifact_like`.
 
+## Sage/Newform Follow-Up Loop
+
+Run folder:
+
+```text
+runs/sage_followup_20260620_183000
+```
+
+Command:
+
+```powershell
+python run_experiment.py --prime-limit 31 --control-samples 16 --timestamp sage_followup_20260620_183000
+```
+
+Output summary:
+
+- Known/calibration cases: `19`.
+- Known-case mismatches: `0`.
+- Known-case external Sage routes: `12`.
+- Sage jobs generated: `13`.
+- Sage import rows: `13`.
+- Sage import `completed`: `0`.
+- Sage import `unavailable`: `13`.
+- Known-case overpromotion rows after Sage import: `0`.
+- Post-Sage `modular_followup_candidate`: `0`.
+- Committed report: [reports/sage_followup_20260620_183000.md](reports/sage_followup_20260620_183000.md).
+
+Interpretation:
+
+The Sage follow-up layer turns external-check routes into executable jobs and
+machine-readable JSON imports. Since SageMath was not available locally, every
+job was written and every import row was marked `unavailable`. This preserves
+the conservative route label `needs_external_sage_check` and prevents missing
+external data from becoming route confidence.
+
+The generated queue contains 13 signatures, including the route-collision
+signatures `(5,5,7)`, `(5,3,5)`, and `(5,4,5)`, plus the repeated
+newform-check candidates `(3,4,3)` and `(4,3,3)`. Known artifacts remain
+demoted and no known case is overpromoted after Sage import.
+
 ## Reproducibility Note
 
 Generated `runs/` artifacts are intentionally ignored by Git to avoid turning

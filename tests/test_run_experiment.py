@@ -52,9 +52,14 @@ class RunExperimentTests(unittest.TestCase):
             self.assertTrue((output / "family_expansion_results.csv").exists())
             self.assertTrue((output / "route_prior_scores.csv").exists())
             self.assertTrue((output / "sage_export_manifest.csv").exists())
+            self.assertTrue((output / "sage_job_manifest.csv").exists())
+            self.assertTrue((output / "sage_import_results.csv").exists())
+            self.assertTrue((output / "sage_known_case_calibration.csv").exists())
+            self.assertTrue((output / "modular_confidence_summary.csv").exists())
             self.assertTrue((output / "README_KNOWN_CASE_CALIBRATION_REPORT.md").exists())
             self.assertTrue((output / "README_THEOREM_TERRAIN_REPORT.md").exists())
             self.assertTrue((output / "README_ROUTE_COLLISION_REPORT.md").exists())
+            self.assertTrue((output / "README_SAGE_FOLLOWUP_REPORT.md").exists())
             metadata = json.loads((output / "metadata.json").read_text(encoding="utf-8"))
             self.assertEqual(metadata["result_count"], 16)
             self.assertIn("zero_support_classification_counts", metadata)
@@ -63,6 +68,9 @@ class RunExperimentTests(unittest.TestCase):
             self.assertIn("known_case_calibration_count", metadata)
             self.assertIn("known_case_theorem_terrain_route_count", metadata)
             self.assertIn("resolved_known_mismatch_count", metadata)
+            self.assertIn("sage_job_count", metadata)
+            self.assertIn("sage_import_unavailable_count", metadata)
+            self.assertIn("sage_known_case_overpromotion_count", metadata)
 
 
 if __name__ == "__main__":
