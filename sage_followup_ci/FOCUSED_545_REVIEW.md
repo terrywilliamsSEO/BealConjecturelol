@@ -121,11 +121,11 @@ The good-prime audit excludes primes dividing `220` and excludes the residual-pr
 - Coefficient import status: `completed`; schema valid: `True`.
 - Imported coefficient rows: `44`.
 - Rational/integer coefficients: `44`; non-rational coefficients: `0`; unclear coefficients: `0`.
-- Aggregate progress label: `trace_data_insufficient`.
+- Aggregate progress label: `trace_mismatch_candidate`.
 - Usable comparisons: `44`.
 - Coefficient-field blocked comparisons: `0`.
-- Newforms surviving all available filters: `47` of `49`.
-- Unresolved reasons: `newform_2:insufficient_or_unclear_trace_data;newform_3:insufficient_or_unclear_trace_data;newform_4:insufficient_or_unclear_trace_data;newform_5:insufficient_or_unclear_trace_data;newform_6:insufficient_or_unclear_trace_data;newform_7:insufficient_or_unclear_trace_data;newform_8:insufficient_or_unclear_trace_data;newform_9:insufficient_or_unclear_trace_data;newform_10:insufficient_or_unclear_trace_data;newform_11:insufficient_or_unclear_trace_data;newform_12:insufficient_or_unclear_trace_data;newform_13:insufficient_or_unclear_trace_data;newform_14:insufficient_or_unclear_trace_data;newform_15:insufficient_or_unclear_trace_data;newform_16:insufficient_or_unclear_trace_data;newform_17:insufficient_or_unclear_trace_data;newform_18:insufficient_or_unclear_trace_data;newform_19:insufficient_or_unclear_trace_data;newform_20:insufficient_or_unclear_trace_data;newform_21:insufficient_or_unclear_trace_data;newform_22:insufficient_or_unclear_trace_data;newform_23:insufficient_or_unclear_trace_data;newform_24:insufficient_or_unclear_trace_data;newform_25:insufficient_or_unclear_trace_data;newform_26:insufficient_or_unclear_trace_data;newform_27:insufficient_or_unclear_trace_data;newform_28:insufficient_or_unclear_trace_data;newform_29:insufficient_or_unclear_trace_data;newform_30:insufficient_or_unclear_trace_data;newform_31:insufficient_or_unclear_trace_data;newform_32:insufficient_or_unclear_trace_data;newform_33:insufficient_or_unclear_trace_data;newform_34:insufficient_or_unclear_trace_data;newform_35:insufficient_or_unclear_trace_data;newform_36:insufficient_or_unclear_trace_data;newform_37:insufficient_or_unclear_trace_data;newform_38:insufficient_or_unclear_trace_data;newform_39:insufficient_or_unclear_trace_data;newform_40:insufficient_or_unclear_trace_data;newform_41:insufficient_or_unclear_trace_data;newform_42:insufficient_or_unclear_trace_data;newform_43:insufficient_or_unclear_trace_data;newform_44:insufficient_or_unclear_trace_data;newform_45:insufficient_or_unclear_trace_data;newform_46:insufficient_or_unclear_trace_data;newform_47:insufficient_or_unclear_trace_data;newform_48:insufficient_or_unclear_trace_data`.
+- Newforms surviving all available filters: `0` of `2`.
+- Unresolved reasons: `none`.
 
 ### Frey Trace Possibilities At Good Primes
 
