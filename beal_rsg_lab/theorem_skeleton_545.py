@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 
 from .level_220_robustness_545 import LevelRobustnessRecord
+from .local_gap_summary_545 import LocalGapSummaryRecord
 from .local_coverage_audit_545 import LocalCoverageAuditRecord
 from .obstruction_progress_score import ObstructionProgressRecord
 from .small_prime_sensitivity_545 import SmallPrimeSensitivityRecord
@@ -33,12 +34,19 @@ def build_theorem_skeleton_obligations_545(
     sensitivity_rows: list[SmallPrimeSensitivityRecord],
     coverage_rows: list[LocalCoverageAuditRecord],
     level_rows: list[LevelRobustnessRecord],
+    local_gap_summary: LocalGapSummaryRecord | None = None,
 ) -> list[TheoremSkeletonObligationRecord]:
     """Return the exact obligations for a conditional `(5,4,5)` modular route."""
     coverage_gaps = sum(1 for row in coverage_rows if row.coverage_label == "local_coverage_gap")
     sensitivity_summary = ";".join(f"{row.profile_name}:{row.sensitivity_label}" for row in sensitivity_rows)
     level_summary = ";".join(
         f"{row.level}:{row.robustness_label}" for row in level_rows if row.level in {110, 220, 440}
+    )
+    local_gap_evidence = (
+        f"{local_gap_summary.overall_local_gap_label}; scope={local_gap_summary.trace_mismatch_scope_label}; "
+        f"full_coverage_eliminating_primes={local_gap_summary.full_coverage_eliminating_primes or 'none'}"
+        if local_gap_summary is not None
+        else f"Local coverage gaps flagged at {coverage_gaps} selected good primes."
     )
     return [
         TheoremSkeletonObligationRecord(
@@ -114,12 +122,12 @@ def build_theorem_skeleton_obligations_545(
         TheoremSkeletonObligationRecord(
             signature="5-4-5",
             obligation_id="TS545-008",
-            title="Local coverage for q dividing ABC",
+            title="Local valuation and reduction case split for q | ABC",
             statement="Handle reductions where q divides one or more of A,B,C, or prove they are not needed for the chosen good-prime trace step.",
-            current_evidence=f"Local coverage gaps flagged at {coverage_gaps} selected good primes.",
+            current_evidence=local_gap_evidence,
             status="local_coverage_gap" if coverage_gaps else "computed_route_evidence",
             risk_level="high" if coverage_gaps else "medium",
-            next_action="Separate good-prime trace arguments from bad-reduction or zero-support reductions.",
+            next_action="Prove the local valuation and reduction case split for q | ABC, including single-divisibility masks and singular Frey reductions.",
         ),
         TheoremSkeletonObligationRecord(
             signature="5-4-5",
@@ -157,8 +165,10 @@ def theorem_skeleton_markdown(rows: list[TheoremSkeletonObligationRecord]) -> st
         "Required Lemma 4: Level Lowering To Level 220",
         "Required Lemma 5: Level-220 Newform Exhaustion",
         "Required Lemma 6: Good-Prime Trace Exclusion",
+        "Required Lemma 7: Local Valuation And Reduction Case Split For q | ABC",
     ]
-    for title, row in zip(lemma_titles, rows[1:7]):
+    lemma_rows = list(rows[1:8])
+    for title, row in zip(lemma_titles, lemma_rows):
         lines.extend(
             [
                 f"## {title}",

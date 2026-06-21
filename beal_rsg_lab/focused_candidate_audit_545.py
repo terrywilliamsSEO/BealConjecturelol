@@ -20,6 +20,10 @@ from .frey_invariant_sanity_545 import (
     frey_invariant_sanity_markdown,
 )
 from .good_prime_selector import GoodPrimeRecord, select_good_primes_545
+from .frey_reduction_case_router_545 import (
+    FreyReductionCaseRecord,
+    build_frey_reduction_cases_545,
+)
 from .level_220_audit import (
     Level220NewformRecord,
     Level220PrimeRecord,
@@ -32,11 +36,17 @@ from .level_220_robustness_545 import (
     build_level_robustness_545,
     level_robustness_markdown,
 )
+from .local_gap_summary_545 import (
+    LocalGapSummaryRecord,
+    build_local_gap_summary_545,
+    local_gap_summary_markdown,
+)
 from .local_coverage_audit_545 import (
     LocalCoverageAuditRecord,
     build_local_coverage_audit_545,
     local_coverage_audit_markdown,
 )
+from .local_valuation_case_545 import LocalValuationCaseRecord, build_local_valuation_cases_545
 from .newform_coefficient_importer import (
     NewformCoefficientImportSummary,
     NewformCoefficientRow,
@@ -66,6 +76,11 @@ from .trace_mismatch_provenance_545 import (
     build_trace_mismatch_provenance_545,
     trace_mismatch_provenance_markdown,
 )
+from .trace_filter_case_coverage_545 import (
+    TraceFilterCaseCoverageRecord,
+    build_trace_filter_case_coverage_545,
+)
+from .valuation_mask_lift_545 import ValuationMaskLiftRecord, build_valuation_mask_lifts_545
 
 
 SIGNATURE_545 = "5-4-5"
@@ -99,6 +114,12 @@ class Focused545Artifacts:
     level_robustness_report_path: str
     theorem_skeleton_path: str
     theorem_skeleton_obligations_path: str
+    local_valuation_cases_path: str
+    valuation_mask_lift_path: str
+    frey_reduction_cases_path: str
+    trace_filter_case_coverage_path: str
+    local_gap_summary_path: str
+    local_gap_summary_report_path: str
     assumption_register_path: str
     proof_gap_summary_path: str
     proof_gap_report_path: str
@@ -224,6 +245,11 @@ def focused_545_markdown(
     invariant_rows: list[FreyInvariantSanityRecord],
     robustness_rows: list[LevelRobustnessRecord],
     skeleton_rows: list[TheoremSkeletonObligationRecord],
+    valuation_rows: list[LocalValuationCaseRecord],
+    lift_rows: list[ValuationMaskLiftRecord],
+    reduction_rows: list[FreyReductionCaseRecord],
+    case_coverage_rows: list[TraceFilterCaseCoverageRecord],
+    local_gap_summary: LocalGapSummaryRecord,
     assumption_rows: list[AssumptionRecord],
     gap_rows: list[ProofGapRecord],
     known_mismatches: int,
@@ -244,6 +270,8 @@ def focused_545_markdown(
     coverage_gap_count = sum(1 for row in coverage_rows if row.coverage_label == "local_coverage_gap")
     level_220_row = next((row for row in robustness_rows if row.level == 220), None)
     nearby_incomplete = sum(1 for row in robustness_rows if row.level != 220 and row.robustness_label == "level_data_insufficient")
+    q13_case = next((row for row in case_coverage_rows if row.prime == 13), None)
+    q17_case = next((row for row in case_coverage_rows if row.prime == 17), None)
     lines = [
         "# Focused Modular Review: `(5,4,5)`",
         "",
@@ -396,6 +424,10 @@ def focused_545_markdown(
             f"- Local coverage gaps: `{coverage_gap_count}` selected good primes.",
             f"- Level 220 robustness label: `{level_220_row.robustness_label if level_220_row else 'missing'}`.",
             f"- Nearby levels still lacking coefficient data: `{nearby_incomplete}`.",
+            f"- Local valuation scope label: `{local_gap_summary.trace_mismatch_scope_label}`.",
+            f"- Overall local gap label: `{local_gap_summary.overall_local_gap_label}`.",
+            f"- q=13 full local coverage: `{q13_case.full_local_coverage if q13_case else False}`.",
+            f"- q=17 full local coverage: `{q17_case.full_local_coverage if q17_case else False}`.",
             "",
             "### Trace Mismatch Provenance",
             "",
@@ -438,6 +470,22 @@ def focused_545_markdown(
         )
     lines.extend(
         [
+            "",
+            "### Local Valuation And Frey Reduction Coverage",
+            "",
+            "| q | eliminated newforms | nonunit possible | nonunit unresolved | full local coverage | label |",
+            "| ---: | ---: | ---: | ---: | --- | --- |",
+        ]
+    )
+    for row in case_coverage_rows[:24]:
+        lines.append(
+            f"| {row.prime} | {row.trace_filter_eliminates_newform_count} | {row.nonunit_locally_possible_count} | "
+            f"{row.nonunit_unresolved_count} | `{row.full_local_coverage}` | `{row.coverage_label}` |"
+        )
+    lines.extend(
+        [
+            "",
+            f"Local gap summary: `{local_gap_summary.overall_local_gap_label}`. Exact next lemma: {local_gap_summary.exact_next_human_lemma}",
             "",
             "### Level Robustness",
             "",
@@ -525,6 +573,12 @@ def focused_545_markdown(
             f"- `{(run_dir / 'LEVEL_220_ROBUSTNESS_545.md').as_posix()}`",
             f"- `{(run_dir / 'THEOREM_SKELETON_545.md').as_posix()}`",
             f"- `{(run_dir / 'theorem_skeleton_obligations_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'local_valuation_cases_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'valuation_mask_lift_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'frey_reduction_cases_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'trace_filter_case_coverage_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'local_gap_summary_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'LOCAL_GAP_SUMMARY_545.md').as_posix()}`",
             f"- `{(run_dir / 'assumption_register_545.csv').as_posix()}`",
             f"- `{(run_dir / 'proof_gap_summary.csv').as_posix()}`",
             f"- `{(run_dir / 'proof_gap_report.md').as_posix()}`",
@@ -590,11 +644,17 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         coefficient_summary=coefficient_summary,
         progress_row=progress_row,
     )
+    valuation_rows = build_local_valuation_cases_545(good_prime_rows)
+    lift_rows = build_valuation_mask_lifts_545(valuation_rows)
+    reduction_rows = build_frey_reduction_cases_545(valuation_rows, lift_rows)
+    case_coverage_rows = build_trace_filter_case_coverage_545(filter_rows, reduction_rows)
+    local_gap_summary = build_local_gap_summary_545(case_coverage_rows)
     skeleton_rows = build_theorem_skeleton_obligations_545(
         progress_row=progress_row,
         sensitivity_rows=sensitivity_rows,
         coverage_rows=coverage_rows,
         level_rows=robustness_rows,
+        local_gap_summary=local_gap_summary,
     )
     assumption_rows = build_assumption_register_545()
     gap_rows = build_proof_gap_records_545()
@@ -623,6 +683,12 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     robustness_report_path = run_dir / "LEVEL_220_ROBUSTNESS_545.md"
     skeleton_path = run_dir / "THEOREM_SKELETON_545.md"
     skeleton_obligations_path = run_dir / "theorem_skeleton_obligations_545.csv"
+    valuation_path = run_dir / "local_valuation_cases_545.csv"
+    lift_path = run_dir / "valuation_mask_lift_545.csv"
+    reduction_path = run_dir / "frey_reduction_cases_545.csv"
+    case_coverage_path = run_dir / "trace_filter_case_coverage_545.csv"
+    local_gap_path = run_dir / "local_gap_summary_545.csv"
+    local_gap_report_path = run_dir / "LOCAL_GAP_SUMMARY_545.md"
     assumptions_path = run_dir / "assumption_register_545.csv"
     gaps_path = run_dir / "proof_gap_summary.csv"
     gap_report_path = run_dir / "proof_gap_report.md"
@@ -643,6 +709,11 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(invariant_path, [row.to_flat_dict() for row in invariant_rows])
     _write_csv(robustness_path, [row.to_flat_dict() for row in robustness_rows])
     _write_csv(skeleton_obligations_path, [row.to_flat_dict() for row in skeleton_rows])
+    _write_csv(valuation_path, [row.to_flat_dict() for row in valuation_rows])
+    _write_csv(lift_path, [row.to_flat_dict() for row in lift_rows])
+    _write_csv(reduction_path, [row.to_flat_dict() for row in reduction_rows])
+    _write_csv(case_coverage_path, [row.to_flat_dict() for row in case_coverage_rows])
+    _write_csv(local_gap_path, [local_gap_summary.to_flat_dict()])
     _write_csv(assumptions_path, [row.to_flat_dict() for row in assumption_rows])
     _write_csv(gaps_path, [row.to_flat_dict() for row in gap_rows])
     provenance_report_path.write_text(trace_mismatch_provenance_markdown(provenance_rows), encoding="utf-8")
@@ -651,6 +722,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     invariant_report_path.write_text(frey_invariant_sanity_markdown(invariant_rows), encoding="utf-8")
     robustness_report_path.write_text(level_robustness_markdown(robustness_rows), encoding="utf-8")
     skeleton_path.write_text(theorem_skeleton_markdown(skeleton_rows), encoding="utf-8")
+    local_gap_report_path.write_text(local_gap_summary_markdown(local_gap_summary), encoding="utf-8")
     gap_report_path.write_text(proof_gap_report_markdown(output_dir=run_dir, rows=gap_rows), encoding="utf-8")
     focused_report_path.write_text(
         focused_545_markdown(
@@ -675,6 +747,11 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             invariant_rows=invariant_rows,
             robustness_rows=robustness_rows,
             skeleton_rows=skeleton_rows,
+            valuation_rows=valuation_rows,
+            lift_rows=lift_rows,
+            reduction_rows=reduction_rows,
+            case_coverage_rows=case_coverage_rows,
+            local_gap_summary=local_gap_summary,
             assumption_rows=assumption_rows,
             gap_rows=gap_rows,
             known_mismatches=known_mismatches,
@@ -707,6 +784,12 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         level_robustness_report_path=robustness_report_path.as_posix(),
         theorem_skeleton_path=skeleton_path.as_posix(),
         theorem_skeleton_obligations_path=skeleton_obligations_path.as_posix(),
+        local_valuation_cases_path=valuation_path.as_posix(),
+        valuation_mask_lift_path=lift_path.as_posix(),
+        frey_reduction_cases_path=reduction_path.as_posix(),
+        trace_filter_case_coverage_path=case_coverage_path.as_posix(),
+        local_gap_summary_path=local_gap_path.as_posix(),
+        local_gap_summary_report_path=local_gap_report_path.as_posix(),
         assumption_register_path=assumptions_path.as_posix(),
         proof_gap_summary_path=gaps_path.as_posix(),
         proof_gap_report_path=gap_report_path.as_posix(),

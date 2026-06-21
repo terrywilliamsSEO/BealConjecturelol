@@ -83,6 +83,15 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
         ),
         ProofGapRecord(
             signature=signature,
+            gap_category="local_valuation_reduction_gap",
+            gap_status="open",
+            description="The good-prime trace mismatch is currently unit-case evidence; reductions with q dividing A, B, or C require separate valuation and Frey-reduction handling.",
+            required_next_lemma="Prove the local valuation and reduction case split for q | ABC, including single-divisibility masks and singular Frey reductions.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
             gap_category="control_artifact_gap",
             gap_status="open",
             description="One 5-4-5 sparse row at ell=11 is artifact-explained; the non-artifact ell=31 row is not yet connected to the level-220 route.",
@@ -118,11 +127,11 @@ def proof_gap_report_markdown(*, output_dir: Path, rows: Iterable[ProofGapRecord
             (
                 "To advance `(5,4,5)`, a human should first prove the Frey-curve attachment and conductor/level-lowering "
                 "lemmas: every primitive solution must yield the stated Frey object, its residual representation must be "
-                "irreducible, and its true conductor must lower to the claimed comparison level. Only after that should "
-                "the two level-220 newforms be tested with q-expansion trace congruences at good primes."
+                "irreducible, and its true conductor must lower to the claimed comparison level. The same package must "
+                "include the local valuation and reduction case split for q | ABC before the two level-220 newforms are "
+                "tested with q-expansion trace congruences at good primes."
             ),
             "",
         ]
     )
     return "\n".join(lines)
-
