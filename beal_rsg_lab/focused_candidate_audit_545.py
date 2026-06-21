@@ -14,6 +14,11 @@ from .frey_template_validity_audit import (
     FreyTemplateValidityRecord,
     build_frey_template_validity_audit_545,
 )
+from .frey_invariant_sanity_545 import (
+    FreyInvariantSanityRecord,
+    build_frey_invariant_sanity_545,
+    frey_invariant_sanity_markdown,
+)
 from .good_prime_selector import GoodPrimeRecord, select_good_primes_545
 from .level_220_audit import (
     Level220NewformRecord,
@@ -21,6 +26,16 @@ from .level_220_audit import (
     build_level_220_newform_records,
     build_level_220_prime_records,
     factorization_220,
+)
+from .level_220_robustness_545 import (
+    LevelRobustnessRecord,
+    build_level_robustness_545,
+    level_robustness_markdown,
+)
+from .local_coverage_audit_545 import (
+    LocalCoverageAuditRecord,
+    build_local_coverage_audit_545,
+    local_coverage_audit_markdown,
 )
 from .newform_coefficient_importer import (
     NewformCoefficientImportSummary,
@@ -30,12 +45,27 @@ from .newform_coefficient_importer import (
 from .obstruction_progress_score import ObstructionProgressRecord, score_obstruction_progress_545
 from .proof_gap_report import ProofGapRecord, build_proof_gap_records_545, proof_gap_report_markdown
 from .sage_level_220_newform_expander import write_sage_level_220_newform_expander
+from .small_prime_sensitivity_545 import (
+    SmallPrimeSensitivityRecord,
+    build_small_prime_sensitivity_545,
+    small_prime_sensitivity_markdown,
+)
+from .theorem_skeleton_545 import (
+    TheoremSkeletonObligationRecord,
+    build_theorem_skeleton_obligations_545,
+    theorem_skeleton_markdown,
+)
 from .trace_congruence_filter_545 import (
     TraceCongruenceFilterRecord,
     build_trace_congruence_filter_545,
     load_level_220_coefficients,
 )
 from .trace_comparison_audit import TraceComparisonAuditRecord, build_trace_comparison_audit_545
+from .trace_mismatch_provenance_545 import (
+    TraceMismatchProvenanceRecord,
+    build_trace_mismatch_provenance_545,
+    trace_mismatch_provenance_markdown,
+)
 
 
 SIGNATURE_545 = "5-4-5"
@@ -57,6 +87,18 @@ class Focused545Artifacts:
     obstruction_progress_path: str
     coefficient_import_summary_path: str
     coefficient_import_rows_path: str
+    trace_mismatch_provenance_path: str
+    trace_mismatch_provenance_report_path: str
+    small_prime_sensitivity_path: str
+    small_prime_sensitivity_report_path: str
+    local_coverage_audit_path: str
+    local_coverage_audit_report_path: str
+    frey_invariant_sanity_path: str
+    frey_invariant_sanity_report_path: str
+    level_robustness_path: str
+    level_robustness_report_path: str
+    theorem_skeleton_path: str
+    theorem_skeleton_obligations_path: str
     assumption_register_path: str
     proof_gap_summary_path: str
     proof_gap_report_path: str
@@ -176,6 +218,12 @@ def focused_545_markdown(
     progress_row: ObstructionProgressRecord,
     coefficient_summary: NewformCoefficientImportSummary,
     coefficient_rows: list[NewformCoefficientRow],
+    provenance_rows: list[TraceMismatchProvenanceRecord],
+    sensitivity_rows: list[SmallPrimeSensitivityRecord],
+    coverage_rows: list[LocalCoverageAuditRecord],
+    invariant_rows: list[FreyInvariantSanityRecord],
+    robustness_rows: list[LevelRobustnessRecord],
+    skeleton_rows: list[TheoremSkeletonObligationRecord],
     assumption_rows: list[AssumptionRecord],
     gap_rows: list[ProofGapRecord],
     known_mismatches: int,
@@ -184,6 +232,18 @@ def focused_545_markdown(
     """Return the focused 5-4-5 Markdown report."""
     audit_label = str(audit_row.get("audit_review_label", "not_available")) if audit_row else "not_available"
     priority = str(audit_row.get("priority", "")) if audit_row else ""
+    provenance_firsts = sorted(
+        {
+            f"newform_{row.newform_index}:q={row.prime}"
+            for row in provenance_rows
+            if row.is_first_eliminating_prime
+        }
+    )
+    q3_profile = next((row for row in sensitivity_rows if row.profile_name == "exclude_q_3"), None)
+    q17_profile = next((row for row in sensitivity_rows if row.profile_name == "use_only_q_ge_17"), None)
+    coverage_gap_count = sum(1 for row in coverage_rows if row.coverage_label == "local_coverage_gap")
+    level_220_row = next((row for row in robustness_rows if row.level == 220), None)
+    nearby_incomplete = sum(1 for row in robustness_rows if row.level != 220 and row.robustness_label == "level_data_insufficient")
     lines = [
         "# Focused Modular Review: `(5,4,5)`",
         "",
@@ -328,6 +388,86 @@ def focused_545_markdown(
             "",
             "If coefficient-field handling blocks comparison, the next human check is to choose and justify the prime above `5` in the newform coefficient field, then redo the trace congruence in that residue field.",
             "",
+            "## Trace Mismatch Robustness",
+            "",
+            f"- First eliminating primes: `{';'.join(provenance_firsts) or 'none'}`.",
+            f"- Excluding `q=3`: `{q3_profile.sensitivity_label if q3_profile else 'missing'}` with `{q3_profile.eliminated_newform_count if q3_profile else 0}` eliminated newforms.",
+            f"- Using only `q >= 17`: `{q17_profile.sensitivity_label if q17_profile else 'missing'}` with `{q17_profile.eliminated_newform_count if q17_profile else 0}` eliminated newforms.",
+            f"- Local coverage gaps: `{coverage_gap_count}` selected good primes.",
+            f"- Level 220 robustness label: `{level_220_row.robustness_label if level_220_row else 'missing'}`.",
+            f"- Nearby levels still lacking coefficient data: `{nearby_incomplete}`.",
+            "",
+            "### Trace Mismatch Provenance",
+            "",
+            "| newform | q | a_q | mode | classification | first eliminator |",
+            "| ---: | ---: | --- | --- | --- | --- |",
+        ]
+    )
+    for row in provenance_rows[:48]:
+        lines.append(
+            f"| {row.newform_index} | {row.prime} | `{row.newform_coefficient or 'missing'}` | "
+            f"`{row.comparison_mode}` | `{row.filter_classification}` | `{row.is_first_eliminating_prime}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "### Small-Prime Sensitivity",
+            "",
+            "| profile | surviving | eliminated | first eliminators | label |",
+            "| --- | ---: | ---: | --- | --- |",
+        ]
+    )
+    for row in sensitivity_rows:
+        lines.append(
+            f"| `{row.profile_name}` | {row.surviving_newform_count} | {row.eliminated_newform_count} | "
+            f"`{row.first_eliminating_primes or 'none'}` | `{row.sensitivity_label}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "### Local Coverage Audit",
+            "",
+            "| q | unit residue cases | zero-support cases | excluded cases | label |",
+            "| ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    for row in coverage_rows[:24]:
+        lines.append(
+            f"| {row.prime} | {row.residue_unit_solution_count} | {row.zero_support_solution_count} | "
+            f"{row.cases_excluded_from_trace_comparison} | `{row.coverage_label}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "### Level Robustness",
+            "",
+            "| level | newforms | coefficient status | trace status | label |",
+            "| ---: | ---: | --- | --- | --- |",
+        ]
+    )
+    for row in robustness_rows:
+        lines.append(
+            f"| {row.level} | {row.newform_count} | `{row.coefficient_status}` | "
+            f"`{row.trace_filter_status}` | `{row.robustness_label}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "### Theorem Skeleton Summary",
+            "",
+            "| obligation | status | risk | next action |",
+            "| --- | --- | --- | --- |",
+        ]
+    )
+    for row in skeleton_rows:
+        lines.append(
+            f"| `{row.obligation_id}` | `{row.status}` | `{row.risk_level}` | {row.next_action} |"
+        )
+    lines.extend(
+        [
+            "",
+            "The exact next human mathematical task is to prove the Frey attachment, conductor/level-lowering, residual mod-5 irreducibility, level-220 target-space exhaustion, and local-coverage lemmas needed to turn this route evidence into a valid modular argument.",
+            "",
             "## Assumption Register",
             "",
             "| id | status | risk | required for | next action |",
@@ -373,6 +513,18 @@ def focused_545_markdown(
             f"- `{(run_dir / 'obstruction_progress_545.csv').as_posix()}`",
             f"- `{(run_dir / 'level_220_coefficient_import_summary.csv').as_posix()}`",
             f"- `{(run_dir / 'level_220_coefficient_rows.csv').as_posix()}`",
+            f"- `{(run_dir / 'trace_mismatch_provenance_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'TRACE_MISMATCH_PROVENANCE_545.md').as_posix()}`",
+            f"- `{(run_dir / 'small_prime_sensitivity_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'SMALL_PRIME_SENSITIVITY_545.md').as_posix()}`",
+            f"- `{(run_dir / 'local_coverage_audit_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'LOCAL_COVERAGE_AUDIT_545.md').as_posix()}`",
+            f"- `{(run_dir / 'frey_invariant_sanity_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'FREY_INVARIANT_SANITY_545.md').as_posix()}`",
+            f"- `{(run_dir / 'level_robustness_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'LEVEL_220_ROBUSTNESS_545.md').as_posix()}`",
+            f"- `{(run_dir / 'THEOREM_SKELETON_545.md').as_posix()}`",
+            f"- `{(run_dir / 'theorem_skeleton_obligations_545.csv').as_posix()}`",
             f"- `{(run_dir / 'assumption_register_545.csv').as_posix()}`",
             f"- `{(run_dir / 'proof_gap_summary.csv').as_posix()}`",
             f"- `{(run_dir / 'proof_gap_report.md').as_posix()}`",
@@ -430,6 +582,20 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         residual_modulus=5,
     )
     progress_row = score_obstruction_progress_545(filter_rows, newform_count=newform_count)
+    provenance_rows = build_trace_mismatch_provenance_545(filter_rows)
+    sensitivity_rows = build_small_prime_sensitivity_545(filter_rows, newform_count=newform_count)
+    coverage_rows = build_local_coverage_audit_545(good_prime_rows, frey_trace_rows)
+    invariant_rows = build_frey_invariant_sanity_545()
+    robustness_rows = build_level_robustness_545(
+        coefficient_summary=coefficient_summary,
+        progress_row=progress_row,
+    )
+    skeleton_rows = build_theorem_skeleton_obligations_545(
+        progress_row=progress_row,
+        sensitivity_rows=sensitivity_rows,
+        coverage_rows=coverage_rows,
+        level_rows=robustness_rows,
+    )
     assumption_rows = build_assumption_register_545()
     gap_rows = build_proof_gap_records_545()
 
@@ -445,6 +611,18 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     progress_path = run_dir / "obstruction_progress_545.csv"
     coefficient_summary_path = run_dir / "level_220_coefficient_import_summary.csv"
     coefficient_rows_path = run_dir / "level_220_coefficient_rows.csv"
+    provenance_path = run_dir / "trace_mismatch_provenance_545.csv"
+    provenance_report_path = run_dir / "TRACE_MISMATCH_PROVENANCE_545.md"
+    sensitivity_path = run_dir / "small_prime_sensitivity_545.csv"
+    sensitivity_report_path = run_dir / "SMALL_PRIME_SENSITIVITY_545.md"
+    coverage_path = run_dir / "local_coverage_audit_545.csv"
+    coverage_report_path = run_dir / "LOCAL_COVERAGE_AUDIT_545.md"
+    invariant_path = run_dir / "frey_invariant_sanity_545.csv"
+    invariant_report_path = run_dir / "FREY_INVARIANT_SANITY_545.md"
+    robustness_path = run_dir / "level_robustness_545.csv"
+    robustness_report_path = run_dir / "LEVEL_220_ROBUSTNESS_545.md"
+    skeleton_path = run_dir / "THEOREM_SKELETON_545.md"
+    skeleton_obligations_path = run_dir / "theorem_skeleton_obligations_545.csv"
     assumptions_path = run_dir / "assumption_register_545.csv"
     gaps_path = run_dir / "proof_gap_summary.csv"
     gap_report_path = run_dir / "proof_gap_report.md"
@@ -459,8 +637,20 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(progress_path, [progress_row.to_flat_dict()])
     _write_csv(coefficient_summary_path, [coefficient_summary.to_flat_dict()])
     _write_csv(coefficient_rows_path, [row.to_flat_dict() for row in coefficient_rows])
+    _write_csv(provenance_path, [row.to_flat_dict() for row in provenance_rows])
+    _write_csv(sensitivity_path, [row.to_flat_dict() for row in sensitivity_rows])
+    _write_csv(coverage_path, [row.to_flat_dict() for row in coverage_rows])
+    _write_csv(invariant_path, [row.to_flat_dict() for row in invariant_rows])
+    _write_csv(robustness_path, [row.to_flat_dict() for row in robustness_rows])
+    _write_csv(skeleton_obligations_path, [row.to_flat_dict() for row in skeleton_rows])
     _write_csv(assumptions_path, [row.to_flat_dict() for row in assumption_rows])
     _write_csv(gaps_path, [row.to_flat_dict() for row in gap_rows])
+    provenance_report_path.write_text(trace_mismatch_provenance_markdown(provenance_rows), encoding="utf-8")
+    sensitivity_report_path.write_text(small_prime_sensitivity_markdown(sensitivity_rows), encoding="utf-8")
+    coverage_report_path.write_text(local_coverage_audit_markdown(coverage_rows), encoding="utf-8")
+    invariant_report_path.write_text(frey_invariant_sanity_markdown(invariant_rows), encoding="utf-8")
+    robustness_report_path.write_text(level_robustness_markdown(robustness_rows), encoding="utf-8")
+    skeleton_path.write_text(theorem_skeleton_markdown(skeleton_rows), encoding="utf-8")
     gap_report_path.write_text(proof_gap_report_markdown(output_dir=run_dir, rows=gap_rows), encoding="utf-8")
     focused_report_path.write_text(
         focused_545_markdown(
@@ -479,6 +669,12 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             progress_row=progress_row,
             coefficient_summary=coefficient_summary,
             coefficient_rows=coefficient_rows,
+            provenance_rows=provenance_rows,
+            sensitivity_rows=sensitivity_rows,
+            coverage_rows=coverage_rows,
+            invariant_rows=invariant_rows,
+            robustness_rows=robustness_rows,
+            skeleton_rows=skeleton_rows,
             assumption_rows=assumption_rows,
             gap_rows=gap_rows,
             known_mismatches=known_mismatches,
@@ -499,6 +695,18 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         obstruction_progress_path=progress_path.as_posix(),
         coefficient_import_summary_path=coefficient_summary_path.as_posix(),
         coefficient_import_rows_path=coefficient_rows_path.as_posix(),
+        trace_mismatch_provenance_path=provenance_path.as_posix(),
+        trace_mismatch_provenance_report_path=provenance_report_path.as_posix(),
+        small_prime_sensitivity_path=sensitivity_path.as_posix(),
+        small_prime_sensitivity_report_path=sensitivity_report_path.as_posix(),
+        local_coverage_audit_path=coverage_path.as_posix(),
+        local_coverage_audit_report_path=coverage_report_path.as_posix(),
+        frey_invariant_sanity_path=invariant_path.as_posix(),
+        frey_invariant_sanity_report_path=invariant_report_path.as_posix(),
+        level_robustness_path=robustness_path.as_posix(),
+        level_robustness_report_path=robustness_report_path.as_posix(),
+        theorem_skeleton_path=skeleton_path.as_posix(),
+        theorem_skeleton_obligations_path=skeleton_obligations_path.as_posix(),
         assumption_register_path=assumptions_path.as_posix(),
         proof_gap_summary_path=gaps_path.as_posix(),
         proof_gap_report_path=gap_report_path.as_posix(),

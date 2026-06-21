@@ -85,6 +85,18 @@ jobs:
             runs/${{ env.RUN_ID }}/frey_trace_possibilities_545.csv
             runs/${{ env.RUN_ID }}/trace_congruence_filter_545.csv
             runs/${{ env.RUN_ID }}/obstruction_progress_545.csv
+            runs/${{ env.RUN_ID }}/trace_mismatch_provenance_545.csv
+            runs/${{ env.RUN_ID }}/TRACE_MISMATCH_PROVENANCE_545.md
+            runs/${{ env.RUN_ID }}/small_prime_sensitivity_545.csv
+            runs/${{ env.RUN_ID }}/SMALL_PRIME_SENSITIVITY_545.md
+            runs/${{ env.RUN_ID }}/local_coverage_audit_545.csv
+            runs/${{ env.RUN_ID }}/LOCAL_COVERAGE_AUDIT_545.md
+            runs/${{ env.RUN_ID }}/frey_invariant_sanity_545.csv
+            runs/${{ env.RUN_ID }}/FREY_INVARIANT_SANITY_545.md
+            runs/${{ env.RUN_ID }}/level_robustness_545.csv
+            runs/${{ env.RUN_ID }}/LEVEL_220_ROBUSTNESS_545.md
+            runs/${{ env.RUN_ID }}/THEOREM_SKELETON_545.md
+            runs/${{ env.RUN_ID }}/theorem_skeleton_obligations_545.csv
             runs/${{ env.RUN_ID }}/FOCUSED_545_REVIEW.md
             runs/${{ env.RUN_ID }}/sage_import_results.csv
             runs/${{ env.RUN_ID }}/sage_known_case_calibration.csv
@@ -133,6 +145,18 @@ jobs:
             "runs/$RUN_ID/frey_trace_possibilities_545.csv" \
             "runs/$RUN_ID/trace_congruence_filter_545.csv" \
             "runs/$RUN_ID/obstruction_progress_545.csv" \
+            "runs/$RUN_ID/trace_mismatch_provenance_545.csv" \
+            "runs/$RUN_ID/TRACE_MISMATCH_PROVENANCE_545.md" \
+            "runs/$RUN_ID/small_prime_sensitivity_545.csv" \
+            "runs/$RUN_ID/SMALL_PRIME_SENSITIVITY_545.md" \
+            "runs/$RUN_ID/local_coverage_audit_545.csv" \
+            "runs/$RUN_ID/LOCAL_COVERAGE_AUDIT_545.md" \
+            "runs/$RUN_ID/frey_invariant_sanity_545.csv" \
+            "runs/$RUN_ID/FREY_INVARIANT_SANITY_545.md" \
+            "runs/$RUN_ID/level_robustness_545.csv" \
+            "runs/$RUN_ID/LEVEL_220_ROBUSTNESS_545.md" \
+            "runs/$RUN_ID/THEOREM_SKELETON_545.md" \
+            "runs/$RUN_ID/theorem_skeleton_obligations_545.csv" \
             "runs/$RUN_ID/FOCUSED_545_REVIEW.md" \
             "runs/$RUN_ID/sage_import_results.csv" \
             "runs/$RUN_ID/sage_known_case_calibration.csv" \
