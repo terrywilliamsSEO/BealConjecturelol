@@ -1,4 +1,4 @@
-"""Multiplicative-reduction congruence audit for focused `(5,4,5)` branches."""
+"""Multiplicative-reduction congruence audit for focused `(5,4,5)` eliminating-prime branches."""
 
 from __future__ import annotations
 

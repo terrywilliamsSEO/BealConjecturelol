@@ -19,6 +19,7 @@ from beal_rsg_lab.trace_congruence_filter_545 import TraceCongruenceFilterRecord
 
 
 FORBIDDEN_LABELS = {"proof", "proven", "solved", "contradiction", "disproof", "disproven"}
+FOCUSED_PRIMES = {3, 13, 17, 41, 61}
 
 
 def _filter_row(prime: int, newform_index: int, classification: str, coefficient: str) -> TraceCongruenceFilterRecord:
@@ -43,10 +44,16 @@ def _filter_row(prime: int, newform_index: int, classification: str, coefficient
 
 def _focused_filter_rows() -> list[TraceCongruenceFilterRecord]:
     return [
+        _filter_row(3, 0, "eliminated", "0"),
+        _filter_row(3, 1, "survives", "1"),
         _filter_row(13, 0, "survives", "-4"),
         _filter_row(13, 1, "eliminated", "0"),
         _filter_row(17, 0, "eliminated", "0"),
         _filter_row(17, 1, "survives", "-4"),
+        _filter_row(41, 0, "eliminated", "0"),
+        _filter_row(41, 1, "survives", "1"),
+        _filter_row(61, 0, "eliminated", "2"),
+        _filter_row(61, 1, "survives", "0"),
     ]
 
 
@@ -63,10 +70,11 @@ def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
 
 
 class FreyReductionDiagnostics545Tests(unittest.TestCase):
-    def test_q13_q17_single_masks_are_included_with_multiplicative_diagnostics(self) -> None:
+    def test_focused_prime_single_masks_are_included_with_multiplicative_diagnostics(self) -> None:
         rows = build_frey_reduction_diagnostics_545()
-        self.assertEqual({row.prime for row in rows}, {13, 17})
+        self.assertEqual({row.prime for row in rows}, FOCUSED_PRIMES)
         self.assertEqual({row.valuation_mask for row in rows}, {"A_only", "B_only", "C_only"})
+        self.assertEqual(len(rows), 15)
         self.assertTrue(all(row.reduction_type == "multiplicative_reduction" for row in rows))
         self.assertTrue(all(row.c4_valuation == "0" for row in rows))
         self.assertTrue(all(row.c6_valuation == "0" for row in rows))
@@ -125,12 +133,36 @@ class FreyReductionDiagnostics545Tests(unittest.TestCase):
                         "level": 220,
                         "weight": 2,
                         "sage_status": "completed",
-                        "selected_good_primes": [13, 17],
+                        "selected_good_primes": [3, 13, 17, 41, 61],
                         "newform_count": 2,
                         "coefficient_rows": [
                             {
                                 "newform_index": 0,
                                 "newform_label": "f0",
+                                "prime": 3,
+                                "coefficient": "0",
+                                "coefficient_field": "Rational Field",
+                                "coefficient_field_kind": "rational_integer",
+                                "is_rational_integer": True,
+                                "reduction_mod_5_available": True,
+                                "coefficient_mod_5": "0",
+                                "row_status": "completed",
+                            },
+                            {
+                                "newform_index": 1,
+                                "newform_label": "f1",
+                                "prime": 3,
+                                "coefficient": "1",
+                                "coefficient_field": "Rational Field",
+                                "coefficient_field_kind": "rational_integer",
+                                "is_rational_integer": True,
+                                "reduction_mod_5_available": True,
+                                "coefficient_mod_5": "1",
+                                "row_status": "completed",
+                            },
+                            {
+                                "newform_index": 0,
+                                "newform_label": "f0",
                                 "prime": 13,
                                 "coefficient": "-4",
                                 "coefficient_field": "Rational Field",
@@ -174,6 +206,54 @@ class FreyReductionDiagnostics545Tests(unittest.TestCase):
                                 "is_rational_integer": True,
                                 "reduction_mod_5_available": True,
                                 "coefficient_mod_5": "1",
+                                "row_status": "completed",
+                            },
+                            {
+                                "newform_index": 0,
+                                "newform_label": "f0",
+                                "prime": 41,
+                                "coefficient": "0",
+                                "coefficient_field": "Rational Field",
+                                "coefficient_field_kind": "rational_integer",
+                                "is_rational_integer": True,
+                                "reduction_mod_5_available": True,
+                                "coefficient_mod_5": "0",
+                                "row_status": "completed",
+                            },
+                            {
+                                "newform_index": 1,
+                                "newform_label": "f1",
+                                "prime": 41,
+                                "coefficient": "1",
+                                "coefficient_field": "Rational Field",
+                                "coefficient_field_kind": "rational_integer",
+                                "is_rational_integer": True,
+                                "reduction_mod_5_available": True,
+                                "coefficient_mod_5": "1",
+                                "row_status": "completed",
+                            },
+                            {
+                                "newform_index": 0,
+                                "newform_label": "f0",
+                                "prime": 61,
+                                "coefficient": "2",
+                                "coefficient_field": "Rational Field",
+                                "coefficient_field_kind": "rational_integer",
+                                "is_rational_integer": True,
+                                "reduction_mod_5_available": True,
+                                "coefficient_mod_5": "2",
+                                "row_status": "completed",
+                            },
+                            {
+                                "newform_index": 1,
+                                "newform_label": "f1",
+                                "prime": 61,
+                                "coefficient": "0",
+                                "coefficient_field": "Rational Field",
+                                "coefficient_field_kind": "rational_integer",
+                                "is_rational_integer": True,
+                                "reduction_mod_5_available": True,
+                                "coefficient_mod_5": "0",
                                 "row_status": "completed",
                             },
                         ],
@@ -199,7 +279,7 @@ class FreyReductionDiagnostics545Tests(unittest.TestCase):
                 self.assertTrue(Path(path).exists())
             with Path(artifacts.single_mask_newform_pressure_path).open(newline="", encoding="utf-8") as handle:
                 pressure_rows = list(csv.DictReader(handle))
-            self.assertEqual({row["prime"] for row in pressure_rows}, {"13", "17"})
+            self.assertEqual({int(row["prime"]) for row in pressure_rows}, FOCUSED_PRIMES)
             self.assertEqual({row["valuation_mask"] for row in pressure_rows}, {"A_only", "B_only", "C_only"})
             self.assertTrue(all(row["route_ceiling_label"] == "worth_human_modular_review" for row in pressure_rows))
             with Path(artifacts.trace_filter_case_coverage_path).open(newline="", encoding="utf-8") as handle:
@@ -208,7 +288,7 @@ class FreyReductionDiagnostics545Tests(unittest.TestCase):
             report = Path(artifacts.focused_report_path).read_text(encoding="utf-8")
             self.assertIn("Focused Frey Reduction Diagnostics", report)
             self.assertIn(
-                "Run the Tate algorithm / reduction analysis for the Frey curve at q=13 and q=17 under A_only, B_only, and C_only.",
+                "Run the Tate algorithm / reduction analysis for the Frey curve at q in {3,13,17,41,61} under A_only, B_only, and C_only.",
                 report,
             )
             self.assertIn("Highest allowed label in this pipeline: `worth_human_modular_review`.", report)

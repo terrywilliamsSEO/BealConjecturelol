@@ -1,4 +1,4 @@
-"""Focused nonunit branch elimination audit for q=13 and q=17."""
+"""Focused nonunit branch elimination audit for the selected eliminating good primes."""
 
 from __future__ import annotations
 
@@ -10,13 +10,13 @@ from .local_valuation_case_545 import build_local_valuation_cases_545
 from .valuation_mask_lift_545 import build_valuation_mask_lifts_545
 
 
-TARGET_PRIMES_545 = (13, 17)
+TARGET_PRIMES_545 = (3, 13, 17, 41, 61)
 NONUNIT_MASKS = ("A_only", "B_only", "C_only", "AB", "AC", "BC", "ABC")
 
 
 @dataclass(frozen=True)
 class NonunitEliminationRecord:
-    """Nonunit branch status for q=13 or q=17."""
+    """Nonunit branch status for one focused eliminating good prime."""
 
     signature: str
     prime: int

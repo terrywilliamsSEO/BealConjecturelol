@@ -9,6 +9,11 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from .assumption_register import AssumptionRecord, build_assumption_register_545
+from .best_eliminating_prime_545 import (
+    BestEliminatingPrimeRecord,
+    best_eliminating_prime_545_markdown,
+    build_best_eliminating_prime_545,
+)
 from .frey_trace_possibility_545 import FreyTracePossibilityRecord, build_frey_trace_possibilities_545
 from .frey_template_validity_audit import (
     FreyTemplateValidityRecord,
@@ -154,6 +159,8 @@ class Focused545Artifacts:
     single_mask_newform_pressure_path: str
     multiplicative_reduction_congruence_path: str
     local_case_closure_score_path: str
+    best_eliminating_prime_path: str
+    best_eliminating_prime_report_path: str
     nonunit_newform_filter_path: str
     local_case_decision_tree_path: str
     assumption_register_path: str
@@ -293,6 +300,7 @@ def focused_545_markdown(
     single_mask_pressure_rows: list[SingleMaskNewformPressureRecord],
     multiplicative_congruence_rows: list[MultiplicativeReductionCongruenceRecord],
     closure_score_rows: list[LocalCaseClosureScoreRecord],
+    best_prime_rows: list[BestEliminatingPrimeRecord],
     nonunit_filter_rows: list[NonunitNewformFilterRecord],
     assumption_rows: list[AssumptionRecord],
     gap_rows: list[ProofGapRecord],
@@ -314,21 +322,18 @@ def focused_545_markdown(
     coverage_gap_count = sum(1 for row in coverage_rows if row.coverage_label == "local_coverage_gap")
     level_220_row = next((row for row in robustness_rows if row.level == 220), None)
     nearby_incomplete = sum(1 for row in robustness_rows if row.level != 220 and row.robustness_label == "level_data_insufficient")
-    q13_case = next((row for row in case_coverage_rows if row.prime == 13), None)
-    q17_case = next((row for row in case_coverage_rows if row.prime == 17), None)
-    nonunit_decision_by_prime = {row.prime: row for row in nonunit_filter_rows}
-    q13_nonunit = nonunit_decision_by_prime.get(13)
-    q17_nonunit = nonunit_decision_by_prime.get(17)
+    focused_prime_text = ";".join(str(row.prime) for row in closure_score_rows) or "none"
+    best_prime = best_prime_rows[0] if best_prime_rows else None
     pressure_labels = sorted({row.prime_local_label for row in single_mask_pressure_rows})
     closure_labels = sorted({row.closure_label for row in closure_score_rows})
     focused_nonunit_note = (
         (
-            "The q=13/q=17 single-mask branches are classified by the diagnostic layer; this is only "
+            "At least one focused eliminating prime has all tracked local branches closed by the audit; this is only "
             "`local_case_elimination_candidate` route evidence and keeps the review ceiling unchanged."
         )
-        if closure_labels == ["local_case_elimination_candidate"]
+        if "local_case_elimination_candidate" in closure_labels
         else (
-            "At least one q=13/q=17 branch survives or still needs level-lowering/Tate justification, "
+            "Every focused eliminating prime has at least one surviving branch or still needs level-lowering/Tate justification, "
             "so the route keeps `local_coverage_gap`."
         )
     )
@@ -486,8 +491,8 @@ def focused_545_markdown(
             f"- Nearby levels still lacking coefficient data: `{nearby_incomplete}`.",
             f"- Local valuation scope label: `{local_gap_summary.trace_mismatch_scope_label}`.",
             f"- Overall local gap label: `{local_gap_summary.overall_local_gap_label}`.",
-            f"- q=13 full local coverage: `{q13_case.full_local_coverage if q13_case else False}`.",
-            f"- q=17 full local coverage: `{q17_case.full_local_coverage if q17_case else False}`.",
+            f"- Focused eliminating primes: `{focused_prime_text}`.",
+            f"- Best ranked eliminating prime: `{best_prime.prime if best_prime else 'missing'}` with label `{best_prime.closure_label if best_prime else 'missing'}`.",
             "",
             "### Trace Mismatch Provenance",
             "",
@@ -609,15 +614,15 @@ def focused_545_markdown(
             "",
             "### Local Case Closure Score",
             "",
-            "| q | unit eliminated | single survivors | fully eliminated | surviving | label |",
-            "| ---: | --- | ---: | --- | --- | --- |",
+            "| q | unit survivors | single survivors | fully eliminated | surviving | unresolved | label |",
+            "| ---: | ---: | ---: | --- | --- | --- | --- |",
         ]
     )
     for row in closure_score_rows:
         lines.append(
-            f"| {row.prime} | `{row.unit_eliminated_newforms or 'none'}` | "
+            f"| {row.prime} | {row.unit_surviving_branch_count} | "
             f"{row.single_mask_surviving_branches} | `{row.fully_eliminated_newforms or 'none'}` | "
-            f"`{row.surviving_newforms or 'none'}` | `{row.closure_label}` |"
+            f"`{row.surviving_newforms or 'none'}` | `{row.unresolved_newforms or 'none'}` | `{row.closure_label}` |"
         )
     lines.extend(
         [
@@ -625,7 +630,24 @@ def focused_545_markdown(
             f"- Closure labels: `{';'.join(closure_labels) or 'none'}`.",
             f"- Focused pressure note: {focused_nonunit_note}",
             "",
-            "### Focused q=13/q=17 Nonunit Branch Audit",
+            "### Best Eliminating Prime Ranking",
+            "",
+            "| rank | q | label | unit survivors | single-mask survivors | coverage gaps | q=3 penalty |",
+            "| ---: | ---: | --- | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for row in best_prime_rows:
+        lines.append(
+            f"| {row.rank} | {row.prime} | `{row.closure_label}` | "
+            f"{row.unit_surviving_branch_count} | {row.single_mask_surviving_branch_count} | "
+            f"{row.multiplicative_coverage_gap_count} | {row.q3_reliance_penalty} |"
+        )
+    lines.extend(
+        [
+            "",
+            f"- Best-prime route ceiling: `worth_human_modular_review`.",
+            "",
+            "### Focused Eliminating-Prime Nonunit Branch Audit",
             "",
             "| q | unit eliminations | possible nonunit masks | unresolved masks | condition masks | full nonunit resolution | safe label |",
             "| ---: | ---: | --- | --- | --- | --- | --- |",
@@ -640,8 +662,8 @@ def focused_545_markdown(
     lines.extend(
         [
             "",
-            f"- q=13 focused nonunit label: `{q13_nonunit.safe_label if q13_nonunit else 'missing'}`.",
-            f"- q=17 focused nonunit label: `{q17_nonunit.safe_label if q17_nonunit else 'missing'}`.",
+            f"- Focused eliminating primes: `{focused_prime_text}`.",
+            f"- Best ranked eliminating prime: `{best_prime.prime if best_prime else 'missing'}` with label `{best_prime.closure_label if best_prime else 'missing'}`.",
             "- Pairwise nonunit masks are primitive-forbidden, but `A_only`, `B_only`, and `C_only` remain locally stable and need a separate Frey reduction argument.",
             f"- {focused_nonunit_note}",
             "",
@@ -700,7 +722,7 @@ def focused_545_markdown(
             "",
             "## Exact Next Theorem Or Lemma",
             "",
-            "A human should next prove the Frey-curve attachment and conductor/level-lowering package for `A^5 + B^4 = C^5`: every primitive solution gives the stated Frey object; the residual representation at the justified modulus is irreducible; the true conductor lowers to the claimed comparison level; the multiplicative branches satisfy `a_q(f) ≡ ±(q+1) mod 5` at q=13 and q=17 where used; and the two level-220 newforms, with actual q-expansion coefficients at good primes, fail or pass the justified trace congruence test.",
+            "A human should next prove the Frey-curve attachment and conductor/level-lowering package for `A^5 + B^4 = C^5`: every primitive solution gives the stated Frey object; the residual representation at the justified modulus is irreducible; the true conductor lowers to the claimed comparison level; the multiplicative branches satisfy `a_q(f) ≡ ±(q+1) mod 5` at q in `{3,13,17,41,61}` where used; and the two level-220 newforms, with actual q-expansion coefficients at good primes, fail or pass the justified trace congruence test.",
             "",
             "## Timeout Retry Note",
             "",
@@ -744,6 +766,8 @@ def focused_545_markdown(
             f"- `{(run_dir / 'single_mask_newform_pressure_545.csv').as_posix()}`",
             f"- `{(run_dir / 'multiplicative_reduction_congruence_545.csv').as_posix()}`",
             f"- `{(run_dir / 'local_case_closure_score_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'best_eliminating_prime_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'BEST_ELIMINATING_PRIME_545.md').as_posix()}`",
             f"- `{(run_dir / 'nonunit_newform_filter_545.csv').as_posix()}`",
             f"- `{(run_dir / 'LOCAL_CASE_DECISION_TREE_545.md').as_posix()}`",
             f"- `{(run_dir / 'assumption_register_545.csv').as_posix()}`",
@@ -831,6 +855,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         multiplicative_congruence_rows,
         newform_count=newform_count or 2,
     )
+    best_prime_rows = build_best_eliminating_prime_545(closure_score_rows)
     case_coverage_rows = build_trace_filter_case_coverage_545(
         filter_rows,
         reduction_rows,
@@ -894,6 +919,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     single_mask_pressure_path = run_dir / "single_mask_newform_pressure_545.csv"
     multiplicative_congruence_path = run_dir / "multiplicative_reduction_congruence_545.csv"
     closure_score_path = run_dir / "local_case_closure_score_545.csv"
+    best_prime_path = run_dir / "best_eliminating_prime_545.csv"
+    best_prime_report_path = run_dir / "BEST_ELIMINATING_PRIME_545.md"
     nonunit_filter_path = run_dir / "nonunit_newform_filter_545.csv"
     local_case_decision_tree_path = run_dir / "LOCAL_CASE_DECISION_TREE_545.md"
     assumptions_path = run_dir / "assumption_register_545.csv"
@@ -928,6 +955,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(single_mask_pressure_path, [row.to_flat_dict() for row in single_mask_pressure_rows])
     _write_csv(multiplicative_congruence_path, [row.to_flat_dict() for row in multiplicative_congruence_rows])
     _write_csv(closure_score_path, [row.to_flat_dict() for row in closure_score_rows])
+    _write_csv(best_prime_path, [row.to_flat_dict() for row in best_prime_rows])
     _write_csv(nonunit_filter_path, [row.to_flat_dict() for row in nonunit_filter_rows])
     _write_csv(assumptions_path, [row.to_flat_dict() for row in assumption_rows])
     _write_csv(gaps_path, [row.to_flat_dict() for row in gap_rows])
@@ -938,6 +966,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     robustness_report_path.write_text(level_robustness_markdown(robustness_rows), encoding="utf-8")
     skeleton_path.write_text(theorem_skeleton_markdown(skeleton_rows), encoding="utf-8")
     local_gap_report_path.write_text(local_gap_summary_markdown(local_gap_summary), encoding="utf-8")
+    best_prime_report_path.write_text(best_eliminating_prime_545_markdown(best_prime_rows), encoding="utf-8")
     local_case_decision_tree_path.write_text(
         local_case_decision_tree_545_markdown(
             filter_rows=filter_rows,
@@ -986,6 +1015,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             single_mask_pressure_rows=single_mask_pressure_rows,
             multiplicative_congruence_rows=multiplicative_congruence_rows,
             closure_score_rows=closure_score_rows,
+            best_prime_rows=best_prime_rows,
             nonunit_filter_rows=nonunit_filter_rows,
             assumption_rows=assumption_rows,
             gap_rows=gap_rows,
@@ -1032,6 +1062,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         single_mask_newform_pressure_path=single_mask_pressure_path.as_posix(),
         multiplicative_reduction_congruence_path=multiplicative_congruence_path.as_posix(),
         local_case_closure_score_path=closure_score_path.as_posix(),
+        best_eliminating_prime_path=best_prime_path.as_posix(),
+        best_eliminating_prime_report_path=best_prime_report_path.as_posix(),
         nonunit_newform_filter_path=nonunit_filter_path.as_posix(),
         local_case_decision_tree_path=local_case_decision_tree_path.as_posix(),
         assumption_register_path=assumptions_path.as_posix(),

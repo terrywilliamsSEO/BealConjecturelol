@@ -1,4 +1,4 @@
-"""Focused q=13/q=17 nonunit branch filter for `(5,4,5)`."""
+"""Focused eliminating-prime nonunit branch filter for `(5,4,5)`."""
 
 from __future__ import annotations
 
@@ -18,6 +18,7 @@ SAFE_NONUNIT_FILTER_LABELS = {
     "local_case_elimination_candidate",
     "local_coverage_gap",
     "level_lowering_assumption_required",
+    "unit_branch_survivor_exists",
     "single_mask_survivor_exists",
     "nonunit_survivor_exists",
     "nonunit_unresolved",
@@ -27,7 +28,7 @@ SAFE_NONUNIT_FILTER_LABELS = {
 
 @dataclass(frozen=True)
 class NonunitNewformFilterRecord:
-    """q=13/q=17 status after combining unit trace filters and nonunit branches."""
+    """Focused-prime status after combining unit trace filters and nonunit branches."""
 
     signature: str
     prime: int
@@ -63,7 +64,7 @@ def build_nonunit_newform_filters_545(
     closure_rows: Iterable[LocalCaseClosureScoreRecord] = (),
     target_primes: tuple[int, ...] = TARGET_PRIMES_545,
 ) -> list[NonunitNewformFilterRecord]:
-    """Combine unit trace elimination with q=13/q=17 nonunit coverage."""
+    """Combine unit trace elimination with focused-prime nonunit coverage."""
     targets = set(target_primes)
     filters_by_prime: dict[int, list[TraceCongruenceFilterRecord]] = {}
     for row in filter_rows:
@@ -197,7 +198,7 @@ def local_case_decision_tree_545_markdown(
     multiplicative_rows: Iterable[MultiplicativeReductionCongruenceRecord] = (),
     closure_rows: Iterable[LocalCaseClosureScoreRecord] = (),
 ) -> str:
-    """Render the focused q=13/q=17 branch decision tree."""
+    """Render the focused eliminating-prime branch decision tree."""
     filters_by_prime: dict[int, list[TraceCongruenceFilterRecord]] = {}
     for row in filter_rows:
         if row.prime in TARGET_PRIMES_545:
@@ -216,7 +217,7 @@ def local_case_decision_tree_545_markdown(
     closure_by_prime = {row.prime: row for row in closure_rows}
 
     lines = [
-        "# Local Case Decision Tree For `(5,4,5)` At q=13 And q=17",
+        "# Local Case Decision Tree For `(5,4,5)` At Eliminating Good Primes",
         "",
         "This decision tree narrows the local coverage gap for `A^5 + B^4 = C^5`. It is a route audit only: unit trace eliminations do not become global eliminations until every nonunit branch has a justified local reduction argument.",
         "",
@@ -310,6 +311,7 @@ def local_case_decision_tree_545_markdown(
         in {
             "local_coverage_gap",
             "level_lowering_assumption_required",
+            "unit_branch_survivor_exists",
             "single_mask_survivor_exists",
             "nonunit_unresolved",
             "reduction_argument_required",
@@ -321,6 +323,6 @@ def local_case_decision_tree_545_markdown(
             "`local_coverage_gap` with `unit_only_trace_mismatch_candidate` scope."
         )
     else:
-        conclusion = "The focused single-mask branches are classified by the diagnostic layer, so q=13/q=17 can be logged only as `local_case_elimination_candidate` route evidence."
+        conclusion = "The focused single-mask branches are classified by the diagnostic layer, so any closed q can be logged only as `local_case_elimination_candidate` route evidence."
     lines.extend(["## Current Conclusion", "", conclusion, ""])
     return "\n".join(lines)

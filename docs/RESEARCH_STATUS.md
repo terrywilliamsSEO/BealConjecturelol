@@ -308,25 +308,26 @@ The committed dossier index is
 The Docker runners and GitHub Actions workflow are now the preferred execution
 paths when local Sage is absent.
 
-## Focused `(5,4,5)` Frey Reduction Diagnostic Layer
+## Focused `(5,4,5)` Frey Reduction And Closure Audit
 
 Follow-up work now adds a focused diagnostic layer for
-`A^5 + B^4 = C^5` at q=13 and q=17. The unit trace filter eliminates one
-level-220 newform at each of q=13 and q=17, and pairwise masks remain
-primitive-forbidden. The single masks `A_only`, `B_only`, and `C_only` are
-locally possible, so they are handled separately by
+`A^5 + B^4 = C^5` at q in `{3,13,17,41,61}`. The earlier q=13 and q=17
+checks did not close the local case gap: q=13 left a single-mask
+multiplicative branch, while q=17 left a unit-branch survivor. Pairwise masks
+remain primitive-forbidden. The single masks `A_only`, `B_only`, and `C_only`
+are locally possible, so they are handled separately by
 `frey_reduction_diagnostics_545.csv`, `tate_algorithm_stub_545.csv`, and
 `single_mask_newform_pressure_545.csv`.
 
 For the current displayed Frey template, the available invariant valuations
 classify the focused single masks as `multiplicative_reduction_condition`.
 The follow-up congruence audit checks the conditional
-`a_q(f) ≡ ±(q+1) mod 5` multiplicative-reduction test. At q=13, one newform
-still has allowed single-mask multiplicative congruences. At q=17, the
-single-mask congruence rows eliminate the multiplicative branches, but the
-unit branch still has a surviving newform. The focused local labels therefore
-remain conservative: `single_mask_survivor_exists` for q=13 and
-`local_coverage_gap` for q=17. `(5,4,5)` stays capped at
+`a_q(f) ≡ ±(q+1) mod 5` multiplicative-reduction test at all five focused
+primes. The closure score now records unit-branch survivors, single-mask
+survivors, coefficient/formula gaps, and level-lowering assumptions for each
+q. `best_eliminating_prime_545.csv` and `BEST_ELIMINATING_PRIME_545.md` rank
+the focused primes by fewest surviving branches, cleanest congruence coverage,
+lowest reliance on q=3, and human-review priority. `(5,4,5)` stays capped at
 `worth_human_modular_review`.
 
 Missing invariant formulas downgrade to `needs_human_tate_algorithm`, missing
@@ -334,11 +335,11 @@ coefficients become `coefficient_missing`, and unapplied congruence assumptions
 become `level_lowering_assumption_required`.
 
 New proof obligation: Run the Tate algorithm / reduction analysis for the Frey
-curve at q=13 and q=17 under A_only, B_only, and C_only.
+curve at q in `{3,13,17,41,61}` under A_only, B_only, and C_only.
 
 Additional proof obligation: Justify that the multiplicative-reduction
 branches satisfy the level-lowering congruence
-`a_q(f) ≡ ±(q+1) mod 5` at q=13 and q=17.
+`a_q(f) ≡ ±(q+1) mod 5` at q in `{3,13,17,41,61}`.
 
 ## Reproducibility Note
 

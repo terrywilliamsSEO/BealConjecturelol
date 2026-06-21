@@ -1,4 +1,4 @@
-"""Local case closure score for focused `(5,4,5)` q=13/q=17 audits."""
+"""Local case closure score for focused `(5,4,5)` eliminating-prime audits."""
 
 from __future__ import annotations
 
@@ -20,6 +20,7 @@ PAIRWISE_PRIMITIVE_FORBIDDEN_MASKS_545 = ("AB", "ABC", "AC", "BC")
 SINGLE_MASKS_545 = ("A_only", "B_only", "C_only")
 SAFE_LOCAL_CASE_CLOSURE_LABELS = {
     "local_case_elimination_candidate",
+    "unit_branch_survivor_exists",
     "single_mask_survivor_exists",
     "level_lowering_assumption_required",
     "local_coverage_gap",
@@ -36,7 +37,11 @@ class LocalCaseClosureScoreRecord:
     unit_eliminated_newforms: str
     unit_surviving_newforms: str
     unit_unresolved_newforms: str
+    unit_eliminated_branch_count: int
+    unit_surviving_branch_count: int
+    unit_unresolved_branch_count: int
     primitive_forbidden_masks: str
+    single_mask_total_branches: int
     single_mask_eliminated_branches: int
     single_mask_surviving_branches: int
     coefficient_missing_branches: int
@@ -45,6 +50,7 @@ class LocalCaseClosureScoreRecord:
     fully_eliminated_newforms: str
     surviving_newforms: str
     unresolved_newforms: str
+    surviving_branch_count: int
     closure_label: str
     route_ceiling_label: str
     reason: str
@@ -173,6 +179,9 @@ def build_local_case_closure_scores_545(
         elif single_survives:
             label = "single_mask_survivor_exists"
             reason = "At least one single-mask multiplicative branch has an allowed newform congruence."
+        elif unit_surviving:
+            label = "unit_branch_survivor_exists"
+            reason = "At least one unit trace branch survives for this q."
         elif len(fully_eliminated) == len(indices):
             label = "local_case_elimination_candidate"
             reason = "Unit, primitive-forbidden, and single-mask multiplicative congruence checks eliminate all tracked newform branches for this q."
@@ -190,7 +199,11 @@ def build_local_case_closure_scores_545(
                 unit_eliminated_newforms=_join_indices(unit_eliminated),
                 unit_surviving_newforms=_join_indices(unit_surviving),
                 unit_unresolved_newforms=_join_indices(unit_unresolved),
+                unit_eliminated_branch_count=len(unit_eliminated),
+                unit_surviving_branch_count=len(unit_surviving),
+                unit_unresolved_branch_count=len(unit_unresolved),
                 primitive_forbidden_masks=";".join(PAIRWISE_PRIMITIVE_FORBIDDEN_MASKS_545),
+                single_mask_total_branches=len(prime_multiplicative),
                 single_mask_eliminated_branches=single_eliminated,
                 single_mask_surviving_branches=single_survives,
                 coefficient_missing_branches=coefficient_missing,
@@ -199,6 +212,7 @@ def build_local_case_closure_scores_545(
                 fully_eliminated_newforms=_join_indices(fully_eliminated),
                 surviving_newforms=_join_indices(surviving),
                 unresolved_newforms=_join_indices(unresolved),
+                surviving_branch_count=len(unit_surviving) + single_survives,
                 closure_label=label,
                 route_ceiling_label="worth_human_modular_review",
                 reason=reason,

@@ -85,8 +85,8 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
             signature=signature,
             gap_category="local_valuation_reduction_gap",
             gap_status="open",
-            description="The q=13 and q=17 good-prime trace mismatch is currently unit-case evidence; reductions with q dividing A, B, or C require separate valuation and Frey-reduction handling.",
-            required_next_lemma="Prove the local valuation and reduction case split for q | ABC at q=13 or q=17, including A_only, B_only, C_only, and singular Frey reductions.",
+            description="The focused good-prime trace mismatches at q in {3,13,17,41,61} are currently unit-case evidence unless reductions with q dividing A, B, or C are separately handled.",
+            required_next_lemma="Prove the local valuation and reduction case split for q | ABC at q in {3,13,17,41,61}, including A_only, B_only, C_only, and singular Frey reductions.",
             risk_level="high",
             blocks_label_beyond_review=True,
         ),
@@ -94,8 +94,8 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
             signature=signature,
             gap_category="focused_tate_algorithm_gap",
             gap_status="open",
-            description="The q=13 and q=17 A_only, B_only, and C_only branches now have a diagnostic layer, but the stub does not replace a human Tate-algorithm/reduction analysis.",
-            required_next_lemma="Run the Tate algorithm / reduction analysis for the Frey curve at q=13 and q=17 under A_only, B_only, and C_only.",
+            description="The q in {3,13,17,41,61} A_only, B_only, and C_only branches now have a diagnostic layer, but the stub does not replace a human Tate-algorithm/reduction analysis.",
+            required_next_lemma="Run the Tate algorithm / reduction analysis for the Frey curve at q in {3,13,17,41,61} under A_only, B_only, and C_only.",
             risk_level="high",
             blocks_label_beyond_review=True,
         ),
@@ -104,7 +104,7 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
             gap_category="multiplicative_congruence_gap",
             gap_status="open",
             description="The multiplicative-reduction congruence audit compares coefficients with ±(q+1) modulo 5, but the level-lowering use of that condition has not been justified by hand.",
-            required_next_lemma="Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) ≡ ±(q+1) mod 5 at q=13 and q=17.",
+            required_next_lemma="Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) ≡ ±(q+1) mod 5 at q in {3,13,17,41,61}.",
             risk_level="high",
             blocks_label_beyond_review=True,
         ),
@@ -146,7 +146,7 @@ def proof_gap_report_markdown(*, output_dir: Path, rows: Iterable[ProofGapRecord
                 "To advance `(5,4,5)`, a human should first prove the Frey-curve attachment and conductor/level-lowering "
                 "lemmas: every primitive solution must yield the stated Frey object, its residual representation must be "
                 "irreducible, and its true conductor must lower to the claimed comparison level. The same package must "
-                "include the q=13/q=17 local valuation and reduction case split for q | ABC, plus the focused Tate algorithm "
+                "include the q in {3,13,17,41,61} local valuation and reduction case split for q | ABC, plus the focused Tate algorithm "
                 "under A_only, B_only, and C_only, and justify the multiplicative congruence a_q(f) ≡ ±(q+1) mod 5, before the two level-220 newforms are "
                 "tested with q-expansion trace congruences at good primes."
             ),

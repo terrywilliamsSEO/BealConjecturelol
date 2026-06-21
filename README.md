@@ -45,8 +45,9 @@ patterns that primitive counterexamples would be forced to satisfy.
   `A/B` swapping, with repeated-exponent and fourth-power flags.
 - `beal_rsg_lab/frey_template_library.py`: symbolic Frey-style template records
   with uncertainty flags rather than proof claims.
-- `beal_rsg_lab/frey_reduction_diagnostics_545.py`: focused q=13/q=17
-  invariant-valuation diagnostics for the `(5,4,5)` single masks.
+- `beal_rsg_lab/frey_reduction_diagnostics_545.py`: focused
+  q in `{3,13,17,41,61}` invariant-valuation diagnostics for the `(5,4,5)`
+  single masks.
 - `beal_rsg_lab/tate_algorithm_stub_545.py`: safe symbolic Tate-algorithm
   stub that downgrades missing invariant formulas to human review.
 - `beal_rsg_lab/single_mask_newform_pressure_545.py`: combines unit trace
@@ -54,10 +55,14 @@ patterns that primitive counterexamples would be forced to satisfy.
   `B_only`, and `C_only`.
 - `beal_rsg_lab/multiplicative_reduction_congruence_545.py`: audits
   `A_only`, `B_only`, and `C_only` against the conditional
-  `a_q(f) ≡ ±(q+1) mod 5` multiplicative-reduction congruence at q=13 and q=17.
+  `a_q(f) ≡ ±(q+1) mod 5` multiplicative-reduction congruence at
+  q in `{3,13,17,41,61}`.
 - `beal_rsg_lab/local_case_closure_score_545.py`: combines unit traces,
   primitive-forbidden pairwise masks, and multiplicative congruence rows into
   conservative q-level local-closure labels.
+- `beal_rsg_lab/best_eliminating_prime_545.py`: ranks the focused eliminating
+  good primes by unit survivors, single-mask survivors, congruence coverage,
+  q=3 reliance, and human-review priority.
 - `beal_rsg_lab/finite_field_trace_probe.py`: point-count and trace probes for
   nonsingular candidate Frey curves over finite fields.
 - `beal_rsg_lab/modular_shadow_engine.py`: route scoring that combines

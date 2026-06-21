@@ -162,7 +162,7 @@ def build_single_mask_newform_pressure_545(
     *,
     target_primes: tuple[int, ...] = TARGET_PRIMES_545,
 ) -> list[SingleMaskNewformPressureRecord]:
-    """Combine q=13/q=17 trace, coefficient, and reduction data for single masks."""
+    """Combine focused-prime trace, coefficient, and reduction data for single masks."""
     diagnostics = list(diagnostic_rows) if diagnostic_rows is not None else build_frey_reduction_diagnostics_545()
     tate_records = list(tate_rows) if tate_rows is not None else build_tate_algorithm_stub_545(diagnostics)
     diagnostic_by_key = {(row.prime, row.valuation_mask): row for row in diagnostics}

@@ -11,7 +11,7 @@ from typing import Iterable
 from .good_prime_selector import GoodPrimeRecord
 
 
-TARGET_PRIMES_545 = (13, 17)
+TARGET_PRIMES_545 = (3, 13, 17, 41, 61)
 SINGLE_MASKS_545 = ("A_only", "B_only", "C_only")
 SAFE_REDUCTION_TYPES_545 = {
     "good_reduction",
@@ -143,7 +143,7 @@ def build_frey_reduction_diagnostics_545(
     masks: tuple[str, ...] = SINGLE_MASKS_545,
     formulas: FreyInvariantFormulaAvailability = FreyInvariantFormulaAvailability(),
 ) -> list[FreyReductionDiagnosticRecord]:
-    """Build valuation diagnostics for q=13/q=17 single-mask branches."""
+    """Build valuation diagnostics for the focused eliminating good-prime single-mask branches."""
     records: list[FreyReductionDiagnosticRecord] = []
     for prime in _target_primes(good_prime_rows, target_primes):
         for mask in masks:

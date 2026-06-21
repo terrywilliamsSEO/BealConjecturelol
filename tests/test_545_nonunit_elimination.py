@@ -19,6 +19,7 @@ from beal_rsg_lab.trace_congruence_filter_545 import TraceCongruenceFilterRecord
 
 
 FORBIDDEN_LABELS = {"proof", "proven", "solved", "contradiction", "disproof", "disproven"}
+FOCUSED_PRIMES = {3, 13, 17, 41, 61}
 
 
 def _filter_row(prime: int, newform_index: int, classification: str) -> TraceCongruenceFilterRecord:
@@ -54,23 +55,23 @@ def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
 
 
 class NonunitElimination545Tests(unittest.TestCase):
-    def test_q13_and_q17_are_included_in_focused_nonunit_audit(self) -> None:
-        good_rows = select_good_primes_545(level=220, bound=17)
+    def test_focused_primes_are_included_in_focused_nonunit_audit(self) -> None:
+        good_rows = select_good_primes_545(level=220, bound=61)
         rows = build_nonunit_eliminations_545(good_rows)
-        self.assertEqual({row.prime for row in rows}, {13, 17})
+        self.assertEqual({row.prime for row in rows}, FOCUSED_PRIMES)
         self.assertEqual({row.valuation_mask for row in rows}, {"A_only", "B_only", "C_only", "AB", "AC", "BC", "ABC"})
 
     def test_pairwise_masks_are_primitive_forbidden(self) -> None:
-        good_rows = select_good_primes_545(level=220, bound=17)
+        good_rows = select_good_primes_545(level=220, bound=61)
         rows = build_nonunit_eliminations_545(good_rows)
         by_key = {(row.prime, row.valuation_mask): row for row in rows}
-        for prime in (13, 17):
+        for prime in FOCUSED_PRIMES:
             for mask in ("AB", "AC", "BC", "ABC"):
                 self.assertTrue(by_key[(prime, mask)].primitive_forbidden)
                 self.assertEqual(by_key[(prime, mask)].branch_label, "primitive_forbidden")
 
     def test_single_nonunit_branches_force_reduction_argument_label(self) -> None:
-        good_rows = select_good_primes_545(level=220, bound=17)
+        good_rows = select_good_primes_545(level=220, bound=61)
         nonunit_rows = build_nonunit_eliminations_545(good_rows)
         reduction_rows = build_singular_reduction_traces_545(nonunit_rows)
         filter_rows = [
@@ -80,14 +81,14 @@ class NonunitElimination545Tests(unittest.TestCase):
             _filter_row(17, 1, "eliminated"),
         ]
         decision_rows = build_nonunit_newform_filters_545(filter_rows, nonunit_rows, reduction_rows)
-        self.assertEqual({row.prime for row in decision_rows}, {13, 17})
+        self.assertEqual({row.prime for row in decision_rows}, FOCUSED_PRIMES)
         self.assertTrue(all(row.safe_label in SAFE_NONUNIT_FILTER_LABELS for row in decision_rows))
         self.assertTrue(all(row.safe_label == "reduction_argument_required" for row in decision_rows))
         self.assertTrue(all(not row.full_nonunit_resolution for row in decision_rows))
         self.assertTrue(all(row.safe_label != "local_case_elimination_candidate" for row in decision_rows))
 
     def test_singular_reduction_labels_are_safe(self) -> None:
-        good_rows = select_good_primes_545(level=220, bound=17)
+        good_rows = select_good_primes_545(level=220, bound=61)
         nonunit_rows = build_nonunit_eliminations_545(good_rows)
         reduction_rows = build_singular_reduction_traces_545(nonunit_rows)
         labels = {row.frey_reduction_classification for row in reduction_rows}
@@ -95,7 +96,7 @@ class NonunitElimination545Tests(unittest.TestCase):
         self.assertTrue(labels.isdisjoint(FORBIDDEN_LABELS))
 
     def test_decision_tree_keeps_local_coverage_gap(self) -> None:
-        good_rows = select_good_primes_545(level=220, bound=17)
+        good_rows = select_good_primes_545(level=220, bound=61)
         nonunit_rows = build_nonunit_eliminations_545(good_rows)
         reduction_rows = build_singular_reduction_traces_545(nonunit_rows)
         filter_rows = [_filter_row(13, 0, "eliminated"), _filter_row(17, 1, "eliminated")]
@@ -108,6 +109,8 @@ class NonunitElimination545Tests(unittest.TestCase):
         )
         self.assertIn("q=13", text)
         self.assertIn("q=17", text)
+        self.assertIn("q=41", text)
+        self.assertIn("q=61", text)
         self.assertIn("local_coverage_gap", text)
         self.assertIn("unit_only_trace_mismatch_candidate", text)
 
@@ -147,7 +150,7 @@ class NonunitElimination545Tests(unittest.TestCase):
             report = Path(artifacts.focused_report_path).read_text(encoding="utf-8")
             self.assertIn("Known-case mismatches: `0`", report)
             self.assertIn("Known-case overpromotions: `0`", report)
-            self.assertIn("Focused q=13/q=17 Nonunit Branch Audit", report)
+            self.assertIn("Focused Eliminating-Prime Nonunit Branch Audit", report)
             self.assertIn("local_coverage_gap", report)
 
 

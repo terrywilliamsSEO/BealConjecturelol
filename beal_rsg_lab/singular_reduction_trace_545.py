@@ -10,7 +10,7 @@ from .nonunit_elimination_545 import NonunitEliminationRecord
 
 @dataclass(frozen=True)
 class SingularReductionTraceRecord:
-    """Expected reduction behavior for one q=13 or q=17 nonunit branch."""
+    """Expected reduction behavior for one focused eliminating-prime nonunit branch."""
 
     signature: str
     prime: int
