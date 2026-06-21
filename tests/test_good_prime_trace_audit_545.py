@@ -268,6 +268,99 @@ class GoodPrimeTraceAudit545Tests(unittest.TestCase):
             self.assertIn("Good-Prime Trace Audit", report)
             self.assertIn("trace_data_insufficient", report)
 
+    def test_focused_progress_uses_level_220_coefficient_newform_count(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            run_dir = Path(temp_dir)
+            (run_dir / "sage_results").mkdir()
+            (run_dir / "sage_results" / "sage_5_4_5.json").write_text(
+                json.dumps(
+                    {
+                        "checked_levels": [220],
+                        "contradiction_claim_allowed": False,
+                        "job_id": "sage_5_4_5",
+                        "newform_count": 49,
+                        "sage_status": "completed",
+                        "signature": [5, 4, 5],
+                        "trace_match_status": "narrow",
+                        "trace_rows": [{"ell": 11, "trace_counts": {"0": 1}, "trace_support_size": 1}],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (run_dir / "level_220_newform_coefficients.json").write_text(
+                json.dumps(
+                    {
+                        "signature": [5, 4, 5],
+                        "level": 220,
+                        "weight": 2,
+                        "sage_status": "completed",
+                        "selected_good_primes": [3],
+                        "newform_count": 2,
+                        "coefficient_rows": [
+                            {
+                                "level": 220,
+                                "weight": 2,
+                                "newform_index": 0,
+                                "newform_label": "f0",
+                                "prime": 3,
+                                "coefficient": "1",
+                                "coefficient_field": "Rational Field",
+                                "coefficient_field_kind": "rational_integer",
+                                "is_rational_integer": True,
+                                "reduction_mod_5_available": True,
+                                "coefficient_mod_5": "1",
+                                "prime_above_5_metadata": "",
+                                "row_status": "completed",
+                            },
+                            {
+                                "level": 220,
+                                "weight": 2,
+                                "newform_index": 1,
+                                "newform_label": "f1",
+                                "prime": 3,
+                                "coefficient": "2",
+                                "coefficient_field": "Rational Field",
+                                "coefficient_field_kind": "rational_integer",
+                                "is_rational_integer": True,
+                                "reduction_mod_5_available": True,
+                                "coefficient_mod_5": "2",
+                                "prime_above_5_metadata": "",
+                                "row_status": "completed",
+                            },
+                        ],
+                        "contradiction_claim_allowed": False,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            for filename, rows in {
+                "sage_import_results.csv": [
+                    {
+                        "job_id": "sage_5_4_5",
+                        "signature": "5-4-5",
+                        "sage_status": "completed",
+                        "newform_count": "49",
+                        "checked_levels": "220",
+                        "trace_match_status": "narrow",
+                    }
+                ],
+                "modular_candidate_deep_audit.csv": [
+                    {"signature": "5-4-5", "audit_review_label": "worth_human_modular_review", "priority": "7.25"}
+                ],
+                "sage_known_case_calibration.csv": [
+                    {"signature": "5-4-5", "post_sage_label": "modular_followup_candidate", "overpromoted": "False"}
+                ],
+            }.items():
+                with (run_dir / filename).open("w", newline="", encoding="utf-8") as handle:
+                    writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+                    writer.writeheader()
+                    writer.writerows(rows)
+            artifacts = generate_focused_545_review(run_dir)
+            with Path(artifacts.obstruction_progress_path).open(newline="", encoding="utf-8") as handle:
+                progress = list(csv.DictReader(handle))[0]
+            self.assertEqual(progress["newform_count"], "2")
+            self.assertNotIn("newform_2", progress["unresolved_reasons"])
+
 
 if __name__ == "__main__":
     unittest.main()

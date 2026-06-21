@@ -421,7 +421,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     raw_coefficient_payload = load_level_220_coefficients(coefficient_path)
     if not coefficient_rows and raw_coefficient_payload:
         coefficient_payload = raw_coefficient_payload
-    newform_count = int(sage_payload.get("newform_count", 0) or 0)
+    newform_count = coefficient_summary.newform_count or int(sage_payload.get("newform_count", 0) or 0)
     filter_rows = build_trace_congruence_filter_545(
         good_prime_rows=good_prime_rows,
         frey_trace_rows=frey_trace_rows,
