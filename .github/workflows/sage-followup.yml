@@ -13,6 +13,10 @@ on:
     paths:
       - ".github/workflows/sage-followup.yml"
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   sage-followup:
     runs-on: ubuntu-latest
@@ -73,6 +77,55 @@ jobs:
             runs/${{ env.RUN_ID }}/sage_roundtrip_summary.csv
             runs/${{ env.RUN_ID }}/README_SAGE_FOLLOWUP_REPORT.md
             runs/${{ env.RUN_ID }}/dossiers/
+
+      - name: Publish Sage results branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          worktree="../sage-artifact-worktree"
+          rm -rf "$worktree"
+          if git ls-remote --exit-code --heads origin sage-artifacts >/dev/null 2>&1; then
+            git fetch origin sage-artifacts:sage-artifacts
+            git worktree add "$worktree" sage-artifacts
+          else
+            git worktree add --detach "$worktree"
+            (
+              cd "$worktree"
+              git switch --orphan sage-artifacts
+              git rm -rf . >/dev/null 2>&1 || true
+              find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+            )
+          fi
+          target="$worktree/$RUN_ID"
+          rm -rf "$target"
+          mkdir -p "$target"
+          for path in \
+            "runs/$RUN_ID/sage_results" \
+            "runs/$RUN_ID/sage_job_manifest.csv" \
+            "runs/$RUN_ID/sage_environment.json" \
+            "runs/$RUN_ID/sage_environment_report.md" \
+            "runs/$RUN_ID/sage_execution_manifest.csv" \
+            "runs/$RUN_ID/sage_execution_results.csv" \
+            "runs/$RUN_ID/sage_import_results.csv" \
+            "runs/$RUN_ID/sage_known_case_calibration.csv" \
+            "runs/$RUN_ID/modular_confidence_summary.csv" \
+            "runs/$RUN_ID/sage_roundtrip_summary.csv" \
+            "runs/$RUN_ID/README_SAGE_FOLLOWUP_REPORT.md" \
+            "runs/$RUN_ID/dossiers"; do
+            if [ -e "$path" ]; then
+              cp -R "$path" "$target/"
+            fi
+          done
+          (
+            cd "$worktree"
+            git add "$RUN_ID"
+            git commit -m "Publish Sage artifacts $RUN_ID" || echo "No Sage artifact changes to publish"
+            git push origin HEAD:sage-artifacts
+          )
 
       - name: Confirm Sage JSON and conservative labels
         run: |
