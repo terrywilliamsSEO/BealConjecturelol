@@ -98,6 +98,68 @@ class CandidateLevelDiscovery545Tests(unittest.TestCase):
             self.assertEqual(bad_coeffs, [])
             self.assertTrue(all(not row.schema_valid for row in bad_summary))
 
+    def test_candidate_level_importer_completed_partial_timeout_failed_statuses(self) -> None:
+        candidates = [row for row in build_candidate_levels_545() if row.level in {20, 220}]
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            completed_payload = {
+                "signature": [5, 4, 5],
+                "weight": 2,
+                "sage_status": "completed",
+                "contradiction_claim_allowed": False,
+                "levels": [
+                    {
+                        "level": 20,
+                        "newform_count": 1,
+                        "selected_good_primes": [3],
+                        "level_status": "completed",
+                        "errors": [],
+                    }
+                ],
+                "coefficient_rows": [
+                    {
+                        "level": 20,
+                        "weight": 2,
+                        "newform_index": 0,
+                        "newform_label": "f0",
+                        "prime": 3,
+                        "coefficient": "2",
+                        "coefficient_field": "Rational Field",
+                        "coefficient_field_kind": "rational_integer",
+                        "is_rational_integer": True,
+                        "reduction_mod_5_available": True,
+                        "coefficient_mod_5": "2",
+                        "prime_above_5_metadata": "",
+                        "row_status": "completed",
+                    }
+                ],
+            }
+            completed_path = root / "completed.json"
+            completed_path.write_text(json.dumps(completed_payload), encoding="utf-8")
+            summary, coeffs = import_candidate_level_newforms_545(completed_path, candidates)
+            by_level = {row.level: row for row in summary}
+            self.assertEqual(by_level[20].import_status, "completed")
+            self.assertEqual(by_level[20].coefficient_field_status, "all_clear")
+            self.assertEqual(len(coeffs), 1)
+            for status in ("partial", "timeout", "failed"):
+                path = root / f"{status}.json"
+                path.write_text(
+                    json.dumps(
+                        {
+                            "signature": [5, 4, 5],
+                            "weight": 2,
+                            "sage_status": status,
+                            "contradiction_claim_allowed": False,
+                            "levels": [],
+                            "coefficient_rows": [],
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+                rows, coefficient_rows = import_candidate_level_newforms_545(path, candidates)
+                self.assertEqual(coefficient_rows, [])
+                self.assertTrue(all(row.import_status == status for row in rows))
+
     def test_trace_filter_safe_labels_for_missing_data(self) -> None:
         candidates = build_candidate_levels_545()
         import_rows, coefficient_rows = import_candidate_level_newforms_545(Path("definitely_missing_candidate_level.json"), candidates)

@@ -207,7 +207,13 @@ def import_candidate_level_newforms_545(
     records: list[CandidateLevelImportRecord545] = []
     for candidate in candidates:
         level_payload = level_payload_by_level.get(candidate.level, {})
-        level_status = str(level_payload.get("level_status", "missing" if candidate.level not in level_payload_by_level else sage_status))
+        default_level_status = (
+            sage_status
+            if candidate.level not in level_payload_by_level
+            and sage_status in {"partial", "failed", "timeout", "unsupported"}
+            else "missing"
+        )
+        level_status = str(level_payload.get("level_status", default_level_status))
         level_coefficients = [row for row in coefficient_rows if row.level == candidate.level]
         rational_count = sum(1 for row in level_coefficients if row.is_rational_integer)
         nonrational_count = sum(1 for row in level_coefficients if not row.is_rational_integer)

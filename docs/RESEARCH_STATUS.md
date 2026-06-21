@@ -382,6 +382,12 @@ plausible levels show trace pressure the label becomes
 `multi_level_trace_pressure_candidate`; if plausible levels have surviving
 newforms the route is `level_sensitive_route`.
 
+The Sage follow-up workflow now runs `sage_candidate_level_expander_545.sage`
+after the level-220 coefficient expander and includes
+`candidate_level_newforms_545.json`, the candidate-level import CSVs,
+`trace_filter_across_levels_545.csv`, and `LEVEL_ROUTE_RANKING_545.md` in the
+CI artifacts.
+
 Missing invariant formulas downgrade to `needs_human_tate_algorithm`, missing
 coefficients become `coefficient_missing`, and unapplied congruence assumptions
 become `level_lowering_assumption_required`.

@@ -12,7 +12,7 @@ from beal_rsg_lab.candidate_dossier_generator import generate_candidate_dossiers
 from beal_rsg_lab.sage_docker_runner import docker_batch_command
 from beal_rsg_lab.sage_environment_detector import detect_sage_environment
 from beal_rsg_lab.sage_followup_cli import build_parser, import_run, summarize_run, command_roundtrip
-from beal_rsg_lab.sage_job_runner import run_one_sage_job
+from beal_rsg_lab.sage_job_runner import run_one_sage_job, run_sage_jobs
 from beal_rsg_lab.sage_result_importer import validate_sage_result
 from beal_rsg_lab.sage_smoke import sage_smoke_script_text
 
@@ -92,8 +92,65 @@ class SageExecutionSupportTests(unittest.TestCase):
         self.assertIn("actions/upload-artifact", workflow)
         self.assertIn("sage_job_manifest.csv", workflow)
         self.assertIn("level_220_newform_coefficients.json", workflow)
+        self.assertIn("sage_candidate_level_expander_545.sage", workflow)
+        self.assertIn("candidate_level_newforms_545.json", workflow)
+        self.assertIn("candidate_level_import_summary_545.csv", workflow)
+        self.assertIn("level_route_ranking_545.csv", workflow)
         self.assertIn("trace_congruence_filter_545.csv", workflow)
         self.assertIn("FOCUSED_545_REVIEW.md", workflow)
+
+    def test_runner_includes_candidate_level_expander_after_level_220(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            run_dir = Path(temp_dir)
+            calls: list[str] = []
+
+            def fake_run_one(job, **kwargs):
+                calls.append(job.job_id)
+                result_path = Path(job.result_path)
+                result_path.parent.mkdir(parents=True, exist_ok=True)
+                result_path.write_text(
+                    json.dumps(
+                        {
+                            "job_id": job.job_id,
+                            "signature": [5, 4, 5] if job.signature == "5-4-5" else [0, 0, 0],
+                            "sage_status": "completed",
+                            "checked_levels": [],
+                            "newform_count": 0,
+                            "trace_match_status": "not_checked",
+                            "contradiction_claim_allowed": False,
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+                return SimpleNamespace(
+                    job_id=job.job_id,
+                    signature=job.signature,
+                    execution_mode="native_sage",
+                    command="sage",
+                    result_path=job.result_path,
+                    sage_status="completed",
+                    return_code=0,
+                    timed_out=False,
+                    stdout_excerpt="",
+                    stderr_excerpt="",
+                    to_flat_dict=lambda: {},
+                )
+
+            env = SimpleNamespace(execution_mode="native_sage")
+            with patch("beal_rsg_lab.sage_job_runner.run_one_sage_job", side_effect=fake_run_one):
+                run_sage_jobs(
+                    run_dir=run_dir,
+                    jobs=[],
+                    repo_root=Path.cwd(),
+                    environment=env,
+                    backend="native_sage",
+                )
+            self.assertEqual(
+                calls[:3],
+                ["sage_smoke", "level_220_newform_coefficients", "candidate_level_newforms_545"],
+            )
+            self.assertTrue((run_dir / "candidate_levels_545.csv").exists())
+            self.assertTrue((run_dir / "sage_candidate_level_expander_545.sage").exists())
 
     def test_cli_command_parsing(self) -> None:
         parser = build_parser()

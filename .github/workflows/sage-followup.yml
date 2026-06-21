@@ -82,6 +82,15 @@ jobs:
             runs/${{ env.RUN_ID }}/level_220_newform_coefficients.json
             runs/${{ env.RUN_ID }}/level_220_coefficient_import_summary.csv
             runs/${{ env.RUN_ID }}/level_220_coefficient_rows.csv
+            runs/${{ env.RUN_ID }}/candidate_levels_545.csv
+            runs/${{ env.RUN_ID }}/CANDIDATE_LEVELS_545.md
+            runs/${{ env.RUN_ID }}/sage_candidate_level_expander_545.sage
+            runs/${{ env.RUN_ID }}/candidate_level_newforms_545.json
+            runs/${{ env.RUN_ID }}/candidate_level_import_summary_545.csv
+            runs/${{ env.RUN_ID }}/candidate_level_coefficient_rows_545.csv
+            runs/${{ env.RUN_ID }}/trace_filter_across_levels_545.csv
+            runs/${{ env.RUN_ID }}/level_route_ranking_545.csv
+            runs/${{ env.RUN_ID }}/LEVEL_ROUTE_RANKING_545.md
             runs/${{ env.RUN_ID }}/good_prime_list_545.csv
             runs/${{ env.RUN_ID }}/frey_trace_possibilities_545.csv
             runs/${{ env.RUN_ID }}/trace_congruence_filter_545.csv
@@ -154,6 +163,15 @@ jobs:
             "runs/$RUN_ID/level_220_newform_coefficients.json" \
             "runs/$RUN_ID/level_220_coefficient_import_summary.csv" \
             "runs/$RUN_ID/level_220_coefficient_rows.csv" \
+            "runs/$RUN_ID/candidate_levels_545.csv" \
+            "runs/$RUN_ID/CANDIDATE_LEVELS_545.md" \
+            "runs/$RUN_ID/sage_candidate_level_expander_545.sage" \
+            "runs/$RUN_ID/candidate_level_newforms_545.json" \
+            "runs/$RUN_ID/candidate_level_import_summary_545.csv" \
+            "runs/$RUN_ID/candidate_level_coefficient_rows_545.csv" \
+            "runs/$RUN_ID/trace_filter_across_levels_545.csv" \
+            "runs/$RUN_ID/level_route_ranking_545.csv" \
+            "runs/$RUN_ID/LEVEL_ROUTE_RANKING_545.md" \
             "runs/$RUN_ID/good_prime_list_545.csv" \
             "runs/$RUN_ID/frey_trace_possibilities_545.csv" \
             "runs/$RUN_ID/trace_congruence_filter_545.csv" \
@@ -220,6 +238,27 @@ jobs:
           assert int(coeff["weight"]) == 2, coeff
           coeff_import = list(csv.DictReader((root / "level_220_coefficient_import_summary.csv").open()))
           assert coeff_import and coeff_import[0]["schema_valid"] == "True", coeff_import
+          candidate_levels_path = root / "candidate_levels_545.csv"
+          assert candidate_levels_path.exists(), "missing candidate level CSV"
+          candidate_levels = list(csv.DictReader(candidate_levels_path.open()))
+          assert any(row["level"] == "220" for row in candidate_levels), candidate_levels
+          assert any(row["includes_11"] == "False" for row in candidate_levels), candidate_levels
+          candidate_path = root / "candidate_level_newforms_545.json"
+          assert candidate_path.exists(), "missing candidate-level newform JSON"
+          candidate = json.loads(candidate_path.read_text())
+          assert candidate["contradiction_claim_allowed"] is False, candidate
+          candidate_import = list(csv.DictReader((root / "candidate_level_import_summary_545.csv").open()))
+          assert candidate_import, "missing candidate-level import rows"
+          ranking = list(csv.DictReader((root / "level_route_ranking_545.csv").open()))
+          assert ranking, "missing level route ranking rows"
+          safe_level_labels = {
+              "multi_level_trace_pressure_candidate",
+              "level_sensitive_route",
+              "level_data_insufficient",
+              "conductor_gap_blocks_upgrade",
+              "coefficient_field_blocked",
+          }
+          assert ranking[0]["aggregate_route_label"] in safe_level_labels, ranking[0]
           imports = list(csv.DictReader((root / "sage_import_results.csv").open()))
           confidence = list(csv.DictReader((root / "modular_confidence_summary.csv").open()))
           known = list(csv.DictReader((root / "sage_known_case_calibration.csv").open()))

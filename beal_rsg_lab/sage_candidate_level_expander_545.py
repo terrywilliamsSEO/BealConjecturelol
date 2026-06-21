@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+import csv
 from pathlib import Path
+from types import SimpleNamespace
+
+from .candidate_level_generator_545 import build_candidate_levels_545
 
 
 FOCUSED_TRACE_PRIMES_545 = (3, 13, 17, 41, 61)
@@ -213,3 +217,36 @@ def write_sage_candidate_level_expander_545(run_dir: Path) -> Path:
         encoding="utf-8",
     )
     return script_path
+
+
+def write_candidate_levels_for_sage_545(run_dir: Path) -> Path:
+    """Write `candidate_levels_545.csv` for the Sage candidate-level expander."""
+    rows = [row.to_flat_dict() for row in build_candidate_levels_545()]
+    path = run_dir / "candidate_levels_545.csv"
+    if not rows:
+        path.write_text("", encoding="utf-8")
+        return path
+    fieldnames: list[str] = []
+    for row in rows:
+        for key in row:
+            if key not in fieldnames:
+                fieldnames.append(key)
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+    return path
+
+
+def prepare_candidate_level_expander_job_545(run_dir: Path):
+    """Create the candidate-level Sage job and return a runner-compatible object."""
+    write_candidate_levels_for_sage_545(run_dir)
+    script_path = write_sage_candidate_level_expander_545(run_dir)
+    result_path = run_dir / "candidate_level_newforms_545.json"
+    return SimpleNamespace(
+        job_id="candidate_level_newforms_545",
+        signature="5-4-5",
+        route_label="candidate_level_discovery",
+        job_path=script_path.as_posix(),
+        result_path=result_path.as_posix(),
+    )
