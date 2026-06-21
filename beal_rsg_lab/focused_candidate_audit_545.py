@@ -45,6 +45,10 @@ from .local_gap_summary_545 import (
     build_local_gap_summary_545,
     local_gap_summary_markdown,
 )
+from .local_case_closure_score_545 import (
+    LocalCaseClosureScoreRecord,
+    build_local_case_closure_scores_545,
+)
 from .local_coverage_audit_545 import (
     LocalCoverageAuditRecord,
     build_local_coverage_audit_545,
@@ -61,6 +65,10 @@ from .newform_coefficient_importer import (
     NewformCoefficientImportSummary,
     NewformCoefficientRow,
     import_level_220_newform_coefficients,
+)
+from .multiplicative_reduction_congruence_545 import (
+    MultiplicativeReductionCongruenceRecord,
+    build_multiplicative_reduction_congruences_545,
 )
 from .obstruction_progress_score import ObstructionProgressRecord, score_obstruction_progress_545
 from .proof_gap_report import ProofGapRecord, build_proof_gap_records_545, proof_gap_report_markdown
@@ -144,6 +152,8 @@ class Focused545Artifacts:
     frey_reduction_diagnostics_path: str
     tate_algorithm_stub_path: str
     single_mask_newform_pressure_path: str
+    multiplicative_reduction_congruence_path: str
+    local_case_closure_score_path: str
     nonunit_newform_filter_path: str
     local_case_decision_tree_path: str
     assumption_register_path: str
@@ -281,6 +291,8 @@ def focused_545_markdown(
     frey_reduction_diagnostic_rows: list[FreyReductionDiagnosticRecord],
     tate_stub_rows: list[TateAlgorithmStubRecord],
     single_mask_pressure_rows: list[SingleMaskNewformPressureRecord],
+    multiplicative_congruence_rows: list[MultiplicativeReductionCongruenceRecord],
+    closure_score_rows: list[LocalCaseClosureScoreRecord],
     nonunit_filter_rows: list[NonunitNewformFilterRecord],
     assumption_rows: list[AssumptionRecord],
     gap_rows: list[ProofGapRecord],
@@ -307,17 +319,17 @@ def focused_545_markdown(
     nonunit_decision_by_prime = {row.prime: row for row in nonunit_filter_rows}
     q13_nonunit = nonunit_decision_by_prime.get(13)
     q17_nonunit = nonunit_decision_by_prime.get(17)
-    pressure_needs_tate = any(
-        row.branch_classification in {"needs_human_tate_algorithm", "unresolved_single_mask"}
-        for row in single_mask_pressure_rows
-    )
     pressure_labels = sorted({row.prime_local_label for row in single_mask_pressure_rows})
+    closure_labels = sorted({row.closure_label for row in closure_score_rows})
     focused_nonunit_note = (
-        "At least one q=13/q=17 single-mask branch still needs human Tate analysis, so the route keeps `local_coverage_gap`."
-        if pressure_needs_tate
-        else (
+        (
             "The q=13/q=17 single-mask branches are classified by the diagnostic layer; this is only "
             "`local_case_elimination_candidate` route evidence and keeps the review ceiling unchanged."
+        )
+        if closure_labels == ["local_case_elimination_candidate"]
+        else (
+            "At least one q=13/q=17 branch survives or still needs level-lowering/Tate justification, "
+            "so the route keeps `local_coverage_gap`."
         )
     )
     lines = [
@@ -579,6 +591,38 @@ def focused_545_markdown(
         [
             "",
             f"- Focused pressure labels: `{';'.join(pressure_labels) or 'none'}`.",
+            "",
+            "### Multiplicative-Reduction Congruence Audit",
+            "",
+            "| q | mask | newform | a_q mod 5 | allowed | classification |",
+            "| ---: | --- | ---: | --- | --- | --- |",
+        ]
+    )
+    for row in multiplicative_congruence_rows:
+        lines.append(
+            f"| {row.prime} | `{row.valuation_mask}` | {row.newform_index} | "
+            f"`{row.coefficient_mod_5 or 'missing'}` | `{row.allowed_multiplicative_values_mod_5}` | "
+            f"`{row.congruence_classification}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "### Local Case Closure Score",
+            "",
+            "| q | unit eliminated | single survivors | fully eliminated | surviving | label |",
+            "| ---: | --- | ---: | --- | --- | --- |",
+        ]
+    )
+    for row in closure_score_rows:
+        lines.append(
+            f"| {row.prime} | `{row.unit_eliminated_newforms or 'none'}` | "
+            f"{row.single_mask_surviving_branches} | `{row.fully_eliminated_newforms or 'none'}` | "
+            f"`{row.surviving_newforms or 'none'}` | `{row.closure_label}` |"
+        )
+    lines.extend(
+        [
+            "",
+            f"- Closure labels: `{';'.join(closure_labels) or 'none'}`.",
             f"- Focused pressure note: {focused_nonunit_note}",
             "",
             "### Focused q=13/q=17 Nonunit Branch Audit",
@@ -656,7 +700,7 @@ def focused_545_markdown(
             "",
             "## Exact Next Theorem Or Lemma",
             "",
-            "A human should next prove the Frey-curve attachment and conductor/level-lowering package for `A^5 + B^4 = C^5`: every primitive solution gives the stated Frey object; the residual representation at the justified modulus is irreducible; the true conductor lowers to the claimed comparison level; and the two level-220 newforms, with actual q-expansion coefficients at good primes, fail or pass the justified trace congruence test.",
+            "A human should next prove the Frey-curve attachment and conductor/level-lowering package for `A^5 + B^4 = C^5`: every primitive solution gives the stated Frey object; the residual representation at the justified modulus is irreducible; the true conductor lowers to the claimed comparison level; the multiplicative branches satisfy `a_q(f) ≡ ±(q+1) mod 5` at q=13 and q=17 where used; and the two level-220 newforms, with actual q-expansion coefficients at good primes, fail or pass the justified trace congruence test.",
             "",
             "## Timeout Retry Note",
             "",
@@ -698,6 +742,8 @@ def focused_545_markdown(
             f"- `{(run_dir / 'frey_reduction_diagnostics_545.csv').as_posix()}`",
             f"- `{(run_dir / 'tate_algorithm_stub_545.csv').as_posix()}`",
             f"- `{(run_dir / 'single_mask_newform_pressure_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'multiplicative_reduction_congruence_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'local_case_closure_score_545.csv').as_posix()}`",
             f"- `{(run_dir / 'nonunit_newform_filter_545.csv').as_posix()}`",
             f"- `{(run_dir / 'LOCAL_CASE_DECISION_TREE_545.md').as_posix()}`",
             f"- `{(run_dir / 'assumption_register_545.csv').as_posix()}`",
@@ -775,10 +821,21 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         frey_reduction_diagnostic_rows,
         tate_stub_rows,
     )
+    multiplicative_congruence_rows = build_multiplicative_reduction_congruences_545(
+        coefficient_rows,
+        frey_reduction_diagnostic_rows,
+        newform_count=newform_count or 2,
+    )
+    closure_score_rows = build_local_case_closure_scores_545(
+        filter_rows,
+        multiplicative_congruence_rows,
+        newform_count=newform_count or 2,
+    )
     case_coverage_rows = build_trace_filter_case_coverage_545(
         filter_rows,
         reduction_rows,
         pressure_rows=single_mask_pressure_rows,
+        closure_rows=closure_score_rows,
     )
     local_gap_summary = build_local_gap_summary_545(case_coverage_rows)
     nonunit_rows = build_nonunit_eliminations_545(good_prime_rows)
@@ -788,6 +845,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         nonunit_rows,
         singular_reduction_rows,
         pressure_rows=single_mask_pressure_rows,
+        closure_rows=closure_score_rows,
     )
     skeleton_rows = build_theorem_skeleton_obligations_545(
         progress_row=progress_row,
@@ -834,6 +892,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     frey_reduction_diagnostics_path = run_dir / "frey_reduction_diagnostics_545.csv"
     tate_algorithm_stub_path = run_dir / "tate_algorithm_stub_545.csv"
     single_mask_pressure_path = run_dir / "single_mask_newform_pressure_545.csv"
+    multiplicative_congruence_path = run_dir / "multiplicative_reduction_congruence_545.csv"
+    closure_score_path = run_dir / "local_case_closure_score_545.csv"
     nonunit_filter_path = run_dir / "nonunit_newform_filter_545.csv"
     local_case_decision_tree_path = run_dir / "LOCAL_CASE_DECISION_TREE_545.md"
     assumptions_path = run_dir / "assumption_register_545.csv"
@@ -866,6 +926,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(frey_reduction_diagnostics_path, [row.to_flat_dict() for row in frey_reduction_diagnostic_rows])
     _write_csv(tate_algorithm_stub_path, [row.to_flat_dict() for row in tate_stub_rows])
     _write_csv(single_mask_pressure_path, [row.to_flat_dict() for row in single_mask_pressure_rows])
+    _write_csv(multiplicative_congruence_path, [row.to_flat_dict() for row in multiplicative_congruence_rows])
+    _write_csv(closure_score_path, [row.to_flat_dict() for row in closure_score_rows])
     _write_csv(nonunit_filter_path, [row.to_flat_dict() for row in nonunit_filter_rows])
     _write_csv(assumptions_path, [row.to_flat_dict() for row in assumption_rows])
     _write_csv(gaps_path, [row.to_flat_dict() for row in gap_rows])
@@ -883,6 +945,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             reduction_rows=singular_reduction_rows,
             newform_filter_rows=nonunit_filter_rows,
             pressure_rows=single_mask_pressure_rows,
+            multiplicative_rows=multiplicative_congruence_rows,
+            closure_rows=closure_score_rows,
         ),
         encoding="utf-8",
     )
@@ -920,6 +984,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             frey_reduction_diagnostic_rows=frey_reduction_diagnostic_rows,
             tate_stub_rows=tate_stub_rows,
             single_mask_pressure_rows=single_mask_pressure_rows,
+            multiplicative_congruence_rows=multiplicative_congruence_rows,
+            closure_score_rows=closure_score_rows,
             nonunit_filter_rows=nonunit_filter_rows,
             assumption_rows=assumption_rows,
             gap_rows=gap_rows,
@@ -964,6 +1030,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         frey_reduction_diagnostics_path=frey_reduction_diagnostics_path.as_posix(),
         tate_algorithm_stub_path=tate_algorithm_stub_path.as_posix(),
         single_mask_newform_pressure_path=single_mask_pressure_path.as_posix(),
+        multiplicative_reduction_congruence_path=multiplicative_congruence_path.as_posix(),
+        local_case_closure_score_path=closure_score_path.as_posix(),
         nonunit_newform_filter_path=nonunit_filter_path.as_posix(),
         local_case_decision_tree_path=local_case_decision_tree_path.as_posix(),
         assumption_register_path=assumptions_path.as_posix(),

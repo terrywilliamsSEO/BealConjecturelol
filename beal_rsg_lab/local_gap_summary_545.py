@@ -41,7 +41,14 @@ def build_local_gap_summary_545(
     unresolved = [
         row
         for row in rows
-        if row.coverage_label in {"bad_reduction_requires_separate_argument", "nonunit_cases_unresolved"}
+        if row.coverage_label
+        in {
+            "bad_reduction_requires_separate_argument",
+            "nonunit_cases_unresolved",
+            "local_coverage_gap",
+            "level_lowering_assumption_required",
+            "single_mask_survivor_exists",
+        }
     ]
     if full_eliminating:
         scope = "local_trace_mismatch_candidate"
@@ -53,7 +60,8 @@ def build_local_gap_summary_545(
     lemma = (
         "Local valuation and reduction case split for q | ABC: prove that each single-divisibility mask either cannot occur "
         "for primitive solutions at the eliminating primes, or gives a separate modular/reduction argument compatible with the trace filter. "
-        "Run the Tate algorithm / reduction analysis for the Frey curve at q=13 and q=17 under A_only, B_only, and C_only."
+        "Run the Tate algorithm / reduction analysis for the Frey curve at q=13 and q=17 under A_only, B_only, and C_only, "
+        "and justify the multiplicative-reduction congruence a_q(f) ≡ ±(q+1) mod 5 at q=13 and q=17."
     )
     return LocalGapSummaryRecord(
         signature="5-4-5",
@@ -61,7 +69,14 @@ def build_local_gap_summary_545(
         unit_only_coverage_count=sum(
             1
             for row in rows
-            if row.coverage_label in {"unit_only_trace_filter", "bad_reduction_requires_separate_argument"}
+            if row.coverage_label
+            in {
+                "unit_only_trace_filter",
+                "bad_reduction_requires_separate_argument",
+                "local_coverage_gap",
+                "level_lowering_assumption_required",
+                "single_mask_survivor_exists",
+            }
         ),
         nonunit_cases_resolved_count=sum(1 for row in rows if row.coverage_label == "nonunit_cases_resolved"),
         unresolved_count=len(unresolved),

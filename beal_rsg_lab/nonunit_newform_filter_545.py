@@ -5,6 +5,8 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Iterable
 
+from .local_case_closure_score_545 import LocalCaseClosureScoreRecord
+from .multiplicative_reduction_congruence_545 import MultiplicativeReductionCongruenceRecord
 from .nonunit_elimination_545 import NonunitEliminationRecord, TARGET_PRIMES_545
 from .singular_reduction_trace_545 import SingularReductionTraceRecord
 from .single_mask_newform_pressure_545 import SingleMaskNewformPressureRecord
@@ -15,6 +17,8 @@ SAFE_NONUNIT_FILTER_LABELS = {
     "unit_only_elimination",
     "local_case_elimination_candidate",
     "local_coverage_gap",
+    "level_lowering_assumption_required",
+    "single_mask_survivor_exists",
     "nonunit_survivor_exists",
     "nonunit_unresolved",
     "reduction_argument_required",
@@ -35,6 +39,8 @@ class NonunitNewformFilterRecord:
     reduction_argument_masks: str
     single_mask_condition_masks: str
     single_mask_pressure_label: str
+    local_case_closure_label: str
+    local_case_closure_summary: str
     full_nonunit_resolution: bool
     safe_label: str
     route_ceiling_label: str
@@ -54,6 +60,7 @@ def build_nonunit_newform_filters_545(
     reduction_rows: Iterable[SingularReductionTraceRecord],
     *,
     pressure_rows: Iterable[SingleMaskNewformPressureRecord] = (),
+    closure_rows: Iterable[LocalCaseClosureScoreRecord] = (),
     target_primes: tuple[int, ...] = TARGET_PRIMES_545,
 ) -> list[NonunitNewformFilterRecord]:
     """Combine unit trace elimination with q=13/q=17 nonunit coverage."""
@@ -77,6 +84,8 @@ def build_nonunit_newform_filters_545(
     for row in pressure_rows:
         if row.prime in targets:
             pressure_by_prime.setdefault(row.prime, []).append(row)
+
+    closure_by_prime = {row.prime: row for row in closure_rows if row.prime in targets}
 
     records: list[NonunitNewformFilterRecord] = []
     for prime in sorted(targets):
@@ -121,7 +130,20 @@ def build_nonunit_newform_filters_545(
             if prime_pressure
             else ""
         )
-        if prime_pressure and pressure_label == "local_coverage_gap":
+        closure = closure_by_prime.get(prime)
+        closure_label = closure.closure_label if closure else ""
+        closure_summary = (
+            f"fully_eliminated={closure.fully_eliminated_newforms or 'none'}; "
+            f"surviving={closure.surviving_newforms or 'none'}; "
+            f"unresolved={closure.unresolved_newforms or 'none'}"
+            if closure
+            else ""
+        )
+        if closure is not None:
+            label = closure.closure_label
+            reason = closure.reason
+            full_resolution = closure.closure_label == "local_case_elimination_candidate"
+        elif prime_pressure and pressure_label == "local_coverage_gap":
             label = "local_coverage_gap"
             reason = "At least one single-mask branch remains unresolved or needs human Tate analysis."
         elif eliminated and full_resolution:
@@ -154,6 +176,8 @@ def build_nonunit_newform_filters_545(
                 reduction_argument_masks=_join_masks(reduction_argument_masks),
                 single_mask_condition_masks=_join_masks(condition_masks),
                 single_mask_pressure_label=pressure_label or label,
+                local_case_closure_label=closure_label or label,
+                local_case_closure_summary=closure_summary,
                 full_nonunit_resolution=full_resolution,
                 safe_label=label,
                 route_ceiling_label="worth_human_modular_review",
@@ -170,6 +194,8 @@ def local_case_decision_tree_545_markdown(
     reduction_rows: Iterable[SingularReductionTraceRecord],
     newform_filter_rows: Iterable[NonunitNewformFilterRecord],
     pressure_rows: Iterable[SingleMaskNewformPressureRecord] = (),
+    multiplicative_rows: Iterable[MultiplicativeReductionCongruenceRecord] = (),
+    closure_rows: Iterable[LocalCaseClosureScoreRecord] = (),
 ) -> str:
     """Render the focused q=13/q=17 branch decision tree."""
     filters_by_prime: dict[int, list[TraceCongruenceFilterRecord]] = {}
@@ -184,6 +210,10 @@ def local_case_decision_tree_545_markdown(
     pressure_by_prime: dict[int, list[SingleMaskNewformPressureRecord]] = {}
     for row in pressure_rows:
         pressure_by_prime.setdefault(row.prime, []).append(row)
+    multiplicative_by_prime: dict[int, list[MultiplicativeReductionCongruenceRecord]] = {}
+    for row in multiplicative_rows:
+        multiplicative_by_prime.setdefault(row.prime, []).append(row)
+    closure_by_prime = {row.prime: row for row in closure_rows}
 
     lines = [
         "# Local Case Decision Tree For `(5,4,5)` At q=13 And q=17",
@@ -240,6 +270,25 @@ def local_case_decision_tree_545_markdown(
                     f"| `{row.valuation_mask}` | `{row.reduction_type}` | `{row.tate_algorithm_status}` | "
                     f"`{row.branch_classification}` | `{row.prime_local_label}` |"
                 )
+        if multiplicative_by_prime.get(prime):
+            lines.extend(
+                [
+                    "",
+                    "### Multiplicative-Reduction Congruence",
+                    "",
+                    "| mask | newform | a_q mod 5 | allowed | classification |",
+                    "| --- | ---: | --- | --- | --- |",
+                ]
+            )
+            for row in sorted(
+                multiplicative_by_prime.get(prime, []),
+                key=lambda item: (item.valuation_mask, item.newform_index),
+            ):
+                lines.append(
+                    f"| `{row.valuation_mask}` | {row.newform_index} | `{row.coefficient_mod_5 or 'missing'}` | "
+                    f"`{row.allowed_multiplicative_values_mod_5}` | `{row.congruence_classification}` |"
+                )
+        closure = closure_by_prime.get(prime)
         lines.extend(
             [
                 "",
@@ -249,14 +298,26 @@ def local_case_decision_tree_545_markdown(
                 f"- Full nonunit resolution: `{decision.full_nonunit_resolution if decision else False}`.",
                 f"- Reduction argument masks: `{decision.reduction_argument_masks if decision and decision.reduction_argument_masks else 'none'}`.",
                 f"- Single-mask condition masks: `{decision.single_mask_condition_masks if decision and decision.single_mask_condition_masks else 'none'}`.",
+                f"- Closure label: `{closure.closure_label if closure else (decision.local_case_closure_label if decision else 'missing')}`.",
+                f"- Closure summary: `{decision.local_case_closure_summary if decision and decision.local_case_closure_summary else 'none'}`.",
                 f"- Reason: {decision.reason if decision else 'No focused decision row was generated.'}",
                 "",
             ]
         )
     decisions = list(decision_by_prime.values())
-    if any(row.safe_label in {"local_coverage_gap", "nonunit_unresolved", "reduction_argument_required"} for row in decisions):
+    if any(
+        row.safe_label
+        in {
+            "local_coverage_gap",
+            "level_lowering_assumption_required",
+            "single_mask_survivor_exists",
+            "nonunit_unresolved",
+            "reduction_argument_required",
+        }
+        for row in decisions
+    ):
         conclusion = (
-            "At least one focused branch still needs Tate analysis or remains unresolved, so the current label remains "
+            "At least one focused branch survives or still needs a level-lowering/Tate justification, so the current label remains "
             "`local_coverage_gap` with `unit_only_trace_mismatch_candidate` scope."
         )
     else:

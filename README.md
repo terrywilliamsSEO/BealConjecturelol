@@ -52,6 +52,12 @@ patterns that primitive counterexamples would be forced to satisfy.
 - `beal_rsg_lab/single_mask_newform_pressure_545.py`: combines unit trace
   results, newform coefficients, and focused reduction labels for `A_only`,
   `B_only`, and `C_only`.
+- `beal_rsg_lab/multiplicative_reduction_congruence_545.py`: audits
+  `A_only`, `B_only`, and `C_only` against the conditional
+  `a_q(f) ≡ ±(q+1) mod 5` multiplicative-reduction congruence at q=13 and q=17.
+- `beal_rsg_lab/local_case_closure_score_545.py`: combines unit traces,
+  primitive-forbidden pairwise masks, and multiplicative congruence rows into
+  conservative q-level local-closure labels.
 - `beal_rsg_lab/finite_field_trace_probe.py`: point-count and trace probes for
   nonsingular candidate Frey curves over finite fields.
 - `beal_rsg_lab/modular_shadow_engine.py`: route scoring that combines

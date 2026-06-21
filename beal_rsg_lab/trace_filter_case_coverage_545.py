@@ -6,6 +6,7 @@ from dataclasses import asdict, dataclass
 from typing import Iterable
 
 from .frey_reduction_case_router_545 import FreyReductionCaseRecord
+from .local_case_closure_score_545 import LocalCaseClosureScoreRecord
 from .single_mask_newform_pressure_545 import SingleMaskNewformPressureRecord
 from .trace_congruence_filter_545 import TraceCongruenceFilterRecord
 
@@ -35,6 +36,7 @@ def build_trace_filter_case_coverage_545(
     reduction_rows: Iterable[FreyReductionCaseRecord],
     *,
     pressure_rows: Iterable[SingleMaskNewformPressureRecord] = (),
+    closure_rows: Iterable[LocalCaseClosureScoreRecord] = (),
 ) -> list[TraceFilterCaseCoverageRecord]:
     """Summarize whether each q-filter is unit-only or locally global."""
     filters_by_prime: dict[int, list[TraceCongruenceFilterRecord]] = {}
@@ -46,6 +48,7 @@ def build_trace_filter_case_coverage_545(
     pressure_by_prime: dict[int, list[SingleMaskNewformPressureRecord]] = {}
     for row in pressure_rows:
         pressure_by_prime.setdefault(row.prime, []).append(row)
+    closure_by_prime = {row.prime: row for row in closure_rows}
     records: list[TraceFilterCaseCoverageRecord] = []
     for prime in sorted(set(filters_by_prime) | set(reductions_by_prime)):
         trace_rows = filters_by_prime.get(prime, [])
@@ -78,7 +81,17 @@ def build_trace_filter_case_coverage_545(
             ]
         nonunit_resolved = len(nonunit_possible) - len(nonunit_unresolved)
         full = not nonunit_unresolved
-        if eliminated and full and pressure:
+        closure = closure_by_prime.get(prime)
+        if closure is not None:
+            full = closure.closure_label == "local_case_elimination_candidate"
+            if closure.closure_label == "local_case_elimination_candidate":
+                label = "local_case_elimination_candidate"
+            elif closure.closure_label == "level_lowering_assumption_required":
+                label = "level_lowering_assumption_required"
+            else:
+                label = "local_coverage_gap"
+            reason = closure.reason
+        elif eliminated and full and pressure:
             label = "local_case_elimination_candidate"
             reason = "The trace filter eliminates at least one newform and the focused single masks are classified by the reduction diagnostic layer."
         elif eliminated and full:

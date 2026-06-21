@@ -320,13 +320,25 @@ locally possible, so they are handled separately by
 
 For the current displayed Frey template, the available invariant valuations
 classify the focused single masks as `multiplicative_reduction_condition`.
-This can only be logged as `local_case_elimination_candidate` route evidence,
-with `(5,4,5)` still capped at `worth_human_modular_review`. Missing invariant
-formulas downgrade to `needs_human_tate_algorithm` and preserve
-`local_coverage_gap`.
+The follow-up congruence audit checks the conditional
+`a_q(f) ≡ ±(q+1) mod 5` multiplicative-reduction test. At q=13, one newform
+still has allowed single-mask multiplicative congruences. At q=17, the
+single-mask congruence rows eliminate the multiplicative branches, but the
+unit branch still has a surviving newform. The focused local labels therefore
+remain conservative: `single_mask_survivor_exists` for q=13 and
+`local_coverage_gap` for q=17. `(5,4,5)` stays capped at
+`worth_human_modular_review`.
+
+Missing invariant formulas downgrade to `needs_human_tate_algorithm`, missing
+coefficients become `coefficient_missing`, and unapplied congruence assumptions
+become `level_lowering_assumption_required`.
 
 New proof obligation: Run the Tate algorithm / reduction analysis for the Frey
 curve at q=13 and q=17 under A_only, B_only, and C_only.
+
+Additional proof obligation: Justify that the multiplicative-reduction
+branches satisfy the level-lowering congruence
+`a_q(f) ≡ ±(q+1) mod 5` at q=13 and q=17.
 
 ## Reproducibility Note
 

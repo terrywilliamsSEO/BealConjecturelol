@@ -204,7 +204,7 @@ class FreyReductionDiagnostics545Tests(unittest.TestCase):
             self.assertTrue(all(row["route_ceiling_label"] == "worth_human_modular_review" for row in pressure_rows))
             with Path(artifacts.trace_filter_case_coverage_path).open(newline="", encoding="utf-8") as handle:
                 coverage_rows = [row for row in csv.DictReader(handle) if row["prime"] in {"13", "17"}]
-            self.assertEqual({row["coverage_label"] for row in coverage_rows}, {"local_case_elimination_candidate"})
+            self.assertEqual({row["coverage_label"] for row in coverage_rows}, {"local_coverage_gap"})
             report = Path(artifacts.focused_report_path).read_text(encoding="utf-8")
             self.assertIn("Focused Frey Reduction Diagnostics", report)
             self.assertIn(

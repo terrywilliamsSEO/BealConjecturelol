@@ -101,6 +101,15 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
         ),
         ProofGapRecord(
             signature=signature,
+            gap_category="multiplicative_congruence_gap",
+            gap_status="open",
+            description="The multiplicative-reduction congruence audit compares coefficients with ±(q+1) modulo 5, but the level-lowering use of that condition has not been justified by hand.",
+            required_next_lemma="Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) ≡ ±(q+1) mod 5 at q=13 and q=17.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
             gap_category="control_artifact_gap",
             gap_status="open",
             description="One 5-4-5 sparse row at ell=11 is artifact-explained; the non-artifact ell=31 row is not yet connected to the level-220 route.",
@@ -138,7 +147,7 @@ def proof_gap_report_markdown(*, output_dir: Path, rows: Iterable[ProofGapRecord
                 "lemmas: every primitive solution must yield the stated Frey object, its residual representation must be "
                 "irreducible, and its true conductor must lower to the claimed comparison level. The same package must "
                 "include the q=13/q=17 local valuation and reduction case split for q | ABC, plus the focused Tate algorithm "
-                "under A_only, B_only, and C_only, before the two level-220 newforms are "
+                "under A_only, B_only, and C_only, and justify the multiplicative congruence a_q(f) ≡ ±(q+1) mod 5, before the two level-220 newforms are "
                 "tested with q-expansion trace congruences at good primes."
             ),
             "",
