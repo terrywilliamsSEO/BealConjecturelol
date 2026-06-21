@@ -1,0 +1,19 @@
+job_id,signature,execution_mode,command,result_path,sage_status,return_code,timed_out,stdout_excerpt,stderr_excerpt
+sage_smoke,0-0-0,docker,docker run --rm -v /home/runner/work/BealConjecturelol/BealConjecturelol:/work -w /work sagemath/sagemath:latest sage runs/sage_followup_ci/sage_jobs/sage_smoke.sage,runs/sage_followup_ci/sage_results/sage_smoke.json,failed,1,False,,"Traceback (most recent call last):
+  File ""/work/runs/sage_followup_ci/sage_jobs/sage_smoke.sage.py"", line 50, in <module>
+    json.dump(payload, handle, indent=_sage_const_2 , sort_keys=True)
+  File ""/usr/lib/python3.12/json/__init__.py"", line 179, in dump
+    for chunk in iterable:
+  File ""/usr/lib/python3.12/json/encoder.py"", line 432, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File ""/usr/lib/python3.12/json/encoder.py"", line 406, in _iterencode_dict
+    yield from chunks
+  File ""/usr/lib/python3.12/json/encoder.py"", line 326, in _iterencode_list
+    yield from chunks
+  File ""/usr/lib/python3.12/json/encoder.py"", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File ""/usr/lib/python3.12/json/encoder.py"", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Integer is not JSON serializable
+"

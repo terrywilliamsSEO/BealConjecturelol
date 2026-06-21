@@ -1,0 +1,17 @@
+{
+  "ci_mode": true,
+  "commands_tested": [
+    "/usr/bin/docker --version"
+  ],
+  "detected_version": "Docker version 28.0.4, build b8034c0",
+  "docker_available": true,
+  "execution_mode": "docker",
+  "failure_reason": "",
+  "native_sage": false,
+  "wsl_command_attempted": "",
+  "wsl_launched": false,
+  "wsl_recommended_command": "wsl sh -lc 'command -v sage && sage --version'",
+  "wsl_sage": false,
+  "wsl_sage_binary_found": false,
+  "wsl_timeout_seconds": 5
+}
