@@ -91,6 +91,9 @@ class SageExecutionSupportTests(unittest.TestCase):
         self.assertIn("sage_smoke.json", workflow)
         self.assertIn("actions/upload-artifact", workflow)
         self.assertIn("sage_job_manifest.csv", workflow)
+        self.assertIn("level_220_newform_coefficients.json", workflow)
+        self.assertIn("trace_congruence_filter_545.csv", workflow)
+        self.assertIn("FOCUSED_545_REVIEW.md", workflow)
 
     def test_cli_command_parsing(self) -> None:
         parser = build_parser()

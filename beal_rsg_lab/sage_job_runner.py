@@ -11,6 +11,7 @@ from typing import Iterable, Mapping, Protocol
 
 from .sage_docker_runner import sage_docker_image
 from .sage_environment_detector import SageEnvironmentReport, detect_sage_environment
+from .sage_level_220_newform_expander import prepare_level_220_newform_expander_job
 from .sage_smoke import SMOKE_JOB_ID, write_sage_smoke_job
 
 
@@ -244,6 +245,7 @@ def run_sage_jobs(
     backend: str = "auto",
     timeout_seconds: int = 600,
     include_smoke: bool = True,
+    include_level_220_expander: bool = True,
 ) -> list[SageExecutionRecord]:
     """Run smoke and generated Sage jobs through the selected backend."""
     env = environment or detect_sage_environment()
@@ -260,6 +262,15 @@ def run_sage_jobs(
         )
         if rows[-1].sage_status in {"failed", "timeout", "unavailable"}:
             return rows
+    if include_level_220_expander:
+        rows.append(
+            run_one_sage_job(
+                prepare_level_220_newform_expander_job(run_dir),
+                mode=mode,
+                repo_root=repo_root,
+                timeout_seconds=timeout_seconds,
+            )
+        )
     for job in jobs:
         rows.append(
             run_one_sage_job(

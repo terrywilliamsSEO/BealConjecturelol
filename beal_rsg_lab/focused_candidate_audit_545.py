@@ -22,6 +22,11 @@ from .level_220_audit import (
     build_level_220_prime_records,
     factorization_220,
 )
+from .newform_coefficient_importer import (
+    NewformCoefficientImportSummary,
+    NewformCoefficientRow,
+    import_level_220_newform_coefficients,
+)
 from .obstruction_progress_score import ObstructionProgressRecord, score_obstruction_progress_545
 from .proof_gap_report import ProofGapRecord, build_proof_gap_records_545, proof_gap_report_markdown
 from .sage_level_220_newform_expander import write_sage_level_220_newform_expander
@@ -50,6 +55,8 @@ class Focused545Artifacts:
     frey_trace_possibilities_path: str
     trace_congruence_filter_path: str
     obstruction_progress_path: str
+    coefficient_import_summary_path: str
+    coefficient_import_rows_path: str
     assumption_register_path: str
     proof_gap_summary_path: str
     proof_gap_report_path: str
@@ -167,6 +174,8 @@ def focused_545_markdown(
     frey_trace_rows: list[FreyTracePossibilityRecord],
     filter_rows: list[TraceCongruenceFilterRecord],
     progress_row: ObstructionProgressRecord,
+    coefficient_summary: NewformCoefficientImportSummary,
+    coefficient_rows: list[NewformCoefficientRow],
     assumption_rows: list[AssumptionRecord],
     gap_rows: list[ProofGapRecord],
     known_mismatches: int,
@@ -261,7 +270,12 @@ def focused_545_markdown(
             "",
             f"- Selected good primes: `{';'.join(str(row.prime) for row in good_prime_rows if row.selected) or 'none'}`.",
             f"- Newform coefficient JSON expected at: `{(run_dir / 'level_220_newform_coefficients.json').as_posix()}`.",
+            f"- Coefficient import status: `{coefficient_summary.sage_status}`; schema valid: `{coefficient_summary.schema_valid}`.",
+            f"- Imported coefficient rows: `{coefficient_summary.coefficient_row_count}`.",
+            f"- Rational/integer coefficients: `{coefficient_summary.rational_integer_coefficient_count}`; non-rational coefficients: `{coefficient_summary.nonrational_coefficient_count}`; unclear coefficients: `{coefficient_summary.unclear_coefficient_count}`.",
             f"- Aggregate progress label: `{progress_row.progress_label}`.",
+            f"- Usable comparisons: `{progress_row.usable_comparison_count}`.",
+            f"- Coefficient-field blocked comparisons: `{progress_row.coefficient_field_unclear_count}`.",
             f"- Newforms surviving all available filters: `{progress_row.newforms_surviving_all_filters}` of `{progress_row.newform_count}`.",
             f"- Unresolved reasons: `{progress_row.unresolved_reasons or 'none'}`.",
             "",
@@ -293,7 +307,26 @@ def focused_545_markdown(
     lines.extend(
         [
             "",
-            "If both level-220 newforms are eventually eliminated by good-prime congruence filters, this packet must call that `trace_mismatch_candidate`, not a proof or contradiction. With missing q-expansion data or unclear coefficient-field reduction, the correct label is `trace_data_insufficient`.",
+            "### Coefficient Field Summary",
+            "",
+            "| newform | q | coefficient | field kind | mod-5 reduction | status |",
+            "| ---: | ---: | --- | --- | --- | --- |",
+        ]
+    )
+    if coefficient_rows:
+        for row in coefficient_rows[:48]:
+            lines.append(
+                f"| {row.newform_index} | {row.prime} | `{row.coefficient}` | `{row.coefficient_field_kind}` | "
+                f"`{row.coefficient_mod_5 or 'missing'}` | `{row.row_status}` |"
+            )
+    else:
+        lines.append("| none | none | missing | missing | missing | coefficient JSON not imported |")
+    lines.extend(
+        [
+            "",
+            "If both level-220 newforms are eventually eliminated by good-prime congruence filters, this packet must call that `trace_mismatch_candidate`, not a proof or contradiction. With missing q-expansion data, the correct label is `trace_data_insufficient`; with non-rational coefficients and no justified reduction above `5`, the correct label is `coefficient_field_blocked`.",
+            "",
+            "If coefficient-field handling blocks comparison, the next human check is to choose and justify the prime above `5` in the newform coefficient field, then redo the trace congruence in that residue field.",
             "",
             "## Assumption Register",
             "",
@@ -338,6 +371,8 @@ def focused_545_markdown(
             f"- `{(run_dir / 'frey_trace_possibilities_545.csv').as_posix()}`",
             f"- `{(run_dir / 'trace_congruence_filter_545.csv').as_posix()}`",
             f"- `{(run_dir / 'obstruction_progress_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'level_220_coefficient_import_summary.csv').as_posix()}`",
+            f"- `{(run_dir / 'level_220_coefficient_rows.csv').as_posix()}`",
             f"- `{(run_dir / 'assumption_register_545.csv').as_posix()}`",
             f"- `{(run_dir / 'proof_gap_summary.csv').as_posix()}`",
             f"- `{(run_dir / 'proof_gap_report.md').as_posix()}`",
@@ -378,7 +413,14 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     good_prime_rows = select_good_primes_545(level=220, bound=100, allow_residual_prime=False)
     frey_trace_rows = build_frey_trace_possibilities_545(good_prime_rows)
     coefficient_path = run_dir / "level_220_newform_coefficients.json"
-    coefficient_payload = load_level_220_coefficients(coefficient_path)
+    coefficient_summary, coefficient_rows = import_level_220_newform_coefficients(coefficient_path)
+    coefficient_payload = {
+        "newform_count": coefficient_summary.newform_count,
+        "coefficient_rows": [row.to_flat_dict() for row in coefficient_rows],
+    }
+    raw_coefficient_payload = load_level_220_coefficients(coefficient_path)
+    if not coefficient_rows and raw_coefficient_payload:
+        coefficient_payload = raw_coefficient_payload
     newform_count = int(sage_payload.get("newform_count", 0) or 0)
     filter_rows = build_trace_congruence_filter_545(
         good_prime_rows=good_prime_rows,
@@ -401,6 +443,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     frey_trace_path = run_dir / "frey_trace_possibilities_545.csv"
     filter_path = run_dir / "trace_congruence_filter_545.csv"
     progress_path = run_dir / "obstruction_progress_545.csv"
+    coefficient_summary_path = run_dir / "level_220_coefficient_import_summary.csv"
+    coefficient_rows_path = run_dir / "level_220_coefficient_rows.csv"
     assumptions_path = run_dir / "assumption_register_545.csv"
     gaps_path = run_dir / "proof_gap_summary.csv"
     gap_report_path = run_dir / "proof_gap_report.md"
@@ -413,6 +457,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(frey_trace_path, [row.to_flat_dict() for row in frey_trace_rows])
     _write_csv(filter_path, [row.to_flat_dict() for row in filter_rows])
     _write_csv(progress_path, [progress_row.to_flat_dict()])
+    _write_csv(coefficient_summary_path, [coefficient_summary.to_flat_dict()])
+    _write_csv(coefficient_rows_path, [row.to_flat_dict() for row in coefficient_rows])
     _write_csv(assumptions_path, [row.to_flat_dict() for row in assumption_rows])
     _write_csv(gaps_path, [row.to_flat_dict() for row in gap_rows])
     gap_report_path.write_text(proof_gap_report_markdown(output_dir=run_dir, rows=gap_rows), encoding="utf-8")
@@ -431,6 +477,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             frey_trace_rows=frey_trace_rows,
             filter_rows=filter_rows,
             progress_row=progress_row,
+            coefficient_summary=coefficient_summary,
+            coefficient_rows=coefficient_rows,
             assumption_rows=assumption_rows,
             gap_rows=gap_rows,
             known_mismatches=known_mismatches,
@@ -449,6 +497,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         frey_trace_possibilities_path=frey_trace_path.as_posix(),
         trace_congruence_filter_path=filter_path.as_posix(),
         obstruction_progress_path=progress_path.as_posix(),
+        coefficient_import_summary_path=coefficient_summary_path.as_posix(),
+        coefficient_import_rows_path=coefficient_rows_path.as_posix(),
         assumption_register_path=assumptions_path.as_posix(),
         proof_gap_summary_path=gaps_path.as_posix(),
         proof_gap_report_path=gap_report_path.as_posix(),

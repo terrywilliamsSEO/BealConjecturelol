@@ -15,6 +15,9 @@ class ObstructionProgressRecord:
     signature: str
     good_primes_checked: int
     newform_count: int
+    usable_comparison_count: int
+    coefficient_field_unclear_count: int
+    insufficient_data_count: int
     newforms_surviving_all_filters: int
     eliminated_newforms: int
     first_elimination_primes: str
@@ -35,6 +38,9 @@ def score_obstruction_progress_545(
     """Score good-prime filtering progress without making theorem claims."""
     rows = list(filter_rows)
     primes = sorted({row.prime for row in rows})
+    usable_count = sum(1 for row in rows if row.filter_classification in {"survives", "eliminated"})
+    unclear_count = sum(1 for row in rows if row.filter_classification == "coefficient_field_unclear")
+    insufficient_count = sum(1 for row in rows if row.filter_classification == "insufficient_data")
     by_newform: dict[int, list[TraceCongruenceFilterRecord]] = {}
     for row in rows:
         by_newform.setdefault(row.newform_index, []).append(row)
@@ -52,12 +58,17 @@ def score_obstruction_progress_545(
         if newform_rows and all(row.filter_classification == "survives" for row in newform_rows):
             surviving += 1
             continue
-        if any(row.filter_classification in {"insufficient_data", "bad_comparison_mode"} for row in newform_rows) or not newform_rows:
+        if any(row.filter_classification == "coefficient_field_unclear" for row in newform_rows):
+            unresolved.append(f"newform_{index}:coefficient_field_unclear")
+            surviving += 1
+        elif any(row.filter_classification in {"insufficient_data", "bad_comparison_mode"} for row in newform_rows) or not newform_rows:
             unresolved.append(f"newform_{index}:insufficient_or_unclear_trace_data")
             surviving += 1
         else:
             surviving += 1
-    if unresolved:
+    if unclear_count:
+        label = "coefficient_field_blocked"
+    elif unresolved:
         label = "trace_data_insufficient"
     elif eliminated == newform_count and newform_count > 0:
         label = "trace_mismatch_candidate"
@@ -71,6 +82,9 @@ def score_obstruction_progress_545(
         signature="5-4-5",
         good_primes_checked=len(primes),
         newform_count=newform_count,
+        usable_comparison_count=usable_count,
+        coefficient_field_unclear_count=unclear_count,
+        insufficient_data_count=insufficient_count,
         newforms_surviving_all_filters=surviving,
         eliminated_newforms=eliminated,
         first_elimination_primes=";".join(first_eliminations),
@@ -79,4 +93,3 @@ def score_obstruction_progress_545(
         confidence_score=confidence,
         route_ceiling_label="worth_human_modular_review",
     )
-

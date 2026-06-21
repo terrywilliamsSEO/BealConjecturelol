@@ -21,8 +21,11 @@ class TraceCongruenceFilterRecord:
     newform_index: int
     newform_label: str
     coefficient_field: str
+    coefficient_field_kind: str
     frey_trace_values: tuple[int, ...]
     newform_coefficient: str
+    coefficient_mod_5: str
+    prime_above_5_metadata: str
     comparison_mode: str
     filter_classification: str
     reason: str
@@ -46,6 +49,25 @@ def load_level_220_coefficients(path: Path) -> dict[str, Any]:
 
 
 def _newform_rows(payload: Mapping[str, Any], newform_count: int) -> list[dict[str, Any]]:
+    flat_rows = payload.get("coefficient_rows", [])
+    if isinstance(flat_rows, list) and flat_rows:
+        grouped: dict[int, dict[str, Any]] = {}
+        for row in flat_rows:
+            if not isinstance(row, dict):
+                continue
+            index = int(row.get("newform_index", 0) or 0)
+            entry = grouped.setdefault(
+                index,
+                {
+                    "newform_index": index,
+                    "label": row.get("newform_label", "label_unavailable"),
+                    "coefficient_field": row.get("coefficient_field", ""),
+                    "coefficient_field_kind": row.get("coefficient_field_kind", ""),
+                    "coefficient_rows": {},
+                },
+            )
+            entry["coefficient_rows"][str(row.get("prime", ""))] = row
+        return [grouped[index] for index in sorted(grouped)]
     rows = payload.get("newforms", [])
     if isinstance(rows, list) and rows:
         return [row for row in rows if isinstance(row, dict)]
@@ -81,29 +103,48 @@ def _field_is_uncertain(field: str, coeff: str) -> bool:
     return True
 
 
+def _row_bool(value: Any) -> bool:
+    if isinstance(value, bool):
+        return value
+    return str(value).lower() in {"true", "1", "yes"}
+
+
 def _classify(
     *,
     frey_values: tuple[int, ...],
     coefficient: str,
     coefficient_field: str,
+    coefficient_field_kind: str,
+    coefficient_mod_5: str,
+    reduction_mod_5_available: bool,
     residual_modulus: int,
 ) -> tuple[str, str, str]:
     if not coefficient:
         return "unknown", "insufficient_data", "Missing q-expansion coefficient for this good prime."
-    if _field_is_uncertain(coefficient_field, coefficient):
+    coeff_int = _coefficient_as_int(coefficient)
+    if coeff_int is not None:
+        if coeff_int in set(frey_values):
+            return "exact", "survives", "A Frey trace equals the newform coefficient exactly."
+        if residual_modulus > 1 and any((trace - coeff_int) % residual_modulus == 0 for trace in frey_values):
+            return f"mod_{residual_modulus}", "survives", f"A Frey trace is congruent to the coefficient modulo {residual_modulus}."
+        return f"mod_{residual_modulus}" if residual_modulus > 1 else "exact", "eliminated", "No Frey trace matches under the selected comparison mode."
+    if reduction_mod_5_available and coefficient_mod_5:
+        reduced_values = {
+            int(part.strip()) % residual_modulus
+            for part in coefficient_mod_5.split(";")
+            if part.strip().lstrip("-").isdigit()
+        }
+        if reduced_values and any(trace % residual_modulus in reduced_values for trace in frey_values):
+            return f"mod_{residual_modulus}_with_field_reduction", "survives", "A Frey trace matches an imported coefficient-field reduction."
+        if reduced_values:
+            return f"mod_{residual_modulus}_with_field_reduction", "eliminated", "No Frey trace matches the imported coefficient-field reductions."
+    if coefficient_field_kind == "number_field" or _field_is_uncertain(coefficient_field, coefficient):
         return (
             "unknown",
-            "bad_comparison_mode",
+            "coefficient_field_unclear",
             "Coefficient field is not rational/integer and no reduction map was provided.",
         )
-    coeff_int = _coefficient_as_int(coefficient)
-    if coeff_int is None:
-        return "unknown", "bad_comparison_mode", "Coefficient could not be interpreted as an integer."
-    if coeff_int in set(frey_values):
-        return "exact", "survives", "A Frey trace equals the newform coefficient exactly."
-    if residual_modulus > 1 and any((trace - coeff_int) % residual_modulus == 0 for trace in frey_values):
-        return f"mod_{residual_modulus}", "survives", f"A Frey trace is congruent to the coefficient modulo {residual_modulus}."
-    return f"mod_{residual_modulus}" if residual_modulus > 1 else "exact", "eliminated", "No Frey trace matches under the selected comparison mode."
+    return "unknown", "bad_comparison_mode", "Coefficient could not be interpreted as an integer."
 
 
 def build_trace_congruence_filter_545(
@@ -126,11 +167,19 @@ def build_trace_congruence_filter_545(
             coefficients = newform.get("coefficients", {})
             if not isinstance(coefficients, dict):
                 coefficients = {}
-            coefficient = str(coefficients.get(str(prime), ""))
+            coefficient_row = {}
+            coefficient_rows = newform.get("coefficient_rows", {})
+            if isinstance(coefficient_rows, dict):
+                raw = coefficient_rows.get(str(prime), {})
+                coefficient_row = raw if isinstance(raw, dict) else {}
+            coefficient = str(coefficient_row.get("coefficient", coefficients.get(str(prime), "")))
             mode, classification, reason = _classify(
                 frey_values=frey_values,
                 coefficient=coefficient,
-                coefficient_field=str(newform.get("coefficient_field", "")),
+                coefficient_field=str(coefficient_row.get("coefficient_field", newform.get("coefficient_field", ""))),
+                coefficient_field_kind=str(coefficient_row.get("coefficient_field_kind", newform.get("coefficient_field_kind", ""))),
+                coefficient_mod_5=str(coefficient_row.get("coefficient_mod_5", "")),
+                reduction_mod_5_available=_row_bool(coefficient_row.get("reduction_mod_5_available", False)),
                 residual_modulus=residual_modulus,
             )
             rows.append(
@@ -140,9 +189,12 @@ def build_trace_congruence_filter_545(
                     prime=prime,
                     newform_index=int(newform.get("newform_index", len(rows))),
                     newform_label=str(newform.get("label", "label_unavailable")),
-                    coefficient_field=str(newform.get("coefficient_field", "")),
+                    coefficient_field=str(coefficient_row.get("coefficient_field", newform.get("coefficient_field", ""))),
+                    coefficient_field_kind=str(coefficient_row.get("coefficient_field_kind", newform.get("coefficient_field_kind", ""))),
                     frey_trace_values=frey_values,
                     newform_coefficient=coefficient,
+                    coefficient_mod_5=str(coefficient_row.get("coefficient_mod_5", "")),
+                    prime_above_5_metadata=str(coefficient_row.get("prime_above_5_metadata", "")),
                     comparison_mode=mode,
                     filter_classification=classification,
                     reason=reason,
@@ -151,4 +203,3 @@ def build_trace_congruence_filter_545(
             )
     rows.sort(key=lambda row: (row.newform_index, row.prime))
     return rows
-

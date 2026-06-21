@@ -14,7 +14,11 @@ on:
       - ".github/workflows/sage-followup.yml"
       - "beal_rsg_lab/sage_*.py"
       - "beal_rsg_lab/sage_followup_cli.py"
+      - "beal_rsg_lab/*545.py"
+      - "beal_rsg_lab/newform_coefficient_importer.py"
+      - "beal_rsg_lab/obstruction_progress_score.py"
       - "tests/test_sage*.py"
+      - "tests/test_*545.py"
 
 permissions:
   contents: write
@@ -74,6 +78,15 @@ jobs:
             runs/${{ env.RUN_ID }}/sage_environment_report.md
             runs/${{ env.RUN_ID }}/sage_execution_manifest.csv
             runs/${{ env.RUN_ID }}/sage_execution_results.csv
+            runs/${{ env.RUN_ID }}/sage_level_220_newform_expander.sage
+            runs/${{ env.RUN_ID }}/level_220_newform_coefficients.json
+            runs/${{ env.RUN_ID }}/level_220_coefficient_import_summary.csv
+            runs/${{ env.RUN_ID }}/level_220_coefficient_rows.csv
+            runs/${{ env.RUN_ID }}/good_prime_list_545.csv
+            runs/${{ env.RUN_ID }}/frey_trace_possibilities_545.csv
+            runs/${{ env.RUN_ID }}/trace_congruence_filter_545.csv
+            runs/${{ env.RUN_ID }}/obstruction_progress_545.csv
+            runs/${{ env.RUN_ID }}/FOCUSED_545_REVIEW.md
             runs/${{ env.RUN_ID }}/sage_import_results.csv
             runs/${{ env.RUN_ID }}/sage_known_case_calibration.csv
             runs/${{ env.RUN_ID }}/modular_confidence_summary.csv
@@ -113,6 +126,15 @@ jobs:
             "runs/$RUN_ID/sage_environment_report.md" \
             "runs/$RUN_ID/sage_execution_manifest.csv" \
             "runs/$RUN_ID/sage_execution_results.csv" \
+            "runs/$RUN_ID/sage_level_220_newform_expander.sage" \
+            "runs/$RUN_ID/level_220_newform_coefficients.json" \
+            "runs/$RUN_ID/level_220_coefficient_import_summary.csv" \
+            "runs/$RUN_ID/level_220_coefficient_rows.csv" \
+            "runs/$RUN_ID/good_prime_list_545.csv" \
+            "runs/$RUN_ID/frey_trace_possibilities_545.csv" \
+            "runs/$RUN_ID/trace_congruence_filter_545.csv" \
+            "runs/$RUN_ID/obstruction_progress_545.csv" \
+            "runs/$RUN_ID/FOCUSED_545_REVIEW.md" \
             "runs/$RUN_ID/sage_import_results.csv" \
             "runs/$RUN_ID/sage_known_case_calibration.csv" \
             "runs/$RUN_ID/modular_confidence_summary.csv" \
@@ -142,6 +164,14 @@ jobs:
           smoke = json.loads(smoke_path.read_text())
           assert smoke["sage_status"] == "completed", smoke
           assert smoke["contradiction_claim_allowed"] is False, smoke
+          coeff_path = root / "level_220_newform_coefficients.json"
+          assert coeff_path.exists(), "missing level-220 coefficient JSON"
+          coeff = json.loads(coeff_path.read_text())
+          assert coeff["contradiction_claim_allowed"] is False, coeff
+          assert int(coeff["level"]) == 220, coeff
+          assert int(coeff["weight"]) == 2, coeff
+          coeff_import = list(csv.DictReader((root / "level_220_coefficient_import_summary.csv").open()))
+          assert coeff_import and coeff_import[0]["schema_valid"] == "True", coeff_import
           imports = list(csv.DictReader((root / "sage_import_results.csv").open()))
           confidence = list(csv.DictReader((root / "modular_confidence_summary.csv").open()))
           known = list(csv.DictReader((root / "sage_known_case_calibration.csv").open()))
