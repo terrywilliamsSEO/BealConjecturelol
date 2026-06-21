@@ -10,5 +10,5 @@ sage_5_3_5,5-3-5,mixed_needs_external_check,timeout,not_checked,0,needs_external
 sage_5_4_5,5-4-5,mixed_needs_external_check,completed,inconclusive,49,sage_checked_inconclusive,sage_checked_inconclusive,False,False,3.5
 sage_5_5_4,5-5-4,mixed_needs_external_check,completed,inconclusive,42,sage_checked_inconclusive,sage_checked_inconclusive,False,False,3.5
 sage_5_5_7,5-5-7,mixed_needs_external_check,timeout,not_checked,0,needs_external_sage_check,needs_external_sage_check,False,False,1.5
-sage_7_4_7,7-4-7,needs_external_sage_check,completed,inconclusive,54,sage_checked_inconclusive,sage_checked_inconclusive,False,False,3.5
+sage_7_4_7,7-4-7,needs_external_sage_check,timeout,not_checked,0,needs_external_sage_check,needs_external_sage_check,False,False,1.5
 sage_7_7_4,7-7-4,needs_external_sage_check,timeout,not_checked,0,needs_external_sage_check,needs_external_sage_check,False,False,1.5
