@@ -74,6 +74,33 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
         ),
         ProofGapRecord(
             signature=signature,
+            gap_category="conductor_exponent_model_gap",
+            gap_status="open",
+            description="The conductor-exponent model gives symbolic multiplicative rows away from 2,5,11 but does not derive bad-prime conductor exponents.",
+            required_next_lemma="Convert the symbolic valuation model into a local minimal-model and conductor-exponent calculation at every relevant prime.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
+            gap_category="level_220_provenance_gap",
+            gap_status="open",
+            description="The factorization 220 = 2^2 * 5 * 11 is recorded, but level 220 remains a heuristic target until each factor is derived.",
+            required_next_lemma="Explain the factors 2, 5, and 11 in the lowered level; in particular resolve level_11_factor_unjustified.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
+            gap_category="abc_prime_removal_gap",
+            gap_status="open",
+            description="Primes dividing A, B, or C appear in the displayed discriminant and are not yet removed from the final level by a verified argument.",
+            required_next_lemma="Prove residual irreducibility, minimality, and level-lowering hypotheses that remove every prime dividing ABC.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
             gap_category="irreducibility_gap",
             gap_status="open",
             description="The residual representation has not been shown irreducible.",
@@ -212,7 +239,7 @@ def proof_gap_report_markdown(*, output_dir: Path, rows: Iterable[ProofGapRecord
                 "include the q in {3,13,17,41,61} local valuation and reduction case split for q | ABC, plus the focused Tate algorithm "
                 "under A_only, B_only, and C_only, run the bad-prime Tate algorithm at 2, 5, and 11, justify the multiplicative congruence a_q(f) == +/-(q+1) mod 5, and verify the "
                 "exists-prime-per-newform quantifier before the two level-220 newforms are tested with q-expansion trace congruences at good primes. "
-                "The conductor-support, level-lowering, cross-prime compatibility, quantifier-safety, and q=3 exceptionality audits must also be reviewed."
+                "The conductor-exponent model, level-220 provenance audit, ABC-prime removal audit, conductor-support, level-lowering, cross-prime compatibility, quantifier-safety, and q=3 exceptionality audits must also be reviewed."
             ),
             "",
         ]

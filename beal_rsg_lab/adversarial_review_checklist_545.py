@@ -6,12 +6,16 @@ import argparse
 from pathlib import Path
 from typing import Iterable
 
+from .abc_prime_removal_audit_545 import ABCPrimeRemovalAuditRecord
 from .assumption_dependency_graph_545 import AssumptionDependencyRecord
 from .bad_prime_tate_checklist_545 import BadPrimeTateChecklistRecord
 from .conductor_support_audit_545 import ConductorSupportAuditRecord
+from .conductor_exponent_model_545 import ConductorExponentModelRecord
 from .conditional_route_validity_score_545 import ConditionalRouteValidityScoreRecord
+from .level_220_provenance_545 import Level220ProvenanceRecord
 from .level_lowering_obligation_545 import LevelLoweringObligationRecord
 from .quantifier_safety_audit_545 import QuantifierSafetyAuditRecord
+from .sage_conductor_sanity_samples_545 import SageConductorSanityManifestRecord
 
 
 def _aggregate_label(rows: Iterable[QuantifierSafetyAuditRecord]) -> str:
@@ -28,6 +32,10 @@ def adversarial_review_checklist_545_markdown(
     bad_prime_rows: Iterable[BadPrimeTateChecklistRecord] = (),
     level_lowering_rows: Iterable[LevelLoweringObligationRecord] = (),
     validity_rows: Iterable[ConditionalRouteValidityScoreRecord] = (),
+    conductor_exponent_rows: Iterable[ConductorExponentModelRecord] = (),
+    level_220_provenance_rows: Iterable[Level220ProvenanceRecord] = (),
+    abc_prime_removal_rows: Iterable[ABCPrimeRemovalAuditRecord] = (),
+    sage_conductor_sanity_rows: Iterable[SageConductorSanityManifestRecord] = (),
 ) -> str:
     """Render a human adversarial checklist."""
     qrows = list(quantifier_rows)
@@ -36,8 +44,16 @@ def adversarial_review_checklist_545_markdown(
     brows = list(bad_prime_rows)
     lrows = list(level_lowering_rows)
     vrows = list(validity_rows)
+    erows = list(conductor_exponent_rows)
+    prows = list(level_220_provenance_rows)
+    arows = list(abc_prime_removal_rows)
+    srows = list(sage_conductor_sanity_rows)
     dependency_status = ";".join(f"{row.dependency_id}:{row.current_status}" for row in drows) or "not_generated"
     conductor_status = ";".join(f"{row.prime_or_symbol}:{row.audit_label}" for row in crows) or "not_generated"
+    conductor_exponent_status = ";".join(f"{row.prime_symbol}:{row.audit_label}" for row in erows) or "not_generated"
+    provenance_status = ";".join(f"{row.factor}:{row.provenance_label}" for row in prows) or "not_generated"
+    abc_status = ";".join(f"{row.prime_symbol}:{row.removal_label}" for row in arows) or "not_generated"
+    sage_sanity_status = ";".join(f"{row.artifact}:{row.mathematical_status}" for row in srows) or "not_generated"
     bad_prime_status = ";".join(f"q={row.prime}:{row.audit_label}" for row in brows) or "not_generated"
     level_status = ";".join(f"{row.obligation_id}:{row.current_status}" for row in lrows) or "not_generated"
     validity_label = vrows[0].validity_label if vrows else "not_scored"
@@ -48,15 +64,22 @@ def adversarial_review_checklist_545_markdown(
         f"- Conditional route validity label: `{validity_label}`.",
         f"- Dependency status summary: `{dependency_status}`.",
         f"- Conductor support summary: `{conductor_status}`.",
+        f"- Conductor exponent summary: `{conductor_exponent_status}`.",
+        f"- Level-220 provenance summary: `{provenance_status}`.",
+        f"- ABC-prime removal summary: `{abc_status}`.",
         f"- Bad-prime local summary: `{bad_prime_status}`.",
         f"- Level-lowering summary: `{level_status}`.",
+        f"- Sage sanity summary: `{sage_sanity_status}`.",
         "- Route ceiling: `worth_human_modular_review`.",
         "",
         "## Core Modular-Method Checks",
         "",
         "- [ ] Is level `220` truly the lowered level for the attached Frey curve?",
+        "- [ ] Is the factor `11` formula-derived, local-audit-derived with a theorem, or only a heuristic route artifact?",
+        "- [ ] Are the exponents `2^2`, `5`, and `11` derived by local conductor analysis rather than inherited from the exploratory route?",
         "- [ ] Is the proposed Frey curve attached to every primitive solution case, including signs and normalization?",
         "- [ ] Is the residual mod-5 representation irreducible in the exact sense required by the level-lowering theorem?",
+        "- [ ] Have all primes dividing `ABC` been removed from the final comparison level by a verified level-lowering argument?",
         "- [ ] Are q=13, q=17, and q=41 good relative to the true conductor, not just relative to the candidate level?",
         "- [ ] If q=61 is used as support data, is it also good relative to the true conductor?",
         "",
@@ -72,6 +95,7 @@ def adversarial_review_checklist_545_markdown(
         "## Current Conditional Evidence To Recheck",
         "",
         "- [ ] Recompute the q-expansion coefficients for the two level-220 newform slots independently.",
+        "- [ ] Treat `sage_conductor_sanity_545.sage` as a formula sanity tool only, not as route evidence.",
         "- [ ] Recompute the allowed multiplicative residues `+/-(q+1) mod 5` at q=13, q=17, q=41, and q=61.",
         "- [ ] Verify newform 0 has complete same-prime branch coverage at q=17 or q=41.",
         "- [ ] Verify newform 1 has complete same-prime branch coverage at q=13.",
@@ -96,6 +120,10 @@ def write_adversarial_review_checklist_545_markdown(
     bad_prime_rows: Iterable[BadPrimeTateChecklistRecord] = (),
     level_lowering_rows: Iterable[LevelLoweringObligationRecord] = (),
     validity_rows: Iterable[ConditionalRouteValidityScoreRecord] = (),
+    conductor_exponent_rows: Iterable[ConductorExponentModelRecord] = (),
+    level_220_provenance_rows: Iterable[Level220ProvenanceRecord] = (),
+    abc_prime_removal_rows: Iterable[ABCPrimeRemovalAuditRecord] = (),
+    sage_conductor_sanity_rows: Iterable[SageConductorSanityManifestRecord] = (),
 ) -> Path:
     """Write `ADVERSARIAL_REVIEW_CHECKLIST_545.md`."""
     path.write_text(
@@ -106,6 +134,10 @@ def write_adversarial_review_checklist_545_markdown(
             bad_prime_rows,
             level_lowering_rows,
             validity_rows,
+            conductor_exponent_rows,
+            level_220_provenance_rows,
+            abc_prime_removal_rows,
+            sage_conductor_sanity_rows,
         ),
         encoding="utf-8",
     )

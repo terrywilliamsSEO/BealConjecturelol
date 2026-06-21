@@ -9,6 +9,11 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from .assumption_register import AssumptionRecord, build_assumption_register_545
+from .abc_prime_removal_audit_545 import (
+    ABCPrimeRemovalAuditRecord,
+    abc_prime_removal_audit_545_markdown,
+    build_abc_prime_removal_audit_545,
+)
 from .adversarial_review_checklist_545 import adversarial_review_checklist_545_markdown
 from .assumption_dependency_graph_545 import (
     AssumptionDependencyRecord,
@@ -45,6 +50,11 @@ from .conductor_support_audit_545 import (
     build_conductor_support_audit_545,
     conductor_support_audit_545_markdown,
 )
+from .conductor_exponent_model_545 import (
+    ConductorExponentModelRecord,
+    build_conductor_exponent_model_545,
+    conductor_exponent_model_545_markdown,
+)
 from .frey_curve_derivation_545 import (
     FreyCurveDerivationRecord,
     build_frey_curve_derivation_545,
@@ -80,6 +90,11 @@ from .level_220_robustness_545 import (
     LevelRobustnessRecord,
     build_level_robustness_545,
     level_robustness_markdown,
+)
+from .level_220_provenance_545 import (
+    Level220ProvenanceRecord,
+    build_level_220_provenance_545,
+    level_220_provenance_545_markdown,
 )
 from .level_lowering_obligation_545 import (
     LevelLoweringObligationRecord,
@@ -129,6 +144,10 @@ from .q3_exceptionality_audit_545 import (
     q3_exceptionality_audit_545_markdown,
 )
 from .sage_level_220_newform_expander import write_sage_level_220_newform_expander
+from .sage_conductor_sanity_samples_545 import (
+    SageConductorSanityManifestRecord,
+    write_sage_conductor_sanity_samples_545,
+)
 from .singular_reduction_trace_545 import (
     SingularReductionTraceRecord,
     build_singular_reduction_traces_545,
@@ -225,6 +244,14 @@ class Focused545Artifacts:
     frey_curve_derivation_report_path: str
     conductor_support_audit_path: str
     conductor_support_audit_report_path: str
+    conductor_exponent_model_path: str
+    conductor_exponent_model_report_path: str
+    level_220_provenance_path: str
+    level_220_provenance_report_path: str
+    abc_prime_removal_audit_path: str
+    abc_prime_removal_audit_report_path: str
+    sage_conductor_sanity_script_path: str
+    sage_conductor_sanity_manifest_path: str
     bad_prime_tate_checklist_path: str
     bad_prime_tate_checklist_report_path: str
     level_lowering_obligations_path: str
@@ -378,6 +405,10 @@ def focused_545_markdown(
     dependency_rows: list[AssumptionDependencyRecord],
     frey_curve_derivation_rows: list[FreyCurveDerivationRecord],
     conductor_support_rows: list[ConductorSupportAuditRecord],
+    conductor_exponent_rows: list[ConductorExponentModelRecord],
+    level_220_provenance_rows: list[Level220ProvenanceRecord],
+    abc_prime_removal_rows: list[ABCPrimeRemovalAuditRecord],
+    sage_conductor_sanity_rows: list[SageConductorSanityManifestRecord],
     bad_prime_tate_rows: list[BadPrimeTateChecklistRecord],
     level_lowering_obligation_rows: list[LevelLoweringObligationRecord],
     route_validity_rows: list[ConditionalRouteValidityScoreRecord],
@@ -418,6 +449,21 @@ def focused_545_markdown(
         f"{row.prime_or_symbol}:{row.audit_label}" for row in conductor_support_rows
         if row.audit_label in {"conductor_support_gap", "needs_human_review"}
     ) or "none"
+    conductor_exponent_gap_summary = ";".join(
+        f"{row.prime_symbol}:{row.audit_label}" for row in conductor_exponent_rows
+        if row.audit_label == "needs_human_tate_check"
+    ) or "none"
+    provenance_gap_summary = ";".join(
+        f"{row.factor}:{row.provenance_label}" for row in level_220_provenance_rows
+        if row.provenance_label in {"level_220_heuristic_target", "level_11_factor_unjustified"}
+    ) or "none"
+    abc_removal_gap_summary = ";".join(
+        f"{row.prime_symbol}:{row.removal_label}" for row in abc_prime_removal_rows
+        if row.removal_label == "abc_prime_removal_gap"
+    ) or "none"
+    sage_sanity_summary = ";".join(
+        f"{row.artifact}:{row.mathematical_status}" for row in sage_conductor_sanity_rows
+    ) or "not_generated"
     bad_prime_gap_summary = ";".join(
         f"q={row.prime}:{row.audit_label}" for row in bad_prime_tate_rows
     ) or "none"
@@ -832,8 +878,13 @@ def focused_545_markdown(
             f"- Conditional route validity label: `{route_validity.validity_label if route_validity else 'conductor_gap_blocks_upgrade'}`.",
             f"- Frey invariant derivation: `{frey_derivation_summary}`.",
             f"- Conductor support gaps: `{conductor_gap_summary}`.",
+            f"- Conductor exponent gaps: `{conductor_exponent_gap_summary}`.",
+            f"- Level-220 provenance gaps: `{provenance_gap_summary}`.",
+            f"- ABC-prime removal gaps: `{abc_removal_gap_summary}`.",
             f"- Bad-prime Tate gaps: `{bad_prime_gap_summary}`.",
             f"- Level-lowering obligations blocking upgrade: `{level_lowering_gap_summary}`.",
+            f"- Sage conductor sanity artifacts: `{sage_sanity_summary}`.",
+            "- Level 220 remains a heuristic target while `level_11_factor_unjustified` and `abc_prime_removal_gap` remain open.",
             "- Human theorem target: prove Frey attachment, minimal conductor, residual mod-5 irreducibility, level lowering to exactly 220, level-220 newform exhaustion, and the justified good-prime trace comparisons.",
             "",
             "| component | current status |",
@@ -842,6 +893,9 @@ def focused_545_markdown(
             f"| quantifier safety | `{route_validity.quantifier_safety if route_validity else 'not_scored'}` |",
             f"| symbolic Frey validity | `{route_validity.symbolic_frey_validity if route_validity else 'not_scored'}` |",
             f"| conductor support | `{route_validity.conductor_support_confidence if route_validity else 'not_scored'}` |",
+            f"| conductor exponent model | `{route_validity.conductor_exponent_confidence if route_validity else 'not_scored'}` |",
+            f"| level 220 provenance | `{route_validity.level_220_provenance_confidence if route_validity else 'not_scored'}` |",
+            f"| ABC-prime removal | `{route_validity.abc_prime_removal_confidence if route_validity else 'not_scored'}` |",
             f"| bad-prime local checks | `{route_validity.bad_prime_local_confidence if route_validity else 'not_scored'}` |",
             f"| level lowering | `{route_validity.level_lowering_confidence if route_validity else 'not_scored'}` |",
             f"| irreducibility | `{route_validity.irreducibility_confidence if route_validity else 'not_scored'}` |",
@@ -980,6 +1034,14 @@ def focused_545_markdown(
             f"- `{(run_dir / 'FREY_CURVE_DERIVATION_545.md').as_posix()}`",
             f"- `{(run_dir / 'conductor_support_audit_545.csv').as_posix()}`",
             f"- `{(run_dir / 'CONDUCTOR_SUPPORT_AUDIT_545.md').as_posix()}`",
+            f"- `{(run_dir / 'conductor_exponent_model_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'CONDUCTOR_EXPONENT_MODEL_545.md').as_posix()}`",
+            f"- `{(run_dir / 'level_220_provenance_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'LEVEL_220_PROVENANCE_545.md').as_posix()}`",
+            f"- `{(run_dir / 'abc_prime_removal_audit_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'ABC_PRIME_REMOVAL_AUDIT_545.md').as_posix()}`",
+            f"- `{(run_dir / 'sage_conductor_sanity_545.sage').as_posix()}`",
+            f"- `{(run_dir / 'sage_conductor_sanity_manifest_545.csv').as_posix()}`",
             f"- `{(run_dir / 'bad_prime_tate_checklist_545.csv').as_posix()}`",
             f"- `{(run_dir / 'BAD_PRIME_TATE_CHECKLIST_545.md').as_posix()}`",
             f"- `{(run_dir / 'level_lowering_obligations_545.csv').as_posix()}`",
@@ -1093,6 +1155,14 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     dependency_rows = build_assumption_dependency_graph_545(quantifier_rows)
     frey_curve_derivation_rows = build_frey_curve_derivation_545(invariant_rows)
     conductor_support_rows = build_conductor_support_audit_545()
+    conductor_exponent_rows = build_conductor_exponent_model_545()
+    level_220_provenance_rows = build_level_220_provenance_545()
+    abc_prime_removal_rows = build_abc_prime_removal_audit_545()
+    (
+        sage_conductor_sanity_script_path,
+        sage_conductor_sanity_manifest_path,
+        sage_conductor_sanity_rows,
+    ) = write_sage_conductor_sanity_samples_545(run_dir)
     bad_prime_tate_rows = build_bad_prime_tate_checklist_545()
     level_lowering_obligation_rows = build_level_lowering_obligations_545()
     route_validity_rows = build_conditional_route_validity_score_545(
@@ -1101,6 +1171,9 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         conductor_support_rows,
         bad_prime_tate_rows,
         level_lowering_obligation_rows,
+        conductor_exponent_rows,
+        level_220_provenance_rows,
+        abc_prime_removal_rows,
     )
     case_coverage_rows = build_trace_filter_case_coverage_545(
         filter_rows,
@@ -1179,6 +1252,12 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     frey_curve_derivation_report_path = run_dir / "FREY_CURVE_DERIVATION_545.md"
     conductor_support_path = run_dir / "conductor_support_audit_545.csv"
     conductor_support_report_path = run_dir / "CONDUCTOR_SUPPORT_AUDIT_545.md"
+    conductor_exponent_path = run_dir / "conductor_exponent_model_545.csv"
+    conductor_exponent_report_path = run_dir / "CONDUCTOR_EXPONENT_MODEL_545.md"
+    level_220_provenance_path = run_dir / "level_220_provenance_545.csv"
+    level_220_provenance_report_path = run_dir / "LEVEL_220_PROVENANCE_545.md"
+    abc_prime_removal_path = run_dir / "abc_prime_removal_audit_545.csv"
+    abc_prime_removal_report_path = run_dir / "ABC_PRIME_REMOVAL_AUDIT_545.md"
     bad_prime_tate_path = run_dir / "bad_prime_tate_checklist_545.csv"
     bad_prime_tate_report_path = run_dir / "BAD_PRIME_TATE_CHECKLIST_545.md"
     level_lowering_obligations_path = run_dir / "level_lowering_obligations_545.csv"
@@ -1225,6 +1304,9 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(dependency_graph_path, [row.to_flat_dict() for row in dependency_rows])
     _write_csv(frey_curve_derivation_path, [row.to_flat_dict() for row in frey_curve_derivation_rows])
     _write_csv(conductor_support_path, [row.to_flat_dict() for row in conductor_support_rows])
+    _write_csv(conductor_exponent_path, [row.to_flat_dict() for row in conductor_exponent_rows])
+    _write_csv(level_220_provenance_path, [row.to_flat_dict() for row in level_220_provenance_rows])
+    _write_csv(abc_prime_removal_path, [row.to_flat_dict() for row in abc_prime_removal_rows])
     _write_csv(bad_prime_tate_path, [row.to_flat_dict() for row in bad_prime_tate_rows])
     _write_csv(level_lowering_obligations_path, [row.to_flat_dict() for row in level_lowering_obligation_rows])
     _write_csv(route_validity_path, [row.to_flat_dict() for row in route_validity_rows])
@@ -1251,6 +1333,10 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             bad_prime_tate_rows,
             level_lowering_obligation_rows,
             route_validity_rows,
+            conductor_exponent_rows,
+            level_220_provenance_rows,
+            abc_prime_removal_rows,
+            sage_conductor_sanity_rows,
         ),
         encoding="utf-8",
     )
@@ -1266,6 +1352,10 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             bad_prime_tate_rows,
             level_lowering_obligation_rows,
             route_validity_rows,
+            conductor_exponent_rows,
+            level_220_provenance_rows,
+            abc_prime_removal_rows,
+            sage_conductor_sanity_rows,
         ),
         encoding="utf-8",
     )
@@ -1275,6 +1365,18 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     )
     conductor_support_report_path.write_text(
         conductor_support_audit_545_markdown(conductor_support_rows),
+        encoding="utf-8",
+    )
+    conductor_exponent_report_path.write_text(
+        conductor_exponent_model_545_markdown(conductor_exponent_rows),
+        encoding="utf-8",
+    )
+    level_220_provenance_report_path.write_text(
+        level_220_provenance_545_markdown(level_220_provenance_rows),
+        encoding="utf-8",
+    )
+    abc_prime_removal_report_path.write_text(
+        abc_prime_removal_audit_545_markdown(abc_prime_removal_rows),
         encoding="utf-8",
     )
     bad_prime_tate_report_path.write_text(
@@ -1345,6 +1447,10 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             dependency_rows=dependency_rows,
             frey_curve_derivation_rows=frey_curve_derivation_rows,
             conductor_support_rows=conductor_support_rows,
+            conductor_exponent_rows=conductor_exponent_rows,
+            level_220_provenance_rows=level_220_provenance_rows,
+            abc_prime_removal_rows=abc_prime_removal_rows,
+            sage_conductor_sanity_rows=sage_conductor_sanity_rows,
             bad_prime_tate_rows=bad_prime_tate_rows,
             level_lowering_obligation_rows=level_lowering_obligation_rows,
             route_validity_rows=route_validity_rows,
@@ -1409,6 +1515,14 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         frey_curve_derivation_report_path=frey_curve_derivation_report_path.as_posix(),
         conductor_support_audit_path=conductor_support_path.as_posix(),
         conductor_support_audit_report_path=conductor_support_report_path.as_posix(),
+        conductor_exponent_model_path=conductor_exponent_path.as_posix(),
+        conductor_exponent_model_report_path=conductor_exponent_report_path.as_posix(),
+        level_220_provenance_path=level_220_provenance_path.as_posix(),
+        level_220_provenance_report_path=level_220_provenance_report_path.as_posix(),
+        abc_prime_removal_audit_path=abc_prime_removal_path.as_posix(),
+        abc_prime_removal_audit_report_path=abc_prime_removal_report_path.as_posix(),
+        sage_conductor_sanity_script_path=sage_conductor_sanity_script_path.as_posix(),
+        sage_conductor_sanity_manifest_path=sage_conductor_sanity_manifest_path.as_posix(),
         bad_prime_tate_checklist_path=bad_prime_tate_path.as_posix(),
         bad_prime_tate_checklist_report_path=bad_prime_tate_report_path.as_posix(),
         level_lowering_obligations_path=level_lowering_obligations_path.as_posix(),

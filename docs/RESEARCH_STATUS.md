@@ -361,6 +361,16 @@ and primes dividing A, B, or C must be removed by level lowering. The bad-prime
 Tate checklist and level-lowering obligation list keep the route validity score
 at `conductor_gap_blocks_upgrade`.
 
+The conductor-exponent and level-220 provenance audit makes that blocker more
+explicit. Generic odd primes dividing A, B, or C away from 2, 5, and 11 are
+modeled as multiplicative in the displayed template when `v_ell(c4)=0`, but
+bad-prime exponents at 2, 5, and 11 still require human Tate analysis. The
+aggregate level remains `level_220_heuristic_target`, the factor 11 is flagged
+as `level_11_factor_unjustified`, and the A/B/C prime cases are flagged with
+`abc_prime_removal_gap` until a level-lowering theorem removes them from the
+comparison level. The optional Sage conductor sanity script is for formula and
+synthetic-sample checks only.
+
 Missing invariant formulas downgrade to `needs_human_tate_algorithm`, missing
 coefficients become `coefficient_missing`, and unapplied congruence assumptions
 become `level_lowering_assumption_required`.
@@ -384,6 +394,10 @@ package needed for the quantifier-safe trace elimination: Frey attachment,
 minimal conductor at 2, 5, 11 and primes dividing ABC, residual mod-5
 irreducibility, exact lowering to level 220, level-220 newform exhaustion, and
 good-prime trace comparison validity.
+
+Additional review obligation: Justify the provenance of `220 = 2^2 * 5 * 11`,
+resolve `level_11_factor_unjustified`, and close `abc_prime_removal_gap` for
+all primes dividing A, B, or C.
 
 ## Reproducibility Note
 

@@ -8,9 +8,12 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Iterable
 
+from .abc_prime_removal_audit_545 import ABCPrimeRemovalAuditRecord
 from .bad_prime_tate_checklist_545 import BadPrimeTateChecklistRecord
 from .conductor_support_audit_545 import ConductorSupportAuditRecord
+from .conductor_exponent_model_545 import ConductorExponentModelRecord
 from .frey_curve_derivation_545 import FreyCurveDerivationRecord
+from .level_220_provenance_545 import Level220ProvenanceRecord
 from .level_lowering_obligation_545 import LevelLoweringObligationRecord
 from .quantifier_safety_audit_545 import QuantifierSafetyAuditRecord
 
@@ -20,6 +23,7 @@ SAFE_CONDITIONAL_ROUTE_VALIDITY_LABELS = {
     "conductor_gap_blocks_upgrade",
     "frey_template_gap_blocks_upgrade",
     "level_lowering_gap_blocks_upgrade",
+    "bad_prime_tate_gap",
 }
 
 
@@ -32,6 +36,9 @@ class ConditionalRouteValidityScoreRecord:
     quantifier_safety: str
     symbolic_frey_validity: str
     conductor_support_confidence: str
+    conductor_exponent_confidence: str
+    level_220_provenance_confidence: str
+    abc_prime_removal_confidence: str
     bad_prime_local_confidence: str
     level_lowering_confidence: str
     irreducibility_confidence: str
@@ -71,13 +78,34 @@ def _derive_label(
     conductor_rows: list[ConductorSupportAuditRecord],
     bad_prime_rows: list[BadPrimeTateChecklistRecord],
     level_rows: list[LevelLoweringObligationRecord],
+    conductor_exponent_rows: list[ConductorExponentModelRecord],
+    level_220_provenance_rows: list[Level220ProvenanceRecord],
+    abc_prime_removal_rows: list[ABCPrimeRemovalAuditRecord],
 ) -> tuple[str, str]:
     if any(row.audit_label == "formula_mismatch" for row in frey_rows):
         return "frey_template_gap_blocks_upgrade", "At least one symbolic Frey invariant disagrees with the template records."
+    if any(
+        row.provenance_label in {"level_220_heuristic_target", "level_11_factor_unjustified"}
+        for row in level_220_provenance_rows
+    ):
+        return (
+            "conductor_gap_blocks_upgrade",
+            "Level 220 still has heuristic provenance, including an unjustified factor 11.",
+        )
+    if any(row.removal_label == "abc_prime_removal_gap" for row in abc_prime_removal_rows):
+        return (
+            "level_lowering_gap_blocks_upgrade",
+            "Primes dividing ABC have not yet been removed by a verified level-lowering argument.",
+        )
+    if any(
+        row.audit_label == "needs_human_tate_check" and row.prime_case in {"ell_equals_2", "ell_equals_5", "ell_equals_11"}
+        for row in conductor_exponent_rows
+    ):
+        return "bad_prime_tate_gap", "Bad-prime conductor exponents at 2, 5, or 11 are not derived."
     if any(row.audit_label in {"conductor_support_gap", "needs_human_review"} for row in conductor_rows):
         return "conductor_gap_blocks_upgrade", "The conductor support audit still has unresolved support or exponent gaps."
     if any(row.audit_label in {"blocks_conductor_claim", "missing_local_analysis"} for row in bad_prime_rows):
-        return "conductor_gap_blocks_upgrade", "Bad-prime local Tate analysis still blocks a conductor claim."
+        return "bad_prime_tate_gap", "Bad-prime local Tate analysis still blocks a conductor claim."
     if any(row.current_status in {"missing", "blocks_upgrade", "needs_human_review"} for row in level_rows):
         return "level_lowering_gap_blocks_upgrade", "Level-lowering obligations remain missing or unverified."
     return "conditional_route_strong_computational", "All tracked computational checks are present, still capped at human review."
@@ -89,6 +117,9 @@ def build_conditional_route_validity_score_545(
     conductor_rows: Iterable[ConductorSupportAuditRecord],
     bad_prime_rows: Iterable[BadPrimeTateChecklistRecord],
     level_rows: Iterable[LevelLoweringObligationRecord],
+    conductor_exponent_rows: Iterable[ConductorExponentModelRecord] = (),
+    level_220_provenance_rows: Iterable[Level220ProvenanceRecord] = (),
+    abc_prime_removal_rows: Iterable[ABCPrimeRemovalAuditRecord] = (),
 ) -> list[ConditionalRouteValidityScoreRecord]:
     """Build a conservative route validity score."""
     qrows = list(quantifier_rows)
@@ -96,13 +127,31 @@ def build_conditional_route_validity_score_545(
     crows = list(conductor_rows)
     brows = list(bad_prime_rows)
     lrows = list(level_rows)
+    erows = list(conductor_exponent_rows)
+    prows = list(level_220_provenance_rows)
+    arows = list(abc_prime_removal_rows)
     quantifier = _quantifier_label(qrows)
     symbolic = "symbolic_formulas_available" if frows and all(row.audit_label == "verified_symbolic" for row in frows) else "frey_formula_gap"
     conductor = "conductor_support_gap" if any(row.audit_label in {"conductor_support_gap", "needs_human_review"} for row in crows) else "conductor_support_reviewed"
+    conductor_exponent = (
+        "bad_prime_tate_gap"
+        if any(row.audit_label == "needs_human_tate_check" for row in erows)
+        else "symbolic_conductor_exponents_available"
+    )
+    level_220_provenance = (
+        "level_220_heuristic_target"
+        if any(row.provenance_label in {"level_220_heuristic_target", "level_11_factor_unjustified"} for row in prows)
+        else "level_220_provenance_reviewed"
+    )
+    abc_prime_removal = (
+        "abc_prime_removal_gap"
+        if any(row.removal_label == "abc_prime_removal_gap" for row in arows)
+        else "abc_prime_removal_reviewed"
+    )
     bad_prime = "bad_prime_tate_gap" if any(row.audit_label == "blocks_conductor_claim" for row in brows) else "bad_prime_local_reviewed"
     level = "level_lowering_gap" if any(row.current_status in {"missing", "blocks_upgrade", "needs_human_review"} for row in lrows) else "level_lowering_reviewed"
     irreducibility = "missing" if any(row.obligation_name == "Residual representation irreducible" and row.current_status == "missing" for row in lrows) else "reviewed"
-    label, reason = _derive_label(frows, crows, brows, lrows)
+    label, reason = _derive_label(frows, crows, brows, lrows, erows, prows, arows)
     if label not in SAFE_CONDITIONAL_ROUTE_VALIDITY_LABELS:
         label = "level_lowering_gap_blocks_upgrade"
         reason = "Unexpected validity label was downgraded to level_lowering_gap_blocks_upgrade."
@@ -113,6 +162,9 @@ def build_conditional_route_validity_score_545(
             quantifier_safety=quantifier,
             symbolic_frey_validity=symbolic,
             conductor_support_confidence=conductor,
+            conductor_exponent_confidence=conductor_exponent,
+            level_220_provenance_confidence=level_220_provenance,
+            abc_prime_removal_confidence=abc_prime_removal,
             bad_prime_local_confidence=bad_prime,
             level_lowering_confidence=level,
             irreducibility_confidence=irreducibility,
@@ -145,6 +197,9 @@ def conditional_route_validity_score_545_markdown(
                 f"| quantifier safety | `{row.quantifier_safety}` |",
                 f"| symbolic Frey validity | `{row.symbolic_frey_validity}` |",
                 f"| conductor support confidence | `{row.conductor_support_confidence}` |",
+                f"| conductor exponent confidence | `{row.conductor_exponent_confidence}` |",
+                f"| level 220 provenance confidence | `{row.level_220_provenance_confidence}` |",
+                f"| ABC-prime removal confidence | `{row.abc_prime_removal_confidence}` |",
                 f"| bad-prime local confidence | `{row.bad_prime_local_confidence}` |",
                 f"| level-lowering confidence | `{row.level_lowering_confidence}` |",
                 f"| irreducibility confidence | `{row.irreducibility_confidence}` |",

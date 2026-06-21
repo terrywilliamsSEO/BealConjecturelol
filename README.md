@@ -84,6 +84,14 @@ patterns that primitive counterexamples would be forced to satisfy.
   object.
 - `beal_rsg_lab/conductor_support_audit_545.py`: audits the expected bad-prime
   support behind candidate level 220.
+- `beal_rsg_lab/conductor_exponent_model_545.py`: records symbolic valuation
+  and conductor-exponent expectations for ABC primes and bad primes 2, 5, 11.
+- `beal_rsg_lab/level_220_provenance_545.py`: explains the current provenance
+  of `220 = 2^2 * 5 * 11` and flags `level_11_factor_unjustified`.
+- `beal_rsg_lab/abc_prime_removal_audit_545.py`: tracks the level-lowering
+  gap for removing primes dividing A, B, or C from the comparison level.
+- `beal_rsg_lab/sage_conductor_sanity_samples_545.py`: generates an optional
+  Sage sanity script for invariant formulas and synthetic local samples.
 - `beal_rsg_lab/bad_prime_tate_checklist_545.py`: lists local Tate-algorithm
   checks at bad primes 2, 5, and 11.
 - `beal_rsg_lab/level_lowering_obligation_545.py`: records the formal
