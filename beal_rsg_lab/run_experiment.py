@@ -17,6 +17,7 @@ from .cross_prime_trace_compatibility import analyze_cross_prime_traces
 from .exact_explanation_generator import generate_explanations
 from .exact_sparse_lemma_generator import generate_sparse_lemma_explanations
 from .finite_field_trace_probe import trace_probes_for_geometries
+from .focused_candidate_audit_545 import generate_focused_545_review
 from .frey_template_library import build_template_records
 from .known_case_sage_calibration import calibrate_known_cases_with_sage
 from .level_explanation import explain_candidate_levels
@@ -1089,6 +1090,7 @@ def run_experiment(
         ),
         encoding="utf-8",
     )
+    generate_focused_545_review(output_dir)
     return output_dir
 
 

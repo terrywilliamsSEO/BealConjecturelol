@@ -9,6 +9,7 @@ from types import SimpleNamespace
 from typing import Iterable, Mapping
 
 from .candidate_dossier_generator import generate_candidate_dossiers
+from .focused_candidate_audit_545 import generate_focused_545_review
 from .known_case_sage_calibration import calibrate_known_cases_with_sage
 from .level_explanation import explain_candidate_levels
 from .modular_candidate_deep_audit import (
@@ -236,6 +237,7 @@ def import_run(run_dir: Path) -> tuple[list[dict[str, object]], list[dict[str, o
         ),
         encoding="utf-8",
     )
+    generate_focused_545_review(run_dir)
     (run_dir / "README_SAGE_FOLLOWUP_REPORT.md").write_text(
         sage_followup_report_markdown(
             output_dir=run_dir.as_posix(),
