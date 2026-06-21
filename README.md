@@ -63,6 +63,14 @@ patterns that primitive counterexamples would be forced to satisfy.
 - `beal_rsg_lab/best_eliminating_prime_545.py`: ranks the focused eliminating
   good primes by unit survivors, single-mask survivors, congruence coverage,
   q=3 reliance, and human-review priority.
+- `beal_rsg_lab/cross_prime_branch_compatibility_545.py`: checks whether the
+  non-q=3 focused primes jointly remove all compatible unit and single-mask
+  branch assignments for each level-220 newform.
+- `beal_rsg_lab/q3_exceptionality_audit_545.py`: records why q=3 is a good
+  prime for level 220 and whether its behavior is supported by the larger
+  focused primes.
+- `beal_rsg_lab/best_route_summary_545.py`: ranks q=3 single-prime closure,
+  non-q=3 cross-prime closure, partial closures, and survivor routes.
 - `beal_rsg_lab/finite_field_trace_probe.py`: point-count and trace probes for
   nonsingular candidate Frey curves over finite fields.
 - `beal_rsg_lab/modular_shadow_engine.py`: route scoring that combines

@@ -151,6 +151,26 @@ def build_theorem_skeleton_obligations_545(
         ),
         TheoremSkeletonObligationRecord(
             signature="5-4-5",
+            obligation_id="TS545-012",
+            title="Cross-prime branch compatibility",
+            statement="Check whether q in {13,17,41,61} jointly eliminate all compatible unit and single-mask branch assignments for the level-220 newforms.",
+            current_evidence=local_gap_evidence,
+            status="computed_route_evidence",
+            risk_level="high",
+            next_action="Justify that branch assignments across distinct good primes may be combined in the focused compatibility audit.",
+        ),
+        TheoremSkeletonObligationRecord(
+            signature="5-4-5",
+            obligation_id="TS545-013",
+            title="q=3 exceptionality review",
+            statement="Decide whether the q=3 local closure is small-prime-sensitive or supported by the non-q=3 focused primes.",
+            current_evidence=local_gap_evidence,
+            status="q3_requires_human_review",
+            risk_level="high",
+            next_action="Compare q=3 behavior with q=13,17,41,61 and justify any use of q=3 as local route evidence.",
+        ),
+        TheoremSkeletonObligationRecord(
+            signature="5-4-5",
             obligation_id="TS545-009",
             title="Small-prime robustness",
             statement="Show the route does not rely on an accidental tiny-prime phenomenon unless that reliance is mathematically justified.",
@@ -188,8 +208,10 @@ def theorem_skeleton_markdown(rows: list[TheoremSkeletonObligationRecord]) -> st
         "Required Lemma 7: Local Valuation And Reduction Case Split For q | ABC",
         "Required Lemma 8: Focused Tate Algorithm At q In {3,13,17,41,61}",
         "Required Lemma 9: Multiplicative-Reduction Congruence",
+        "Required Lemma 10: Cross-Prime Branch Compatibility",
+        "Required Lemma 11: q=3 Exceptionality Review",
     ]
-    lemma_rows = list(rows[1:10])
+    lemma_rows = list(rows[1:12])
     for title, row in zip(lemma_titles, lemma_rows):
         lines.extend(
             [
@@ -225,6 +247,8 @@ def theorem_skeleton_markdown(rows: list[TheoremSkeletonObligationRecord]) -> st
             "- The q in {3,13,17,41,61} good-prime local enumeration covers all reductions required by the modular argument, including single-divisibility branches.",
             "- Run the Tate algorithm / reduction analysis for the Frey curve at q in {3,13,17,41,61} under A_only, B_only, and C_only.",
             "- Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) ≡ ±(q+1) mod 5 at q in {3,13,17,41,61}.",
+            "- Justify the cross-prime branch compatibility audit for q in {13,17,41,61}.",
+            "- Review whether q=3 behavior is small-prime-sensitive or supported by the larger focused primes.",
             "",
             "## Why This Is Not A Proof",
             "",

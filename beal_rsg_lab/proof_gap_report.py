@@ -110,6 +110,24 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
         ),
         ProofGapRecord(
             signature=signature,
+            gap_category="cross_prime_branch_compatibility_gap",
+            gap_status="open",
+            description="The non-q=3 focused primes are now compared across unit and single-mask branch assignments, but the compatibility interpretation needs human validation.",
+            required_next_lemma="Justify the cross-prime branch compatibility audit for q in {13,17,41,61}, including how local branch assignments can be combined across distinct good primes.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
+            gap_category="q3_exceptionality_gap",
+            gap_status="open",
+            description="q=3 is good relative to level 220 but remains the smallest focused good prime and carries a small-prime sensitivity risk.",
+            required_next_lemma="Review whether q=3 behavior is small-prime-sensitive or supported by the larger focused primes q=13,17,41,61.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
             gap_category="control_artifact_gap",
             gap_status="open",
             description="One 5-4-5 sparse row at ell=11 is artifact-explained; the non-artifact ell=31 row is not yet connected to the level-220 route.",
@@ -148,7 +166,7 @@ def proof_gap_report_markdown(*, output_dir: Path, rows: Iterable[ProofGapRecord
                 "irreducible, and its true conductor must lower to the claimed comparison level. The same package must "
                 "include the q in {3,13,17,41,61} local valuation and reduction case split for q | ABC, plus the focused Tate algorithm "
                 "under A_only, B_only, and C_only, and justify the multiplicative congruence a_q(f) ≡ ±(q+1) mod 5, before the two level-220 newforms are "
-                "tested with q-expansion trace congruences at good primes."
+                "tested with q-expansion trace congruences at good primes. The cross-prime compatibility and q=3 exceptionality audits must also be reviewed."
             ),
             "",
         ]

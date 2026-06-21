@@ -14,6 +14,15 @@ from .best_eliminating_prime_545 import (
     best_eliminating_prime_545_markdown,
     build_best_eliminating_prime_545,
 )
+from .best_route_summary_545 import (
+    BestRouteSummaryRecord,
+    best_route_summary_545_markdown,
+    build_best_route_summary_545,
+)
+from .cross_prime_branch_compatibility_545 import (
+    CrossPrimeBranchCompatibilityRecord,
+    build_cross_prime_branch_compatibility_545,
+)
 from .frey_trace_possibility_545 import FreyTracePossibilityRecord, build_frey_trace_possibilities_545
 from .frey_template_validity_audit import (
     FreyTemplateValidityRecord,
@@ -77,6 +86,11 @@ from .multiplicative_reduction_congruence_545 import (
 )
 from .obstruction_progress_score import ObstructionProgressRecord, score_obstruction_progress_545
 from .proof_gap_report import ProofGapRecord, build_proof_gap_records_545, proof_gap_report_markdown
+from .q3_exceptionality_audit_545 import (
+    Q3ExceptionalityAuditRecord,
+    build_q3_exceptionality_audit_545,
+    q3_exceptionality_audit_545_markdown,
+)
 from .sage_level_220_newform_expander import write_sage_level_220_newform_expander
 from .singular_reduction_trace_545 import (
     SingularReductionTraceRecord,
@@ -161,6 +175,9 @@ class Focused545Artifacts:
     local_case_closure_score_path: str
     best_eliminating_prime_path: str
     best_eliminating_prime_report_path: str
+    cross_prime_branch_compatibility_path: str
+    q3_exceptionality_audit_report_path: str
+    best_route_summary_report_path: str
     nonunit_newform_filter_path: str
     local_case_decision_tree_path: str
     assumption_register_path: str
@@ -301,6 +318,9 @@ def focused_545_markdown(
     multiplicative_congruence_rows: list[MultiplicativeReductionCongruenceRecord],
     closure_score_rows: list[LocalCaseClosureScoreRecord],
     best_prime_rows: list[BestEliminatingPrimeRecord],
+    cross_prime_rows: list[CrossPrimeBranchCompatibilityRecord],
+    q3_audit_row: Q3ExceptionalityAuditRecord,
+    best_route_rows: list[BestRouteSummaryRecord],
     nonunit_filter_rows: list[NonunitNewformFilterRecord],
     assumption_rows: list[AssumptionRecord],
     gap_rows: list[ProofGapRecord],
@@ -324,6 +344,8 @@ def focused_545_markdown(
     nearby_incomplete = sum(1 for row in robustness_rows if row.level != 220 and row.robustness_label == "level_data_insufficient")
     focused_prime_text = ";".join(str(row.prime) for row in closure_score_rows) or "none"
     best_prime = best_prime_rows[0] if best_prime_rows else None
+    cross_prime_summary = next((row for row in cross_prime_rows if row.newform_index == -1), None)
+    best_route = best_route_rows[0] if best_route_rows else None
     pressure_labels = sorted({row.prime_local_label for row in single_mask_pressure_rows})
     closure_labels = sorted({row.closure_label for row in closure_score_rows})
     focused_nonunit_note = (
@@ -647,6 +669,48 @@ def focused_545_markdown(
             "",
             f"- Best-prime route ceiling: `worth_human_modular_review`.",
             "",
+            "### Cross-Prime Branch Compatibility",
+            "",
+            f"- Non-q=3 aggregate label: `{cross_prime_summary.compatibility_label if cross_prime_summary else 'missing'}`.",
+            "",
+            "| newform | compatible assignment | eliminated at q | allowed branch sets | label |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in cross_prime_rows:
+        if row.newform_index == -1:
+            continue
+        lines.append(
+            f"| `{row.newform_label}` | `{row.compatible_branch_assignment_exists}` | "
+            f"`{row.eliminated_at_primes or 'none'}` | `{row.allowed_branch_sets}` | `{row.compatibility_label}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "### q=3 Exceptionality",
+            "",
+            f"- q=3 good relative to level 220: `{q3_audit_row.is_good_prime_for_level}`.",
+            f"- q=3 closure label: `{q3_audit_row.q3_closure_label}`.",
+            f"- Non-q=3 cross-prime label: `{q3_audit_row.non_q3_cross_prime_label}`.",
+            f"- q=3 exceptionality label: `{q3_audit_row.q3_exceptionality_label}`.",
+            f"- Small-prime risk flags: `{q3_audit_row.small_prime_risk_flags}`.",
+            "",
+            "### Best Route Summary",
+            "",
+            f"- Best route label: `{best_route.route_label if best_route else 'missing'}`.",
+            "",
+            "| rank | route option | label | primes | q=3 penalty |",
+            "| ---: | --- | --- | --- | ---: |",
+        ]
+    )
+    for row in best_route_rows:
+        lines.append(
+            f"| {row.rank} | `{row.route_option}` | `{row.route_label}` | "
+            f"`{row.supporting_primes}` | {row.q3_reliance_penalty} |"
+        )
+    lines.extend(
+        [
+            "",
             "### Focused Eliminating-Prime Nonunit Branch Audit",
             "",
             "| q | unit eliminations | possible nonunit masks | unresolved masks | condition masks | full nonunit resolution | safe label |",
@@ -768,6 +832,9 @@ def focused_545_markdown(
             f"- `{(run_dir / 'local_case_closure_score_545.csv').as_posix()}`",
             f"- `{(run_dir / 'best_eliminating_prime_545.csv').as_posix()}`",
             f"- `{(run_dir / 'BEST_ELIMINATING_PRIME_545.md').as_posix()}`",
+            f"- `{(run_dir / 'cross_prime_branch_compatibility_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'Q3_EXCEPTIONALITY_AUDIT_545.md').as_posix()}`",
+            f"- `{(run_dir / 'BEST_ROUTE_SUMMARY_545.md').as_posix()}`",
             f"- `{(run_dir / 'nonunit_newform_filter_545.csv').as_posix()}`",
             f"- `{(run_dir / 'LOCAL_CASE_DECISION_TREE_545.md').as_posix()}`",
             f"- `{(run_dir / 'assumption_register_545.csv').as_posix()}`",
@@ -856,6 +923,15 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         newform_count=newform_count or 2,
     )
     best_prime_rows = build_best_eliminating_prime_545(closure_score_rows)
+    nonunit_rows = build_nonunit_eliminations_545(good_prime_rows)
+    cross_prime_rows = build_cross_prime_branch_compatibility_545(
+        filter_rows,
+        multiplicative_congruence_rows,
+        nonunit_rows,
+        newform_count=newform_count or 2,
+    )
+    q3_audit_row = build_q3_exceptionality_audit_545(closure_score_rows, cross_prime_rows)
+    best_route_rows = build_best_route_summary_545(closure_score_rows, cross_prime_rows, q3_audit_row)
     case_coverage_rows = build_trace_filter_case_coverage_545(
         filter_rows,
         reduction_rows,
@@ -863,7 +939,6 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         closure_rows=closure_score_rows,
     )
     local_gap_summary = build_local_gap_summary_545(case_coverage_rows)
-    nonunit_rows = build_nonunit_eliminations_545(good_prime_rows)
     singular_reduction_rows = build_singular_reduction_traces_545(nonunit_rows)
     nonunit_filter_rows = build_nonunit_newform_filters_545(
         filter_rows,
@@ -921,6 +996,9 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     closure_score_path = run_dir / "local_case_closure_score_545.csv"
     best_prime_path = run_dir / "best_eliminating_prime_545.csv"
     best_prime_report_path = run_dir / "BEST_ELIMINATING_PRIME_545.md"
+    cross_prime_path = run_dir / "cross_prime_branch_compatibility_545.csv"
+    q3_exceptionality_path = run_dir / "Q3_EXCEPTIONALITY_AUDIT_545.md"
+    best_route_path = run_dir / "BEST_ROUTE_SUMMARY_545.md"
     nonunit_filter_path = run_dir / "nonunit_newform_filter_545.csv"
     local_case_decision_tree_path = run_dir / "LOCAL_CASE_DECISION_TREE_545.md"
     assumptions_path = run_dir / "assumption_register_545.csv"
@@ -956,6 +1034,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(multiplicative_congruence_path, [row.to_flat_dict() for row in multiplicative_congruence_rows])
     _write_csv(closure_score_path, [row.to_flat_dict() for row in closure_score_rows])
     _write_csv(best_prime_path, [row.to_flat_dict() for row in best_prime_rows])
+    _write_csv(cross_prime_path, [row.to_flat_dict() for row in cross_prime_rows])
     _write_csv(nonunit_filter_path, [row.to_flat_dict() for row in nonunit_filter_rows])
     _write_csv(assumptions_path, [row.to_flat_dict() for row in assumption_rows])
     _write_csv(gaps_path, [row.to_flat_dict() for row in gap_rows])
@@ -967,6 +1046,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     skeleton_path.write_text(theorem_skeleton_markdown(skeleton_rows), encoding="utf-8")
     local_gap_report_path.write_text(local_gap_summary_markdown(local_gap_summary), encoding="utf-8")
     best_prime_report_path.write_text(best_eliminating_prime_545_markdown(best_prime_rows), encoding="utf-8")
+    q3_exceptionality_path.write_text(q3_exceptionality_audit_545_markdown(q3_audit_row), encoding="utf-8")
+    best_route_path.write_text(best_route_summary_545_markdown(best_route_rows), encoding="utf-8")
     local_case_decision_tree_path.write_text(
         local_case_decision_tree_545_markdown(
             filter_rows=filter_rows,
@@ -1016,6 +1097,9 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             multiplicative_congruence_rows=multiplicative_congruence_rows,
             closure_score_rows=closure_score_rows,
             best_prime_rows=best_prime_rows,
+            cross_prime_rows=cross_prime_rows,
+            q3_audit_row=q3_audit_row,
+            best_route_rows=best_route_rows,
             nonunit_filter_rows=nonunit_filter_rows,
             assumption_rows=assumption_rows,
             gap_rows=gap_rows,
@@ -1064,6 +1148,9 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         local_case_closure_score_path=closure_score_path.as_posix(),
         best_eliminating_prime_path=best_prime_path.as_posix(),
         best_eliminating_prime_report_path=best_prime_report_path.as_posix(),
+        cross_prime_branch_compatibility_path=cross_prime_path.as_posix(),
+        q3_exceptionality_audit_report_path=q3_exceptionality_path.as_posix(),
+        best_route_summary_report_path=best_route_path.as_posix(),
         nonunit_newform_filter_path=nonunit_filter_path.as_posix(),
         local_case_decision_tree_path=local_case_decision_tree_path.as_posix(),
         assumption_register_path=assumptions_path.as_posix(),

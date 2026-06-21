@@ -330,6 +330,15 @@ the focused primes by fewest surviving branches, cleanest congruence coverage,
 lowest reliance on q=3, and human-review priority. `(5,4,5)` stays capped at
 `worth_human_modular_review`.
 
+The cross-prime branch compatibility audit now checks the non-q=3 focused
+primes q in `{13,17,41,61}` jointly. In the completed coefficient run, no
+level-220 newform has a compatible unit/single-mask branch assignment across
+all four non-q=3 primes, so the safe route label is
+`cross_prime_elimination_candidate`. The q=3 exceptionality audit records that
+q=3 is good relative to level 220, flags the q=3 reliance penalty, and classifies
+q=3 as `q3_consistent_with_larger_primes` because the larger-prime cross-check
+also closes the tracked assignments.
+
 Missing invariant formulas downgrade to `needs_human_tate_algorithm`, missing
 coefficients become `coefficient_missing`, and unapplied congruence assumptions
 become `level_lowering_assumption_required`.
@@ -340,6 +349,9 @@ curve at q in `{3,13,17,41,61}` under A_only, B_only, and C_only.
 Additional proof obligation: Justify that the multiplicative-reduction
 branches satisfy the level-lowering congruence
 `a_q(f) ≡ ±(q+1) mod 5` at q in `{3,13,17,41,61}`.
+
+Additional review obligation: Justify the non-q=3 cross-prime branch
+compatibility audit and review q=3 exceptionality.
 
 ## Reproducibility Note
 
