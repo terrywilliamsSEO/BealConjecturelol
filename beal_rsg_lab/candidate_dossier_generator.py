@@ -125,6 +125,10 @@ def _dossier_text(
     confidence_row: Mapping[str, Any] | None,
     known_row: Mapping[str, Any] | None,
     unit_rows: list[Mapping[str, Any]],
+    audit_row: Mapping[str, Any] | None = None,
+    matrix_rows: list[Mapping[str, Any]] | None = None,
+    level_rows: list[Mapping[str, Any]] | None = None,
+    obligation_row: Mapping[str, Any] | None = None,
 ) -> tuple[str, CandidateDossierRecord]:
     parsed = _parse_signature(signature)
     normalized = normalize_signature(parsed)
@@ -190,6 +194,70 @@ def _dossier_text(
             "",
             f"- Candidate case IDs: `{';'.join(case_ids) or 'none'}`.",
             "",
+        ]
+    )
+    if audit_row is not None:
+        matrix_rows = matrix_rows or []
+        level_rows = level_rows or []
+        lines.extend(
+            [
+                "## Deep Audit",
+                "",
+                f"- Audit review label: `{_value(audit_row, 'audit_review_label')}`.",
+                f"- Priority: `{_value(audit_row, 'priority')}`.",
+                f"- Checked levels: `{_value(audit_row, 'checked_levels') or 'none'}`.",
+                f"- Newform count: `{_value(audit_row, 'newform_count')}`.",
+                f"- Trace status: `{_value(audit_row, 'trace_status')}`.",
+                f"- Frey template: `{_value(audit_row, 'frey_template_id')}`.",
+                f"- Template confidence: `{_value(audit_row, 'template_confidence')}`.",
+                f"- Control comparison: {_value(audit_row, 'control_comparison_summary')}.",
+                "",
+                "## Newform Trace Matrix",
+                "",
+            ]
+        )
+        if matrix_rows:
+            for row in matrix_rows[:12]:
+                lines.append(
+                    "- level `{level}`, ell `{ell}`: Frey traces `{traces}`, newform coefficients `{coeffs}`, classification `{classification}`.".format(
+                        level=_value(row, "level"),
+                        ell=_value(row, "ell"),
+                        traces=_value(row, "frey_trace_values") or "none",
+                        coeffs=_value(row, "newform_coefficients") or "unavailable",
+                        classification=_value(row, "matrix_classification"),
+                    )
+                )
+        else:
+            lines.append("- No trace-matrix rows were generated for this signature.")
+        lines.extend(["", "## Level Explanation", ""])
+        if level_rows:
+            for row in level_rows[:12]:
+                lines.append(
+                    "- level `{level}` factors as `{factorization}`; Sage-confirmed level: `{confirmed}`; `{warning}`".format(
+                        level=_value(row, "level"),
+                        factorization=_value(row, "level_factorization"),
+                        confirmed=_value(row, "sage_confirmed_level"),
+                        warning=_value(row, "placeholder_warning"),
+                    )
+                )
+        else:
+            lines.append("- No level explanation rows were generated for this signature.")
+        lines.extend(["", "## Human Review Checklist", ""])
+        if obligation_row is not None:
+            for key in (
+                "primary_obligation",
+                "level_obligation",
+                "trace_obligation",
+                "calibration_obligation",
+                "nonclaim_guardrail",
+            ):
+                lines.append(f"- {_value(obligation_row, key)}")
+            lines.append(f"- Next Sage command: `{_value(obligation_row, 'next_sage_command')}`.")
+        else:
+            lines.append("- No modular obligation row was generated for this signature.")
+        lines.extend([""])
+    lines.extend(
+        [
             "## Why This Is Not A Proof",
             "",
             proof_gap,
@@ -220,6 +288,10 @@ def generate_candidate_dossiers(
     confidence_rows: list[Mapping[str, Any]],
     known_case_rows: list[Mapping[str, Any]],
     unit_rows: list[Mapping[str, Any]] | None = None,
+    audit_rows: list[Mapping[str, Any]] | None = None,
+    matrix_rows: list[Mapping[str, Any]] | None = None,
+    level_rows: list[Mapping[str, Any]] | None = None,
+    obligation_rows: list[Mapping[str, Any]] | None = None,
 ) -> tuple[list[CandidateDossierRecord], str]:
     """Write queued-signature dossiers and return manifest rows plus index text."""
     del run_dir
@@ -228,6 +300,10 @@ def generate_candidate_dossiers(
     confidence_by_signature = _first_by_signature(confidence_rows)
     known_by_signature = _first_by_signature(known_case_rows)
     units_by_signature = _by_signature(unit_rows or [])
+    audit_by_signature = _first_by_signature(audit_rows or [])
+    matrix_by_signature = _by_signature(matrix_rows or [])
+    level_by_signature = _by_signature(level_rows or [])
+    obligation_by_signature = _first_by_signature(obligation_rows or [])
     records: list[CandidateDossierRecord] = []
 
     for job_row in sorted(job_rows, key=lambda row: _value(row, "signature")):
@@ -241,6 +317,10 @@ def generate_candidate_dossiers(
             confidence_row=confidence_by_signature.get(signature),
             known_row=known_by_signature.get(signature),
             unit_rows=units_by_signature.get(signature, []),
+            audit_row=audit_by_signature.get(signature),
+            matrix_rows=matrix_by_signature.get(signature, []),
+            level_rows=level_by_signature.get(signature, []),
+            obligation_row=obligation_by_signature.get(signature),
         )
         path = dossier_dir / f"{signature}.md"
         path.write_text(text, encoding="utf-8")

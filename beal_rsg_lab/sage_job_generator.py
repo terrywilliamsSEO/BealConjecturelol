@@ -282,16 +282,61 @@ def _trace_data_for_prime(ell, p, q, r):
     }}
 
 
+SMALL_TRACE_PRIMES = [3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+
+
+def _newforms_for_level(level):
+    last_error = ""
+    for kwargs in [{{"names": "a"}}, {{}}]:
+        try:
+            return Newforms(Gamma0(level), 2, **kwargs), ""
+        except Exception as exc:
+            last_error = str(exc)
+    return [], last_error
+
+
 def _newform_count_for_level(level):
     row = {{"level": int(level), "status": "not_checked", "newform_count": 0, "error": ""}}
     try:
-        forms = Newforms(Gamma0(level), 2)
+        forms, error = _newforms_for_level(level)
+        if error:
+            raise ValueError(error)
         row["newform_count"] = int(len(forms))
         row["status"] = "completed"
+        return row, forms
     except Exception as exc:
         row["status"] = "unsupported"
         row["error"] = str(exc)
-    return row
+        return row, []
+
+
+def _newform_trace_rows_for_level(level, forms, primes):
+    rows = []
+    for form_index, form in enumerate(forms):
+        for prime in SMALL_TRACE_PRIMES:
+            if prime in primes or ZZ(level) % ZZ(prime) == 0:
+                continue
+            row = {{
+                "level": int(level),
+                "newform_index": int(form_index),
+                "prime": int(prime),
+                "status": "not_checked",
+                "coefficient": "",
+                "error": "",
+            }}
+            try:
+                try:
+                    qexp = form.q_expansion(prime + 1)
+                    coeff = qexp[prime]
+                except Exception:
+                    coeff = form[prime]
+                row["coefficient"] = str(coeff)
+                row["status"] = "completed"
+            except Exception as exc:
+                row["status"] = "unsupported"
+                row["error"] = str(exc)
+            rows.append(row)
+    return rows
 
 
 def _trace_match_status(trace_rows, level_rows):
@@ -316,6 +361,7 @@ payload = {{
     "checked_levels": [],
     "newform_count": 0,
     "level_rows": [],
+    "newform_trace_rows": [],
     "trace_rows": [],
     "trace_match_status": "not_checked",
     "contradiction_claim_allowed": False,
@@ -330,11 +376,14 @@ try:
         if ell and ell > 2:
             payload["trace_rows"].append(_trace_data_for_prime(ZZ(ell), p, q, r))
     for level in JOB["candidate_levels"]:
-        level_row = _newform_count_for_level(ZZ(level))
+        level_row, forms = _newform_count_for_level(ZZ(level))
         payload["level_rows"].append(level_row)
         if level_row["status"] == "completed":
             payload["checked_levels"].append(int(level))
             payload["newform_count"] += int(level_row["newform_count"])
+            payload["newform_trace_rows"].extend(
+                _newform_trace_rows_for_level(ZZ(level), forms, JOB["primes_involved"])
+            )
     payload["trace_match_status"] = _trace_match_status(payload["trace_rows"], payload["level_rows"])
     if payload["trace_match_status"] in ["rigid", "narrow"]:
         payload["followup_label"] = "modular_followup_candidate"

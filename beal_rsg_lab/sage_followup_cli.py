@@ -10,12 +10,24 @@ from typing import Iterable, Mapping
 
 from .candidate_dossier_generator import generate_candidate_dossiers
 from .known_case_sage_calibration import calibrate_known_cases_with_sage
+from .level_explanation import explain_candidate_levels
+from .modular_candidate_deep_audit import (
+    build_modular_candidate_deep_audits,
+    modular_candidate_audit_report_markdown,
+)
 from .modular_confidence_updater import sage_followup_report_markdown, update_modular_confidence
+from .newform_trace_matrix import build_newform_trace_matrix
+from .proof_obligation_generator import build_proof_obligation_records, proof_obligations_markdown
 from .run_experiment import run_experiment
 from .sage_environment_detector import detect_sage_environment, write_sage_environment_report
 from .sage_job_runner import run_sage_jobs
 from .sage_result_importer import import_sage_results
 from .sage_roundtrip import sage_execution_manifest_rows, sage_roundtrip_summary_rows
+from .timeout_retry_runner import (
+    build_timeout_retry_manifest,
+    timeout_retry_report_markdown,
+    timeout_retry_summary_rows,
+)
 
 
 def _write_csv(path: Path, rows: Iterable[dict[str, object]]) -> None:
@@ -148,6 +160,7 @@ def import_run(run_dir: Path) -> tuple[list[dict[str, object]], list[dict[str, o
     import_records = import_sage_results(jobs)
     confidence_records = update_modular_confidence(jobs, import_records)
     known_rows = _read_csv(run_dir / "known_case_calibration_summary.csv")
+    unit_rows = _read_csv(run_dir / "unit_survivor_summary.csv")
     known_case_records = [_row_to_known_case(row) for row in known_rows]
     known_case_sage_records = calibrate_known_cases_with_sage(
         known_case_records,
@@ -158,6 +171,31 @@ def import_run(run_dir: Path) -> tuple[list[dict[str, object]], list[dict[str, o
     import_rows = [record.to_flat_dict() for record in import_records]
     confidence_rows = [record.to_flat_dict() for record in confidence_records]
     known_case_sage_rows = [record.to_flat_dict() for record in known_case_sage_records]
+    retry_records = build_timeout_retry_manifest(job_rows=job_rows, import_rows=import_rows)
+    retry_rows = [record.to_flat_dict() for record in retry_records]
+    retry_summary_rows = timeout_retry_summary_rows(retry_records)
+    level_records = explain_candidate_levels(
+        job_rows=job_rows,
+        import_rows=import_rows,
+        confidence_rows=confidence_rows,
+    )
+    level_rows = [record.to_flat_dict() for record in level_records]
+    matrix_records = build_newform_trace_matrix(
+        job_rows=job_rows,
+        import_rows=import_rows,
+        confidence_rows=confidence_rows,
+    )
+    matrix_rows = [record.to_flat_dict() for record in matrix_records]
+    audit_records = build_modular_candidate_deep_audits(
+        job_rows=job_rows,
+        import_rows=import_rows,
+        confidence_rows=confidence_rows,
+        known_case_rows=known_rows,
+        unit_rows=unit_rows,
+    )
+    audit_rows = [record.to_flat_dict() for record in audit_records]
+    obligation_records = build_proof_obligation_records(audit_rows)
+    obligation_rows = [record.to_flat_dict() for record in obligation_records]
     env_report = write_sage_environment_report(run_dir)
     execution_rows = sage_execution_manifest_rows(
         job_rows=job_rows,
@@ -174,8 +212,30 @@ def import_run(run_dir: Path) -> tuple[list[dict[str, object]], list[dict[str, o
     _write_csv(run_dir / "sage_import_results.csv", import_rows)
     _write_csv(run_dir / "modular_confidence_summary.csv", confidence_rows)
     _write_csv(run_dir / "sage_known_case_calibration.csv", known_case_sage_rows)
+    _write_csv(run_dir / "timeout_retry_manifest.csv", retry_rows)
+    _write_csv(run_dir / "timeout_retry_summary.csv", retry_summary_rows)
+    _write_csv(run_dir / "level_explanations.csv", level_rows)
+    _write_csv(run_dir / "newform_trace_matrix.csv", matrix_rows)
+    _write_csv(run_dir / "modular_candidate_deep_audit.csv", audit_rows)
+    _write_csv(run_dir / "proof_obligations.csv", obligation_rows)
     _write_csv(run_dir / "sage_execution_manifest.csv", execution_rows)
     _write_csv(run_dir / "sage_roundtrip_summary.csv", roundtrip_rows)
+    (run_dir / "README_TIMEOUT_RETRY.md").write_text(
+        timeout_retry_report_markdown(run_dir=run_dir, rows=retry_records),
+        encoding="utf-8",
+    )
+    (run_dir / "proof_obligations.md").write_text(
+        proof_obligations_markdown(obligation_records),
+        encoding="utf-8",
+    )
+    (run_dir / "README_MODULAR_CANDIDATE_AUDIT.md").write_text(
+        modular_candidate_audit_report_markdown(
+            output_dir=run_dir,
+            audit_rows=audit_records,
+            timeout_count=len(retry_records),
+        ),
+        encoding="utf-8",
+    )
     (run_dir / "README_SAGE_FOLLOWUP_REPORT.md").write_text(
         sage_followup_report_markdown(
             output_dir=run_dir.as_posix(),
@@ -218,6 +278,10 @@ def summarize_run(run_dir: Path, dossier_dir: Path) -> list[dict[str, object]]:
     confidence_rows = _read_csv(run_dir / "modular_confidence_summary.csv")
     known_rows = _read_csv(run_dir / "known_case_calibration_summary.csv")
     unit_rows = _read_csv(run_dir / "unit_survivor_summary.csv")
+    audit_rows = _read_csv(run_dir / "modular_candidate_deep_audit.csv")
+    matrix_rows = _read_csv(run_dir / "newform_trace_matrix.csv")
+    level_rows = _read_csv(run_dir / "level_explanations.csv")
+    obligation_rows = _read_csv(run_dir / "proof_obligations.csv")
     records, index_text = generate_candidate_dossiers(
         run_dir=run_dir,
         dossier_dir=dossier_dir,
@@ -226,6 +290,10 @@ def summarize_run(run_dir: Path, dossier_dir: Path) -> list[dict[str, object]]:
         confidence_rows=confidence_rows,
         known_case_rows=known_rows,
         unit_rows=unit_rows,
+        audit_rows=audit_rows,
+        matrix_rows=matrix_rows,
+        level_rows=level_rows,
+        obligation_rows=obligation_rows,
     )
     (run_dir / "candidate_dossier_index.md").write_text(index_text, encoding="utf-8")
     _write_csv(run_dir / "candidate_dossier_manifest.csv", [record.to_flat_dict() for record in records])
@@ -237,6 +305,29 @@ def command_summarize(args: argparse.Namespace) -> int:
     dossier_dir = Path(args.dossier_dir)
     records = summarize_run(run_dir, dossier_dir)
     print(f"{len(records)} dossiers")
+    return 0
+
+
+def command_retry_manifest(args: argparse.Namespace) -> int:
+    run_dir = _run_dir_arg(args.run_dir)
+    job_rows = _read_csv(run_dir / "sage_job_manifest.csv")
+    import_rows = _read_csv(run_dir / "sage_import_results.csv")
+    retry_records = build_timeout_retry_manifest(
+        job_rows=job_rows,
+        import_rows=import_rows,
+        base_timeout_seconds=args.base_timeout_seconds,
+        timeout_multiplier=args.timeout_multiplier,
+        explicit_timeout_seconds=args.explicit_timeout_seconds,
+        include_completed=args.include_completed,
+    )
+    retry_rows = [record.to_flat_dict() for record in retry_records]
+    _write_csv(run_dir / "timeout_retry_manifest.csv", retry_rows)
+    _write_csv(run_dir / "timeout_retry_summary.csv", timeout_retry_summary_rows(retry_records))
+    (run_dir / "README_TIMEOUT_RETRY.md").write_text(
+        timeout_retry_report_markdown(run_dir=run_dir, rows=retry_records),
+        encoding="utf-8",
+    )
+    print(f"{len(retry_rows)} retry jobs")
     return 0
 
 
@@ -312,6 +403,14 @@ def build_parser() -> argparse.ArgumentParser:
     summarize.add_argument("--run-dir", help="Run directory. Defaults to latest run.")
     summarize.add_argument("--dossier-dir", default="docs/dossiers")
     summarize.set_defaults(func=command_summarize)
+
+    retry = subparsers.add_parser("retry-manifest", help="Write retry files for Sage jobs that timed out.")
+    retry.add_argument("--run-dir", help="Run directory. Defaults to latest run.")
+    retry.add_argument("--base-timeout-seconds", type=int, default=60)
+    retry.add_argument("--timeout-multiplier", type=float, default=4.0)
+    retry.add_argument("--explicit-timeout-seconds", type=int)
+    retry.add_argument("--include-completed", action="store_true", help="Also include completed jobs for explicit reruns.")
+    retry.set_defaults(func=command_retry_manifest)
 
     roundtrip = subparsers.add_parser("roundtrip", help="Detect, optionally generate, run Sage jobs, import, and summarize.")
     roundtrip.add_argument("--run-dir", help="Existing run directory. Defaults to latest run when --skip-generate is used.")

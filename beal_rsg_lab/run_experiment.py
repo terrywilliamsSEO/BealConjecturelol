@@ -19,14 +19,21 @@ from .exact_sparse_lemma_generator import generate_sparse_lemma_explanations
 from .finite_field_trace_probe import trace_probes_for_geometries
 from .frey_template_library import build_template_records
 from .known_case_sage_calibration import calibrate_known_cases_with_sage
+from .level_explanation import explain_candidate_levels
 from .multi_prime_compatibility import analyze_multi_prime_compatibility
+from .modular_candidate_deep_audit import (
+    build_modular_candidate_deep_audits,
+    modular_candidate_audit_report_markdown,
+)
 from .modular_confidence_updater import sage_followup_report_markdown, update_modular_confidence
 from .modular_route_classifier import classify_modular_routes
 from .modular_shadow_engine import build_modular_shadow_routes
+from .newform_trace_matrix import build_newform_trace_matrix
 from .number_theory import primes_up_to
 from .padic_lift_audit import audit_padic_lifts
 from .padic_unit_lift import analyze_padic_unit_lifts
 from .primitive_obstruction_classifier import classify_primitive_obstructions, sparse_unit_clusters
+from .proof_obligation_generator import build_proof_obligation_records, proof_obligations_markdown
 from .rsg_modular_shadow import ShadowRecord, build_shadow_records
 from .rsg_residue_engine import DEFAULT_EXPONENTS, parse_prime_list, run_sweep
 from .rsg_valuation_engine import analyze_results
@@ -36,6 +43,11 @@ from .sage_optional_newform_probe import run_optional_newform_probe
 from .sage_result_importer import import_sage_results
 from .sage_roundtrip import sage_execution_manifest_rows, sage_roundtrip_summary_rows
 from .signature_normalizer import normalize_signature
+from .timeout_retry_runner import (
+    build_timeout_retry_manifest,
+    timeout_retry_report_markdown,
+    timeout_retry_summary_rows,
+)
 from .unit_survivor_geometry import analyze_sparse_unit_geometries
 from .zero_support_engine import analyze_zero_support_results
 
@@ -837,6 +849,31 @@ def run_experiment(
     sage_import_rows = [record.to_flat_dict() for record in sage_import_records]
     modular_confidence_rows = [record.to_flat_dict() for record in modular_confidence_records]
     known_case_sage_rows = [record.to_flat_dict() for record in known_case_sage_records]
+    timeout_retry_records = build_timeout_retry_manifest(job_rows=sage_job_rows, import_rows=sage_import_rows)
+    timeout_retry_rows = [record.to_flat_dict() for record in timeout_retry_records]
+    timeout_retry_summary = timeout_retry_summary_rows(timeout_retry_records)
+    level_explanation_records = explain_candidate_levels(
+        job_rows=sage_job_rows,
+        import_rows=sage_import_rows,
+        confidence_rows=modular_confidence_rows,
+    )
+    level_explanation_rows = [record.to_flat_dict() for record in level_explanation_records]
+    newform_trace_matrix_records = build_newform_trace_matrix(
+        job_rows=sage_job_rows,
+        import_rows=sage_import_rows,
+        confidence_rows=modular_confidence_rows,
+    )
+    newform_trace_matrix_rows = [record.to_flat_dict() for record in newform_trace_matrix_records]
+    modular_audit_records = build_modular_candidate_deep_audits(
+        job_rows=sage_job_rows,
+        import_rows=sage_import_rows,
+        confidence_rows=modular_confidence_rows,
+        known_case_rows=known_case_rows,
+        unit_rows=unit_summary_rows,
+    )
+    modular_audit_rows = [record.to_flat_dict() for record in modular_audit_records]
+    proof_obligation_records = build_proof_obligation_records(modular_audit_rows)
+    proof_obligation_rows = [record.to_flat_dict() for record in proof_obligation_records]
     sage_execution_rows = sage_execution_manifest_rows(
         job_rows=sage_job_rows,
         environment=sage_environment,
@@ -857,6 +894,10 @@ def run_experiment(
         confidence_rows=modular_confidence_rows,
         known_case_rows=known_case_rows,
         unit_rows=unit_summary_rows,
+        audit_rows=modular_audit_rows,
+        matrix_rows=newform_trace_matrix_rows,
+        level_rows=level_explanation_rows,
+        obligation_rows=proof_obligation_rows,
     )
     candidate_dossier_rows = [record.to_flat_dict() for record in dossier_records]
 
@@ -894,6 +935,12 @@ def run_experiment(
     _write_csv(output_dir / "sage_import_results.csv", sage_import_rows)
     _write_csv(output_dir / "sage_known_case_calibration.csv", known_case_sage_rows)
     _write_csv(output_dir / "modular_confidence_summary.csv", modular_confidence_rows)
+    _write_csv(output_dir / "timeout_retry_manifest.csv", timeout_retry_rows)
+    _write_csv(output_dir / "timeout_retry_summary.csv", timeout_retry_summary)
+    _write_csv(output_dir / "modular_candidate_deep_audit.csv", modular_audit_rows)
+    _write_csv(output_dir / "newform_trace_matrix.csv", newform_trace_matrix_rows)
+    _write_csv(output_dir / "level_explanations.csv", level_explanation_rows)
+    _write_csv(output_dir / "proof_obligations.csv", proof_obligation_rows)
     _write_csv(output_dir / "sage_execution_manifest.csv", sage_execution_rows)
     _write_csv(output_dir / "sage_roundtrip_summary.csv", sage_roundtrip_rows)
     _write_csv(output_dir / "candidate_dossier_manifest.csv", candidate_dossier_rows)
@@ -947,6 +994,11 @@ def run_experiment(
         "modular_confidence_followup_candidate_count": sum(
             1 for row in modular_confidence_rows if row["updated_followup_label"] == "modular_followup_candidate"
         ),
+        "modular_deep_audit_count": len(modular_audit_rows),
+        "modular_deep_audit_worth_review_count": sum(
+            1 for row in modular_audit_rows if row["audit_review_label"] == "worth_human_modular_review"
+        ),
+        "timeout_retry_count": len(timeout_retry_rows),
         "candidate_dossier_count": len(candidate_dossier_rows),
     }
     (output_dir / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
@@ -1019,6 +1071,22 @@ def run_experiment(
     )
     (output_dir / "README_SAGE_FOLLOWUP_REPORT.md").write_text(
         sage_followup_report,
+        encoding="utf-8",
+    )
+    (output_dir / "README_TIMEOUT_RETRY.md").write_text(
+        timeout_retry_report_markdown(run_dir=output_dir, rows=timeout_retry_records),
+        encoding="utf-8",
+    )
+    (output_dir / "proof_obligations.md").write_text(
+        proof_obligations_markdown(proof_obligation_records),
+        encoding="utf-8",
+    )
+    (output_dir / "README_MODULAR_CANDIDATE_AUDIT.md").write_text(
+        modular_candidate_audit_report_markdown(
+            output_dir=output_dir,
+            audit_rows=modular_audit_records,
+            timeout_count=len(timeout_retry_records),
+        ),
         encoding="utf-8",
     )
     return output_dir
