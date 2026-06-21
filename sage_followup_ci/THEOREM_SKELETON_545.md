@@ -58,6 +58,14 @@ For each relevant good prime, compare Frey trace possibilities with newform coef
 - Status: `computed_route_evidence`.
 - Next action: Check the first eliminating primes independently and justify the local enumeration.
 
+## Required Lemma 7: Local Valuation And Reduction Case Split For q | ABC
+
+Handle reductions where q divides one or more of A,B,C, or prove they are not needed for the chosen good-prime trace step.
+
+- Current evidence: local_coverage_gap; scope=unit_only_trace_mismatch_candidate; full_coverage_eliminating_primes=none
+- Status: `local_coverage_gap`.
+- Next action: Prove the local valuation and reduction case split for q | ABC, including single-divisibility masks and singular Frey reductions.
+
 ## Current Computational Evidence
 
 | obligation | status | evidence | next action |
@@ -69,7 +77,7 @@ For each relevant good prime, compare Frey trace possibilities with newform coef
 | `TS545-005` | `needs_hand_derivation` | 110:level_data_insufficient;220:level_220_mismatch_candidate;440:level_data_insufficient | Justify why the comparison level is 220 and why no nearby level should be used instead. |
 | `TS545-006` | `computed_route_evidence` | Current trace progress label is trace_mismatch_candidate. | Confirm old/new decomposition, character choices, coefficient fields, and labels in Sage or Magma. |
 | `TS545-007` | `computed_route_evidence` | 2 of 2 level-220 newforms eliminated by current filter. | Check the first eliminating primes independently and justify the local enumeration. |
-| `TS545-008` | `local_coverage_gap` | Local coverage gaps flagged at 22 selected good primes. | Separate good-prime trace arguments from bad-reduction or zero-support reductions. |
+| `TS545-008` | `local_coverage_gap` | local_coverage_gap; scope=unit_only_trace_mismatch_candidate; full_coverage_eliminating_primes=none | Prove the local valuation and reduction case split for q | ABC, including single-divisibility masks and singular Frey reductions. |
 | `TS545-009` | `computed_route_evidence` | exclude_q_3:trace_mismatch_candidate;exclude_q_3_7:trace_mismatch_candidate;exclude_q_lt_11:trace_mismatch_candidate;exclude_q_lt_17:trace_survivor_exists;use_only_q_ge_17:trace_survivor_exists | Decide whether q=13 or q=17 sensitivity should be part of the human check. |
 
 ## Exact Open Assumptions

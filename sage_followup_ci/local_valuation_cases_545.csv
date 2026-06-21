@@ -1,0 +1,177 @@
+signature,prime,valuation_mask,solution_count_mod_q,classification,primitive_compatible,reason
+5-4-5,3,unit,1,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,3,A_only,1,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,3,B_only,2,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,3,C_only,1,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,3,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,3,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,3,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,3,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,7,unit,15,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,7,A_only,3,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,7,B_only,6,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,7,C_only,3,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,7,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,7,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,7,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,7,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,13,unit,33,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,13,A_only,3,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,13,B_only,12,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,13,C_only,3,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,13,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,13,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,13,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,13,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,17,unit,60,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,17,A_only,4,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,17,B_only,16,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,17,C_only,4,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,17,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,17,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,17,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,17,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,19,unit,153,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,19,A_only,9,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,19,B_only,18,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,19,C_only,9,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,19,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,19,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,19,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,19,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,23,unit,231,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,23,A_only,11,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,23,B_only,22,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,23,C_only,11,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,23,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,23,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,23,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,23,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,29,unit,189,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,29,A_only,7,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,29,B_only,28,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,29,C_only,7,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,29,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,29,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,29,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,29,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,31,unit,15,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,31,A_only,3,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,31,B_only,6,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,31,C_only,3,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,31,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,31,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,31,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,31,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,37,unit,315,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,37,A_only,9,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,37,B_only,36,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,37,C_only,9,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,37,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,37,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,37,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,37,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,41,unit,14,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,41,A_only,2,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,41,B_only,8,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,41,C_only,2,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,41,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,41,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,41,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,41,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,43,unit,861,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,43,A_only,21,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,43,B_only,42,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,43,C_only,21,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,43,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,43,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,43,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,43,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,47,unit,1035,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,47,A_only,23,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,47,B_only,46,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,47,C_only,23,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,47,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,47,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,47,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,47,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,53,unit,663,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,53,A_only,13,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,53,B_only,52,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,53,C_only,13,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,53,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,53,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,53,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,53,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,59,unit,1653,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,59,A_only,29,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,59,B_only,58,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,59,C_only,29,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,59,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,59,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,59,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,59,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,61,unit,33,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,61,A_only,3,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,61,B_only,12,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,61,C_only,3,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,61,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,61,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,61,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,61,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,67,unit,2145,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,67,A_only,33,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,67,B_only,66,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,67,C_only,33,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,67,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,67,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,67,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,67,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,71,unit,91,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,71,A_only,7,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,71,B_only,14,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,71,C_only,7,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,71,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,71,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,71,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,71,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,73,unit,1278,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,73,A_only,18,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,73,B_only,72,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,73,C_only,18,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,73,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,73,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,73,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,73,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,79,unit,3003,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,79,A_only,39,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,79,B_only,78,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,79,C_only,39,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,79,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,79,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,79,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,79,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,83,unit,3321,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,83,A_only,41,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,83,B_only,82,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,83,C_only,41,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,83,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,83,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,83,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,83,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,89,unit,1914,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,89,A_only,22,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,89,B_only,88,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,89,C_only,22,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,89,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,89,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,89,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,89,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,97,unit,2280,locally_possible,True,Unit residue triples exist and are the cases tested by the current trace filter.
+5-4-5,97,A_only,24,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,97,B_only,96,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,97,C_only,24,locally_possible,True,Single-variable q-divisibility has mod-q unit solutions but gives singular reduction for the current Frey template.
+5-4-5,97,AB,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,97,AC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,97,BC,0,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,97,ABC,1,primitive_forbidden,False,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."

@@ -14,10 +14,10 @@ Every imported row sets `contradiction_claim_allowed` to `False`. The strongest 
 - Sage import rows: `13`.
 - Known-case Sage calibration rows: `19`.
 - Known-case overpromotion rows: `0`.
-- Sage status `completed`: `8`.
-- Sage status `timeout`: `5`.
-- Updated label `needs_external_sage_check`: `5`.
-- Updated label `sage_checked_inconclusive`: `8`.
+- Sage status `completed`: `9`.
+- Sage status `timeout`: `4`.
+- Updated label `needs_external_sage_check`: `4`.
+- Updated label `sage_checked_inconclusive`: `9`.
 
 ## Human Review Queue
 
@@ -25,14 +25,14 @@ Every imported row sets `contradiction_claim_allowed` to `False`. The strongest 
 | ---: | --- | --- | --- | --- | --- | ---: |
 | 1 | `4-3-3` | `newform_check_candidate` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 4.25 |
 | 2 | `3-4-3` | `newform_check_candidate` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 4.25 |
-| 3 | `5-5-4` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
-| 4 | `5-4-5` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
-| 5 | `4-7-7` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
-| 6 | `4-5-5` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
-| 7 | `3-3-5` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
-| 8 | `3-3-4` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
-| 9 | `7-7-4` | `needs_external_sage_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
-| 10 | `7-4-7` | `needs_external_sage_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
+| 3 | `7-4-7` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 4 | `5-5-4` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 5 | `5-4-5` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 6 | `4-7-7` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 7 | `4-5-5` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 8 | `3-3-5` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 9 | `3-3-4` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 10 | `7-7-4` | `needs_external_sage_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
 | 11 | `5-5-7` | `mixed_needs_external_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
 | 12 | `5-3-5` | `mixed_needs_external_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
 | 13 | `3-5-5` | `needs_external_sage_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |

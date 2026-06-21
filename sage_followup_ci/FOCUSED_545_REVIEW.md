@@ -264,6 +264,10 @@ If coefficient-field handling blocks comparison, the next human check is to choo
 - Local coverage gaps: `22` selected good primes.
 - Level 220 robustness label: `level_220_mismatch_candidate`.
 - Nearby levels still lacking coefficient data: `27`.
+- Local valuation scope label: `unit_only_trace_mismatch_candidate`.
+- Overall local gap label: `local_coverage_gap`.
+- q=13 full local coverage: `False`.
+- q=17 full local coverage: `False`.
 
 ### Trace Mismatch Provenance
 
@@ -351,6 +355,35 @@ If coefficient-field handling blocks comparison, the next human check is to choo
 | 89 | 7656 | 265 | 265 | `local_coverage_gap` |
 | 97 | 9120 | 289 | 289 | `local_coverage_gap` |
 
+### Local Valuation And Frey Reduction Coverage
+
+| q | eliminated newforms | nonunit possible | nonunit unresolved | full local coverage | label |
+| ---: | ---: | ---: | ---: | --- | --- |
+| 3 | 2 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 7 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 13 | 1 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 17 | 1 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 19 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 23 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 29 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 31 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 37 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 41 | 1 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 43 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 47 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 53 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 59 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 61 | 1 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 67 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 71 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 73 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 79 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 83 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 89 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+| 97 | 0 | 3 | 3 | `False` | `bad_reduction_requires_separate_argument` |
+
+Local gap summary: `local_coverage_gap`. Exact next lemma: Local valuation and reduction case split for q | ABC: prove that each single-divisibility mask either cannot occur for primitive solutions at the eliminating primes, or gives a separate modular/reduction argument compatible with the trace filter.
+
 ### Level Robustness
 
 | level | newforms | coefficient status | trace status | label |
@@ -395,7 +428,7 @@ If coefficient-field handling blocks comparison, the next human check is to choo
 | `TS545-005` | `needs_hand_derivation` | `high` | Justify why the comparison level is 220 and why no nearby level should be used instead. |
 | `TS545-006` | `computed_route_evidence` | `medium` | Confirm old/new decomposition, character choices, coefficient fields, and labels in Sage or Magma. |
 | `TS545-007` | `computed_route_evidence` | `medium` | Check the first eliminating primes independently and justify the local enumeration. |
-| `TS545-008` | `local_coverage_gap` | `high` | Separate good-prime trace arguments from bad-reduction or zero-support reductions. |
+| `TS545-008` | `local_coverage_gap` | `high` | Prove the local valuation and reduction case split for q | ABC, including single-divisibility masks and singular Frey reductions. |
 | `TS545-009` | `computed_route_evidence` | `medium` | Decide whether q=13 or q=17 sensitivity should be part of the human check. |
 
 The exact next human mathematical task is to prove the Frey attachment, conductor/level-lowering, residual mod-5 irreducibility, level-220 target-space exhaustion, and local-coverage lemmas needed to turn this route evidence into a valid modular argument.
@@ -428,6 +461,7 @@ The exact next human mathematical task is to prove the Frey attachment, conducto
 | `level_lowering_gap` | `open` | `high` | Verify the hypotheses for lowering from the true conductor to the claimed comparison level. |
 | `newform_trace_gap` | `open` | `high` | Export and compare relevant newform coefficients at good primes using the justified modulus. |
 | `local_to_global_gap` | `open` | `high` | Show how local survivor traces constrain the global modular representation, or replace with good-prime trace comparisons. |
+| `local_valuation_reduction_gap` | `open` | `high` | Prove the local valuation and reduction case split for q | ABC, including single-divisibility masks and singular Frey reductions. |
 | `control_artifact_gap` | `open` | `medium` | Separate artifact local behavior from reusable modular constraints and connect any non-artifact rows to the Frey route. |
 
 ## Exact Next Theorem Or Lemma
@@ -463,6 +497,12 @@ The timeout retry manifest remains focused on `(3,5,5)`, `(5,5,7)`, and `(7,7,4)
 - `runs/sage_followup_ci/LEVEL_220_ROBUSTNESS_545.md`
 - `runs/sage_followup_ci/THEOREM_SKELETON_545.md`
 - `runs/sage_followup_ci/theorem_skeleton_obligations_545.csv`
+- `runs/sage_followup_ci/local_valuation_cases_545.csv`
+- `runs/sage_followup_ci/valuation_mask_lift_545.csv`
+- `runs/sage_followup_ci/frey_reduction_cases_545.csv`
+- `runs/sage_followup_ci/trace_filter_case_coverage_545.csv`
+- `runs/sage_followup_ci/local_gap_summary_545.csv`
+- `runs/sage_followup_ci/LOCAL_GAP_SUMMARY_545.md`
 - `runs/sage_followup_ci/assumption_register_545.csv`
 - `runs/sage_followup_ci/proof_gap_summary.csv`
 - `runs/sage_followup_ci/proof_gap_report.md`
