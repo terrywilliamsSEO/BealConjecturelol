@@ -1,0 +1,6 @@
+signature,profile_name,profile_description,primes_used,surviving_newform_count,eliminated_newform_count,first_eliminating_primes,mismatch_depends_entirely_on_q3,sensitivity_label,route_ceiling_label
+5-4-5,exclude_q_3,Exclude q=3.,7;13;17;19;23;29;31;37;41;43;47;53;59;61;67;71;73;79;83;89;97,0,2,newform_0:q=17;newform_1:q=13,False,trace_mismatch_candidate,worth_human_modular_review
+5-4-5,exclude_q_3_7,"Exclude q in {3,7}.",13;17;19;23;29;31;37;41;43;47;53;59;61;67;71;73;79;83;89;97,0,2,newform_0:q=17;newform_1:q=13,False,trace_mismatch_candidate,worth_human_modular_review
+5-4-5,exclude_q_lt_11,Use only q >= 11.,13;17;19;23;29;31;37;41;43;47;53;59;61;67;71;73;79;83;89;97,0,2,newform_0:q=17;newform_1:q=13,False,trace_mismatch_candidate,worth_human_modular_review
+5-4-5,exclude_q_lt_17,Use only q >= 17.,17;19;23;29;31;37;41;43;47;53;59;61;67;71;73;79;83;89;97,1,1,newform_0:q=17,False,trace_survivor_exists,worth_human_modular_review
+5-4-5,use_only_q_ge_17,Use only q >= 17.,17;19;23;29;31;37;41;43;47;53;59;61;67;71;73;79;83;89;97,1,1,newform_0:q=17,False,trace_survivor_exists,worth_human_modular_review

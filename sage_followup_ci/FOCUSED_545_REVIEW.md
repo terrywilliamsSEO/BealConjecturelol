@@ -256,6 +256,150 @@ If both level-220 newforms are eventually eliminated by good-prime congruence fi
 
 If coefficient-field handling blocks comparison, the next human check is to choose and justify the prime above `5` in the newform coefficient field, then redo the trace congruence in that residue field.
 
+## Trace Mismatch Robustness
+
+- First eliminating primes: `newform_0:q=3;newform_1:q=3`.
+- Excluding `q=3`: `trace_mismatch_candidate` with `2` eliminated newforms.
+- Using only `q >= 17`: `trace_survivor_exists` with `1` eliminated newforms.
+- Local coverage gaps: `22` selected good primes.
+- Level 220 robustness label: `level_220_mismatch_candidate`.
+- Nearby levels still lacking coefficient data: `27`.
+
+### Trace Mismatch Provenance
+
+| newform | q | a_q | mode | classification | first eliminator |
+| ---: | ---: | --- | --- | --- | --- |
+| 0 | 3 | `-2` | `mod_5` | `eliminated` | `True` |
+| 0 | 7 | `-4` | `exact` | `survives` | `False` |
+| 0 | 13 | `-4` | `mod_5` | `survives` | `False` |
+| 0 | 17 | `0` | `mod_5` | `eliminated` | `False` |
+| 0 | 19 | `-4` | `exact` | `survives` | `False` |
+| 0 | 23 | `-6` | `mod_5` | `survives` | `False` |
+| 0 | 29 | `-6` | `exact` | `survives` | `False` |
+| 0 | 31 | `8` | `exact` | `survives` | `False` |
+| 0 | 37 | `2` | `exact` | `survives` | `False` |
+| 0 | 41 | `6` | `mod_5` | `eliminated` | `False` |
+| 0 | 43 | `8` | `exact` | `survives` | `False` |
+| 0 | 47 | `6` | `mod_5` | `survives` | `False` |
+| 0 | 53 | `-6` | `exact` | `survives` | `False` |
+| 0 | 59 | `-12` | `exact` | `survives` | `False` |
+| 0 | 61 | `2` | `mod_5` | `eliminated` | `False` |
+| 0 | 67 | `-10` | `mod_5` | `survives` | `False` |
+| 0 | 71 | `-12` | `exact` | `survives` | `False` |
+| 0 | 73 | `-16` | `mod_5` | `survives` | `False` |
+| 0 | 79 | `8` | `exact` | `survives` | `False` |
+| 0 | 83 | `0` | `exact` | `survives` | `False` |
+| 0 | 89 | `6` | `exact` | `survives` | `False` |
+| 0 | 97 | `14` | `exact` | `survives` | `False` |
+| 1 | 3 | `2` | `mod_5` | `eliminated` | `True` |
+| 1 | 7 | `0` | `exact` | `survives` | `False` |
+| 1 | 13 | `0` | `mod_5` | `eliminated` | `False` |
+| 1 | 17 | `-4` | `mod_5` | `survives` | `False` |
+| 1 | 19 | `-4` | `exact` | `survives` | `False` |
+| 1 | 23 | `6` | `mod_5` | `survives` | `False` |
+| 1 | 29 | `2` | `exact` | `survives` | `False` |
+| 1 | 31 | `0` | `exact` | `survives` | `False` |
+| 1 | 37 | `-6` | `exact` | `survives` | `False` |
+| 1 | 41 | `-10` | `mod_5` | `survives` | `False` |
+| 1 | 43 | `4` | `exact` | `survives` | `False` |
+| 1 | 47 | `10` | `mod_5` | `survives` | `False` |
+| 1 | 53 | `2` | `exact` | `survives` | `False` |
+| 1 | 59 | `-4` | `exact` | `survives` | `False` |
+| 1 | 61 | `-14` | `mod_5` | `survives` | `False` |
+| 1 | 67 | `2` | `mod_5` | `survives` | `False` |
+| 1 | 71 | `4` | `exact` | `survives` | `False` |
+| 1 | 73 | `-4` | `mod_5` | `survives` | `False` |
+| 1 | 79 | `-8` | `exact` | `survives` | `False` |
+| 1 | 83 | `12` | `exact` | `survives` | `False` |
+| 1 | 89 | `6` | `exact` | `survives` | `False` |
+| 1 | 97 | `6` | `exact` | `survives` | `False` |
+
+### Small-Prime Sensitivity
+
+| profile | surviving | eliminated | first eliminators | label |
+| --- | ---: | ---: | --- | --- |
+| `exclude_q_3` | 0 | 2 | `newform_0:q=17;newform_1:q=13` | `trace_mismatch_candidate` |
+| `exclude_q_3_7` | 0 | 2 | `newform_0:q=17;newform_1:q=13` | `trace_mismatch_candidate` |
+| `exclude_q_lt_11` | 0 | 2 | `newform_0:q=17;newform_1:q=13` | `trace_mismatch_candidate` |
+| `exclude_q_lt_17` | 1 | 1 | `newform_0:q=17` | `trace_survivor_exists` |
+| `use_only_q_ge_17` | 1 | 1 | `newform_0:q=17` | `trace_survivor_exists` |
+
+### Local Coverage Audit
+
+| q | unit residue cases | zero-support cases | excluded cases | label |
+| ---: | ---: | ---: | ---: | --- |
+| 3 | 2 | 7 | 7 | `local_coverage_gap` |
+| 7 | 30 | 19 | 19 | `local_coverage_gap` |
+| 13 | 132 | 37 | 37 | `local_coverage_gap` |
+| 17 | 240 | 49 | 49 | `local_coverage_gap` |
+| 19 | 306 | 55 | 55 | `local_coverage_gap` |
+| 23 | 462 | 67 | 67 | `local_coverage_gap` |
+| 29 | 756 | 85 | 85 | `local_coverage_gap` |
+| 31 | 750 | 211 | 211 | `local_coverage_gap` |
+| 37 | 1260 | 109 | 109 | `local_coverage_gap` |
+| 41 | 1400 | 281 | 281 | `local_coverage_gap` |
+| 43 | 1722 | 127 | 127 | `local_coverage_gap` |
+| 47 | 2070 | 139 | 139 | `local_coverage_gap` |
+| 53 | 2652 | 157 | 157 | `local_coverage_gap` |
+| 59 | 3306 | 175 | 175 | `local_coverage_gap` |
+| 61 | 3300 | 421 | 421 | `local_coverage_gap` |
+| 67 | 4290 | 199 | 199 | `local_coverage_gap` |
+| 71 | 4550 | 491 | 491 | `local_coverage_gap` |
+| 73 | 5112 | 217 | 217 | `local_coverage_gap` |
+| 79 | 6006 | 235 | 235 | `local_coverage_gap` |
+| 83 | 6642 | 247 | 247 | `local_coverage_gap` |
+| 89 | 7656 | 265 | 265 | `local_coverage_gap` |
+| 97 | 9120 | 289 | 289 | `local_coverage_gap` |
+
+### Level Robustness
+
+| level | newforms | coefficient status | trace status | label |
+| ---: | ---: | --- | --- | --- |
+| 5 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 10 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 11 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 20 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 22 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 25 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 40 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 44 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 50 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 55 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 88 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 100 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 110 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 121 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 200 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 220 | 2 | `completed` | `trace_mismatch_candidate` | `level_220_mismatch_candidate` |
+| 242 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 275 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 440 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 484 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 550 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 605 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 880 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 968 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 1100 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 1210 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 2200 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+| 2420 | 0 | `not_checked` | `not_checked` | `level_data_insufficient` |
+
+### Theorem Skeleton Summary
+
+| obligation | status | risk | next action |
+| --- | --- | --- | --- |
+| `TS545-001` | `conditional_setup` | `medium` | State sign, nonzero, coprimality, and normalization conventions exactly. |
+| `TS545-002` | `needs_hand_derivation` | `high` | Derive nonsingularity and integral model conditions for all primitive solution cases. |
+| `TS545-003` | `needs_hand_derivation` | `high` | Run a prime-by-prime minimal model and conductor analysis. |
+| `TS545-004` | `missing` | `high` | Identify the exact representation and prove irreducibility or state required exceptions. |
+| `TS545-005` | `needs_hand_derivation` | `high` | Justify why the comparison level is 220 and why no nearby level should be used instead. |
+| `TS545-006` | `computed_route_evidence` | `medium` | Confirm old/new decomposition, character choices, coefficient fields, and labels in Sage or Magma. |
+| `TS545-007` | `computed_route_evidence` | `medium` | Check the first eliminating primes independently and justify the local enumeration. |
+| `TS545-008` | `local_coverage_gap` | `high` | Separate good-prime trace arguments from bad-reduction or zero-support reductions. |
+| `TS545-009` | `computed_route_evidence` | `medium` | Decide whether q=13 or q=17 sensitivity should be part of the human check. |
+
+The exact next human mathematical task is to prove the Frey attachment, conductor/level-lowering, residual mod-5 irreducibility, level-220 target-space exhaustion, and local-coverage lemmas needed to turn this route evidence into a valid modular argument.
+
 ## Assumption Register
 
 | id | status | risk | required for | next action |
@@ -307,6 +451,18 @@ The timeout retry manifest remains focused on `(3,5,5)`, `(5,5,7)`, and `(7,7,4)
 - `runs/sage_followup_ci/obstruction_progress_545.csv`
 - `runs/sage_followup_ci/level_220_coefficient_import_summary.csv`
 - `runs/sage_followup_ci/level_220_coefficient_rows.csv`
+- `runs/sage_followup_ci/trace_mismatch_provenance_545.csv`
+- `runs/sage_followup_ci/TRACE_MISMATCH_PROVENANCE_545.md`
+- `runs/sage_followup_ci/small_prime_sensitivity_545.csv`
+- `runs/sage_followup_ci/SMALL_PRIME_SENSITIVITY_545.md`
+- `runs/sage_followup_ci/local_coverage_audit_545.csv`
+- `runs/sage_followup_ci/LOCAL_COVERAGE_AUDIT_545.md`
+- `runs/sage_followup_ci/frey_invariant_sanity_545.csv`
+- `runs/sage_followup_ci/FREY_INVARIANT_SANITY_545.md`
+- `runs/sage_followup_ci/level_robustness_545.csv`
+- `runs/sage_followup_ci/LEVEL_220_ROBUSTNESS_545.md`
+- `runs/sage_followup_ci/THEOREM_SKELETON_545.md`
+- `runs/sage_followup_ci/theorem_skeleton_obligations_545.csv`
 - `runs/sage_followup_ci/assumption_register_545.csv`
 - `runs/sage_followup_ci/proof_gap_summary.csv`
 - `runs/sage_followup_ci/proof_gap_report.md`
