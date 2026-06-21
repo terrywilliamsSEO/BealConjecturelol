@@ -9,6 +9,12 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from .assumption_register import AssumptionRecord, build_assumption_register_545
+from .adversarial_review_checklist_545 import adversarial_review_checklist_545_markdown
+from .assumption_dependency_graph_545 import (
+    AssumptionDependencyRecord,
+    assumption_dependency_graph_545_markdown,
+    build_assumption_dependency_graph_545,
+)
 from .best_eliminating_prime_545 import (
     BestEliminatingPrimeRecord,
     best_eliminating_prime_545_markdown,
@@ -23,6 +29,7 @@ from .cross_prime_branch_compatibility_545 import (
     CrossPrimeBranchCompatibilityRecord,
     build_cross_prime_branch_compatibility_545,
 )
+from .conditional_theorem_packet_545 import conditional_theorem_packet_545_markdown
 from .frey_trace_possibility_545 import FreyTracePossibilityRecord, build_frey_trace_possibilities_545
 from .frey_template_validity_audit import (
     FreyTemplateValidityRecord,
@@ -86,6 +93,11 @@ from .multiplicative_reduction_congruence_545 import (
 )
 from .obstruction_progress_score import ObstructionProgressRecord, score_obstruction_progress_545
 from .proof_gap_report import ProofGapRecord, build_proof_gap_records_545, proof_gap_report_markdown
+from .quantifier_safety_audit_545 import (
+    QuantifierSafetyAuditRecord,
+    build_quantifier_safety_audit_545,
+    quantifier_safety_audit_545_markdown,
+)
 from .q3_exceptionality_audit_545 import (
     Q3ExceptionalityAuditRecord,
     build_q3_exceptionality_audit_545,
@@ -178,6 +190,12 @@ class Focused545Artifacts:
     cross_prime_branch_compatibility_path: str
     q3_exceptionality_audit_report_path: str
     best_route_summary_report_path: str
+    quantifier_safety_audit_path: str
+    quantifier_safety_audit_report_path: str
+    conditional_theorem_packet_path: str
+    assumption_dependency_graph_path: str
+    assumption_dependency_graph_report_path: str
+    adversarial_review_checklist_path: str
     nonunit_newform_filter_path: str
     local_case_decision_tree_path: str
     assumption_register_path: str
@@ -321,6 +339,8 @@ def focused_545_markdown(
     cross_prime_rows: list[CrossPrimeBranchCompatibilityRecord],
     q3_audit_row: Q3ExceptionalityAuditRecord,
     best_route_rows: list[BestRouteSummaryRecord],
+    quantifier_rows: list[QuantifierSafetyAuditRecord],
+    dependency_rows: list[AssumptionDependencyRecord],
     nonunit_filter_rows: list[NonunitNewformFilterRecord],
     assumption_rows: list[AssumptionRecord],
     gap_rows: list[ProofGapRecord],
@@ -346,6 +366,10 @@ def focused_545_markdown(
     best_prime = best_prime_rows[0] if best_prime_rows else None
     cross_prime_summary = next((row for row in cross_prime_rows if row.newform_index == -1), None)
     best_route = best_route_rows[0] if best_route_rows else None
+    quantifier_summary = next((row for row in quantifier_rows if row.newform_index == -1), None)
+    dependency_summary = ";".join(
+        f"{row.dependency_id}:{row.current_status}" for row in dependency_rows
+    ) or "none"
     pressure_labels = sorted({row.prime_local_label for row in single_mask_pressure_rows})
     closure_labels = sorted({row.closure_label for row in closure_score_rows})
     focused_nonunit_note = (
@@ -711,6 +735,43 @@ def focused_545_markdown(
     lines.extend(
         [
             "",
+            "### Quantifier Safety Audit",
+            "",
+            f"- Aggregate quantifier label: `{quantifier_summary.quantifier_classification if quantifier_summary else 'data_insufficient'}`.",
+            "- Safe quantifier: each level-220 newform needs one eliminating prime with complete same-prime branch coverage.",
+            "- The audit rejects fixed branch coupling across different primes.",
+            "",
+            "| newform | eliminating q | complete q count | branch gaps | data gaps | fixed-branch dependency | label |",
+            "| --- | --- | ---: | ---: | ---: | --- | --- |",
+        ]
+    )
+    for row in quantifier_rows:
+        if row.newform_index == -1:
+            continue
+        lines.append(
+            f"| `{row.newform_label}` | `{row.eliminated_primes or 'none'}` | "
+            f"{row.complete_coverage_prime_count} | {row.branch_coverage_gap_count} | "
+            f"{row.data_insufficient_count} | `{row.fixed_branch_dependency_detected}` | "
+            f"`{row.quantifier_classification}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "### Conditional Theorem Packet",
+            "",
+            f"- Conditional packet label: `{quantifier_summary.quantifier_classification if quantifier_summary else 'data_insufficient'}`.",
+            "- The packet states the primitive-solution setup, Frey object, assumed level lowering to 220, newform exhaustion, local eliminations, and open assumptions.",
+            "- It remains route evidence only and keeps the ceiling `worth_human_modular_review`.",
+            "",
+            "### Assumption Dependency Graph",
+            "",
+            f"- Dependency summary: `{dependency_summary}`.",
+            "- Final dependency node: quantifier safety depends on local branch coverage, which depends on reduction classification and coefficient comparison.",
+            "",
+            "### Adversarial Review Checklist",
+            "",
+            "- Checklist sidecar asks whether level 220 is truly lowered, whether q=13/q=17/q=41 are good relative to the true conductor, whether multiplicative branches and mod-5 comparisons are justified, and whether q | ABC cases survive.",
+            "",
             "### Focused Eliminating-Prime Nonunit Branch Audit",
             "",
             "| q | unit eliminations | possible nonunit masks | unresolved masks | condition masks | full nonunit resolution | safe label |",
@@ -786,7 +847,7 @@ def focused_545_markdown(
             "",
             "## Exact Next Theorem Or Lemma",
             "",
-            "A human should next prove the Frey-curve attachment and conductor/level-lowering package for `A^5 + B^4 = C^5`: every primitive solution gives the stated Frey object; the residual representation at the justified modulus is irreducible; the true conductor lowers to the claimed comparison level; the multiplicative branches satisfy `a_q(f) ≡ ±(q+1) mod 5` at q in `{3,13,17,41,61}` where used; and the two level-220 newforms, with actual q-expansion coefficients at good primes, fail or pass the justified trace congruence test.",
+            "A human should next prove the Frey-curve attachment and conductor/level-lowering package for `A^5 + B^4 = C^5`: every primitive solution gives the stated Frey object; the residual representation at the justified modulus is irreducible; the true conductor lowers to the claimed comparison level; the multiplicative branches satisfy `a_q(f) == +/-(q+1) mod 5` at q in `{3,13,17,41,61}` where used; the quantifier-safe cross-prime route uses an exists-prime-per-newform elimination; and the two level-220 newforms, with actual q-expansion coefficients at good primes, fail or pass the justified trace congruence test.",
             "",
             "## Timeout Retry Note",
             "",
@@ -835,6 +896,12 @@ def focused_545_markdown(
             f"- `{(run_dir / 'cross_prime_branch_compatibility_545.csv').as_posix()}`",
             f"- `{(run_dir / 'Q3_EXCEPTIONALITY_AUDIT_545.md').as_posix()}`",
             f"- `{(run_dir / 'BEST_ROUTE_SUMMARY_545.md').as_posix()}`",
+            f"- `{(run_dir / 'quantifier_safety_audit_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'QUANTIFIER_SAFETY_AUDIT_545.md').as_posix()}`",
+            f"- `{(run_dir / 'CONDITIONAL_THEOREM_PACKET_545.md').as_posix()}`",
+            f"- `{(run_dir / 'assumption_dependency_graph_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'ASSUMPTION_DEPENDENCY_GRAPH_545.md').as_posix()}`",
+            f"- `{(run_dir / 'ADVERSARIAL_REVIEW_CHECKLIST_545.md').as_posix()}`",
             f"- `{(run_dir / 'nonunit_newform_filter_545.csv').as_posix()}`",
             f"- `{(run_dir / 'LOCAL_CASE_DECISION_TREE_545.md').as_posix()}`",
             f"- `{(run_dir / 'assumption_register_545.csv').as_posix()}`",
@@ -932,6 +999,14 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     )
     q3_audit_row = build_q3_exceptionality_audit_545(closure_score_rows, cross_prime_rows)
     best_route_rows = build_best_route_summary_545(closure_score_rows, cross_prime_rows, q3_audit_row)
+    quantifier_rows = build_quantifier_safety_audit_545(
+        filter_rows,
+        multiplicative_congruence_rows,
+        nonunit_rows,
+        cross_prime_rows,
+        newform_count=newform_count or 2,
+    )
+    dependency_rows = build_assumption_dependency_graph_545(quantifier_rows)
     case_coverage_rows = build_trace_filter_case_coverage_545(
         filter_rows,
         reduction_rows,
@@ -999,6 +1074,12 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     cross_prime_path = run_dir / "cross_prime_branch_compatibility_545.csv"
     q3_exceptionality_path = run_dir / "Q3_EXCEPTIONALITY_AUDIT_545.md"
     best_route_path = run_dir / "BEST_ROUTE_SUMMARY_545.md"
+    quantifier_safety_path = run_dir / "quantifier_safety_audit_545.csv"
+    quantifier_safety_report_path = run_dir / "QUANTIFIER_SAFETY_AUDIT_545.md"
+    conditional_packet_path = run_dir / "CONDITIONAL_THEOREM_PACKET_545.md"
+    dependency_graph_path = run_dir / "assumption_dependency_graph_545.csv"
+    dependency_graph_report_path = run_dir / "ASSUMPTION_DEPENDENCY_GRAPH_545.md"
+    adversarial_checklist_path = run_dir / "ADVERSARIAL_REVIEW_CHECKLIST_545.md"
     nonunit_filter_path = run_dir / "nonunit_newform_filter_545.csv"
     local_case_decision_tree_path = run_dir / "LOCAL_CASE_DECISION_TREE_545.md"
     assumptions_path = run_dir / "assumption_register_545.csv"
@@ -1035,6 +1116,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(closure_score_path, [row.to_flat_dict() for row in closure_score_rows])
     _write_csv(best_prime_path, [row.to_flat_dict() for row in best_prime_rows])
     _write_csv(cross_prime_path, [row.to_flat_dict() for row in cross_prime_rows])
+    _write_csv(quantifier_safety_path, [row.to_flat_dict() for row in quantifier_rows])
+    _write_csv(dependency_graph_path, [row.to_flat_dict() for row in dependency_rows])
     _write_csv(nonunit_filter_path, [row.to_flat_dict() for row in nonunit_filter_rows])
     _write_csv(assumptions_path, [row.to_flat_dict() for row in assumption_rows])
     _write_csv(gaps_path, [row.to_flat_dict() for row in gap_rows])
@@ -1048,6 +1131,19 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     best_prime_report_path.write_text(best_eliminating_prime_545_markdown(best_prime_rows), encoding="utf-8")
     q3_exceptionality_path.write_text(q3_exceptionality_audit_545_markdown(q3_audit_row), encoding="utf-8")
     best_route_path.write_text(best_route_summary_545_markdown(best_route_rows), encoding="utf-8")
+    quantifier_safety_report_path.write_text(quantifier_safety_audit_545_markdown(quantifier_rows), encoding="utf-8")
+    conditional_packet_path.write_text(
+        conditional_theorem_packet_545_markdown(quantifier_rows, dependency_rows),
+        encoding="utf-8",
+    )
+    dependency_graph_report_path.write_text(
+        assumption_dependency_graph_545_markdown(dependency_rows),
+        encoding="utf-8",
+    )
+    adversarial_checklist_path.write_text(
+        adversarial_review_checklist_545_markdown(quantifier_rows, dependency_rows),
+        encoding="utf-8",
+    )
     local_case_decision_tree_path.write_text(
         local_case_decision_tree_545_markdown(
             filter_rows=filter_rows,
@@ -1100,6 +1196,8 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             cross_prime_rows=cross_prime_rows,
             q3_audit_row=q3_audit_row,
             best_route_rows=best_route_rows,
+            quantifier_rows=quantifier_rows,
+            dependency_rows=dependency_rows,
             nonunit_filter_rows=nonunit_filter_rows,
             assumption_rows=assumption_rows,
             gap_rows=gap_rows,
@@ -1151,6 +1249,12 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         cross_prime_branch_compatibility_path=cross_prime_path.as_posix(),
         q3_exceptionality_audit_report_path=q3_exceptionality_path.as_posix(),
         best_route_summary_report_path=best_route_path.as_posix(),
+        quantifier_safety_audit_path=quantifier_safety_path.as_posix(),
+        quantifier_safety_audit_report_path=quantifier_safety_report_path.as_posix(),
+        conditional_theorem_packet_path=conditional_packet_path.as_posix(),
+        assumption_dependency_graph_path=dependency_graph_path.as_posix(),
+        assumption_dependency_graph_report_path=dependency_graph_report_path.as_posix(),
+        adversarial_review_checklist_path=adversarial_checklist_path.as_posix(),
         nonunit_newform_filter_path=nonunit_filter_path.as_posix(),
         local_case_decision_tree_path=local_case_decision_tree_path.as_posix(),
         assumption_register_path=assumptions_path.as_posix(),

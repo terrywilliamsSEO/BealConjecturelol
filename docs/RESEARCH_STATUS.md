@@ -322,7 +322,7 @@ are locally possible, so they are handled separately by
 For the current displayed Frey template, the available invariant valuations
 classify the focused single masks as `multiplicative_reduction_condition`.
 The follow-up congruence audit checks the conditional
-`a_q(f) ≡ ±(q+1) mod 5` multiplicative-reduction test at all five focused
+`a_q(f) == +/-(q+1) mod 5` multiplicative-reduction test at all five focused
 primes. The closure score now records unit-branch survivors, single-mask
 survivors, coefficient/formula gaps, and level-lowering assumptions for each
 q. `best_eliminating_prime_545.csv` and `BEST_ELIMINATING_PRIME_545.md` rank
@@ -339,6 +339,15 @@ q=3 is good relative to level 220, flags the q=3 reliance penalty, and classifie
 q=3 as `q3_consistent_with_larger_primes` because the larger-prime cross-check
 also closes the tracked assignments.
 
+The quantifier-safety audit now checks the theorem-safe formulation of the
+non-q=3 route. For each level-220 newform it asks whether there exists one
+prime with complete same-prime branch coverage, instead of using a fixed branch
+assignment across different primes. In the completed coefficient run, newform 0
+has complete local branch coverage at q=17 and q=41, while newform 1 has
+complete local branch coverage at q=13. The aggregate safe label is
+`quantifier_safe_cross_prime_candidate`, still capped at
+`worth_human_modular_review`.
+
 Missing invariant formulas downgrade to `needs_human_tate_algorithm`, missing
 coefficients become `coefficient_missing`, and unapplied congruence assumptions
 become `level_lowering_assumption_required`.
@@ -348,10 +357,14 @@ curve at q in `{3,13,17,41,61}` under A_only, B_only, and C_only.
 
 Additional proof obligation: Justify that the multiplicative-reduction
 branches satisfy the level-lowering congruence
-`a_q(f) ≡ ±(q+1) mod 5` at q in `{3,13,17,41,61}`.
+`a_q(f) == +/-(q+1) mod 5` at q in `{3,13,17,41,61}`.
 
 Additional review obligation: Justify the non-q=3 cross-prime branch
 compatibility audit and review q=3 exceptionality.
+
+Additional review obligation: Verify the quantifier-safe cross-prime route and
+conditional theorem packet, including the assumption dependency graph and
+adversarial review checklist.
 
 ## Reproducibility Note
 

@@ -62,7 +62,7 @@ def build_local_gap_summary_545(
         "Local valuation and reduction case split for q | ABC: prove that each single-divisibility mask either cannot occur "
         "for primitive solutions at the eliminating primes, or gives a separate modular/reduction argument compatible with the trace filter. "
         "Run the Tate algorithm / reduction analysis for the Frey curve at q in {3,13,17,41,61} under A_only, B_only, and C_only, "
-        "and justify the multiplicative-reduction congruence a_q(f) ≡ ±(q+1) mod 5 at those primes."
+        "and justify the multiplicative-reduction congruence a_q(f) == +/-(q+1) mod 5 at those primes."
     )
     return LocalGapSummaryRecord(
         signature="5-4-5",

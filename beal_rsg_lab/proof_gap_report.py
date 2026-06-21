@@ -103,8 +103,8 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
             signature=signature,
             gap_category="multiplicative_congruence_gap",
             gap_status="open",
-            description="The multiplicative-reduction congruence audit compares coefficients with ±(q+1) modulo 5, but the level-lowering use of that condition has not been justified by hand.",
-            required_next_lemma="Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) ≡ ±(q+1) mod 5 at q in {3,13,17,41,61}.",
+            description="The multiplicative-reduction congruence audit compares coefficients with +/-(q+1) modulo 5, but the level-lowering use of that condition has not been justified by hand.",
+            required_next_lemma="Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) == +/-(q+1) mod 5 at q in {3,13,17,41,61}.",
             risk_level="high",
             blocks_label_beyond_review=True,
         ),
@@ -112,8 +112,17 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
             signature=signature,
             gap_category="cross_prime_branch_compatibility_gap",
             gap_status="open",
-            description="The non-q=3 focused primes are now compared across unit and single-mask branch assignments, but the compatibility interpretation needs human validation.",
-            required_next_lemma="Justify the cross-prime branch compatibility audit for q in {13,17,41,61}, including how local branch assignments can be combined across distinct good primes.",
+            description="The non-q=3 focused primes are compared across unit and single-mask branch assignments, but fixed branch coupling across different primes cannot be used as the final modular-method quantifier.",
+            required_next_lemma="Review the cross-prime branch compatibility audit for q in {13,17,41,61} only as a screening layer.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
+            gap_category="quantifier_safety_gap",
+            gap_status="open",
+            description="The conditional route now requires an exists-prime-per-newform check: each newform must be eliminated at one prime where every local branch is covered.",
+            required_next_lemma="Verify the quantifier-safe cross-prime route: newform 0 at q=17 or q=41 and newform 1 at q=13, with complete same-prime branch coverage.",
             risk_level="high",
             blocks_label_beyond_review=True,
         ),
@@ -165,8 +174,9 @@ def proof_gap_report_markdown(*, output_dir: Path, rows: Iterable[ProofGapRecord
                 "lemmas: every primitive solution must yield the stated Frey object, its residual representation must be "
                 "irreducible, and its true conductor must lower to the claimed comparison level. The same package must "
                 "include the q in {3,13,17,41,61} local valuation and reduction case split for q | ABC, plus the focused Tate algorithm "
-                "under A_only, B_only, and C_only, and justify the multiplicative congruence a_q(f) ≡ ±(q+1) mod 5, before the two level-220 newforms are "
-                "tested with q-expansion trace congruences at good primes. The cross-prime compatibility and q=3 exceptionality audits must also be reviewed."
+                "under A_only, B_only, and C_only, justify the multiplicative congruence a_q(f) == +/-(q+1) mod 5, and verify the "
+                "exists-prime-per-newform quantifier before the two level-220 newforms are tested with q-expansion trace congruences at good primes. "
+                "The cross-prime compatibility, quantifier-safety, and q=3 exceptionality audits must also be reviewed."
             ),
             "",
         ]

@@ -143,11 +143,11 @@ def build_theorem_skeleton_obligations_545(
             signature="5-4-5",
             obligation_id="TS545-011",
             title="Multiplicative-reduction congruence",
-            statement="Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) ≡ ±(q+1) mod 5 at q in {3,13,17,41,61}.",
+            statement="Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) == +/-(q+1) mod 5 at q in {3,13,17,41,61}.",
             current_evidence=local_gap_evidence,
             status="level_lowering_assumption_required",
             risk_level="high",
-            next_action="Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) ≡ ±(q+1) mod 5 at q in {3,13,17,41,61}.",
+            next_action="Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) == +/-(q+1) mod 5 at q in {3,13,17,41,61}.",
         ),
         TheoremSkeletonObligationRecord(
             signature="5-4-5",
@@ -157,7 +157,7 @@ def build_theorem_skeleton_obligations_545(
             current_evidence=local_gap_evidence,
             status="computed_route_evidence",
             risk_level="high",
-            next_action="Justify that branch assignments across distinct good primes may be combined in the focused compatibility audit.",
+            next_action="Treat this as a screening audit only; do not use fixed branch compatibility across distinct good primes as the final modular-method quantifier.",
         ),
         TheoremSkeletonObligationRecord(
             signature="5-4-5",
@@ -168,6 +168,16 @@ def build_theorem_skeleton_obligations_545(
             status="q3_requires_human_review",
             risk_level="high",
             next_action="Compare q=3 behavior with q=13,17,41,61 and justify any use of q=3 as local route evidence.",
+        ),
+        TheoremSkeletonObligationRecord(
+            signature="5-4-5",
+            obligation_id="TS545-014",
+            title="Quantifier-safe cross-prime route",
+            statement="For each level-220 newform, identify at least one non-q=3 prime where unit, A_only, B_only, C_only, and pairwise primitive-forbidden masks are all covered.",
+            current_evidence=local_gap_evidence,
+            status="quantifier_safe_cross_prime_candidate",
+            risk_level="high",
+            next_action="Verify the exists-prime-per-newform elimination and reject any argument that couples fixed branch choices across different primes.",
         ),
         TheoremSkeletonObligationRecord(
             signature="5-4-5",
@@ -210,8 +220,9 @@ def theorem_skeleton_markdown(rows: list[TheoremSkeletonObligationRecord]) -> st
         "Required Lemma 9: Multiplicative-Reduction Congruence",
         "Required Lemma 10: Cross-Prime Branch Compatibility",
         "Required Lemma 11: q=3 Exceptionality Review",
+        "Required Lemma 12: Quantifier-Safe Cross-Prime Route",
     ]
-    lemma_rows = list(rows[1:12])
+    lemma_rows = list(rows[1:13])
     for title, row in zip(lemma_titles, lemma_rows):
         lines.extend(
             [
@@ -246,9 +257,10 @@ def theorem_skeleton_markdown(rows: list[TheoremSkeletonObligationRecord]) -> st
             "- The relevant level-220 newforms are exhausted by the imported Sage query.",
             "- The q in {3,13,17,41,61} good-prime local enumeration covers all reductions required by the modular argument, including single-divisibility branches.",
             "- Run the Tate algorithm / reduction analysis for the Frey curve at q in {3,13,17,41,61} under A_only, B_only, and C_only.",
-            "- Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) ≡ ±(q+1) mod 5 at q in {3,13,17,41,61}.",
-            "- Justify the cross-prime branch compatibility audit for q in {13,17,41,61}.",
+            "- Justify that the multiplicative-reduction branches satisfy the level-lowering congruence a_q(f) == +/-(q+1) mod 5 at q in {3,13,17,41,61}.",
+            "- Treat the cross-prime branch compatibility audit for q in {13,17,41,61} as a screen, not as fixed-branch coupling.",
             "- Review whether q=3 behavior is small-prime-sensitive or supported by the larger focused primes.",
+            "- Verify the quantifier-safe cross-prime route: each level-220 newform must have one non-q=3 eliminating prime with complete same-prime branch coverage.",
             "",
             "## Why This Is Not A Proof",
             "",

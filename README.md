@@ -55,7 +55,7 @@ patterns that primitive counterexamples would be forced to satisfy.
   `B_only`, and `C_only`.
 - `beal_rsg_lab/multiplicative_reduction_congruence_545.py`: audits
   `A_only`, `B_only`, and `C_only` against the conditional
-  `a_q(f) ≡ ±(q+1) mod 5` multiplicative-reduction congruence at
+  `a_q(f) == +/-(q+1) mod 5` multiplicative-reduction congruence at
   q in `{3,13,17,41,61}`.
 - `beal_rsg_lab/local_case_closure_score_545.py`: combines unit traces,
   primitive-forbidden pairwise masks, and multiplicative congruence rows into
@@ -71,6 +71,14 @@ patterns that primitive counterexamples would be forced to satisfy.
   focused primes.
 - `beal_rsg_lab/best_route_summary_545.py`: ranks q=3 single-prime closure,
   non-q=3 cross-prime closure, partial closures, and survivor routes.
+- `beal_rsg_lab/quantifier_safety_audit_545.py`: verifies the
+  exists-prime-per-newform quantifier for the non-q=3 cross-prime route.
+- `beal_rsg_lab/conditional_theorem_packet_545.py`: writes the conditional
+  theorem-review packet for the focused `(5,4,5)` route.
+- `beal_rsg_lab/assumption_dependency_graph_545.py`: records the dependency
+  chain from Frey attachment through quantifier safety.
+- `beal_rsg_lab/adversarial_review_checklist_545.py`: writes the human review
+  checklist for level, reduction, coefficient-field, and branch-coupling risks.
 - `beal_rsg_lab/finite_field_trace_probe.py`: point-count and trace probes for
   nonsingular candidate Frey curves over finite fields.
 - `beal_rsg_lab/modular_shadow_engine.py`: route scoring that combines

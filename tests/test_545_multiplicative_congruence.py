@@ -242,7 +242,7 @@ class MultiplicativeCongruence545Tests(unittest.TestCase):
             self.assertIn("Best Eliminating Prime Ranking", report)
             self.assertIn("so the route keeps `local_coverage_gap`", report)
             self.assertIn(
-                "multiplicative branches satisfy `a_q(f) ≡ ±(q+1) mod 5` at q in `{3,13,17,41,61}` where used",
+                "multiplicative branches satisfy `a_q(f) == +/-(q+1) mod 5` at q in `{3,13,17,41,61}` where used",
                 report,
             )
             self.assertIn("Highest allowed label in this pipeline: `worth_human_modular_review`.", report)
