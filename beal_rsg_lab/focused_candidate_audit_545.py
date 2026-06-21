@@ -9,10 +9,12 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from .assumption_register import AssumptionRecord, build_assumption_register_545
+from .frey_trace_possibility_545 import FreyTracePossibilityRecord, build_frey_trace_possibilities_545
 from .frey_template_validity_audit import (
     FreyTemplateValidityRecord,
     build_frey_template_validity_audit_545,
 )
+from .good_prime_selector import GoodPrimeRecord, select_good_primes_545
 from .level_220_audit import (
     Level220NewformRecord,
     Level220PrimeRecord,
@@ -20,7 +22,14 @@ from .level_220_audit import (
     build_level_220_prime_records,
     factorization_220,
 )
+from .obstruction_progress_score import ObstructionProgressRecord, score_obstruction_progress_545
 from .proof_gap_report import ProofGapRecord, build_proof_gap_records_545, proof_gap_report_markdown
+from .sage_level_220_newform_expander import write_sage_level_220_newform_expander
+from .trace_congruence_filter_545 import (
+    TraceCongruenceFilterRecord,
+    build_trace_congruence_filter_545,
+    load_level_220_coefficients,
+)
 from .trace_comparison_audit import TraceComparisonAuditRecord, build_trace_comparison_audit_545
 
 
@@ -36,6 +45,11 @@ class Focused545Artifacts:
     level_220_prime_audit_path: str
     level_220_newforms_path: str
     trace_comparison_path: str
+    good_prime_list_path: str
+    sage_newform_expander_path: str
+    frey_trace_possibilities_path: str
+    trace_congruence_filter_path: str
+    obstruction_progress_path: str
     assumption_register_path: str
     proof_gap_summary_path: str
     proof_gap_report_path: str
@@ -149,6 +163,10 @@ def focused_545_markdown(
     prime_rows: list[Level220PrimeRecord],
     newform_rows: list[Level220NewformRecord],
     trace_rows: list[TraceComparisonAuditRecord],
+    good_prime_rows: list[GoodPrimeRecord],
+    frey_trace_rows: list[FreyTracePossibilityRecord],
+    filter_rows: list[TraceCongruenceFilterRecord],
+    progress_row: ObstructionProgressRecord,
     assumption_rows: list[AssumptionRecord],
     gap_rows: list[ProofGapRecord],
     known_mismatches: int,
@@ -237,6 +255,46 @@ def focused_545_markdown(
             "",
             "The key trace warning: the imported narrow row is at `ell=11`, and `11` divides `220`. That makes it local route evidence, not yet a clean good-prime newform trace comparison.",
             "",
+            "## Good-Prime Trace Audit",
+            "",
+            "The good-prime audit excludes primes dividing `220` and excludes the residual-prime candidate `5` by default. It is designed to replace the weak `ell=11` signal with trace comparisons at primes where level-220 newform coefficients can be meaningfully tested.",
+            "",
+            f"- Selected good primes: `{';'.join(str(row.prime) for row in good_prime_rows if row.selected) or 'none'}`.",
+            f"- Newform coefficient JSON expected at: `{(run_dir / 'level_220_newform_coefficients.json').as_posix()}`.",
+            f"- Aggregate progress label: `{progress_row.progress_label}`.",
+            f"- Newforms surviving all available filters: `{progress_row.newforms_surviving_all_filters}` of `{progress_row.newform_count}`.",
+            f"- Unresolved reasons: `{progress_row.unresolved_reasons or 'none'}`.",
+            "",
+            "### Frey Trace Possibilities At Good Primes",
+            "",
+            "| q | survivors | nonsingular | possible traces |",
+            "| ---: | ---: | ---: | --- |",
+        ]
+    )
+    for row in frey_trace_rows[:24]:
+        lines.append(
+            f"| {row.prime} | {row.survivor_triple_count} | {row.nonsingular_curve_count} | "
+            f"`{';'.join(str(item) for item in row.possible_traces) or 'none'}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "### Congruence Filter Results",
+            "",
+            "| q | newform | coefficient | mode | classification | reason |",
+            "| ---: | ---: | --- | --- | --- | --- |",
+        ]
+    )
+    for row in filter_rows[:48]:
+        lines.append(
+            f"| {row.prime} | {row.newform_index} | `{row.newform_coefficient or 'missing'}` | "
+            f"`{row.comparison_mode}` | `{row.filter_classification}` | {row.reason} |"
+        )
+    lines.extend(
+        [
+            "",
+            "If both level-220 newforms are eventually eliminated by good-prime congruence filters, this packet must call that `trace_mismatch_candidate`, not a proof or contradiction. With missing q-expansion data or unclear coefficient-field reduction, the correct label is `trace_data_insufficient`.",
+            "",
             "## Assumption Register",
             "",
             "| id | status | risk | required for | next action |",
@@ -275,6 +333,11 @@ def focused_545_markdown(
             f"- `{(run_dir / 'level_220_prime_audit.csv').as_posix()}`",
             f"- `{(run_dir / 'level_220_newforms.csv').as_posix()}`",
             f"- `{(run_dir / 'trace_comparison_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'good_prime_list_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'sage_level_220_newform_expander.sage').as_posix()}`",
+            f"- `{(run_dir / 'frey_trace_possibilities_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'trace_congruence_filter_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'obstruction_progress_545.csv').as_posix()}`",
             f"- `{(run_dir / 'assumption_register_545.csv').as_posix()}`",
             f"- `{(run_dir / 'proof_gap_summary.csv').as_posix()}`",
             f"- `{(run_dir / 'proof_gap_report.md').as_posix()}`",
@@ -312,6 +375,19 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     prime_rows = build_level_220_prime_records()
     newform_rows = build_level_220_newform_records(sage_payload)
     trace_rows = build_trace_comparison_audit_545(filtered_matrix)
+    good_prime_rows = select_good_primes_545(level=220, bound=100, allow_residual_prime=False)
+    frey_trace_rows = build_frey_trace_possibilities_545(good_prime_rows)
+    coefficient_path = run_dir / "level_220_newform_coefficients.json"
+    coefficient_payload = load_level_220_coefficients(coefficient_path)
+    newform_count = int(sage_payload.get("newform_count", 0) or 0)
+    filter_rows = build_trace_congruence_filter_545(
+        good_prime_rows=good_prime_rows,
+        frey_trace_rows=frey_trace_rows,
+        coefficient_payload=coefficient_payload,
+        newform_count=newform_count,
+        residual_modulus=5,
+    )
+    progress_row = score_obstruction_progress_545(filter_rows, newform_count=newform_count)
     assumption_rows = build_assumption_register_545()
     gap_rows = build_proof_gap_records_545()
 
@@ -320,6 +396,11 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     prime_path = run_dir / "level_220_prime_audit.csv"
     newforms_path = run_dir / "level_220_newforms.csv"
     trace_path = run_dir / "trace_comparison_545.csv"
+    good_prime_path = run_dir / "good_prime_list_545.csv"
+    sage_expander_path = write_sage_level_220_newform_expander(run_dir)
+    frey_trace_path = run_dir / "frey_trace_possibilities_545.csv"
+    filter_path = run_dir / "trace_congruence_filter_545.csv"
+    progress_path = run_dir / "obstruction_progress_545.csv"
     assumptions_path = run_dir / "assumption_register_545.csv"
     gaps_path = run_dir / "proof_gap_summary.csv"
     gap_report_path = run_dir / "proof_gap_report.md"
@@ -328,6 +409,10 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(prime_path, [row.to_flat_dict() for row in prime_rows])
     _write_csv(newforms_path, [row.to_flat_dict() for row in newform_rows])
     _write_csv(trace_path, [row.to_flat_dict() for row in trace_rows])
+    _write_csv(good_prime_path, [row.to_flat_dict() for row in good_prime_rows])
+    _write_csv(frey_trace_path, [row.to_flat_dict() for row in frey_trace_rows])
+    _write_csv(filter_path, [row.to_flat_dict() for row in filter_rows])
+    _write_csv(progress_path, [progress_row.to_flat_dict()])
     _write_csv(assumptions_path, [row.to_flat_dict() for row in assumption_rows])
     _write_csv(gaps_path, [row.to_flat_dict() for row in gap_rows])
     gap_report_path.write_text(proof_gap_report_markdown(output_dir=run_dir, rows=gap_rows), encoding="utf-8")
@@ -342,6 +427,10 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             prime_rows=prime_rows,
             newform_rows=newform_rows,
             trace_rows=trace_rows,
+            good_prime_rows=good_prime_rows,
+            frey_trace_rows=frey_trace_rows,
+            filter_rows=filter_rows,
+            progress_row=progress_row,
             assumption_rows=assumption_rows,
             gap_rows=gap_rows,
             known_mismatches=known_mismatches,
@@ -355,8 +444,12 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         level_220_prime_audit_path=prime_path.as_posix(),
         level_220_newforms_path=newforms_path.as_posix(),
         trace_comparison_path=trace_path.as_posix(),
+        good_prime_list_path=good_prime_path.as_posix(),
+        sage_newform_expander_path=sage_expander_path.as_posix(),
+        frey_trace_possibilities_path=frey_trace_path.as_posix(),
+        trace_congruence_filter_path=filter_path.as_posix(),
+        obstruction_progress_path=progress_path.as_posix(),
         assumption_register_path=assumptions_path.as_posix(),
         proof_gap_summary_path=gaps_path.as_posix(),
         proof_gap_report_path=gap_report_path.as_posix(),
     )
-
