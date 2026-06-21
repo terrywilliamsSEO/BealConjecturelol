@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SAGE_DOCKER_IMAGE: ${{ vars.SAGE_DOCKER_IMAGE || 'sagemath/sagemath:latest' }}
-      SAGE_JOB_TIMEOUT_SECONDS: ${{ vars.SAGE_JOB_TIMEOUT_SECONDS || '900' }}
+      SAGE_JOB_TIMEOUT_SECONDS: ${{ vars.SAGE_JOB_TIMEOUT_SECONDS || '60' }}
       RUN_ID: ${{ github.event.inputs.timestamp || 'sage_followup_ci' }}
     steps:
       - name: Check out repository
