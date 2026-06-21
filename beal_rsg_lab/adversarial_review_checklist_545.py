@@ -7,6 +7,10 @@ from pathlib import Path
 from typing import Iterable
 
 from .assumption_dependency_graph_545 import AssumptionDependencyRecord
+from .bad_prime_tate_checklist_545 import BadPrimeTateChecklistRecord
+from .conductor_support_audit_545 import ConductorSupportAuditRecord
+from .conditional_route_validity_score_545 import ConditionalRouteValidityScoreRecord
+from .level_lowering_obligation_545 import LevelLoweringObligationRecord
 from .quantifier_safety_audit_545 import QuantifierSafetyAuditRecord
 
 
@@ -20,16 +24,32 @@ def _aggregate_label(rows: Iterable[QuantifierSafetyAuditRecord]) -> str:
 def adversarial_review_checklist_545_markdown(
     quantifier_rows: Iterable[QuantifierSafetyAuditRecord] = (),
     dependency_rows: Iterable[AssumptionDependencyRecord] = (),
+    conductor_rows: Iterable[ConductorSupportAuditRecord] = (),
+    bad_prime_rows: Iterable[BadPrimeTateChecklistRecord] = (),
+    level_lowering_rows: Iterable[LevelLoweringObligationRecord] = (),
+    validity_rows: Iterable[ConditionalRouteValidityScoreRecord] = (),
 ) -> str:
     """Render a human adversarial checklist."""
     qrows = list(quantifier_rows)
     drows = list(dependency_rows)
+    crows = list(conductor_rows)
+    brows = list(bad_prime_rows)
+    lrows = list(level_lowering_rows)
+    vrows = list(validity_rows)
     dependency_status = ";".join(f"{row.dependency_id}:{row.current_status}" for row in drows) or "not_generated"
+    conductor_status = ";".join(f"{row.prime_or_symbol}:{row.audit_label}" for row in crows) or "not_generated"
+    bad_prime_status = ";".join(f"q={row.prime}:{row.audit_label}" for row in brows) or "not_generated"
+    level_status = ";".join(f"{row.obligation_id}:{row.current_status}" for row in lrows) or "not_generated"
+    validity_label = vrows[0].validity_label if vrows else "not_scored"
     lines = [
         "# Adversarial Review Checklist For `(5,4,5)`",
         "",
         f"- Quantifier-safety label: `{_aggregate_label(qrows)}`.",
+        f"- Conditional route validity label: `{validity_label}`.",
         f"- Dependency status summary: `{dependency_status}`.",
+        f"- Conductor support summary: `{conductor_status}`.",
+        f"- Bad-prime local summary: `{bad_prime_status}`.",
+        f"- Level-lowering summary: `{level_status}`.",
         "- Route ceiling: `worth_human_modular_review`.",
         "",
         "## Core Modular-Method Checks",
@@ -72,10 +92,21 @@ def write_adversarial_review_checklist_545_markdown(
     path: Path,
     quantifier_rows: Iterable[QuantifierSafetyAuditRecord] = (),
     dependency_rows: Iterable[AssumptionDependencyRecord] = (),
+    conductor_rows: Iterable[ConductorSupportAuditRecord] = (),
+    bad_prime_rows: Iterable[BadPrimeTateChecklistRecord] = (),
+    level_lowering_rows: Iterable[LevelLoweringObligationRecord] = (),
+    validity_rows: Iterable[ConditionalRouteValidityScoreRecord] = (),
 ) -> Path:
     """Write `ADVERSARIAL_REVIEW_CHECKLIST_545.md`."""
     path.write_text(
-        adversarial_review_checklist_545_markdown(quantifier_rows, dependency_rows),
+        adversarial_review_checklist_545_markdown(
+            quantifier_rows,
+            dependency_rows,
+            conductor_rows,
+            bad_prime_rows,
+            level_lowering_rows,
+            validity_rows,
+        ),
         encoding="utf-8",
     )
     return path

@@ -348,6 +348,19 @@ complete local branch coverage at q=13. The aggregate safe label is
 `quantifier_safe_cross_prime_candidate`, still capped at
 `worth_human_modular_review`.
 
+The Frey-conductor proof audit now records the exact symbolic formulas for the
+displayed Frey curve:
+`c4 = 16*(A^10 + A^5*B^4 + B^8)`,
+`c6 = 32*(A^5 - B^4)*(2*A^10 + 5*A^5*B^4 + 2*B^8)`,
+`Delta = 16*A^10*B^8*C^10`, and
+`j = 256*(A^10 + A^5*B^4 + B^8)^3/(A^10*B^8*C^10)`.
+The conductor-support audit keeps level `220 = 2^2 * 5 * 11` as a candidate
+level only: 2 and 5 need exact local conductor checks, 11 needs justification
+because it is not forced by the displayed discriminant unless it divides ABC,
+and primes dividing A, B, or C must be removed by level lowering. The bad-prime
+Tate checklist and level-lowering obligation list keep the route validity score
+at `conductor_gap_blocks_upgrade`.
+
 Missing invariant formulas downgrade to `needs_human_tate_algorithm`, missing
 coefficients become `coefficient_missing`, and unapplied congruence assumptions
 become `level_lowering_assumption_required`.
@@ -365,6 +378,12 @@ compatibility audit and review q=3 exceptionality.
 Additional review obligation: Verify the quantifier-safe cross-prime route and
 conditional theorem packet, including the assumption dependency graph and
 adversarial review checklist.
+
+Additional review obligation: Prove the Frey-conductor and level-lowering
+package needed for the quantifier-safe trace elimination: Frey attachment,
+minimal conductor at 2, 5, 11 and primes dividing ABC, residual mod-5
+irreducibility, exact lowering to level 220, level-220 newform exhaustion, and
+good-prime trace comparison validity.
 
 ## Reproducibility Note
 

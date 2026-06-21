@@ -47,6 +47,33 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
         ),
         ProofGapRecord(
             signature=signature,
+            gap_category="frey_curve_derivation_gap",
+            gap_status="open",
+            description="The displayed Frey object now has symbolic c4, c6, discriminant, and j formulas, but this does not prove the curve is attached to every primitive solution or is minimal.",
+            required_next_lemma="Derive the Frey curve from a primitive solution and prove the symbolic invariant formulas in the required integral model.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
+            gap_category="conductor_support_audit_gap",
+            gap_status="open",
+            description="The conductor-support audit identifies 2, 5, 11, and primes dividing ABC, but the exact conductor support and exponents are not proved.",
+            required_next_lemma="Prove which primes remain in the conductor or lowered level, including why 11 belongs to level 220 if it does.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
+            gap_category="bad_prime_tate_gap",
+            gap_status="open",
+            description="The bad-prime checklist records valuation formulas at 2, 5, and 11 but no completed local Tate algorithm.",
+            required_next_lemma="Run the Tate algorithm at bad primes 2, 5, and 11 and compute the exact conductor exponents.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
             gap_category="irreducibility_gap",
             gap_status="open",
             description="The residual representation has not been shown irreducible.",
@@ -60,6 +87,15 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
             gap_status="open",
             description="No level-lowering theorem has been checked against the template hypotheses.",
             required_next_lemma="Verify the hypotheses for lowering from the true conductor to the claimed comparison level.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
+            gap_category="formal_level_lowering_obligation_gap",
+            gap_status="open",
+            description="The formal obligation list still has missing residual irreducibility, level-lowering hypotheses, and exact target-level checks.",
+            required_next_lemma="Verify residual modulus 5, residual irreducibility, modularity input, all level-lowering hypotheses, exact level 220, and good-prime trace comparison validity.",
             risk_level="high",
             blocks_label_beyond_review=True,
         ),
@@ -174,9 +210,9 @@ def proof_gap_report_markdown(*, output_dir: Path, rows: Iterable[ProofGapRecord
                 "lemmas: every primitive solution must yield the stated Frey object, its residual representation must be "
                 "irreducible, and its true conductor must lower to the claimed comparison level. The same package must "
                 "include the q in {3,13,17,41,61} local valuation and reduction case split for q | ABC, plus the focused Tate algorithm "
-                "under A_only, B_only, and C_only, justify the multiplicative congruence a_q(f) == +/-(q+1) mod 5, and verify the "
+                "under A_only, B_only, and C_only, run the bad-prime Tate algorithm at 2, 5, and 11, justify the multiplicative congruence a_q(f) == +/-(q+1) mod 5, and verify the "
                 "exists-prime-per-newform quantifier before the two level-220 newforms are tested with q-expansion trace congruences at good primes. "
-                "The cross-prime compatibility, quantifier-safety, and q=3 exceptionality audits must also be reviewed."
+                "The conductor-support, level-lowering, cross-prime compatibility, quantifier-safety, and q=3 exceptionality audits must also be reviewed."
             ),
             "",
         ]

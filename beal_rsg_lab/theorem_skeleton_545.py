@@ -74,7 +74,7 @@ def build_theorem_skeleton_obligations_545(
             obligation_id="TS545-003",
             title="Discriminant and conductor calculation",
             statement="Compute the minimal discriminant and conductor exponents, including primes 2, 5, 11, and primes dividing ABC.",
-            current_evidence="Symbolic discriminant-like support is 16*A^10*B^8*C^10.",
+            current_evidence="Symbolic invariants are computed for the displayed model: Delta=16*A^10*B^8*C^10, c4=16*(A^10+A^5*B^4+B^8), and c6=32*(A^5-B^4)*(2*A^10+5*A^5*B^4+2*B^8).",
             status="needs_hand_derivation",
             risk_level="high",
             next_action="Run a prime-by-prime minimal model and conductor analysis.",
@@ -181,6 +181,36 @@ def build_theorem_skeleton_obligations_545(
         ),
         TheoremSkeletonObligationRecord(
             signature="5-4-5",
+            obligation_id="TS545-015",
+            title="Frey-conductor proof audit",
+            statement="Turn the symbolic Frey invariant formulas into a minimal conductor and exact bad-prime support statement.",
+            current_evidence="The Frey-conductor audit computes symbolic c4, c6, Delta, and j, but conductor exponents remain unproved.",
+            status="conductor_gap_blocks_upgrade",
+            risk_level="high",
+            next_action="Prove the conductor support at 2, 5, 11, and primes dividing ABC; decide which primes remain in level 220.",
+        ),
+        TheoremSkeletonObligationRecord(
+            signature="5-4-5",
+            obligation_id="TS545-016",
+            title="Bad-prime Tate algorithm",
+            statement="Run the local Tate/minimal-model analysis at the bad primes 2, 5, and 11.",
+            current_evidence="The checklist records symbolic valuation formulas but no completed local Tate analysis.",
+            status="blocks_conductor_claim",
+            risk_level="high",
+            next_action="Compute reduction types and conductor exponents at 2, 5, and 11.",
+        ),
+        TheoremSkeletonObligationRecord(
+            signature="5-4-5",
+            obligation_id="TS545-017",
+            title="Formal level-lowering package",
+            statement="Verify residual modulus 5, residual irreducibility, modularity input, level-lowering hypotheses, exact target level 220, and good-prime trace validity.",
+            current_evidence="The obligation list is generated, with irreducibility and exact level still missing.",
+            status="level_lowering_gap_blocks_upgrade",
+            risk_level="high",
+            next_action="Discharge every level-lowering obligation before interpreting the trace elimination as a modular-method argument.",
+        ),
+        TheoremSkeletonObligationRecord(
+            signature="5-4-5",
             obligation_id="TS545-009",
             title="Small-prime robustness",
             statement="Show the route does not rely on an accidental tiny-prime phenomenon unless that reliance is mathematically justified.",
@@ -221,8 +251,11 @@ def theorem_skeleton_markdown(rows: list[TheoremSkeletonObligationRecord]) -> st
         "Required Lemma 10: Cross-Prime Branch Compatibility",
         "Required Lemma 11: q=3 Exceptionality Review",
         "Required Lemma 12: Quantifier-Safe Cross-Prime Route",
+        "Required Lemma 13: Frey-Conductor Proof Audit",
+        "Required Lemma 14: Bad-Prime Tate Algorithm",
+        "Required Lemma 15: Formal Level-Lowering Package",
     ]
-    lemma_rows = list(rows[1:13])
+    lemma_rows = list(rows[1:16])
     for title, row in zip(lemma_titles, lemma_rows):
         lines.extend(
             [
@@ -261,6 +294,9 @@ def theorem_skeleton_markdown(rows: list[TheoremSkeletonObligationRecord]) -> st
             "- Treat the cross-prime branch compatibility audit for q in {13,17,41,61} as a screen, not as fixed-branch coupling.",
             "- Review whether q=3 behavior is small-prime-sensitive or supported by the larger focused primes.",
             "- Verify the quantifier-safe cross-prime route: each level-220 newform must have one non-q=3 eliminating prime with complete same-prime branch coverage.",
+            "- Prove the symbolic Frey invariant formulas give the minimal conductor support after local minimization.",
+            "- Run the bad-prime Tate algorithm at 2, 5, and 11.",
+            "- Verify every formal level-lowering obligation, including residual irreducibility and exact target level 220.",
             "",
             "## Why This Is Not A Proof",
             "",

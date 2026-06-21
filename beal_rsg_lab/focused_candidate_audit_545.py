@@ -15,6 +15,11 @@ from .assumption_dependency_graph_545 import (
     assumption_dependency_graph_545_markdown,
     build_assumption_dependency_graph_545,
 )
+from .bad_prime_tate_checklist_545 import (
+    BadPrimeTateChecklistRecord,
+    bad_prime_tate_checklist_545_markdown,
+    build_bad_prime_tate_checklist_545,
+)
 from .best_eliminating_prime_545 import (
     BestEliminatingPrimeRecord,
     best_eliminating_prime_545_markdown,
@@ -30,6 +35,21 @@ from .cross_prime_branch_compatibility_545 import (
     build_cross_prime_branch_compatibility_545,
 )
 from .conditional_theorem_packet_545 import conditional_theorem_packet_545_markdown
+from .conditional_route_validity_score_545 import (
+    ConditionalRouteValidityScoreRecord,
+    build_conditional_route_validity_score_545,
+    conditional_route_validity_score_545_markdown,
+)
+from .conductor_support_audit_545 import (
+    ConductorSupportAuditRecord,
+    build_conductor_support_audit_545,
+    conductor_support_audit_545_markdown,
+)
+from .frey_curve_derivation_545 import (
+    FreyCurveDerivationRecord,
+    build_frey_curve_derivation_545,
+    frey_curve_derivation_545_markdown,
+)
 from .frey_trace_possibility_545 import FreyTracePossibilityRecord, build_frey_trace_possibilities_545
 from .frey_template_validity_audit import (
     FreyTemplateValidityRecord,
@@ -60,6 +80,11 @@ from .level_220_robustness_545 import (
     LevelRobustnessRecord,
     build_level_robustness_545,
     level_robustness_markdown,
+)
+from .level_lowering_obligation_545 import (
+    LevelLoweringObligationRecord,
+    build_level_lowering_obligations_545,
+    level_lowering_obligations_545_markdown,
 )
 from .local_gap_summary_545 import (
     LocalGapSummaryRecord,
@@ -196,6 +221,16 @@ class Focused545Artifacts:
     assumption_dependency_graph_path: str
     assumption_dependency_graph_report_path: str
     adversarial_review_checklist_path: str
+    frey_curve_derivation_path: str
+    frey_curve_derivation_report_path: str
+    conductor_support_audit_path: str
+    conductor_support_audit_report_path: str
+    bad_prime_tate_checklist_path: str
+    bad_prime_tate_checklist_report_path: str
+    level_lowering_obligations_path: str
+    level_lowering_obligations_report_path: str
+    conditional_route_validity_score_path: str
+    conditional_route_validity_score_report_path: str
     nonunit_newform_filter_path: str
     local_case_decision_tree_path: str
     assumption_register_path: str
@@ -341,6 +376,11 @@ def focused_545_markdown(
     best_route_rows: list[BestRouteSummaryRecord],
     quantifier_rows: list[QuantifierSafetyAuditRecord],
     dependency_rows: list[AssumptionDependencyRecord],
+    frey_curve_derivation_rows: list[FreyCurveDerivationRecord],
+    conductor_support_rows: list[ConductorSupportAuditRecord],
+    bad_prime_tate_rows: list[BadPrimeTateChecklistRecord],
+    level_lowering_obligation_rows: list[LevelLoweringObligationRecord],
+    route_validity_rows: list[ConditionalRouteValidityScoreRecord],
     nonunit_filter_rows: list[NonunitNewformFilterRecord],
     assumption_rows: list[AssumptionRecord],
     gap_rows: list[ProofGapRecord],
@@ -369,6 +409,21 @@ def focused_545_markdown(
     quantifier_summary = next((row for row in quantifier_rows if row.newform_index == -1), None)
     dependency_summary = ";".join(
         f"{row.dependency_id}:{row.current_status}" for row in dependency_rows
+    ) or "none"
+    route_validity = route_validity_rows[0] if route_validity_rows else None
+    frey_derivation_summary = ";".join(
+        f"{row.component}:{row.audit_label}" for row in frey_curve_derivation_rows
+    ) or "none"
+    conductor_gap_summary = ";".join(
+        f"{row.prime_or_symbol}:{row.audit_label}" for row in conductor_support_rows
+        if row.audit_label in {"conductor_support_gap", "needs_human_review"}
+    ) or "none"
+    bad_prime_gap_summary = ";".join(
+        f"q={row.prime}:{row.audit_label}" for row in bad_prime_tate_rows
+    ) or "none"
+    level_lowering_gap_summary = ";".join(
+        f"{row.obligation_id}:{row.current_status}" for row in level_lowering_obligation_rows
+        if row.blocks_upgrade
     ) or "none"
     pressure_labels = sorted({row.prime_local_label for row in single_mask_pressure_rows})
     closure_labels = sorted({row.closure_label for row in closure_score_rows})
@@ -772,6 +827,25 @@ def focused_545_markdown(
             "",
             "- Checklist sidecar asks whether level 220 is truly lowered, whether q=13/q=17/q=41 are good relative to the true conductor, whether multiplicative branches and mod-5 comparisons are justified, and whether q | ABC cases survive.",
             "",
+            "### Frey-Conductor Proof Audit",
+            "",
+            f"- Conditional route validity label: `{route_validity.validity_label if route_validity else 'conductor_gap_blocks_upgrade'}`.",
+            f"- Frey invariant derivation: `{frey_derivation_summary}`.",
+            f"- Conductor support gaps: `{conductor_gap_summary}`.",
+            f"- Bad-prime Tate gaps: `{bad_prime_gap_summary}`.",
+            f"- Level-lowering obligations blocking upgrade: `{level_lowering_gap_summary}`.",
+            "- Human theorem target: prove Frey attachment, minimal conductor, residual mod-5 irreducibility, level lowering to exactly 220, level-220 newform exhaustion, and the justified good-prime trace comparisons.",
+            "",
+            "| component | current status |",
+            "| --- | --- |",
+            f"| trace logic | `{route_validity.trace_logic_completeness if route_validity else 'not_scored'}` |",
+            f"| quantifier safety | `{route_validity.quantifier_safety if route_validity else 'not_scored'}` |",
+            f"| symbolic Frey validity | `{route_validity.symbolic_frey_validity if route_validity else 'not_scored'}` |",
+            f"| conductor support | `{route_validity.conductor_support_confidence if route_validity else 'not_scored'}` |",
+            f"| bad-prime local checks | `{route_validity.bad_prime_local_confidence if route_validity else 'not_scored'}` |",
+            f"| level lowering | `{route_validity.level_lowering_confidence if route_validity else 'not_scored'}` |",
+            f"| irreducibility | `{route_validity.irreducibility_confidence if route_validity else 'not_scored'}` |",
+            "",
             "### Focused Eliminating-Prime Nonunit Branch Audit",
             "",
             "| q | unit eliminations | possible nonunit masks | unresolved masks | condition masks | full nonunit resolution | safe label |",
@@ -902,6 +976,16 @@ def focused_545_markdown(
             f"- `{(run_dir / 'assumption_dependency_graph_545.csv').as_posix()}`",
             f"- `{(run_dir / 'ASSUMPTION_DEPENDENCY_GRAPH_545.md').as_posix()}`",
             f"- `{(run_dir / 'ADVERSARIAL_REVIEW_CHECKLIST_545.md').as_posix()}`",
+            f"- `{(run_dir / 'frey_curve_derivation_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'FREY_CURVE_DERIVATION_545.md').as_posix()}`",
+            f"- `{(run_dir / 'conductor_support_audit_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'CONDUCTOR_SUPPORT_AUDIT_545.md').as_posix()}`",
+            f"- `{(run_dir / 'bad_prime_tate_checklist_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'BAD_PRIME_TATE_CHECKLIST_545.md').as_posix()}`",
+            f"- `{(run_dir / 'level_lowering_obligations_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'LEVEL_LOWERING_OBLIGATIONS_545.md').as_posix()}`",
+            f"- `{(run_dir / 'conditional_route_validity_score_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'CONDITIONAL_ROUTE_VALIDITY_SCORE_545.md').as_posix()}`",
             f"- `{(run_dir / 'nonunit_newform_filter_545.csv').as_posix()}`",
             f"- `{(run_dir / 'LOCAL_CASE_DECISION_TREE_545.md').as_posix()}`",
             f"- `{(run_dir / 'assumption_register_545.csv').as_posix()}`",
@@ -1007,6 +1091,17 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         newform_count=newform_count or 2,
     )
     dependency_rows = build_assumption_dependency_graph_545(quantifier_rows)
+    frey_curve_derivation_rows = build_frey_curve_derivation_545(invariant_rows)
+    conductor_support_rows = build_conductor_support_audit_545()
+    bad_prime_tate_rows = build_bad_prime_tate_checklist_545()
+    level_lowering_obligation_rows = build_level_lowering_obligations_545()
+    route_validity_rows = build_conditional_route_validity_score_545(
+        quantifier_rows,
+        frey_curve_derivation_rows,
+        conductor_support_rows,
+        bad_prime_tate_rows,
+        level_lowering_obligation_rows,
+    )
     case_coverage_rows = build_trace_filter_case_coverage_545(
         filter_rows,
         reduction_rows,
@@ -1080,6 +1175,16 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     dependency_graph_path = run_dir / "assumption_dependency_graph_545.csv"
     dependency_graph_report_path = run_dir / "ASSUMPTION_DEPENDENCY_GRAPH_545.md"
     adversarial_checklist_path = run_dir / "ADVERSARIAL_REVIEW_CHECKLIST_545.md"
+    frey_curve_derivation_path = run_dir / "frey_curve_derivation_545.csv"
+    frey_curve_derivation_report_path = run_dir / "FREY_CURVE_DERIVATION_545.md"
+    conductor_support_path = run_dir / "conductor_support_audit_545.csv"
+    conductor_support_report_path = run_dir / "CONDUCTOR_SUPPORT_AUDIT_545.md"
+    bad_prime_tate_path = run_dir / "bad_prime_tate_checklist_545.csv"
+    bad_prime_tate_report_path = run_dir / "BAD_PRIME_TATE_CHECKLIST_545.md"
+    level_lowering_obligations_path = run_dir / "level_lowering_obligations_545.csv"
+    level_lowering_obligations_report_path = run_dir / "LEVEL_LOWERING_OBLIGATIONS_545.md"
+    route_validity_path = run_dir / "conditional_route_validity_score_545.csv"
+    route_validity_report_path = run_dir / "CONDITIONAL_ROUTE_VALIDITY_SCORE_545.md"
     nonunit_filter_path = run_dir / "nonunit_newform_filter_545.csv"
     local_case_decision_tree_path = run_dir / "LOCAL_CASE_DECISION_TREE_545.md"
     assumptions_path = run_dir / "assumption_register_545.csv"
@@ -1118,6 +1223,11 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(cross_prime_path, [row.to_flat_dict() for row in cross_prime_rows])
     _write_csv(quantifier_safety_path, [row.to_flat_dict() for row in quantifier_rows])
     _write_csv(dependency_graph_path, [row.to_flat_dict() for row in dependency_rows])
+    _write_csv(frey_curve_derivation_path, [row.to_flat_dict() for row in frey_curve_derivation_rows])
+    _write_csv(conductor_support_path, [row.to_flat_dict() for row in conductor_support_rows])
+    _write_csv(bad_prime_tate_path, [row.to_flat_dict() for row in bad_prime_tate_rows])
+    _write_csv(level_lowering_obligations_path, [row.to_flat_dict() for row in level_lowering_obligation_rows])
+    _write_csv(route_validity_path, [row.to_flat_dict() for row in route_validity_rows])
     _write_csv(nonunit_filter_path, [row.to_flat_dict() for row in nonunit_filter_rows])
     _write_csv(assumptions_path, [row.to_flat_dict() for row in assumption_rows])
     _write_csv(gaps_path, [row.to_flat_dict() for row in gap_rows])
@@ -1133,7 +1243,15 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     best_route_path.write_text(best_route_summary_545_markdown(best_route_rows), encoding="utf-8")
     quantifier_safety_report_path.write_text(quantifier_safety_audit_545_markdown(quantifier_rows), encoding="utf-8")
     conditional_packet_path.write_text(
-        conditional_theorem_packet_545_markdown(quantifier_rows, dependency_rows),
+        conditional_theorem_packet_545_markdown(
+            quantifier_rows,
+            dependency_rows,
+            frey_curve_derivation_rows,
+            conductor_support_rows,
+            bad_prime_tate_rows,
+            level_lowering_obligation_rows,
+            route_validity_rows,
+        ),
         encoding="utf-8",
     )
     dependency_graph_report_path.write_text(
@@ -1141,7 +1259,34 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         encoding="utf-8",
     )
     adversarial_checklist_path.write_text(
-        adversarial_review_checklist_545_markdown(quantifier_rows, dependency_rows),
+        adversarial_review_checklist_545_markdown(
+            quantifier_rows,
+            dependency_rows,
+            conductor_support_rows,
+            bad_prime_tate_rows,
+            level_lowering_obligation_rows,
+            route_validity_rows,
+        ),
+        encoding="utf-8",
+    )
+    frey_curve_derivation_report_path.write_text(
+        frey_curve_derivation_545_markdown(frey_curve_derivation_rows),
+        encoding="utf-8",
+    )
+    conductor_support_report_path.write_text(
+        conductor_support_audit_545_markdown(conductor_support_rows),
+        encoding="utf-8",
+    )
+    bad_prime_tate_report_path.write_text(
+        bad_prime_tate_checklist_545_markdown(bad_prime_tate_rows),
+        encoding="utf-8",
+    )
+    level_lowering_obligations_report_path.write_text(
+        level_lowering_obligations_545_markdown(level_lowering_obligation_rows),
+        encoding="utf-8",
+    )
+    route_validity_report_path.write_text(
+        conditional_route_validity_score_545_markdown(route_validity_rows),
         encoding="utf-8",
     )
     local_case_decision_tree_path.write_text(
@@ -1198,6 +1343,11 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             best_route_rows=best_route_rows,
             quantifier_rows=quantifier_rows,
             dependency_rows=dependency_rows,
+            frey_curve_derivation_rows=frey_curve_derivation_rows,
+            conductor_support_rows=conductor_support_rows,
+            bad_prime_tate_rows=bad_prime_tate_rows,
+            level_lowering_obligation_rows=level_lowering_obligation_rows,
+            route_validity_rows=route_validity_rows,
             nonunit_filter_rows=nonunit_filter_rows,
             assumption_rows=assumption_rows,
             gap_rows=gap_rows,
@@ -1255,6 +1405,16 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         assumption_dependency_graph_path=dependency_graph_path.as_posix(),
         assumption_dependency_graph_report_path=dependency_graph_report_path.as_posix(),
         adversarial_review_checklist_path=adversarial_checklist_path.as_posix(),
+        frey_curve_derivation_path=frey_curve_derivation_path.as_posix(),
+        frey_curve_derivation_report_path=frey_curve_derivation_report_path.as_posix(),
+        conductor_support_audit_path=conductor_support_path.as_posix(),
+        conductor_support_audit_report_path=conductor_support_report_path.as_posix(),
+        bad_prime_tate_checklist_path=bad_prime_tate_path.as_posix(),
+        bad_prime_tate_checklist_report_path=bad_prime_tate_report_path.as_posix(),
+        level_lowering_obligations_path=level_lowering_obligations_path.as_posix(),
+        level_lowering_obligations_report_path=level_lowering_obligations_report_path.as_posix(),
+        conditional_route_validity_score_path=route_validity_path.as_posix(),
+        conditional_route_validity_score_report_path=route_validity_report_path.as_posix(),
         nonunit_newform_filter_path=nonunit_filter_path.as_posix(),
         local_case_decision_tree_path=local_case_decision_tree_path.as_posix(),
         assumption_register_path=assumptions_path.as_posix(),

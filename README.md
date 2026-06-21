@@ -79,6 +79,18 @@ patterns that primitive counterexamples would be forced to satisfy.
   chain from Frey attachment through quantifier safety.
 - `beal_rsg_lab/adversarial_review_checklist_545.py`: writes the human review
   checklist for level, reduction, coefficient-field, and branch-coupling risks.
+- `beal_rsg_lab/frey_curve_derivation_545.py`: computes symbolic c4, c6,
+  discriminant, and j-invariant formulas for the proposed `(5,4,5)` Frey
+  object.
+- `beal_rsg_lab/conductor_support_audit_545.py`: audits the expected bad-prime
+  support behind candidate level 220.
+- `beal_rsg_lab/bad_prime_tate_checklist_545.py`: lists local Tate-algorithm
+  checks at bad primes 2, 5, and 11.
+- `beal_rsg_lab/level_lowering_obligation_545.py`: records the formal
+  residual, modularity, level-lowering, target-level, and trace-validity
+  obligations.
+- `beal_rsg_lab/conditional_route_validity_score_545.py`: conservatively scores
+  the quantifier-safe route against the Frey/conductor/level-lowering gaps.
 - `beal_rsg_lab/finite_field_trace_probe.py`: point-count and trace probes for
   nonsingular candidate Frey curves over finite fields.
 - `beal_rsg_lab/modular_shadow_engine.py`: route scoring that combines
