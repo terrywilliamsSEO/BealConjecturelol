@@ -14,28 +14,27 @@ Every imported row sets `contradiction_claim_allowed` to `False`. The strongest 
 - Sage import rows: `13`.
 - Known-case Sage calibration rows: `19`.
 - Known-case overpromotion rows: `0`.
-- Sage status `unavailable`: `13`.
-- Updated label `needs_external_sage_check`: `13`.
-
-SageMath was not available on this machine, so jobs were generated and imports were marked `unavailable` until the scripts are run externally.
+- Sage status `completed`: `13`.
+- Updated label `modular_followup_candidate`: `5`.
+- Updated label `sage_checked_inconclusive`: `8`.
 
 ## Human Review Queue
 
 | rank | signature | previous label | Sage status | trace status | updated label | priority |
 | ---: | --- | --- | --- | --- | --- | ---: |
-| 1 | `4-3-3` | `newform_check_candidate` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.75 |
-| 2 | `3-4-3` | `newform_check_candidate` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.75 |
-| 3 | `7-7-4` | `needs_external_sage_check` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.0 |
-| 4 | `7-4-7` | `needs_external_sage_check` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.0 |
-| 5 | `5-5-7` | `mixed_needs_external_check` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.0 |
-| 6 | `5-5-4` | `mixed_needs_external_check` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.0 |
-| 7 | `5-4-5` | `mixed_needs_external_check` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.0 |
-| 8 | `5-3-5` | `mixed_needs_external_check` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.0 |
-| 9 | `4-7-7` | `needs_external_sage_check` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.0 |
-| 10 | `4-5-5` | `mixed_needs_external_check` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.0 |
-| 11 | `3-5-5` | `needs_external_sage_check` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.0 |
-| 12 | `3-3-5` | `needs_external_sage_check` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.0 |
-| 13 | `3-3-4` | `needs_external_sage_check` | `unavailable` | `not_checked` | `needs_external_sage_check` | 2.0 |
+| 1 | `5-5-7` | `mixed_needs_external_check` | `completed` | `rigid` | `modular_followup_candidate` | 8.0 |
+| 2 | `5-4-5` | `mixed_needs_external_check` | `completed` | `narrow` | `modular_followup_candidate` | 7.25 |
+| 3 | `7-7-4` | `needs_external_sage_check` | `completed` | `narrow` | `modular_followup_candidate` | 7.0 |
+| 4 | `7-4-7` | `needs_external_sage_check` | `completed` | `narrow` | `modular_followup_candidate` | 7.0 |
+| 5 | `4-7-7` | `needs_external_sage_check` | `completed` | `narrow` | `modular_followup_candidate` | 7.0 |
+| 6 | `4-3-3` | `newform_check_candidate` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 4.25 |
+| 7 | `3-4-3` | `newform_check_candidate` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 4.25 |
+| 8 | `5-5-4` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 9 | `5-3-5` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 10 | `4-5-5` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 11 | `3-5-5` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 12 | `3-3-5` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 13 | `3-3-4` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
 
 ## Files
 

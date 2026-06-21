@@ -1,14 +1,14 @@
 job_id,signature,previous_route_label,sage_status,trace_match_status,newform_count,checked_levels,updated_followup_label,route_confidence_score,human_review_priority,contradiction_claim_allowed,rationale
-sage_4_3_3,4-3-3,newform_check_candidate,unavailable,not_checked,0,,needs_external_sage_check,2.25,2.75,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_3_4_3,3-4-3,newform_check_candidate,unavailable,not_checked,0,,needs_external_sage_check,2.25,2.75,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_7_7_4,7-7-4,needs_external_sage_check,unavailable,not_checked,0,,needs_external_sage_check,1.5,2.0,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_7_4_7,7-4-7,needs_external_sage_check,unavailable,not_checked,0,,needs_external_sage_check,1.5,2.0,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_5_5_7,5-5-7,mixed_needs_external_check,unavailable,not_checked,0,,needs_external_sage_check,1.5,2.0,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_5_5_4,5-5-4,mixed_needs_external_check,unavailable,not_checked,0,,needs_external_sage_check,1.5,2.0,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_5_4_5,5-4-5,mixed_needs_external_check,unavailable,not_checked,0,,needs_external_sage_check,1.5,2.0,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_5_3_5,5-3-5,mixed_needs_external_check,unavailable,not_checked,0,,needs_external_sage_check,1.5,2.0,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_4_7_7,4-7-7,needs_external_sage_check,unavailable,not_checked,0,,needs_external_sage_check,1.5,2.0,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_4_5_5,4-5-5,mixed_needs_external_check,unavailable,not_checked,0,,needs_external_sage_check,1.5,2.0,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_3_5_5,3-5-5,needs_external_sage_check,unavailable,not_checked,0,,needs_external_sage_check,1.5,2.0,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_3_3_5,3-3-5,needs_external_sage_check,unavailable,not_checked,0,,needs_external_sage_check,1.5,2.0,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
-sage_3_3_4,3-3-4,needs_external_sage_check,unavailable,not_checked,0,,needs_external_sage_check,1.5,2.0,False,"SageMath was unavailable, so the signature remains queued for external Sage/newform review."
+sage_5_5_7,5-5-7,mixed_needs_external_check,completed,rigid,0,,modular_followup_candidate,6.5,8.0,False,"Sage trace/newform data looked narrow enough to justify human modular-method review, without any proof claim."
+sage_5_4_5,5-4-5,mixed_needs_external_check,completed,narrow,2,220,modular_followup_candidate,5.75,7.25,False,"Sage trace/newform data looked narrow enough to justify human modular-method review, without any proof claim."
+sage_7_7_4,7-7-4,needs_external_sage_check,completed,narrow,0,,modular_followup_candidate,5.5,7.0,False,"Sage trace/newform data looked narrow enough to justify human modular-method review, without any proof claim."
+sage_7_4_7,7-4-7,needs_external_sage_check,completed,narrow,0,,modular_followup_candidate,5.5,7.0,False,"Sage trace/newform data looked narrow enough to justify human modular-method review, without any proof claim."
+sage_4_7_7,4-7-7,needs_external_sage_check,completed,narrow,0,,modular_followup_candidate,5.5,7.0,False,"Sage trace/newform data looked narrow enough to justify human modular-method review, without any proof claim."
+sage_4_3_3,4-3-3,newform_check_candidate,completed,inconclusive,14,78;156;234;312,sage_checked_inconclusive,4.25,4.25,False,Sage completed but did not produce decisive route evidence.
+sage_3_4_3,3-4-3,newform_check_candidate,completed,inconclusive,0,,sage_checked_inconclusive,4.25,4.25,False,Sage completed but did not produce decisive route evidence.
+sage_5_5_4,5-5-4,mixed_needs_external_check,completed,inconclusive,0,,sage_checked_inconclusive,3.5,3.5,False,Sage completed but did not produce decisive route evidence.
+sage_5_3_5,5-3-5,mixed_needs_external_check,completed,inconclusive,5,330,sage_checked_inconclusive,3.5,3.5,False,Sage completed but did not produce decisive route evidence.
+sage_4_5_5,4-5-5,mixed_needs_external_check,completed,inconclusive,0,,sage_checked_inconclusive,3.5,3.5,False,Sage completed but did not produce decisive route evidence.
+sage_3_5_5,3-5-5,needs_external_sage_check,completed,inconclusive,0,,sage_checked_inconclusive,3.5,3.5,False,Sage completed but did not produce decisive route evidence.
+sage_3_3_5,3-3-5,needs_external_sage_check,completed,inconclusive,0,,sage_checked_inconclusive,3.5,3.5,False,Sage completed but did not produce decisive route evidence.
+sage_3_3_4,3-3-4,needs_external_sage_check,completed,inconclusive,14,78;156;234;312,sage_checked_inconclusive,3.5,3.5,False,Sage completed but did not produce decisive route evidence.

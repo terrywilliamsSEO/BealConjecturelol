@@ -1,0 +1,97 @@
+{
+  "checked_levels": [
+    78,
+    156,
+    234,
+    312
+  ],
+  "contradiction_claim_allowed": false,
+  "errors": [],
+  "followup_label": "sage_checked_inconclusive",
+  "job_id": "sage_4_3_3",
+  "level_rows": [
+    {
+      "error": "",
+      "level": 78,
+      "newform_count": 1,
+      "status": "completed"
+    },
+    {
+      "error": "",
+      "level": 156,
+      "newform_count": 2,
+      "status": "completed"
+    },
+    {
+      "error": "",
+      "level": 234,
+      "newform_count": 5,
+      "status": "completed"
+    },
+    {
+      "error": "",
+      "level": 312,
+      "newform_count": 6,
+      "status": "completed"
+    },
+    {
+      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "level": 1014,
+      "newform_count": 0,
+      "status": "unsupported"
+    }
+  ],
+  "metadata": {
+    "candidate_case_ids": [],
+    "candidate_levels": [
+      78,
+      156,
+      234,
+      312,
+      1014
+    ],
+    "candidate_rows": [
+      "modular_row:newform_check_candidate:ell=13:score=15.097644167"
+    ],
+    "contradiction_claim_allowed": false,
+    "frey_template_equation": "E: y^2 = x(x - A^4)(x + B^3)",
+    "frey_template_id": "frey_split_full_2torsion_candidate",
+    "job_id": "sage_4_3_3",
+    "limitations": "route-audit only; conductor levels are heuristic; Frey template needs independent validation; contradiction_claim_allowed is false",
+    "primes_involved": [
+      13
+    ],
+    "result_path": "runs/sage_followup_ci/sage_results/sage_4_3_3.json",
+    "route_label": "newform_check_candidate",
+    "signature": [
+      4,
+      3,
+      3
+    ],
+    "source_run": "sage_followup_ci"
+  },
+  "newform_count": 14,
+  "route_label": "newform_check_candidate",
+  "sage_status": "completed",
+  "signature": [
+    4,
+    3,
+    3
+  ],
+  "source_run": "sage_followup_ci",
+  "trace_match_status": "inconclusive",
+  "trace_rows": [
+    {
+      "ell": 13,
+      "errors": [],
+      "nonsingular_triple_count": 3,
+      "singular_skipped_count": 0,
+      "survivor_triple_count": 3,
+      "trace_counts": {
+        "-2": 2,
+        "-6": 1
+      },
+      "trace_support_size": 2
+    }
+  ]
+}

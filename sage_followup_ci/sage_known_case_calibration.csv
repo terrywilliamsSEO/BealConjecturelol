@@ -1,20 +1,20 @@
 case_id,signature,expected_route,pre_sage_label,post_sage_label,sage_status,trace_match_status,artifact_like_preserved,overpromoted,calibration_status,rationale
+bridge_7_7_4,7-7-4,modular_method,needs_external_sage_check,modular_followup_candidate,completed,narrow,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
+bridge_7_4_7,7-4-7,modular_method,needs_external_sage_check,modular_followup_candidate,completed,narrow,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
+repeat_5_5_7,5-5-7,modular_method,needs_external_sage_check,modular_followup_candidate,completed,rigid,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
+bridge_5_5_4,5-5-4,modular_method,needs_external_sage_check,sage_checked_inconclusive,completed,inconclusive,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
+bridge_5_4_5,5-4-5,modular_method,needs_external_sage_check,modular_followup_candidate,completed,narrow,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
+mixed_5_3_5,5-3-5,modular_method,needs_external_sage_check,sage_checked_inconclusive,completed,inconclusive,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
+bridge_4_7_7,4-7-7,modular_method,needs_external_sage_check,modular_followup_candidate,completed,narrow,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
+bridge_4_5_5,4-5-5,modular_method,needs_external_sage_check,sage_checked_inconclusive,completed,inconclusive,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
+mixed_3_5_5,3-5-5,modular_method,needs_external_sage_check,sage_checked_inconclusive,completed,inconclusive,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
+mixed_3_4_3,3-4-3,modular_method,needs_external_sage_check,sage_checked_inconclusive,completed,inconclusive,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
+repeat_3_3_5,3-3-5,modular_method,needs_external_sage_check,sage_checked_inconclusive,completed,inconclusive,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
+repeat_3_3_4_imprimitive,3-3-4,modular_method,needs_external_sage_check,sage_checked_inconclusive,completed,inconclusive,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
 diag_7,7-7-7,descent_or_modularity,theorem_terrain_route,theorem_terrain_route,not_requested,not_checked,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
-bridge_7_7_4,7-7-4,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
-bridge_7_4_7,7-4-7,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
-repeat_5_5_7,5-5-7,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
 diag_5,5-5-5,descent_or_modularity,theorem_terrain_route,theorem_terrain_route,not_requested,not_checked,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
-bridge_5_5_4,5-5-4,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
-bridge_5_4_5,5-4-5,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
-mixed_5_3_5,5-3-5,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
-bridge_4_7_7,4-7-7,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
-bridge_4_5_5,4-5-5,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
 diag_4,4-4-4,descent_or_modularity,theorem_terrain_route,theorem_terrain_route,not_requested,not_checked,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
 bridge_4_3_3,4-3-3,descent,theorem_terrain_route,theorem_terrain_route,not_requested,not_checked,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
-mixed_3_5_5,3-5-5,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
-mixed_3_4_3,3-4-3,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
-repeat_3_3_5,3-3-5,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
-repeat_3_3_4_imprimitive,3-3-4,modular_method,needs_external_sage_check,needs_external_sage_check,unavailable,not_checked,True,False,known_case_sage_pending,"Sage evidence is absent or incomplete, so the conservative route is unchanged."
 diag_3,3-3-3,descent_or_modularity,theorem_terrain_route,theorem_terrain_route,not_requested,not_checked,True,False,known_case_sage_ok,Sage import did not overpromote this calibration case.
 artifact_11_11_5,11-11-5,artifact,artifact_like,artifact_like,not_requested,not_checked,True,False,known_case_sage_ok,Artifact calibrator remained demoted after Sage import.
 artifact_11_11_13,11-11-13,artifact,artifact_like,artifact_like,not_requested,not_checked,True,False,known_case_sage_ok,Artifact calibrator remained demoted after Sage import.

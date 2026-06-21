@@ -1,0 +1,102 @@
+{
+  "checked_levels": [
+    330
+  ],
+  "contradiction_claim_allowed": false,
+  "errors": [],
+  "followup_label": "sage_checked_inconclusive",
+  "job_id": "sage_5_3_5",
+  "level_rows": [
+    {
+      "error": "",
+      "level": 330,
+      "newform_count": 5,
+      "status": "completed"
+    },
+    {
+      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "level": 660,
+      "newform_count": 0,
+      "status": "unsupported"
+    },
+    {
+      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "level": 990,
+      "newform_count": 0,
+      "status": "unsupported"
+    },
+    {
+      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "level": 1320,
+      "newform_count": 0,
+      "status": "unsupported"
+    },
+    {
+      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "level": 1650,
+      "newform_count": 0,
+      "status": "unsupported"
+    },
+    {
+      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "level": 3630,
+      "newform_count": 0,
+      "status": "unsupported"
+    }
+  ],
+  "metadata": {
+    "candidate_case_ids": [
+      "mixed_5_3_5"
+    ],
+    "candidate_levels": [
+      330,
+      660,
+      990,
+      1320,
+      1650,
+      3630
+    ],
+    "candidate_rows": [
+      "known_case:mixed_5_3_5:mixed_needs_external_check:prime=11"
+    ],
+    "contradiction_claim_allowed": false,
+    "frey_template_equation": "E: y^2 = x(x - A^5)(x + B^3)",
+    "frey_template_id": "frey_split_full_2torsion_candidate",
+    "job_id": "sage_5_3_5",
+    "limitations": "route-audit only; conductor levels are heuristic; Frey template needs independent validation; contradiction_claim_allowed is false",
+    "primes_involved": [
+      11
+    ],
+    "result_path": "runs/sage_followup_ci/sage_results/sage_5_3_5.json",
+    "route_label": "mixed_needs_external_check",
+    "signature": [
+      5,
+      3,
+      5
+    ],
+    "source_run": "sage_followup_ci"
+  },
+  "newform_count": 5,
+  "route_label": "mixed_needs_external_check",
+  "sage_status": "completed",
+  "signature": [
+    5,
+    3,
+    5
+  ],
+  "source_run": "sage_followup_ci",
+  "trace_match_status": "inconclusive",
+  "trace_rows": [
+    {
+      "ell": 11,
+      "errors": [],
+      "nonsingular_triple_count": 2,
+      "singular_skipped_count": 0,
+      "survivor_triple_count": 2,
+      "trace_counts": {
+        "0": 2
+      },
+      "trace_support_size": 1
+    }
+  ]
+}

@@ -1,3 +1,24 @@
 {
   "checked_levels": [
-    
+    11
+  ],
+  "contradiction_claim_allowed": false,
+  "errors": [],
+  "followup_label": "sage_checked_inconclusive",
+  "job_id": "sage_smoke",
+  "newform_count": 1,
+  "route_label": "smoke_check",
+  "sage_status": "completed",
+  "signature": [
+    0,
+    0,
+    0
+  ],
+  "smoke": {
+    "curve_cardinality": 9,
+    "field_order": 5,
+    "trace": -3
+  },
+  "source_run": "sage_smoke",
+  "trace_match_status": "not_checked"
+}

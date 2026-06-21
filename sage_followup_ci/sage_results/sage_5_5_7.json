@@ -1,0 +1,86 @@
+{
+  "checked_levels": [],
+  "contradiction_claim_allowed": false,
+  "errors": [],
+  "followup_label": "modular_followup_candidate",
+  "job_id": "sage_5_5_7",
+  "level_rows": [
+    {
+      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "level": 770,
+      "newform_count": 0,
+      "status": "unsupported"
+    },
+    {
+      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "level": 1540,
+      "newform_count": 0,
+      "status": "unsupported"
+    },
+    {
+      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "level": 3080,
+      "newform_count": 0,
+      "status": "unsupported"
+    },
+    {
+      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "level": 3850,
+      "newform_count": 0,
+      "status": "unsupported"
+    }
+  ],
+  "metadata": {
+    "candidate_case_ids": [
+      "repeat_5_5_7"
+    ],
+    "candidate_levels": [
+      770,
+      1540,
+      3080,
+      3850
+    ],
+    "candidate_rows": [
+      "known_case:repeat_5_5_7:mixed_needs_external_check:prime=11"
+    ],
+    "contradiction_claim_allowed": false,
+    "frey_template_equation": "E: y^2 = x(x - A^5)(x + B^5)",
+    "frey_template_id": "frey_split_full_2torsion_candidate",
+    "job_id": "sage_5_5_7",
+    "limitations": "route-audit only; conductor levels are heuristic; Frey template needs independent validation; contradiction_claim_allowed is false",
+    "primes_involved": [
+      11
+    ],
+    "result_path": "runs/sage_followup_ci/sage_results/sage_5_5_7.json",
+    "route_label": "mixed_needs_external_check",
+    "signature": [
+      5,
+      5,
+      7
+    ],
+    "source_run": "sage_followup_ci"
+  },
+  "newform_count": 0,
+  "route_label": "mixed_needs_external_check",
+  "sage_status": "completed",
+  "signature": [
+    5,
+    5,
+    7
+  ],
+  "source_run": "sage_followup_ci",
+  "trace_match_status": "rigid",
+  "trace_rows": [
+    {
+      "ell": 11,
+      "errors": [],
+      "nonsingular_triple_count": 2,
+      "singular_skipped_count": 0,
+      "survivor_triple_count": 2,
+      "trace_counts": {
+        "0": 2
+      },
+      "trace_support_size": 1
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "checked_levels": [],
+  "contradiction_claim_allowed": false,
+  "errors": [],
+  "followup_label": "sage_checked_inconclusive",
+  "job_id": "sage_3_4_3",
+  "level_rows": [],
+  "metadata": {
+    "candidate_case_ids": [
+      "mixed_3_4_3"
+    ],
+    "candidate_levels": [],
+    "candidate_rows": [
+      "known_case:mixed_3_4_3:needs_external_sage_check:prime=31",
+      "modular_row:newform_check_candidate:ell=13:score=15.097644167",
+      "modular_row:newform_check_candidate:ell=19:score=15.6993447773",
+      "modular_row:newform_check_candidate:ell=31:score=16.0146097613"
+    ],
+    "contradiction_claim_allowed": false,
+    "frey_template_equation": "E: y^2 = x(x - A^3)(x + B^4)",
+    "frey_template_id": "frey_split_full_2torsion_candidate",
+    "job_id": "sage_3_4_3",
+    "limitations": "route-audit only; conductor levels are heuristic; Frey template needs independent validation; contradiction_claim_allowed is false",
+    "primes_involved": [
+      13,
+      19,
+      31
+    ],
+    "result_path": "runs/sage_followup_ci/sage_results/sage_3_4_3.json",
+    "route_label": "newform_check_candidate",
+    "signature": [
+      3,
+      4,
+      3
+    ],
+    "source_run": "sage_followup_ci"
+  },
+  "newform_count": 0,
+  "route_label": "newform_check_candidate",
+  "sage_status": "completed",
+  "signature": [
+    3,
+    4,
+    3
+  ],
+  "source_run": "sage_followup_ci",
+  "trace_match_status": "inconclusive",
+  "trace_rows": [
+    {
+      "ell": 13,
+      "errors": [],
+      "nonsingular_triple_count": 3,
+      "singular_skipped_count": 0,
+      "survivor_triple_count": 3,
+      "trace_counts": {
+        "-2": 2,
+        "-6": 1
+      },
+      "trace_support_size": 2
+    },
+    {
+      "ell": 19,
+      "errors": [],
+      "nonsingular_triple_count": 15,
+      "singular_skipped_count": 0,
+      "survivor_triple_count": 15,
+      "trace_counts": {
+        "-4": 3,
+        "-8": 3,
+        "0": 3,
+        "4": 3,
+        "8": 3
+      },
+      "trace_support_size": 5
+    },
+    {
+      "ell": 31,
+      "errors": [],
+      "nonsingular_triple_count": 45,
+      "singular_skipped_count": 0,
+      "survivor_triple_count": 45,
+      "trace_counts": {
+        "-4": 5,
+        "-8": 10,
+        "0": 15,
+        "4": 5,
+        "8": 10
+      },
+      "trace_support_size": 5
+    }
+  ]
+}
