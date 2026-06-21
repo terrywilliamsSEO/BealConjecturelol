@@ -332,7 +332,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a4 - 3",
+      "coefficient": "a4 + 3",
       "error": "",
       "level": 406,
       "newform_index": 4,
@@ -340,7 +340,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-2*a4 + 8",
+      "coefficient": "-2*a4 - 4",
       "error": "",
       "level": 406,
       "newform_index": 4,
@@ -348,7 +348,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a4 + 3",
+      "coefficient": "-a4 - 3",
       "error": "",
       "level": 406,
       "newform_index": 4,
@@ -356,7 +356,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-3*a4 + 11",
+      "coefficient": "-3*a4 - 7",
       "error": "",
       "level": 406,
       "newform_index": 4,
@@ -364,7 +364,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-2*a4 + 8",
+      "coefficient": "-2*a4 - 4",
       "error": "",
       "level": 406,
       "newform_index": 4,
@@ -372,7 +372,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "4*a4 - 18",
+      "coefficient": "4*a4 + 6",
       "error": "",
       "level": 406,
       "newform_index": 4,
@@ -380,7 +380,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "3*a4 - 9",
+      "coefficient": "3*a4 + 9",
       "error": "",
       "level": 406,
       "newform_index": 4,
@@ -452,7 +452,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a6 - 1/2",
+      "coefficient": "a6 - 1",
       "error": "",
       "level": 406,
       "newform_index": 6,
@@ -460,7 +460,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/32*a6^3 - 9/32*a6^2 - 17/32*a6 + 121/32",
+      "coefficient": "1/4*a6^3 - 3/2*a6^2 + 1/4*a6 + 4",
       "error": "",
       "level": 406,
       "newform_index": 6,
@@ -468,7 +468,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/2*a6 + 5/2",
+      "coefficient": "-a6 + 3",
       "error": "",
       "level": 406,
       "newform_index": 6,
@@ -476,7 +476,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-3/32*a6^3 + 11/32*a6^2 + 83/32*a6 - 123/32",
+      "coefficient": "-3/4*a6^3 + 5/2*a6^2 + 13/4*a6 - 6",
       "error": "",
       "level": 406,
       "newform_index": 6,
@@ -484,7 +484,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/32*a6^3 + 9/32*a6^2 + 1/32*a6 - 105/32",
+      "coefficient": "-1/4*a6^3 + 3/2*a6^2 - 5/4*a6 - 3",
       "error": "",
       "level": 406,
       "newform_index": 6,
@@ -492,7 +492,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/16*a6^3 - 5/16*a6^2 - 33/16*a6 + 69/16",
+      "coefficient": "1/2*a6^3 - 2*a6^2 - 5/2*a6 + 6",
       "error": "",
       "level": 406,
       "newform_index": 6,
@@ -500,7 +500,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/16*a6^3 + 5/16*a6^2 + 33/16*a6 - 37/16",
+      "coefficient": "-1/2*a6^3 + 2*a6^2 + 5/2*a6 - 4",
       "error": "",
       "level": 406,
       "newform_index": 6,
@@ -508,7 +508,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/32*a6^3 - 1/32*a6^2 - 81/32*a6 - 15/32",
+      "coefficient": "1/4*a6^3 - 1/2*a6^2 - 19/4*a6 + 2",
       "error": "",
       "level": 406,
       "newform_index": 6,
@@ -652,7 +652,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a2 + 2",
+      "coefficient": "-a2 - 2",
       "error": "",
       "level": 812,
       "newform_index": 2,
@@ -660,7 +660,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a2 + 4",
+      "coefficient": "-a2",
       "error": "",
       "level": 812,
       "newform_index": 2,
@@ -668,7 +668,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a2 - 2",
+      "coefficient": "a2 + 2",
       "error": "",
       "level": 812,
       "newform_index": 2,
@@ -684,7 +684,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a2 + 7",
+      "coefficient": "-a2 + 3",
       "error": "",
       "level": 812,
       "newform_index": 2,
@@ -692,7 +692,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a2 + 5",
+      "coefficient": "-a2 + 1",
       "error": "",
       "level": 812,
       "newform_index": 2,
@@ -700,7 +700,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-3*a2 - 6",
+      "coefficient": "3*a2 + 6",
       "error": "",
       "level": 812,
       "newform_index": 2,
@@ -708,7 +708,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a3",
+      "coefficient": "-a3",
       "error": "",
       "level": 812,
       "newform_index": 3,
@@ -716,7 +716,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/4*a3^2 - a3 + 2",
+      "coefficient": "-a3^2 + 2*a3 + 2",
       "error": "",
       "level": 812,
       "newform_index": 3,
@@ -724,7 +724,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a3^2 + 3/2*a3 - 6",
+      "coefficient": "2*a3^2 - 3*a3 - 6",
       "error": "",
       "level": 812,
       "newform_index": 3,
@@ -732,7 +732,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/8*a3^3 + 3/4*a3^2 - 3/2*a3 - 6",
+      "coefficient": "-a3^3 + 3*a3^2 + 3*a3 - 6",
       "error": "",
       "level": 812,
       "newform_index": 3,
@@ -740,7 +740,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/8*a3^3 - a3^2 - 1/2*a3 + 4",
+      "coefficient": "a3^3 - 4*a3^2 + a3 + 4",
       "error": "",
       "level": 812,
       "newform_index": 3,
@@ -748,7 +748,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/8*a3^3 - 1/2*a3^2 + 3/2*a3",
+      "coefficient": "a3^3 - 2*a3^2 - 3*a3",
       "error": "",
       "level": 812,
       "newform_index": 3,
@@ -756,7 +756,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/4*a3^3 + 3/2*a3^2 - a3 - 8",
+      "coefficient": "-2*a3^3 + 6*a3^2 + 2*a3 - 8",
       "error": "",
       "level": 812,
       "newform_index": 3,
@@ -764,7 +764,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/8*a3^3 - a3^2 + a3 + 4",
+      "coefficient": "a3^3 - 4*a3^2 - 2*a3 + 4",
       "error": "",
       "level": 812,
       "newform_index": 3,
@@ -1156,7 +1156,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a5",
+      "coefficient": "-1/2*a5",
       "error": "",
       "level": 1624,
       "newform_index": 5,
@@ -1169,46 +1169,6 @@
       "level": 1624,
       "newform_index": 5,
       "prime": 5,
-      "status": "completed"
-    },
-    {
-      "coefficient": "-1/2*a5 + 2",
-      "error": "",
-      "level": 1624,
-      "newform_index": 5,
-      "prime": 11,
-      "status": "completed"
-    },
-    {
-      "coefficient": "-1",
-      "error": "",
-      "level": 1624,
-      "newform_index": 5,
-      "prime": 13,
-      "status": "completed"
-    },
-    {
-      "coefficient": "-a5",
-      "error": "",
-      "level": 1624,
-      "newform_index": 5,
-      "prime": 17,
-      "status": "completed"
-    },
-    {
-      "coefficient": "-a5 - 4",
-      "error": "",
-      "level": 1624,
-      "newform_index": 5,
-      "prime": 19,
-      "status": "completed"
-    },
-    {
-      "coefficient": "-a5",
-      "error": "",
-      "level": 1624,
-      "newform_index": 5,
-      "prime": 23,
       "status": "completed"
     },
     {
@@ -1216,11 +1176,51 @@
       "error": "",
       "level": 1624,
       "newform_index": 5,
+      "prime": 11,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 1624,
+      "newform_index": 5,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a5",
+      "error": "",
+      "level": 1624,
+      "newform_index": 5,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a5 - 4",
+      "error": "",
+      "level": 1624,
+      "newform_index": 5,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a5",
+      "error": "",
+      "level": 1624,
+      "newform_index": 5,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a5 + 2",
+      "error": "",
+      "level": 1624,
+      "newform_index": 5,
       "prime": 31,
       "status": "completed"
     },
     {
-      "coefficient": "-1/2*a6",
+      "coefficient": "a6",
       "error": "",
       "level": 1624,
       "newform_index": 6,
@@ -1228,7 +1228,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/4*a6^2 + 2",
+      "coefficient": "-a6^2 + 2",
       "error": "",
       "level": 1624,
       "newform_index": 6,
@@ -1236,7 +1236,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a6 - 2",
+      "coefficient": "-a6 - 2",
       "error": "",
       "level": 1624,
       "newform_index": 6,
@@ -1244,7 +1244,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a6^2 + a6 - 5",
+      "coefficient": "2*a6^2 - 2*a6 - 5",
       "error": "",
       "level": 1624,
       "newform_index": 6,
@@ -1252,7 +1252,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/4*a6^2 - 1",
+      "coefficient": "-a6^2 - 1",
       "error": "",
       "level": 1624,
       "newform_index": 6,
@@ -1260,7 +1260,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/4*a6^2 - 3",
+      "coefficient": "a6^2 - 3",
       "error": "",
       "level": 1624,
       "newform_index": 6,
@@ -1268,7 +1268,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a6^2 + 2*a6 - 4",
+      "coefficient": "2*a6^2 - 4*a6 - 4",
       "error": "",
       "level": 1624,
       "newform_index": 6,
@@ -1276,7 +1276,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/4*a6^2 + 1/2*a6 - 5",
+      "coefficient": "a6^2 - a6 - 5",
       "error": "",
       "level": 1624,
       "newform_index": 6,
@@ -1284,7 +1284,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-2/5*a7^3 + a7^2 + 17/5*a7 - 3/5",
+      "coefficient": "2/5*a7^3 + a7^2 - 17/5*a7 - 3/5",
       "error": "",
       "level": 1624,
       "newform_index": 7,
@@ -1292,7 +1292,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-2/5*a7^3 + a7^2 + 22/5*a7 - 3/5",
+      "coefficient": "2/5*a7^3 + a7^2 - 22/5*a7 - 3/5",
       "error": "",
       "level": 1624,
       "newform_index": 7,
@@ -1300,7 +1300,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/5*a7^3 + a7^2 + 1/5*a7 - 19/5",
+      "coefficient": "1/5*a7^3 + a7^2 - 1/5*a7 - 19/5",
       "error": "",
       "level": 1624,
       "newform_index": 7,
@@ -1308,7 +1308,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "4/5*a7^3 - 3*a7^2 - 24/5*a7 + 21/5",
+      "coefficient": "-4/5*a7^3 - 3*a7^2 + 24/5*a7 + 21/5",
       "error": "",
       "level": 1624,
       "newform_index": 7,
@@ -1316,7 +1316,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "2/5*a7^3 - 32/5*a7 - 22/5",
+      "coefficient": "-2/5*a7^3 + 32/5*a7 - 22/5",
       "error": "",
       "level": 1624,
       "newform_index": 7,
@@ -1324,7 +1324,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/5*a7^3 - 26/5*a7 - 6/5",
+      "coefficient": "-1/5*a7^3 + 26/5*a7 - 6/5",
       "error": "",
       "level": 1624,
       "newform_index": 7,
@@ -1332,7 +1332,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "2/5*a7^3 - a7^2 - 22/5*a7 - 12/5",
+      "coefficient": "-2/5*a7^3 - a7^2 + 22/5*a7 - 12/5",
       "error": "",
       "level": 1624,
       "newform_index": 7,
@@ -1340,7 +1340,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a7^3 - 3*a7^2 - 7*a7 - 1",
+      "coefficient": "-a7^3 - 3*a7^2 + 7*a7 - 1",
       "error": "",
       "level": 1624,
       "newform_index": 7,
@@ -1348,7 +1348,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a8",
+      "coefficient": "-a8",
       "error": "",
       "level": 1624,
       "newform_index": 8,
@@ -1356,7 +1356,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "2*a8^3 + a8^2 - 18*a8 - 8",
+      "coefficient": "-2*a8^3 + a8^2 + 18*a8 - 8",
       "error": "",
       "level": 1624,
       "newform_index": 8,
@@ -1364,7 +1364,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a8 + 2",
+      "coefficient": "a8 + 2",
       "error": "",
       "level": 1624,
       "newform_index": 8,
@@ -1372,7 +1372,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a8^3 - a8^2 + 9*a8 + 6",
+      "coefficient": "a8^3 - a8^2 - 9*a8 + 6",
       "error": "",
       "level": 1624,
       "newform_index": 8,
@@ -1380,7 +1380,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-3*a8^3 - 2*a8^2 + 29*a8 + 16",
+      "coefficient": "3*a8^3 - 2*a8^2 - 29*a8 + 16",
       "error": "",
       "level": 1624,
       "newform_index": 8,
@@ -1388,7 +1388,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "3*a8^3 + 2*a8^2 - 29*a8 - 16",
+      "coefficient": "-3*a8^3 + 2*a8^2 + 29*a8 - 16",
       "error": "",
       "level": 1624,
       "newform_index": 8,
@@ -1396,7 +1396,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "4*a8^3 + 2*a8^2 - 36*a8 - 16",
+      "coefficient": "-4*a8^3 + 2*a8^2 + 36*a8 - 16",
       "error": "",
       "level": 1624,
       "newform_index": 8,
@@ -1404,7 +1404,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a8^3 - 8*a8",
+      "coefficient": "-a8^3 + 8*a8",
       "error": "",
       "level": 1624,
       "newform_index": 8,
@@ -1412,7 +1412,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a9",
+      "coefficient": "a9",
       "error": "",
       "level": 1624,
       "newform_index": 9,
@@ -1420,7 +1420,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/16*a9^3 + 1/4*a9^2 + 5/4*a9 - 1",
+      "coefficient": "-1/2*a9^3 + a9^2 + 5/2*a9 - 1",
       "error": "",
       "level": 1624,
       "newform_index": 9,
@@ -1428,7 +1428,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/8*a9^3 + 1/2*a9^2 + 2*a9 - 2",
+      "coefficient": "-a9^3 + 2*a9^2 + 4*a9 - 2",
       "error": "",
       "level": 1624,
       "newform_index": 9,
@@ -1436,7 +1436,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/16*a9^3 - 1/4*a9^2 - 1/4*a9 + 1",
+      "coefficient": "1/2*a9^3 - a9^2 - 1/2*a9 + 1",
       "error": "",
       "level": 1624,
       "newform_index": 9,
@@ -1444,7 +1444,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/16*a9^3 + 5/4*a9 + 1",
+      "coefficient": "-1/2*a9^3 + 5/2*a9 + 1",
       "error": "",
       "level": 1624,
       "newform_index": 9,
@@ -1460,7 +1460,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/8*a9^3 - 1/2*a9^2 - 3/2*a9 + 4",
+      "coefficient": "a9^3 - 2*a9^2 - 3*a9 + 4",
       "error": "",
       "level": 1624,
       "newform_index": 9,
@@ -1468,7 +1468,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-5/16*a9^3 + 3/2*a9^2 + 15/4*a9 - 7",
+      "coefficient": "-5/2*a9^3 + 6*a9^2 + 15/2*a9 - 7",
       "error": "",
       "level": 1624,
       "newform_index": 9,
@@ -1476,7 +1476,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a10",
+      "coefficient": "-a10",
       "error": "",
       "level": 1624,
       "newform_index": 10,
@@ -1484,7 +1484,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/64*a10^5 - 3/32*a10^4 + 7/16*a10^3 + 21/8*a10^2 - 4",
+      "coefficient": "1/2*a10^5 - 3/2*a10^4 - 7/2*a10^3 + 21/2*a10^2 - 4",
       "error": "",
       "level": 1624,
       "newform_index": 10,
@@ -1492,7 +1492,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/64*a10^5 + 3/32*a10^4 - 7/16*a10^3 - 23/8*a10^2 - 1/2*a10 + 8",
+      "coefficient": "-1/2*a10^5 + 3/2*a10^4 + 7/2*a10^3 - 23/2*a10^2 + a10 + 8",
       "error": "",
       "level": 1624,
       "newform_index": 10,
@@ -1500,7 +1500,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/64*a10^5 + 5/32*a10^4 - 3/16*a10^3 - 39/8*a10^2 - 7*a10 + 12",
+      "coefficient": "-1/2*a10^5 + 5/2*a10^4 + 3/2*a10^3 - 39/2*a10^2 + 14*a10 + 12",
       "error": "",
       "level": 1624,
       "newform_index": 10,
@@ -1508,7 +1508,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/16*a10^4 - 1/4*a10^3 + 9/4*a10^2 + 6*a10 - 12",
+      "coefficient": "-a10^4 + 2*a10^3 + 9*a10^2 - 12*a10 - 12",
       "error": "",
       "level": 1624,
       "newform_index": 10,
@@ -1516,7 +1516,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/64*a10^5 + 5/32*a10^4 - 3/16*a10^3 - 37/8*a10^2 - 6*a10 + 8",
+      "coefficient": "-1/2*a10^5 + 5/2*a10^4 + 3/2*a10^3 - 37/2*a10^2 + 12*a10 + 8",
       "error": "",
       "level": 1624,
       "newform_index": 10,
@@ -1524,7 +1524,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/64*a10^5 - 5/32*a10^4 + 1/16*a10^3 + 37/8*a10^2 + 19/2*a10 - 12",
+      "coefficient": "1/2*a10^5 - 5/2*a10^4 - 1/2*a10^3 + 37/2*a10^2 - 19*a10 - 12",
       "error": "",
       "level": 1624,
       "newform_index": 10,
@@ -1532,7 +1532,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/64*a10^5 + 5/32*a10^4 - 3/16*a10^3 - 37/8*a10^2 - 13/2*a10 + 6",
+      "coefficient": "-1/2*a10^5 + 5/2*a10^4 + 3/2*a10^3 - 37/2*a10^2 + 13*a10 + 6",
       "error": "",
       "level": 1624,
       "newform_index": 10,
@@ -2052,7 +2052,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a6 + 1/2",
+      "coefficient": "-a6 - 1",
       "error": "",
       "level": 2842,
       "newform_index": 6,
@@ -2108,7 +2108,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/4*a6 + 1/4",
+      "coefficient": "-1/2*a6 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 6,
@@ -2124,7 +2124,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a7 + 1/2",
+      "coefficient": "-1/2*a7 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 7,
@@ -2140,35 +2140,11 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a7 + 1/2",
+      "coefficient": "-1/2*a7 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 7,
       "prime": 13,
-      "status": "completed"
-    },
-    {
-      "coefficient": "1/2*a7 + 1/2",
-      "error": "",
-      "level": 2842,
-      "newform_index": 7,
-      "prime": 17,
-      "status": "completed"
-    },
-    {
-      "coefficient": "a7 + 1",
-      "error": "",
-      "level": 2842,
-      "newform_index": 7,
-      "prime": 19,
-      "status": "completed"
-    },
-    {
-      "coefficient": "0",
-      "error": "",
-      "level": 2842,
-      "newform_index": 7,
-      "prime": 23,
       "status": "completed"
     },
     {
@@ -2176,6 +2152,30 @@
       "error": "",
       "level": 2842,
       "newform_index": 7,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a7 - 1",
+      "error": "",
+      "level": 2842,
+      "newform_index": 7,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 2842,
+      "newform_index": 7,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a7 + 1/2",
+      "error": "",
+      "level": 2842,
+      "newform_index": 7,
       "prime": 31,
       "status": "completed"
     },
@@ -2188,7 +2188,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a8 + 3",
+      "coefficient": "-a8 - 1",
       "error": "",
       "level": 2842,
       "newform_index": 8,
@@ -2196,7 +2196,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-2*a8 + 8",
+      "coefficient": "-2*a8",
       "error": "",
       "level": 2842,
       "newform_index": 8,
@@ -2204,7 +2204,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a8 - 3",
+      "coefficient": "a8 + 1",
       "error": "",
       "level": 2842,
       "newform_index": 8,
@@ -2212,7 +2212,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "3*a8 - 11",
+      "coefficient": "3*a8 + 1",
       "error": "",
       "level": 2842,
       "newform_index": 8,
@@ -2220,7 +2220,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "2*a8 - 8",
+      "coefficient": "2*a8",
       "error": "",
       "level": 2842,
       "newform_index": 8,
@@ -2228,7 +2228,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "4*a8 - 18",
+      "coefficient": "4*a8 - 2",
       "error": "",
       "level": 2842,
       "newform_index": 8,
@@ -2236,7 +2236,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-3*a8 + 9",
+      "coefficient": "-3*a8 - 3",
       "error": "",
       "level": 2842,
       "newform_index": 8,
@@ -2244,7 +2244,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a9 + 1",
+      "coefficient": "-1/2*a9 + 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 9,
@@ -2252,7 +2252,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a9 - 1",
+      "coefficient": "1/2*a9 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 9,
@@ -2268,7 +2268,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a9 - 1",
+      "coefficient": "1/2*a9 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 9,
@@ -2276,7 +2276,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-2*a9 + 2",
+      "coefficient": "-a9 + 1",
       "error": "",
       "level": 2842,
       "newform_index": 9,
@@ -2284,7 +2284,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "3*a9 - 3",
+      "coefficient": "3/2*a9 - 3/2",
       "error": "",
       "level": 2842,
       "newform_index": 9,
@@ -2300,7 +2300,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a9 - 1",
+      "coefficient": "1/2*a9 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 9,
@@ -2316,7 +2316,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/2*a10 + 1/2",
+      "coefficient": "a10 - 1",
       "error": "",
       "level": 2842,
       "newform_index": 10,
@@ -2332,7 +2332,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "5/2*a10 - 5/2",
+      "coefficient": "-5*a10 + 5",
       "error": "",
       "level": 2842,
       "newform_index": 10,
@@ -2340,7 +2340,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/2*a10 + 1/2",
+      "coefficient": "a10 - 1",
       "error": "",
       "level": 2842,
       "newform_index": 10,
@@ -2348,7 +2348,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a10 + 1",
+      "coefficient": "2*a10 - 2",
       "error": "",
       "level": 2842,
       "newform_index": 10,
@@ -2364,7 +2364,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a10 - 1/2",
+      "coefficient": "-a10 + 1",
       "error": "",
       "level": 2842,
       "newform_index": 10,
@@ -2372,7 +2372,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/2*a11 + 1/2",
+      "coefficient": "1/2*a11 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 11,
@@ -2380,7 +2380,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a11 + 1",
+      "coefficient": "a11 - 1",
       "error": "",
       "level": 2842,
       "newform_index": 11,
@@ -2396,7 +2396,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-2*a11 + 2",
+      "coefficient": "2*a11 - 2",
       "error": "",
       "level": 2842,
       "newform_index": 11,
@@ -2404,7 +2404,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-5/2*a11 + 5/2",
+      "coefficient": "5/2*a11 - 5/2",
       "error": "",
       "level": 2842,
       "newform_index": 11,
@@ -2412,7 +2412,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "3/2*a11 - 3/2",
+      "coefficient": "-3/2*a11 + 3/2",
       "error": "",
       "level": 2842,
       "newform_index": 11,
@@ -2428,7 +2428,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a11 - 1",
+      "coefficient": "-a11 + 1",
       "error": "",
       "level": 2842,
       "newform_index": 11,
@@ -2436,7 +2436,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a12 + 1",
+      "coefficient": "a12 - 1",
       "error": "",
       "level": 2842,
       "newform_index": 12,
@@ -2444,7 +2444,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a12 - 1",
+      "coefficient": "-a12 + 1",
       "error": "",
       "level": 2842,
       "newform_index": 12,
@@ -2460,7 +2460,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a12 + 1",
+      "coefficient": "a12 - 1",
       "error": "",
       "level": 2842,
       "newform_index": 12,
@@ -2468,7 +2468,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a12 - 1",
+      "coefficient": "-a12 + 1",
       "error": "",
       "level": 2842,
       "newform_index": 12,
@@ -2492,7 +2492,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a12 - 1/2",
+      "coefficient": "-1/2*a12 + 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 12,
@@ -2500,7 +2500,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a13 + 1/2",
+      "coefficient": "a13 + 1",
       "error": "",
       "level": 2842,
       "newform_index": 13,
@@ -2508,7 +2508,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/8*a13^2 - 1/2*a13 + 5/8",
+      "coefficient": "-1/2*a13^2 - 3/2*a13",
       "error": "",
       "level": 2842,
       "newform_index": 13,
@@ -2516,7 +2516,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/4*a13^2 - 1/2*a13 + 23/4",
+      "coefficient": "-a13^2 - 2*a13 + 5",
       "error": "",
       "level": 2842,
       "newform_index": 13,
@@ -2524,7 +2524,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/8*a13^2 + 1/2*a13 - 37/8",
+      "coefficient": "1/2*a13^2 + 3/2*a13 - 4",
       "error": "",
       "level": 2842,
       "newform_index": 13,
@@ -2532,7 +2532,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/8*a13^2 + a13 - 33/8",
+      "coefficient": "1/2*a13^2 + 5/2*a13 - 3",
       "error": "",
       "level": 2842,
       "newform_index": 13,
@@ -2540,7 +2540,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a13 + 1",
+      "coefficient": "-2*a13",
       "error": "",
       "level": 2842,
       "newform_index": 13,
@@ -2548,7 +2548,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/4*a13^2 + 33/4",
+      "coefficient": "-a13^2 - a13 + 8",
       "error": "",
       "level": 2842,
       "newform_index": 13,
@@ -2556,7 +2556,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/8*a13^2 - 1/2*a13 - 45/8",
+      "coefficient": "1/2*a13^2 - 1/2*a13 - 6",
       "error": "",
       "level": 2842,
       "newform_index": 13,
@@ -2564,7 +2564,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a14 - 1",
+      "coefficient": "a14 + 1",
       "error": "",
       "level": 2842,
       "newform_index": 14,
@@ -2572,7 +2572,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/9*a14^3 + 1/3*a14^2 - 1/3*a14 - 5/9",
+      "coefficient": "-1/9*a14^3 - 1/3*a14^2 + 1/3*a14 + 5/9",
       "error": "",
       "level": 2842,
       "newform_index": 14,
@@ -2588,7 +2588,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "2/3*a14^3 + 2*a14^2 - 5*a14 - 19/3",
+      "coefficient": "-2/3*a14^3 - 2*a14^2 + 5*a14 + 19/3",
       "error": "",
       "level": 2842,
       "newform_index": 14,
@@ -2596,7 +2596,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-4/9*a14^3 - 4/3*a14^2 + 16/3*a14 + 56/9",
+      "coefficient": "4/9*a14^3 + 4/3*a14^2 - 16/3*a14 - 56/9",
       "error": "",
       "level": 2842,
       "newform_index": 14,
@@ -2604,7 +2604,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-5/9*a14^3 - 5/3*a14^2 + 14/3*a14 + 52/9",
+      "coefficient": "5/9*a14^3 + 5/3*a14^2 - 14/3*a14 - 52/9",
       "error": "",
       "level": 2842,
       "newform_index": 14,
@@ -2620,7 +2620,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a14^3 - 3*a14^2 + 7*a14 + 9",
+      "coefficient": "a14^3 + 3*a14^2 - 7*a14 - 9",
       "error": "",
       "level": 2842,
       "newform_index": 14,
@@ -2692,7 +2692,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/6*a16^3 - 1/2*a16^2 + 5/6*a16 + 7/6",
+      "coefficient": "-1/6*a16^3 - 1/2*a16^2 + 17/6*a16 + 19/6",
       "error": "",
       "level": 2842,
       "newform_index": 16,
@@ -2700,7 +2700,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/6*a16^3 + 1/2*a16^2 - 11/6*a16 - 13/6",
+      "coefficient": "-1/6*a16^3 - 1/2*a16^2 + 23/6*a16 + 25/6",
       "error": "",
       "level": 2842,
       "newform_index": 16,
@@ -2708,7 +2708,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a16^2 - 2*a16 + 7",
+      "coefficient": "1/3*a16^2 + 2/3*a16 - 7/3",
       "error": "",
       "level": 2842,
       "newform_index": 16,
@@ -2716,7 +2716,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/6*a16^3 + 1/2*a16^2 - 11/6*a16 - 13/6",
+      "coefficient": "-1/6*a16^3 - 1/2*a16^2 + 23/6*a16 + 25/6",
       "error": "",
       "level": 2842,
       "newform_index": 16,
@@ -2724,7 +2724,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/3*a16^3 - a16^2 + 2/3*a16 + 4/3",
+      "coefficient": "-2/3*a16^3 - 2*a16^2 + 37/3*a16 + 41/3",
       "error": "",
       "level": 2842,
       "newform_index": 16,
@@ -2732,7 +2732,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/2*a16^3 - 3/2*a16^2 + 5/2*a16 + 7/2",
+      "coefficient": "-1/2*a16^3 - 3/2*a16^2 + 17/2*a16 + 19/2",
       "error": "",
       "level": 2842,
       "newform_index": 16,
@@ -2748,7 +2748,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/6*a16^3 + 1/2*a16^2 - 23/6*a16 - 25/6",
+      "coefficient": "-5/6*a16^3 - 5/2*a16^2 + 103/6*a16 + 113/6",
       "error": "",
       "level": 2842,
       "newform_index": 16,
@@ -2756,7 +2756,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/2*a17 + 1/2",
+      "coefficient": "a17 - 1",
       "error": "",
       "level": 2842,
       "newform_index": 17,
@@ -2764,7 +2764,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/32*a17^3 + 9/32*a17^2 + 17/32*a17 - 121/32",
+      "coefficient": "1/4*a17^3 - 11/4*a17 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 17,
@@ -2772,7 +2772,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/2*a17 + 5/2",
+      "coefficient": "a17 + 1",
       "error": "",
       "level": 2842,
       "newform_index": 17,
@@ -2780,7 +2780,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "3/32*a17^3 - 11/32*a17^2 - 83/32*a17 + 123/32",
+      "coefficient": "-3/4*a17^3 + 2*a17^2 + 17/4*a17 - 9/2",
       "error": "",
       "level": 2842,
       "newform_index": 17,
@@ -2788,7 +2788,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/32*a17^3 - 9/32*a17^2 - 1/32*a17 + 105/32",
+      "coefficient": "-1/4*a17^3 + 7/4*a17 + 3/2",
       "error": "",
       "level": 2842,
       "newform_index": 17,
@@ -2796,7 +2796,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/16*a17^3 + 5/16*a17^2 + 33/16*a17 - 69/16",
+      "coefficient": "1/2*a17^3 - a17^2 - 9/2*a17 + 3",
       "error": "",
       "level": 2842,
       "newform_index": 17,
@@ -2804,7 +2804,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/16*a17^3 + 5/16*a17^2 + 33/16*a17 - 37/16",
+      "coefficient": "1/2*a17^3 - a17^2 - 9/2*a17 + 5",
       "error": "",
       "level": 2842,
       "newform_index": 17,
@@ -2812,7 +2812,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/32*a17^3 + 1/32*a17^2 + 81/32*a17 + 15/32",
+      "coefficient": "1/4*a17^3 - a17^2 - 15/4*a17 + 15/2",
       "error": "",
       "level": 2842,
       "newform_index": 17,
@@ -2820,7 +2820,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a18 + 1/2",
+      "coefficient": "-1/2*a18 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 18,
@@ -2828,7 +2828,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/112*a18^4 - 1/7*a18^3 - 19/56*a18^2 + 13/7*a18 + 183/112",
+      "coefficient": "-1/112*a18^4 + 1/14*a18^3 + 17/56*a18^2 - 25/14*a18 - 39/16",
       "error": "",
       "level": 2842,
       "newform_index": 18,
@@ -2836,7 +2836,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "3/112*a18^4 + 5/28*a18^3 - 27/56*a18^2 - 79/28*a18 + 123/112",
+      "coefficient": "3/112*a18^4 + 1/28*a18^3 - 51/56*a18^2 - 11/28*a18 + 61/16",
       "error": "",
       "level": 2842,
       "newform_index": 18,
@@ -2844,7 +2844,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "3/56*a18^4 + 27/56*a18^3 - 5/56*a18^2 - 239/56*a18 - 5/28",
+      "coefficient": "3/56*a18^4 - 3/56*a18^3 - 95/56*a18^2 - 9/56*a18 + 5",
       "error": "",
       "level": 2842,
       "newform_index": 18,
@@ -2852,7 +2852,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/112*a18^4 - 1/56*a18^3 + 15/28*a18^2 + 13/56*a18 - 531/112",
+      "coefficient": "-1/112*a18^4 - 3/56*a18^3 + 3/7*a18^2 + 103/56*a18 - 49/16",
       "error": "",
       "level": 2842,
       "newform_index": 18,
@@ -2860,7 +2860,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a18 - 1/2",
+      "coefficient": "-1/2*a18 - 3/2",
       "error": "",
       "level": 2842,
       "newform_index": 18,
@@ -2868,7 +2868,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/16*a18^4 - 1/2*a18^3 + 3/8*a18^2 + 4*a18 - 45/16",
+      "coefficient": "-1/16*a18^4 + 15/8*a18^2 + 3/2*a18 - 101/16",
       "error": "",
       "level": 2842,
       "newform_index": 18,
@@ -2876,7 +2876,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-5/56*a18^4 - 45/56*a18^3 - 1/56*a18^2 + 417/56*a18 + 181/28",
+      "coefficient": "-5/56*a18^4 + 5/56*a18^3 + 149/56*a18^2 - 41/56*a18 - 7/2",
       "error": "",
       "level": 2842,
       "newform_index": 18,
@@ -2884,7 +2884,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a19 + 1/2",
+      "coefficient": "-1/2*a19 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 19,
@@ -2892,7 +2892,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "3/112*a19^4 + 5/28*a19^3 - 25/56*a19^2 - 11/4*a19 + 95/112",
+      "coefficient": "3/112*a19^4 + 1/28*a19^3 - 7/8*a19^2 - 9/28*a19 + 57/16",
       "error": "",
       "level": 2842,
       "newform_index": 19,
@@ -2900,7 +2900,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-3/112*a19^4 - 5/28*a19^3 + 39/56*a19^2 + 13/4*a19 - 515/112",
+      "coefficient": "-3/112*a19^4 - 1/28*a19^3 + 9/8*a19^2 + 23/28*a19 - 117/16",
       "error": "",
       "level": 2842,
       "newform_index": 19,
@@ -2908,7 +2908,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/28*a19^4 + 11/56*a19^3 - 59/56*a19^2 - 33/8*a19 + 341/56",
+      "coefficient": "1/28*a19^4 + 5/56*a19^3 - 11/8*a19^2 - 73/56*a19 + 73/8",
       "error": "",
       "level": 2842,
       "newform_index": 19,
@@ -2916,7 +2916,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/112*a19^4 + 1/56*a19^3 - 17/28*a19^2 - 3/8*a19 + 587/112",
+      "coefficient": "1/112*a19^4 + 3/56*a19^3 - 1/2*a19^2 - 111/56*a19 + 57/16",
       "error": "",
       "level": 2842,
       "newform_index": 19,
@@ -2924,7 +2924,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/28*a19^4 - 9/28*a19^3 + 5/28*a19^2 + 17/4*a19 - 17/14",
+      "coefficient": "-1/28*a19^4 + 1/28*a19^3 + 5/4*a19^2 - 23/28*a19 - 7",
       "error": "",
       "level": 2842,
       "newform_index": 19,
@@ -2932,7 +2932,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/112*a19^4 + 1/7*a19^3 + 1/56*a19^2 - 5/2*a19 + 405/112",
+      "coefficient": "1/112*a19^4 - 1/14*a19^3 - 5/8*a19^2 + 8/7*a19 + 123/16",
       "error": "",
       "level": 2842,
       "newform_index": 19,
@@ -2940,7 +2940,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/56*a19^4 + 9/56*a19^3 - 19/56*a19^2 - 19/8*a19 + 115/28",
+      "coefficient": "1/56*a19^4 - 1/56*a19^3 - 7/8*a19^2 - 19/56*a19 + 13/2",
       "error": "",
       "level": 2842,
       "newform_index": 19,
@@ -2948,7 +2948,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a20 + 1",
+      "coefficient": "-1/2*a20 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 20,
@@ -2956,7 +2956,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-3/7*a20^4 - 8/7*a20^3 + 17/7*a20^2 + 26/7*a20 - 17/7",
+      "coefficient": "-3/112*a20^4 - 5/28*a20^3 + 25/56*a20^2 + 11/4*a20 - 95/112",
       "error": "",
       "level": 2842,
       "newform_index": 20,
@@ -2964,7 +2964,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-3/7*a20^4 - 8/7*a20^3 + 24/7*a20^2 + 40/7*a20 - 38/7",
+      "coefficient": "-3/112*a20^4 - 5/28*a20^3 + 39/56*a20^2 + 13/4*a20 - 515/112",
       "error": "",
       "level": 2842,
       "newform_index": 20,
@@ -2972,7 +2972,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-4/7*a20^4 - 13/7*a20^3 + 25/7*a20^2 + 51/7*a20 - 46/7",
+      "coefficient": "-1/28*a20^4 - 11/56*a20^3 + 59/56*a20^2 + 33/8*a20 - 341/56",
       "error": "",
       "level": 2842,
       "newform_index": 20,
@@ -2980,7 +2980,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/7*a20^4 - 5/7*a20^3 + 8/7*a20^2 + 39/7*a20 - 8/7",
+      "coefficient": "-1/112*a20^4 - 1/56*a20^3 + 17/28*a20^2 + 3/8*a20 - 587/112",
       "error": "",
       "level": 2842,
       "newform_index": 20,
@@ -2988,7 +2988,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "4/7*a20^4 + 6/7*a20^3 - 32/7*a20^2 - 23/7*a20 + 46/7",
+      "coefficient": "1/28*a20^4 + 9/28*a20^3 - 5/28*a20^2 - 17/4*a20 + 17/14",
       "error": "",
       "level": 2842,
       "newform_index": 20,
@@ -2996,7 +2996,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/7*a20^4 - 2/7*a20^3 - 22/7*a20^2 - 4/7*a20 + 57/7",
+      "coefficient": "1/112*a20^4 + 1/7*a20^3 + 1/56*a20^2 - 5/2*a20 + 405/112",
       "error": "",
       "level": 2842,
       "newform_index": 20,
@@ -3004,7 +3004,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-2/7*a20^4 - 3/7*a20^3 + 23/7*a20^2 + 29/7*a20 - 37/7",
+      "coefficient": "-1/56*a20^4 - 9/56*a20^3 + 19/56*a20^2 + 19/8*a20 - 115/28",
       "error": "",
       "level": 2842,
       "newform_index": 20,
@@ -3140,7 +3140,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a23 - 1/2",
+      "coefficient": "a23 - 1",
       "error": "",
       "level": 2842,
       "newform_index": 23,
@@ -3148,7 +3148,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/16*a23^4 - 1/4*a23^3 - 11/8*a23^2 + 17/4*a23 + 37/16",
+      "coefficient": "a23^4 - 4*a23^3 - a23^2 + 12*a23 - 3",
       "error": "",
       "level": 2842,
       "newform_index": 23,
@@ -3156,7 +3156,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/16*a23^4 - 11/8*a23^2 - 1/2*a23 + 45/16",
+      "coefficient": "a23^4 - 2*a23^3 - 4*a23^2 + 4*a23 + 2",
       "error": "",
       "level": 2842,
       "newform_index": 23,
@@ -3164,7 +3164,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/8*a23^4 + 3/8*a23^3 + 21/8*a23^2 - 55/8*a23 - 7",
+      "coefficient": "-2*a23^4 + 7*a23^3 + 3*a23^2 - 21*a23 + 2",
       "error": "",
       "level": 2842,
       "newform_index": 23,
@@ -3172,7 +3172,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/16*a23^4 - 1/8*a23^3 - 7/4*a23^2 + 13/8*a23 + 83/16",
+      "coefficient": "a23^4 - 3*a23^3 - 4*a23^2 + 9*a23 + 2",
       "error": "",
       "level": 2842,
       "newform_index": 23,
@@ -3180,7 +3180,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/8*a23^4 + 1/4*a23^3 + 3*a23^2 - 15/4*a23 - 83/8",
+      "coefficient": "-2*a23^4 + 6*a23^3 + 6*a23^2 - 17*a23 - 4",
       "error": "",
       "level": 2842,
       "newform_index": 23,
@@ -3188,7 +3188,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/16*a23^4 - 1/4*a23^3 - 13/8*a23^2 + 15/4*a23 + 97/16",
+      "coefficient": "a23^4 - 4*a23^3 - 2*a23^2 + 12*a23 + 1",
       "error": "",
       "level": 2842,
       "newform_index": 23,
@@ -3196,7 +3196,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/8*a23^3 + 5/8*a23^2 - 21/8*a23 - 81/8",
+      "coefficient": "a23^3 + a23^2 - 7*a23 - 7",
       "error": "",
       "level": 2842,
       "newform_index": 23,
@@ -3204,7 +3204,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a24 - 1",
+      "coefficient": "1/2*a24 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 24,
@@ -3212,7 +3212,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a24^4 + 4*a24^3 + a24^2 - 8*a24 - 1",
+      "coefficient": "-1/16*a24^4 + 1/4*a24^3 + 11/8*a24^2 - 9/4*a24 - 69/16",
       "error": "",
       "level": 2842,
       "newform_index": 24,
@@ -3220,7 +3220,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a24^4 - 6*a24^3 + 8*a24^2 + 4*a24 - 6",
+      "coefficient": "1/16*a24^4 - 1/2*a24^3 + 1/8*a24^2 + 4*a24 - 43/16",
       "error": "",
       "level": 2842,
       "newform_index": 24,
@@ -3228,7 +3228,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "2*a24^4 - 9*a24^3 + 3*a24^2 + 11*a24 + 4",
+      "coefficient": "1/8*a24^4 - 5/8*a24^3 - 15/8*a24^2 + 33/8*a24 + 37/4",
       "error": "",
       "level": 2842,
       "newform_index": 24,
@@ -3236,7 +3236,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a24^4 + 5*a24^3 - 2*a24^2 - 11*a24 + 4",
+      "coefficient": "-1/16*a24^4 + 3/8*a24^3 + a24^2 - 39/8*a24 - 23/16",
       "error": "",
       "level": 2842,
       "newform_index": 24,
@@ -3244,7 +3244,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "2*a24^4 - 10*a24^3 + 6*a24^2 + 15*a24 - 2",
+      "coefficient": "1/8*a24^4 - 3/4*a24^3 - 3/2*a24^2 + 29/4*a24 + 47/8",
       "error": "",
       "level": 2842,
       "newform_index": 24,
@@ -3252,7 +3252,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a24^4 - 4*a24^3 - 2*a24^2 + 12*a24 + 1",
+      "coefficient": "1/16*a24^4 - 1/4*a24^3 - 13/8*a24^2 + 15/4*a24 + 97/16",
       "error": "",
       "level": 2842,
       "newform_index": 24,
@@ -3260,7 +3260,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a24^3 - 7*a24^2 + 9*a24 + 9",
+      "coefficient": "1/8*a24^3 - 11/8*a24^2 + 11/8*a24 + 95/8",
       "error": "",
       "level": 2842,
       "newform_index": 24,
@@ -3268,7 +3268,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "a25 - 1",
+      "coefficient": "1/2*a25 - 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 25,
@@ -3276,7 +3276,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/3*a25^4 - 2*a25^3 + 5/3*a25^2 + 4*a25 - 1",
+      "coefficient": "1/48*a25^4 - 1/6*a25^3 - 5/24*a25^2 + 13/6*a25 + 19/16",
       "error": "",
       "level": 2842,
       "newform_index": 25,
@@ -3284,7 +3284,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/3*a25^4 - 2*a25^3 + 2/3*a25^2 + 8*a25 - 2",
+      "coefficient": "1/48*a25^4 - 1/6*a25^3 - 11/24*a25^2 + 11/3*a25 + 31/16",
       "error": "",
       "level": 2842,
       "newform_index": 25,
@@ -3292,7 +3292,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/3*a25^3 - 5/3*a25^2 + a25 + 4",
+      "coefficient": "1/24*a25^3 - 7/24*a25^2 - 5/24*a25 + 33/8",
       "error": "",
       "level": 2842,
       "newform_index": 25,
@@ -3300,7 +3300,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/3*a25^4 + 5/3*a25^3 - 5*a25 + 2",
+      "coefficient": "-1/48*a25^4 + 1/8*a25^3 + 1/2*a25^2 - 47/24*a25 - 5/16",
       "error": "",
       "level": 2842,
       "newform_index": 25,
@@ -3308,7 +3308,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-2/3*a25^4 + 4*a25^3 - 10/3*a25^2 - 11*a25 + 10",
+      "coefficient": "-1/24*a25^4 + 1/3*a25^3 + 5/12*a25^2 - 35/6*a25 + 33/8",
       "error": "",
       "level": 2842,
       "newform_index": 25,
@@ -3316,7 +3316,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/3*a25^4 + 4/3*a25^3 + 2/3*a25^2 - 2*a25 - 1",
+      "coefficient": "-1/48*a25^4 + 1/12*a25^3 + 13/24*a25^2 - 1/4*a25 - 27/16",
       "error": "",
       "level": 2842,
       "newform_index": 25,
@@ -3324,7 +3324,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a25^3 + 3*a25^2 + 5*a25 - 3",
+      "coefficient": "-1/8*a25^3 + 3/8*a25^2 + 29/8*a25 + 1/8",
       "error": "",
       "level": 2842,
       "newform_index": 25,
@@ -3332,7 +3332,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "3/9632*a26^5 + 15/9632*a26^4 - 167/4816*a26^3 - 531/4816*a26^2 + 7863/9632*a26 + 8579/9632",
+      "coefficient": "3/638*a26^5 + 15/638*a26^4 - 139/638*a26^3 - 477/638*a26^2 + 237/319*a26 + 400/319",
       "error": "",
       "level": 2842,
       "newform_index": 26,
@@ -3340,7 +3340,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-3/19264*a26^5 - 15/19264*a26^4 + 167/9632*a26^3 + 531/9632*a26^2 + 1769/19264*a26 + 1053/19264",
+      "coefficient": "-3/319*a26^5 - 15/319*a26^4 + 139/319*a26^3 + 477/319*a26^2 - 793/319*a26 - 1119/319",
       "error": "",
       "level": 2842,
       "newform_index": 26,
@@ -3348,7 +3348,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/672*a26^4 - 1/168*a26^3 + 11/336*a26^2 + 13/168*a26 + 2087/672",
+      "coefficient": "-1/87*a26^4 - 4/87*a26^3 + 31/87*a26^2 + 70/87*a26 + 62/87",
       "error": "",
       "level": 2842,
       "newform_index": 26,
@@ -3356,7 +3356,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "3/19264*a26^5 + 15/19264*a26^4 - 167/9632*a26^3 - 531/9632*a26^2 - 1769/19264*a26 - 1053/19264",
+      "coefficient": "3/319*a26^5 + 15/319*a26^4 - 139/319*a26^3 - 477/319*a26^2 + 793/319*a26 + 1119/319",
       "error": "",
       "level": 2842,
       "newform_index": 26,
@@ -3364,7 +3364,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/57792*a26^5 - 5/57792*a26^4 - 249/9632*a26^3 - 2231/28896*a26^2 + 36049/19264*a26 + 111119/57792",
+      "coefficient": "-4/957*a26^5 - 20/957*a26^4 + 159/638*a26^3 + 1591/1914*a26^2 - 1591/638*a26 - 5855/1914",
       "error": "",
       "level": 2842,
       "newform_index": 26,
@@ -3372,7 +3372,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-13/28896*a26^5 - 65/28896*a26^4 + 375/4816*a26^3 + 3505/14448*a26^2 - 34635/9632*a26 - 108613/28896",
+      "coefficient": "4/957*a26^5 + 20/957*a26^4 - 159/638*a26^3 - 1591/1914*a26^2 + 2229/638*a26 + 7769/1914",
       "error": "",
       "level": 2842,
       "newform_index": 26,
@@ -3380,7 +3380,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/336*a26^4 - 1/84*a26^3 + 53/168*a26^2 + 55/84*a26 - 3373/336",
+      "coefficient": "5/174*a26^4 + 10/87*a26^3 - 121/87*a26^2 - 262/87*a26 + 125/174",
       "error": "",
       "level": 2842,
       "newform_index": 26,
@@ -3388,7 +3388,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-25/57792*a26^5 - 125/57792*a26^4 + 999/9632*a26^3 + 9241/28896*a26^2 - 105319/19264*a26 - 328345/57792",
+      "coefficient": "8/957*a26^5 + 40/957*a26^4 - 159/319*a26^3 - 1591/957*a26^2 + 1910/319*a26 + 6812/957",
       "error": "",
       "level": 2842,
       "newform_index": 26,
@@ -3396,7 +3396,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-a27 + 1",
+      "coefficient": "-1/2*a27 + 1/2",
       "error": "",
       "level": 2842,
       "newform_index": 27,
@@ -3404,7 +3404,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/8*a27^5 - 5/8*a27^4 - 5/8*a27^3 + 35/8*a27^2 + a27 - 17/4",
+      "coefficient": "1/256*a27^5 - 5/256*a27^4 - 25/128*a27^3 + 85/128*a27^2 + 593/256*a27 - 709/256",
       "error": "",
       "level": 2842,
       "newform_index": 27,
@@ -3412,7 +3412,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/2*a27^4 + 2*a27^3 + 3/2*a27^2 - 7*a27",
+      "coefficient": "-1/32*a27^4 + 1/8*a27^3 + 15/16*a27^2 - 17/8*a27 - 93/32",
       "error": "",
       "level": 2842,
       "newform_index": 27,
@@ -3420,7 +3420,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/8*a27^5 - 5/8*a27^4 - 5/8*a27^3 + 35/8*a27^2 + a27 - 17/4",
+      "coefficient": "1/256*a27^5 - 5/256*a27^4 - 25/128*a27^3 + 85/128*a27^2 + 593/256*a27 - 709/256",
       "error": "",
       "level": 2842,
       "newform_index": 27,
@@ -3428,7 +3428,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/8*a27^5 + 5/8*a27^4 + 5/8*a27^3 - 35/8*a27^2 - 2*a27 + 21/4",
+      "coefficient": "-1/256*a27^5 + 5/256*a27^4 + 25/128*a27^3 - 85/128*a27^2 - 721/256*a27 + 837/256",
       "error": "",
       "level": 2842,
       "newform_index": 27,
@@ -3436,7 +3436,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "-1/4*a27^5 + 5/4*a27^4 + 1/4*a27^3 - 23/4*a27^2 + 2*a27 + 5/2",
+      "coefficient": "-1/128*a27^5 + 5/128*a27^4 + 17/64*a27^3 - 61/64*a27^2 - 193/128*a27 + 277/128",
       "error": "",
       "level": 2842,
       "newform_index": 27,
@@ -3444,7 +3444,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/2*a27^4 - 2*a27^3 - 5/2*a27^2 + 9*a27 + 7",
+      "coefficient": "1/32*a27^4 - 1/8*a27^3 - 19/16*a27^2 + 21/8*a27 + 341/32",
       "error": "",
       "level": 2842,
       "newform_index": 27,
@@ -3452,7 +3452,7 @@
       "status": "completed"
     },
     {
-      "coefficient": "1/8*a27^5 - 5/8*a27^4 + 3/8*a27^3 + 11/8*a27^2 - 5*a27 + 15/4",
+      "coefficient": "1/256*a27^5 - 5/256*a27^4 - 9/128*a27^3 + 37/128*a27^2 - 463/256*a27 + 411/256",
       "error": "",
       "level": 2842,
       "newform_index": 27,
