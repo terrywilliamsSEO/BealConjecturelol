@@ -215,10 +215,29 @@ def sage_job_script_text(
 # limitations: {limitations}
 
 import json
+import builtins
 import os
 import traceback
 
 JOB = {metadata}
+py_int = builtins.int
+
+
+def _json_safe(value):
+    if isinstance(value, dict):
+        return {{str(key): _json_safe(item) for key, item in value.items()}}
+    if isinstance(value, (list, tuple, set)):
+        return [_json_safe(item) for item in value]
+    if value is None or isinstance(value, (str, bool, builtins.int, float)):
+        return value
+    try:
+        json.dumps(value)
+        return value
+    except TypeError:
+        try:
+            return py_int(value)
+        except Exception:
+            return str(value)
 
 
 def _power_image(F, ell, exponent):
@@ -330,14 +349,15 @@ except Exception:
     payload["errors"].append(traceback.format_exc())
 
 payload["contradiction_claim_allowed"] = False
+safe_payload = _json_safe(payload)
 result_path = JOB["result_path"]
 result_dir = os.path.dirname(result_path)
 if result_dir:
     os.makedirs(result_dir, exist_ok=True)
 with open(result_path, "w") as handle:
-    json.dump(payload, handle, indent=2, sort_keys=True)
+    json.dump(safe_payload, handle, indent=2, sort_keys=True)
     handle.write("\\n")
-print(json.dumps(payload, sort_keys=True))
+print(json.dumps(safe_payload, sort_keys=True))
 '''
 
 

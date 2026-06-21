@@ -12,6 +12,9 @@ on:
       - main
     paths:
       - ".github/workflows/sage-followup.yml"
+      - "beal_rsg_lab/sage_*.py"
+      - "beal_rsg_lab/sage_followup_cli.py"
+      - "tests/test_sage*.py"
 
 permissions:
   contents: write

@@ -111,6 +111,8 @@ class SageExecutionSupportTests(unittest.TestCase):
         script = sage_smoke_script_text(Path("sage_results/sage_smoke.json"))
         self.assertIn('"job_id": "sage_smoke"', script)
         self.assertIn('"contradiction_claim_allowed": False', script)
+        self.assertIn("def _json_safe", script)
+        self.assertIn("py_int = builtins.int", script)
         payload = {
             "job_id": "sage_smoke",
             "signature": [0, 0, 0],
@@ -163,6 +165,33 @@ class SageExecutionSupportTests(unittest.TestCase):
             self.assertEqual(record.sage_status, "timeout")
             self.assertEqual(payload["sage_status"], "timeout")
             self.assertFalse(payload["contradiction_claim_allowed"])
+
+    def test_failed_runner_replaces_invalid_partial_json(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            job_path = root / "job.sage"
+            result_path = root / "result.json"
+            job_path.write_text("print('bad json')", encoding="utf-8")
+            result_path.write_text('{"checked_levels": [', encoding="utf-8")
+            job = SimpleNamespace(
+                job_id="sage_3_5_5",
+                signature="3-5-5",
+                route_label="needs_external_sage_check",
+                job_path=job_path.as_posix(),
+                result_path=result_path.as_posix(),
+            )
+            completed = subprocess.CompletedProcess(["sage"], 1, stdout="", stderr="json crash")
+            with patch("beal_rsg_lab.sage_job_runner.subprocess.run", return_value=completed):
+                record = run_one_sage_job(
+                    job,
+                    mode="native_sage",
+                    repo_root=root,
+                    timeout_seconds=1,
+                )
+            payload = json.loads(result_path.read_text(encoding="utf-8"))
+            self.assertEqual(record.sage_status, "failed")
+            self.assertEqual(payload["sage_status"], "failed")
+            self.assertIn("json crash", payload["errors"][0])
 
     def test_sage_json_roundtrip_import_command(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

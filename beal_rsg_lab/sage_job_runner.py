@@ -79,6 +79,16 @@ def _write_status_json(
     result_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def _has_valid_json(path: Path) -> bool:
+    if not path.exists():
+        return False
+    try:
+        json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return False
+    return True
+
+
 def _relative_to_repo(path: Path, repo_root: Path) -> str:
     try:
         return path.resolve().relative_to(repo_root.resolve()).as_posix()
@@ -182,14 +192,22 @@ def run_one_sage_job(
         docker_image=docker_image or sage_docker_image(),
     )
     status, return_code, timed_out, stdout, stderr = _run_command(command, timeout_seconds=timeout_seconds)
-    if status in {"timeout", "failed"} and not result_path.exists():
+    if not _has_valid_json(result_path):
+        fallback_status = status if status in {"timeout", "failed"} else "failed"
+        if status == "completed":
+            status = "failed"
+            return_code = return_code or 1
         _write_status_json(
             job_id=job.job_id,
             signature=job.signature,
             route_label=job.route_label,
             result_path=result_path,
-            sage_status=status,
-            message=(f"Sage job timed out after {timeout_seconds} seconds." if timed_out else stderr or stdout or "Sage job failed."),
+            sage_status=fallback_status,
+            message=(
+                f"Sage job timed out after {timeout_seconds} seconds."
+                if timed_out
+                else stderr or stdout or "Sage job did not write valid JSON."
+            ),
             command=command,
         )
     return SageExecutionRecord(

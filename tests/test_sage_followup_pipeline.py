@@ -72,6 +72,8 @@ class SageFollowupPipelineTests(unittest.TestCase):
         self.assertIn('"sage_status"', script)
         self.assertIn('"newform_count"', script)
         self.assertIn('"trace_match_status"', script)
+        self.assertIn("def _json_safe", script)
+        self.assertIn("safe_payload", script)
 
     def test_validate_sage_result_rejects_contradiction_claims(self) -> None:
         payload = {
