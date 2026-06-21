@@ -1,0 +1,3 @@
+signature,prime,unit_eliminated_newform_count,unit_surviving_newform_count,possible_nonunit_masks,unresolved_nonunit_masks,primitive_forbidden_masks,reduction_argument_masks,full_nonunit_resolution,safe_label,route_ceiling_label,reason
+5-4-5,13,1,1,A_only;B_only;C_only,A_only;B_only;C_only,AB;ABC;AC;BC,A_only;B_only;C_only,False,reduction_argument_required,worth_human_modular_review,At least one single-divisibility branch needs a separate Frey reduction argument.
+5-4-5,17,1,1,A_only;B_only;C_only,A_only;B_only;C_only,AB;ABC;AC;BC,A_only;B_only;C_only,False,reduction_argument_required,worth_human_modular_review,At least one single-divisibility branch needs a separate Frey reduction argument.

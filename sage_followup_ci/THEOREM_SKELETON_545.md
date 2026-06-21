@@ -64,7 +64,7 @@ Handle reductions where q divides one or more of A,B,C, or prove they are not ne
 
 - Current evidence: local_coverage_gap; scope=unit_only_trace_mismatch_candidate; full_coverage_eliminating_primes=none
 - Status: `local_coverage_gap`.
-- Next action: Prove the local valuation and reduction case split for q | ABC, including single-divisibility masks and singular Frey reductions.
+- Next action: Prove the q=13/q=17 local valuation and reduction case split for q | ABC, including A_only, B_only, C_only, and singular Frey reductions.
 
 ## Current Computational Evidence
 
@@ -77,7 +77,7 @@ Handle reductions where q divides one or more of A,B,C, or prove they are not ne
 | `TS545-005` | `needs_hand_derivation` | 110:level_data_insufficient;220:level_220_mismatch_candidate;440:level_data_insufficient | Justify why the comparison level is 220 and why no nearby level should be used instead. |
 | `TS545-006` | `computed_route_evidence` | Current trace progress label is trace_mismatch_candidate. | Confirm old/new decomposition, character choices, coefficient fields, and labels in Sage or Magma. |
 | `TS545-007` | `computed_route_evidence` | 2 of 2 level-220 newforms eliminated by current filter. | Check the first eliminating primes independently and justify the local enumeration. |
-| `TS545-008` | `local_coverage_gap` | local_coverage_gap; scope=unit_only_trace_mismatch_candidate; full_coverage_eliminating_primes=none | Prove the local valuation and reduction case split for q | ABC, including single-divisibility masks and singular Frey reductions. |
+| `TS545-008` | `local_coverage_gap` | local_coverage_gap; scope=unit_only_trace_mismatch_candidate; full_coverage_eliminating_primes=none | Prove the q=13/q=17 local valuation and reduction case split for q | ABC, including A_only, B_only, C_only, and singular Frey reductions. |
 | `TS545-009` | `computed_route_evidence` | exclude_q_3:trace_mismatch_candidate;exclude_q_3_7:trace_mismatch_candidate;exclude_q_lt_11:trace_mismatch_candidate;exclude_q_lt_17:trace_survivor_exists;use_only_q_ge_17:trace_survivor_exists | Decide whether q=13 or q=17 sensitivity should be part of the human check. |
 
 ## Exact Open Assumptions
@@ -86,7 +86,7 @@ Handle reductions where q divides one or more of A,B,C, or prove they are not ne
 - The minimal conductor and lowered level are exactly the level used for comparison.
 - The residual mod-5 representation is the correct irreducible representation for the trace comparison.
 - The relevant level-220 newforms are exhausted by the imported Sage query.
-- The good-prime local enumeration covers all reductions required by the modular argument.
+- The q=13 and q=17 good-prime local enumeration covers all reductions required by the modular argument, including single-divisibility branches.
 
 ## Why This Is Not A Proof
 
