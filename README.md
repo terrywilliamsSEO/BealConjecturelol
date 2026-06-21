@@ -45,6 +45,13 @@ patterns that primitive counterexamples would be forced to satisfy.
   `A/B` swapping, with repeated-exponent and fourth-power flags.
 - `beal_rsg_lab/frey_template_library.py`: symbolic Frey-style template records
   with uncertainty flags rather than proof claims.
+- `beal_rsg_lab/frey_reduction_diagnostics_545.py`: focused q=13/q=17
+  invariant-valuation diagnostics for the `(5,4,5)` single masks.
+- `beal_rsg_lab/tate_algorithm_stub_545.py`: safe symbolic Tate-algorithm
+  stub that downgrades missing invariant formulas to human review.
+- `beal_rsg_lab/single_mask_newform_pressure_545.py`: combines unit trace
+  results, newform coefficients, and focused reduction labels for `A_only`,
+  `B_only`, and `C_only`.
 - `beal_rsg_lab/finite_field_trace_probe.py`: point-count and trace probes for
   nonsingular candidate Frey curves over finite fields.
 - `beal_rsg_lab/modular_shadow_engine.py`: route scoring that combines

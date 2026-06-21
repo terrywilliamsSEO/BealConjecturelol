@@ -92,6 +92,15 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
         ),
         ProofGapRecord(
             signature=signature,
+            gap_category="focused_tate_algorithm_gap",
+            gap_status="open",
+            description="The q=13 and q=17 A_only, B_only, and C_only branches now have a diagnostic layer, but the stub does not replace a human Tate-algorithm/reduction analysis.",
+            required_next_lemma="Run the Tate algorithm / reduction analysis for the Frey curve at q=13 and q=17 under A_only, B_only, and C_only.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
             gap_category="control_artifact_gap",
             gap_status="open",
             description="One 5-4-5 sparse row at ell=11 is artifact-explained; the non-artifact ell=31 row is not yet connected to the level-220 route.",
@@ -128,7 +137,8 @@ def proof_gap_report_markdown(*, output_dir: Path, rows: Iterable[ProofGapRecord
                 "To advance `(5,4,5)`, a human should first prove the Frey-curve attachment and conductor/level-lowering "
                 "lemmas: every primitive solution must yield the stated Frey object, its residual representation must be "
                 "irreducible, and its true conductor must lower to the claimed comparison level. The same package must "
-                "include the q=13/q=17 local valuation and reduction case split for q | ABC before the two level-220 newforms are "
+                "include the q=13/q=17 local valuation and reduction case split for q | ABC, plus the focused Tate algorithm "
+                "under A_only, B_only, and C_only, before the two level-220 newforms are "
                 "tested with q-expansion trace congruences at good primes."
             ),
             "",

@@ -24,6 +24,10 @@ from .frey_reduction_case_router_545 import (
     FreyReductionCaseRecord,
     build_frey_reduction_cases_545,
 )
+from .frey_reduction_diagnostics_545 import (
+    FreyReductionDiagnosticRecord,
+    build_frey_reduction_diagnostics_545,
+)
 from .level_220_audit import (
     Level220NewformRecord,
     Level220PrimeRecord,
@@ -65,6 +69,10 @@ from .singular_reduction_trace_545 import (
     SingularReductionTraceRecord,
     build_singular_reduction_traces_545,
 )
+from .single_mask_newform_pressure_545 import (
+    SingleMaskNewformPressureRecord,
+    build_single_mask_newform_pressure_545,
+)
 from .small_prime_sensitivity_545 import (
     SmallPrimeSensitivityRecord,
     build_small_prime_sensitivity_545,
@@ -90,6 +98,7 @@ from .trace_filter_case_coverage_545 import (
     TraceFilterCaseCoverageRecord,
     build_trace_filter_case_coverage_545,
 )
+from .tate_algorithm_stub_545 import TateAlgorithmStubRecord, build_tate_algorithm_stub_545
 from .valuation_mask_lift_545 import ValuationMaskLiftRecord, build_valuation_mask_lifts_545
 
 
@@ -132,6 +141,9 @@ class Focused545Artifacts:
     local_gap_summary_report_path: str
     nonunit_eliminations_path: str
     singular_reduction_traces_path: str
+    frey_reduction_diagnostics_path: str
+    tate_algorithm_stub_path: str
+    single_mask_newform_pressure_path: str
     nonunit_newform_filter_path: str
     local_case_decision_tree_path: str
     assumption_register_path: str
@@ -266,6 +278,9 @@ def focused_545_markdown(
     local_gap_summary: LocalGapSummaryRecord,
     nonunit_rows: list[NonunitEliminationRecord],
     singular_reduction_rows: list[SingularReductionTraceRecord],
+    frey_reduction_diagnostic_rows: list[FreyReductionDiagnosticRecord],
+    tate_stub_rows: list[TateAlgorithmStubRecord],
+    single_mask_pressure_rows: list[SingleMaskNewformPressureRecord],
     nonunit_filter_rows: list[NonunitNewformFilterRecord],
     assumption_rows: list[AssumptionRecord],
     gap_rows: list[ProofGapRecord],
@@ -292,6 +307,19 @@ def focused_545_markdown(
     nonunit_decision_by_prime = {row.prime: row for row in nonunit_filter_rows}
     q13_nonunit = nonunit_decision_by_prime.get(13)
     q17_nonunit = nonunit_decision_by_prime.get(17)
+    pressure_needs_tate = any(
+        row.branch_classification in {"needs_human_tate_algorithm", "unresolved_single_mask"}
+        for row in single_mask_pressure_rows
+    )
+    pressure_labels = sorted({row.prime_local_label for row in single_mask_pressure_rows})
+    focused_nonunit_note = (
+        "At least one q=13/q=17 single-mask branch still needs human Tate analysis, so the route keeps `local_coverage_gap`."
+        if pressure_needs_tate
+        else (
+            "The q=13/q=17 single-mask branches are classified by the diagnostic layer; this is only "
+            "`local_case_elimination_candidate` route evidence and keeps the review ceiling unchanged."
+        )
+    )
     lines = [
         "# Focused Modular Review: `(5,4,5)`",
         "",
@@ -507,16 +535,62 @@ def focused_545_markdown(
             "",
             f"Local gap summary: `{local_gap_summary.overall_local_gap_label}`. Exact next lemma: {local_gap_summary.exact_next_human_lemma}",
             "",
+            "### Focused Frey Reduction Diagnostics",
+            "",
+            "| q | mask | v_q(Delta) | v_q(c4) | v_q(c6) | reduction | standard trace |",
+            "| ---: | --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in frey_reduction_diagnostic_rows:
+        lines.append(
+            f"| {row.prime} | `{row.valuation_mask}` | `{row.discriminant_valuation}` | "
+            f"`{row.c4_valuation}` | `{row.c6_valuation}` | `{row.reduction_type}` | "
+            f"`{row.standard_trace_behavior_available}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "### Tate Algorithm Stub",
+            "",
+            "| q | mask | stub reduction | status | needs human Tate |",
+            "| ---: | --- | --- | --- | --- |",
+        ]
+    )
+    for row in tate_stub_rows:
+        lines.append(
+            f"| {row.prime} | `{row.valuation_mask}` | `{row.stub_reduction_type}` | "
+            f"`{row.tate_algorithm_status}` | `{row.needs_human_tate_algorithm}` |"
+        )
+    lines.extend(
+        [
+            "",
+            "### Single-Mask Newform Pressure",
+            "",
+            "| q | mask | unit trace | coefficients | branch classification | prime label |",
+            "| ---: | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in single_mask_pressure_rows:
+        lines.append(
+            f"| {row.prime} | `{row.valuation_mask}` | `{row.unit_trace_result}` | "
+            f"`{row.newform_coefficients}` | `{row.branch_classification}` | `{row.prime_local_label}` |"
+        )
+    lines.extend(
+        [
+            "",
+            f"- Focused pressure labels: `{';'.join(pressure_labels) or 'none'}`.",
+            f"- Focused pressure note: {focused_nonunit_note}",
+            "",
             "### Focused q=13/q=17 Nonunit Branch Audit",
             "",
-            "| q | unit eliminations | possible nonunit masks | unresolved masks | reduction argument masks | full nonunit resolution | safe label |",
+            "| q | unit eliminations | possible nonunit masks | unresolved masks | condition masks | full nonunit resolution | safe label |",
             "| ---: | ---: | --- | --- | --- | --- | --- |",
         ]
     )
     for row in nonunit_filter_rows:
         lines.append(
             f"| {row.prime} | {row.unit_eliminated_newform_count} | `{row.possible_nonunit_masks or 'none'}` | "
-            f"`{row.unresolved_nonunit_masks or 'none'}` | `{row.reduction_argument_masks or 'none'}` | "
+            f"`{row.unresolved_nonunit_masks or 'none'}` | `{row.single_mask_condition_masks or row.reduction_argument_masks or 'none'}` | "
             f"`{row.full_nonunit_resolution}` | `{row.safe_label}` |"
         )
     lines.extend(
@@ -525,7 +599,7 @@ def focused_545_markdown(
             f"- q=13 focused nonunit label: `{q13_nonunit.safe_label if q13_nonunit else 'missing'}`.",
             f"- q=17 focused nonunit label: `{q17_nonunit.safe_label if q17_nonunit else 'missing'}`.",
             "- Pairwise nonunit masks are primitive-forbidden, but `A_only`, `B_only`, and `C_only` remain locally stable and need a separate Frey reduction argument.",
-            "- Because the focused q=13/q=17 nonunit branches are not fully resolved, the route keeps `local_coverage_gap` and `unit_only_trace_mismatch_candidate` scope.",
+            f"- {focused_nonunit_note}",
             "",
             "### Level Robustness",
             "",
@@ -621,6 +695,9 @@ def focused_545_markdown(
             f"- `{(run_dir / 'LOCAL_GAP_SUMMARY_545.md').as_posix()}`",
             f"- `{(run_dir / 'nonunit_eliminations_545.csv').as_posix()}`",
             f"- `{(run_dir / 'singular_reduction_traces_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'frey_reduction_diagnostics_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'tate_algorithm_stub_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'single_mask_newform_pressure_545.csv').as_posix()}`",
             f"- `{(run_dir / 'nonunit_newform_filter_545.csv').as_posix()}`",
             f"- `{(run_dir / 'LOCAL_CASE_DECISION_TREE_545.md').as_posix()}`",
             f"- `{(run_dir / 'assumption_register_545.csv').as_posix()}`",
@@ -691,7 +768,18 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     valuation_rows = build_local_valuation_cases_545(good_prime_rows)
     lift_rows = build_valuation_mask_lifts_545(valuation_rows)
     reduction_rows = build_frey_reduction_cases_545(valuation_rows, lift_rows)
-    case_coverage_rows = build_trace_filter_case_coverage_545(filter_rows, reduction_rows)
+    frey_reduction_diagnostic_rows = build_frey_reduction_diagnostics_545(good_prime_rows)
+    tate_stub_rows = build_tate_algorithm_stub_545(frey_reduction_diagnostic_rows)
+    single_mask_pressure_rows = build_single_mask_newform_pressure_545(
+        filter_rows,
+        frey_reduction_diagnostic_rows,
+        tate_stub_rows,
+    )
+    case_coverage_rows = build_trace_filter_case_coverage_545(
+        filter_rows,
+        reduction_rows,
+        pressure_rows=single_mask_pressure_rows,
+    )
     local_gap_summary = build_local_gap_summary_545(case_coverage_rows)
     nonunit_rows = build_nonunit_eliminations_545(good_prime_rows)
     singular_reduction_rows = build_singular_reduction_traces_545(nonunit_rows)
@@ -699,6 +787,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         filter_rows,
         nonunit_rows,
         singular_reduction_rows,
+        pressure_rows=single_mask_pressure_rows,
     )
     skeleton_rows = build_theorem_skeleton_obligations_545(
         progress_row=progress_row,
@@ -742,6 +831,9 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     local_gap_report_path = run_dir / "LOCAL_GAP_SUMMARY_545.md"
     nonunit_path = run_dir / "nonunit_eliminations_545.csv"
     singular_reduction_path = run_dir / "singular_reduction_traces_545.csv"
+    frey_reduction_diagnostics_path = run_dir / "frey_reduction_diagnostics_545.csv"
+    tate_algorithm_stub_path = run_dir / "tate_algorithm_stub_545.csv"
+    single_mask_pressure_path = run_dir / "single_mask_newform_pressure_545.csv"
     nonunit_filter_path = run_dir / "nonunit_newform_filter_545.csv"
     local_case_decision_tree_path = run_dir / "LOCAL_CASE_DECISION_TREE_545.md"
     assumptions_path = run_dir / "assumption_register_545.csv"
@@ -771,6 +863,9 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(local_gap_path, [local_gap_summary.to_flat_dict()])
     _write_csv(nonunit_path, [row.to_flat_dict() for row in nonunit_rows])
     _write_csv(singular_reduction_path, [row.to_flat_dict() for row in singular_reduction_rows])
+    _write_csv(frey_reduction_diagnostics_path, [row.to_flat_dict() for row in frey_reduction_diagnostic_rows])
+    _write_csv(tate_algorithm_stub_path, [row.to_flat_dict() for row in tate_stub_rows])
+    _write_csv(single_mask_pressure_path, [row.to_flat_dict() for row in single_mask_pressure_rows])
     _write_csv(nonunit_filter_path, [row.to_flat_dict() for row in nonunit_filter_rows])
     _write_csv(assumptions_path, [row.to_flat_dict() for row in assumption_rows])
     _write_csv(gaps_path, [row.to_flat_dict() for row in gap_rows])
@@ -787,6 +882,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             nonunit_rows=nonunit_rows,
             reduction_rows=singular_reduction_rows,
             newform_filter_rows=nonunit_filter_rows,
+            pressure_rows=single_mask_pressure_rows,
         ),
         encoding="utf-8",
     )
@@ -821,6 +917,9 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             local_gap_summary=local_gap_summary,
             nonunit_rows=nonunit_rows,
             singular_reduction_rows=singular_reduction_rows,
+            frey_reduction_diagnostic_rows=frey_reduction_diagnostic_rows,
+            tate_stub_rows=tate_stub_rows,
+            single_mask_pressure_rows=single_mask_pressure_rows,
             nonunit_filter_rows=nonunit_filter_rows,
             assumption_rows=assumption_rows,
             gap_rows=gap_rows,
@@ -862,6 +961,9 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         local_gap_summary_report_path=local_gap_report_path.as_posix(),
         nonunit_eliminations_path=nonunit_path.as_posix(),
         singular_reduction_traces_path=singular_reduction_path.as_posix(),
+        frey_reduction_diagnostics_path=frey_reduction_diagnostics_path.as_posix(),
+        tate_algorithm_stub_path=tate_algorithm_stub_path.as_posix(),
+        single_mask_newform_pressure_path=single_mask_pressure_path.as_posix(),
         nonunit_newform_filter_path=nonunit_filter_path.as_posix(),
         local_case_decision_tree_path=local_case_decision_tree_path.as_posix(),
         assumption_register_path=assumptions_path.as_posix(),

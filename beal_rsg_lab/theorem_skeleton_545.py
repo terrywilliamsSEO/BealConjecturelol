@@ -131,6 +131,16 @@ def build_theorem_skeleton_obligations_545(
         ),
         TheoremSkeletonObligationRecord(
             signature="5-4-5",
+            obligation_id="TS545-010",
+            title="Focused Tate algorithm for single masks",
+            statement="Run the Tate algorithm / reduction analysis for the Frey curve at q=13 and q=17 under A_only, B_only, and C_only.",
+            current_evidence=local_gap_evidence,
+            status="needs_human_tate_algorithm",
+            risk_level="high",
+            next_action="Run the Tate algorithm / reduction analysis for the Frey curve at q=13 and q=17 under A_only, B_only, and C_only.",
+        ),
+        TheoremSkeletonObligationRecord(
+            signature="5-4-5",
             obligation_id="TS545-009",
             title="Small-prime robustness",
             statement="Show the route does not rely on an accidental tiny-prime phenomenon unless that reliance is mathematically justified.",
@@ -166,8 +176,9 @@ def theorem_skeleton_markdown(rows: list[TheoremSkeletonObligationRecord]) -> st
         "Required Lemma 5: Level-220 Newform Exhaustion",
         "Required Lemma 6: Good-Prime Trace Exclusion",
         "Required Lemma 7: Local Valuation And Reduction Case Split For q | ABC",
+        "Required Lemma 8: Focused Tate Algorithm At q=13 And q=17",
     ]
-    lemma_rows = list(rows[1:8])
+    lemma_rows = list(rows[1:9])
     for title, row in zip(lemma_titles, lemma_rows):
         lines.extend(
             [
@@ -201,6 +212,7 @@ def theorem_skeleton_markdown(rows: list[TheoremSkeletonObligationRecord]) -> st
             "- The residual mod-5 representation is the correct irreducible representation for the trace comparison.",
             "- The relevant level-220 newforms are exhausted by the imported Sage query.",
             "- The q=13 and q=17 good-prime local enumeration covers all reductions required by the modular argument, including single-divisibility branches.",
+            "- Run the Tate algorithm / reduction analysis for the Frey curve at q=13 and q=17 under A_only, B_only, and C_only.",
             "",
             "## Why This Is Not A Proof",
             "",

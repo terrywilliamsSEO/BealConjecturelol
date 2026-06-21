@@ -308,6 +308,26 @@ The committed dossier index is
 The Docker runners and GitHub Actions workflow are now the preferred execution
 paths when local Sage is absent.
 
+## Focused `(5,4,5)` Frey Reduction Diagnostic Layer
+
+Follow-up work now adds a focused diagnostic layer for
+`A^5 + B^4 = C^5` at q=13 and q=17. The unit trace filter eliminates one
+level-220 newform at each of q=13 and q=17, and pairwise masks remain
+primitive-forbidden. The single masks `A_only`, `B_only`, and `C_only` are
+locally possible, so they are handled separately by
+`frey_reduction_diagnostics_545.csv`, `tate_algorithm_stub_545.csv`, and
+`single_mask_newform_pressure_545.csv`.
+
+For the current displayed Frey template, the available invariant valuations
+classify the focused single masks as `multiplicative_reduction_condition`.
+This can only be logged as `local_case_elimination_candidate` route evidence,
+with `(5,4,5)` still capped at `worth_human_modular_review`. Missing invariant
+formulas downgrade to `needs_human_tate_algorithm` and preserve
+`local_coverage_gap`.
+
+New proof obligation: Run the Tate algorithm / reduction analysis for the Frey
+curve at q=13 and q=17 under A_only, B_only, and C_only.
+
 ## Reproducibility Note
 
 Generated `runs/` artifacts are intentionally ignored by Git to avoid turning

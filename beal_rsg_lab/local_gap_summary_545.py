@@ -52,7 +52,8 @@ def build_local_gap_summary_545(
     overall = "local_coverage_gap" if unresolved else scope
     lemma = (
         "Local valuation and reduction case split for q | ABC: prove that each single-divisibility mask either cannot occur "
-        "for primitive solutions at the eliminating primes, or gives a separate modular/reduction argument compatible with the trace filter."
+        "for primitive solutions at the eliminating primes, or gives a separate modular/reduction argument compatible with the trace filter. "
+        "Run the Tate algorithm / reduction analysis for the Frey curve at q=13 and q=17 under A_only, B_only, and C_only."
     )
     return LocalGapSummaryRecord(
         signature="5-4-5",
