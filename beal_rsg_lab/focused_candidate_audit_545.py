@@ -9,6 +9,16 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 from .assumption_register import AssumptionRecord, build_assumption_register_545
+from .candidate_level_generator_545 import (
+    CandidateLevelRecord545,
+    build_candidate_levels_545,
+    candidate_levels_545_markdown,
+)
+from .candidate_level_importer_545 import (
+    CandidateLevelCoefficientRow545,
+    CandidateLevelImportRecord545,
+    import_candidate_level_newforms_545,
+)
 from .abc_prime_removal_audit_545 import (
     ABCPrimeRemovalAuditRecord,
     abc_prime_removal_audit_545_markdown,
@@ -96,6 +106,11 @@ from .level_220_provenance_545 import (
     build_level_220_provenance_545,
     level_220_provenance_545_markdown,
 )
+from .level_route_ranking_545 import (
+    LevelRouteRankingRecord545,
+    build_level_route_ranking_545,
+    level_route_ranking_545_markdown,
+)
 from .level_lowering_obligation_545 import (
     LevelLoweringObligationRecord,
     build_level_lowering_obligations_545,
@@ -144,6 +159,7 @@ from .q3_exceptionality_audit_545 import (
     q3_exceptionality_audit_545_markdown,
 )
 from .sage_level_220_newform_expander import write_sage_level_220_newform_expander
+from .sage_candidate_level_expander_545 import write_sage_candidate_level_expander_545
 from .sage_conductor_sanity_samples_545 import (
     SageConductorSanityManifestRecord,
     write_sage_conductor_sanity_samples_545,
@@ -170,6 +186,10 @@ from .trace_congruence_filter_545 import (
     TraceCongruenceFilterRecord,
     build_trace_congruence_filter_545,
     load_level_220_coefficients,
+)
+from .trace_filter_across_levels_545 import (
+    TraceFilterAcrossLevelsRecord545,
+    build_trace_filter_across_levels_545,
 )
 from .trace_comparison_audit import TraceComparisonAuditRecord, build_trace_comparison_audit_545
 from .trace_mismatch_provenance_545 import (
@@ -252,6 +272,15 @@ class Focused545Artifacts:
     abc_prime_removal_audit_report_path: str
     sage_conductor_sanity_script_path: str
     sage_conductor_sanity_manifest_path: str
+    candidate_levels_path: str
+    candidate_levels_report_path: str
+    sage_candidate_level_expander_path: str
+    candidate_level_newforms_json_path: str
+    candidate_level_import_summary_path: str
+    candidate_level_coefficient_rows_path: str
+    trace_filter_across_levels_path: str
+    level_route_ranking_path: str
+    level_route_ranking_report_path: str
     bad_prime_tate_checklist_path: str
     bad_prime_tate_checklist_report_path: str
     level_lowering_obligations_path: str
@@ -409,6 +438,11 @@ def focused_545_markdown(
     level_220_provenance_rows: list[Level220ProvenanceRecord],
     abc_prime_removal_rows: list[ABCPrimeRemovalAuditRecord],
     sage_conductor_sanity_rows: list[SageConductorSanityManifestRecord],
+    candidate_level_rows: list[CandidateLevelRecord545],
+    candidate_level_import_rows: list[CandidateLevelImportRecord545],
+    candidate_level_coefficient_rows: list[CandidateLevelCoefficientRow545],
+    trace_filter_across_level_rows: list[TraceFilterAcrossLevelsRecord545],
+    level_route_ranking_rows: list[LevelRouteRankingRecord545],
     bad_prime_tate_rows: list[BadPrimeTateChecklistRecord],
     level_lowering_obligation_rows: list[LevelLoweringObligationRecord],
     route_validity_rows: list[ConditionalRouteValidityScoreRecord],
@@ -464,6 +498,22 @@ def focused_545_markdown(
     sage_sanity_summary = ";".join(
         f"{row.artifact}:{row.mathematical_status}" for row in sage_conductor_sanity_rows
     ) or "not_generated"
+    candidate_without_11 = sum(1 for row in candidate_level_rows if not row.includes_11)
+    candidate_with_11 = sum(1 for row in candidate_level_rows if row.includes_11)
+    candidate_baseline = next((row for row in candidate_level_rows if row.is_current_baseline_220), None)
+    candidate_import_status_counts: dict[str, int] = {}
+    for row in candidate_level_import_rows:
+        candidate_import_status_counts[row.import_status] = candidate_import_status_counts.get(row.import_status, 0) + 1
+    candidate_import_summary = ";".join(
+        f"{status}:{count}" for status, count in sorted(candidate_import_status_counts.items())
+    ) or "not_generated"
+    candidate_trace_labels = ";".join(
+        sorted({row.level_trace_label for row in trace_filter_across_level_rows})
+    ) or "not_generated"
+    level_route_top = level_route_ranking_rows[0] if level_route_ranking_rows else None
+    level_route_label = level_route_top.aggregate_route_label if level_route_top else "level_data_insufficient"
+    level_route_reason = level_route_top.reason if level_route_top else "Candidate-level ranking was not generated."
+    candidate_coefficient_count = len(candidate_level_coefficient_rows)
     bad_prime_gap_summary = ";".join(
         f"q={row.prime}:{row.audit_label}" for row in bad_prime_tate_rows
     ) or "none"
@@ -900,6 +950,31 @@ def focused_545_markdown(
             f"| level lowering | `{route_validity.level_lowering_confidence if route_validity else 'not_scored'}` |",
             f"| irreducibility | `{route_validity.irreducibility_confidence if route_validity else 'not_scored'}` |",
             "",
+            "### Candidate Level Discovery",
+            "",
+            f"- Candidate levels generated: `{len(candidate_level_rows)}`.",
+            f"- Variants without factor 11: `{candidate_without_11}`; with factor 11: `{candidate_with_11}`.",
+            f"- Baseline 220 included: `{candidate_baseline is not None}`.",
+            f"- Candidate-level import status counts: `{candidate_import_summary}`.",
+            f"- Candidate-level coefficient rows imported: `{candidate_coefficient_count}`.",
+            f"- Candidate-level trace labels seen: `{candidate_trace_labels}`.",
+            f"- Aggregate level-route label: `{level_route_label}`.",
+            f"- Level-route reason: {level_route_reason}",
+            "",
+            "| rank | level | factorization | trace label | newforms | field status | priority |",
+            "| ---: | ---: | --- | --- | ---: | --- | ---: |",
+        ]
+    )
+    for row in level_route_ranking_rows[:8]:
+        lines.append(
+            f"| {row.rank} | {row.level} | `{row.factorization}` | `{row.level_trace_label}` | "
+            f"{row.newform_count} | `{row.coefficient_field_status}` | {row.human_review_priority_score} |"
+        )
+    lines.extend(
+        [
+            "",
+            "The candidate-level layer is a target-discovery audit. Missing Sage data keeps the label `level_data_insufficient`; surviving newforms produce `level_sensitive_route`; multiple mismatch levels produce `multi_level_trace_pressure_candidate`.",
+            "",
             "### Focused Eliminating-Prime Nonunit Branch Audit",
             "",
             "| q | unit eliminations | possible nonunit masks | unresolved masks | condition masks | full nonunit resolution | safe label |",
@@ -1042,6 +1117,15 @@ def focused_545_markdown(
             f"- `{(run_dir / 'ABC_PRIME_REMOVAL_AUDIT_545.md').as_posix()}`",
             f"- `{(run_dir / 'sage_conductor_sanity_545.sage').as_posix()}`",
             f"- `{(run_dir / 'sage_conductor_sanity_manifest_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'candidate_levels_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'CANDIDATE_LEVELS_545.md').as_posix()}`",
+            f"- `{(run_dir / 'sage_candidate_level_expander_545.sage').as_posix()}`",
+            f"- `{(run_dir / 'candidate_level_newforms_545.json').as_posix()}`",
+            f"- `{(run_dir / 'candidate_level_import_summary_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'candidate_level_coefficient_rows_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'trace_filter_across_levels_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'level_route_ranking_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'LEVEL_ROUTE_RANKING_545.md').as_posix()}`",
             f"- `{(run_dir / 'bad_prime_tate_checklist_545.csv').as_posix()}`",
             f"- `{(run_dir / 'BAD_PRIME_TATE_CHECKLIST_545.md').as_posix()}`",
             f"- `{(run_dir / 'level_lowering_obligations_545.csv').as_posix()}`",
@@ -1119,6 +1203,24 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     lift_rows = build_valuation_mask_lifts_545(valuation_rows)
     reduction_rows = build_frey_reduction_cases_545(valuation_rows, lift_rows)
     frey_reduction_diagnostic_rows = build_frey_reduction_diagnostics_545(good_prime_rows)
+    candidate_level_rows = build_candidate_levels_545()
+    sage_candidate_level_expander_path = write_sage_candidate_level_expander_545(run_dir)
+    candidate_level_newforms_json_path = run_dir / "candidate_level_newforms_545.json"
+    candidate_level_import_rows, candidate_level_coefficient_rows = import_candidate_level_newforms_545(
+        candidate_level_newforms_json_path,
+        candidate_level_rows,
+    )
+    trace_filter_across_level_rows = build_trace_filter_across_levels_545(
+        candidate_level_rows,
+        candidate_level_import_rows,
+        candidate_level_coefficient_rows,
+        frey_trace_rows,
+        frey_reduction_diagnostic_rows,
+    )
+    level_route_ranking_rows = build_level_route_ranking_545(
+        candidate_level_rows,
+        trace_filter_across_level_rows,
+    )
     tate_stub_rows = build_tate_algorithm_stub_545(frey_reduction_diagnostic_rows)
     single_mask_pressure_rows = build_single_mask_newform_pressure_545(
         filter_rows,
@@ -1258,6 +1360,13 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     level_220_provenance_report_path = run_dir / "LEVEL_220_PROVENANCE_545.md"
     abc_prime_removal_path = run_dir / "abc_prime_removal_audit_545.csv"
     abc_prime_removal_report_path = run_dir / "ABC_PRIME_REMOVAL_AUDIT_545.md"
+    candidate_levels_path = run_dir / "candidate_levels_545.csv"
+    candidate_levels_report_path = run_dir / "CANDIDATE_LEVELS_545.md"
+    candidate_level_import_summary_path = run_dir / "candidate_level_import_summary_545.csv"
+    candidate_level_coefficient_rows_path = run_dir / "candidate_level_coefficient_rows_545.csv"
+    trace_filter_across_levels_path = run_dir / "trace_filter_across_levels_545.csv"
+    level_route_ranking_path = run_dir / "level_route_ranking_545.csv"
+    level_route_ranking_report_path = run_dir / "LEVEL_ROUTE_RANKING_545.md"
     bad_prime_tate_path = run_dir / "bad_prime_tate_checklist_545.csv"
     bad_prime_tate_report_path = run_dir / "BAD_PRIME_TATE_CHECKLIST_545.md"
     level_lowering_obligations_path = run_dir / "level_lowering_obligations_545.csv"
@@ -1307,6 +1416,11 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(conductor_exponent_path, [row.to_flat_dict() for row in conductor_exponent_rows])
     _write_csv(level_220_provenance_path, [row.to_flat_dict() for row in level_220_provenance_rows])
     _write_csv(abc_prime_removal_path, [row.to_flat_dict() for row in abc_prime_removal_rows])
+    _write_csv(candidate_levels_path, [row.to_flat_dict() for row in candidate_level_rows])
+    _write_csv(candidate_level_import_summary_path, [row.to_flat_dict() for row in candidate_level_import_rows])
+    _write_csv(candidate_level_coefficient_rows_path, [row.to_flat_dict() for row in candidate_level_coefficient_rows])
+    _write_csv(trace_filter_across_levels_path, [row.to_flat_dict() for row in trace_filter_across_level_rows])
+    _write_csv(level_route_ranking_path, [row.to_flat_dict() for row in level_route_ranking_rows])
     _write_csv(bad_prime_tate_path, [row.to_flat_dict() for row in bad_prime_tate_rows])
     _write_csv(level_lowering_obligations_path, [row.to_flat_dict() for row in level_lowering_obligation_rows])
     _write_csv(route_validity_path, [row.to_flat_dict() for row in route_validity_rows])
@@ -1337,6 +1451,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             level_220_provenance_rows,
             abc_prime_removal_rows,
             sage_conductor_sanity_rows,
+            level_route_ranking_rows,
         ),
         encoding="utf-8",
     )
@@ -1356,6 +1471,7 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             level_220_provenance_rows,
             abc_prime_removal_rows,
             sage_conductor_sanity_rows,
+            level_route_ranking_rows,
         ),
         encoding="utf-8",
     )
@@ -1377,6 +1493,14 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     )
     abc_prime_removal_report_path.write_text(
         abc_prime_removal_audit_545_markdown(abc_prime_removal_rows),
+        encoding="utf-8",
+    )
+    candidate_levels_report_path.write_text(
+        candidate_levels_545_markdown(candidate_level_rows),
+        encoding="utf-8",
+    )
+    level_route_ranking_report_path.write_text(
+        level_route_ranking_545_markdown(level_route_ranking_rows),
         encoding="utf-8",
     )
     bad_prime_tate_report_path.write_text(
@@ -1451,6 +1575,11 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             level_220_provenance_rows=level_220_provenance_rows,
             abc_prime_removal_rows=abc_prime_removal_rows,
             sage_conductor_sanity_rows=sage_conductor_sanity_rows,
+            candidate_level_rows=candidate_level_rows,
+            candidate_level_import_rows=candidate_level_import_rows,
+            candidate_level_coefficient_rows=candidate_level_coefficient_rows,
+            trace_filter_across_level_rows=trace_filter_across_level_rows,
+            level_route_ranking_rows=level_route_ranking_rows,
             bad_prime_tate_rows=bad_prime_tate_rows,
             level_lowering_obligation_rows=level_lowering_obligation_rows,
             route_validity_rows=route_validity_rows,
@@ -1523,6 +1652,15 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         abc_prime_removal_audit_report_path=abc_prime_removal_report_path.as_posix(),
         sage_conductor_sanity_script_path=sage_conductor_sanity_script_path.as_posix(),
         sage_conductor_sanity_manifest_path=sage_conductor_sanity_manifest_path.as_posix(),
+        candidate_levels_path=candidate_levels_path.as_posix(),
+        candidate_levels_report_path=candidate_levels_report_path.as_posix(),
+        sage_candidate_level_expander_path=sage_candidate_level_expander_path.as_posix(),
+        candidate_level_newforms_json_path=candidate_level_newforms_json_path.as_posix(),
+        candidate_level_import_summary_path=candidate_level_import_summary_path.as_posix(),
+        candidate_level_coefficient_rows_path=candidate_level_coefficient_rows_path.as_posix(),
+        trace_filter_across_levels_path=trace_filter_across_levels_path.as_posix(),
+        level_route_ranking_path=level_route_ranking_path.as_posix(),
+        level_route_ranking_report_path=level_route_ranking_report_path.as_posix(),
         bad_prime_tate_checklist_path=bad_prime_tate_path.as_posix(),
         bad_prime_tate_checklist_report_path=bad_prime_tate_report_path.as_posix(),
         level_lowering_obligations_path=level_lowering_obligations_path.as_posix(),

@@ -371,6 +371,17 @@ as `level_11_factor_unjustified`, and the A/B/C prime cases are flagged with
 comparison level. The optional Sage conductor sanity script is for formula and
 synthetic-sample checks only.
 
+The candidate-level discovery layer now stops assuming level 220. It generates
+levels `2^a * 5^b * 11^c` for `a in {0,1,2,3}`, `b in {0,1,2}`, and
+`c in {0,1}`, including variants without factor 11 and the current baseline
+220. It writes `sage_candidate_level_expander_545.sage`, imports
+`candidate_level_newforms_545.json` when available, applies unit and
+single-mask trace filters across levels, and ranks candidate levels. Without
+Sage data the aggregate label stays `level_data_insufficient`; if multiple
+plausible levels show trace pressure the label becomes
+`multi_level_trace_pressure_candidate`; if plausible levels have surviving
+newforms the route is `level_sensitive_route`.
+
 Missing invariant formulas downgrade to `needs_human_tate_algorithm`, missing
 coefficients become `coefficient_missing`, and unapplied congruence assumptions
 become `level_lowering_assumption_required`.
@@ -398,6 +409,10 @@ good-prime trace comparison validity.
 Additional review obligation: Justify the provenance of `220 = 2^2 * 5 * 11`,
 resolve `level_11_factor_unjustified`, and close `abc_prime_removal_gap` for
 all primes dividing A, B, or C.
+
+Additional review obligation: Run candidate-level target discovery before
+treating 220 as the comparison level; import newform coefficients for generated
+levels and decide whether the route is level-sensitive.
 
 ## Reproducibility Note
 

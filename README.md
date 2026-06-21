@@ -92,6 +92,16 @@ patterns that primitive counterexamples would be forced to satisfy.
   gap for removing primes dividing A, B, or C from the comparison level.
 - `beal_rsg_lab/sage_conductor_sanity_samples_545.py`: generates an optional
   Sage sanity script for invariant formulas and synthetic local samples.
+- `beal_rsg_lab/candidate_level_generator_545.py`: generates plausible
+  lowered comparison levels from 2-, 5-, and optional 11-adic exponent variants.
+- `beal_rsg_lab/sage_candidate_level_expander_545.py`: writes the Sage
+  candidate-level coefficient extraction script.
+- `beal_rsg_lab/candidate_level_importer_545.py`: validates and flattens
+  candidate-level newform coefficient JSON.
+- `beal_rsg_lab/trace_filter_across_levels_545.py`: applies unit and
+  single-mask trace filters across generated comparison levels.
+- `beal_rsg_lab/level_route_ranking_545.py`: ranks candidate levels by
+  conductor plausibility, trace pressure, field clarity, and review priority.
 - `beal_rsg_lab/bad_prime_tate_checklist_545.py`: lists local Tate-algorithm
   checks at bad primes 2, 5, and 11.
 - `beal_rsg_lab/level_lowering_obligation_545.py`: records the formal

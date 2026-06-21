@@ -101,6 +101,15 @@ def build_proof_gap_records_545() -> list[ProofGapRecord]:
         ),
         ProofGapRecord(
             signature=signature,
+            gap_category="candidate_level_search_gap",
+            gap_status="open",
+            description="Level 220 is no longer assumed to be the only comparison target; plausible levels from bad-prime exponent variants need Sage coefficient data and trace filtering.",
+            required_next_lemma="Run the candidate-level Sage expander, import newform coefficients across generated levels, and decide whether the route is level-sensitive.",
+            risk_level="high",
+            blocks_label_beyond_review=True,
+        ),
+        ProofGapRecord(
+            signature=signature,
             gap_category="irreducibility_gap",
             gap_status="open",
             description="The residual representation has not been shown irreducible.",
@@ -239,7 +248,7 @@ def proof_gap_report_markdown(*, output_dir: Path, rows: Iterable[ProofGapRecord
                 "include the q in {3,13,17,41,61} local valuation and reduction case split for q | ABC, plus the focused Tate algorithm "
                 "under A_only, B_only, and C_only, run the bad-prime Tate algorithm at 2, 5, and 11, justify the multiplicative congruence a_q(f) == +/-(q+1) mod 5, and verify the "
                 "exists-prime-per-newform quantifier before the two level-220 newforms are tested with q-expansion trace congruences at good primes. "
-                "The conductor-exponent model, level-220 provenance audit, ABC-prime removal audit, conductor-support, level-lowering, cross-prime compatibility, quantifier-safety, and q=3 exceptionality audits must also be reviewed."
+                "The conductor-exponent model, level-220 provenance audit, candidate-level search, ABC-prime removal audit, conductor-support, level-lowering, cross-prime compatibility, quantifier-safety, and q=3 exceptionality audits must also be reviewed."
             ),
             "",
         ]

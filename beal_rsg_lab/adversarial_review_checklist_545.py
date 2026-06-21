@@ -13,6 +13,7 @@ from .conductor_support_audit_545 import ConductorSupportAuditRecord
 from .conductor_exponent_model_545 import ConductorExponentModelRecord
 from .conditional_route_validity_score_545 import ConditionalRouteValidityScoreRecord
 from .level_220_provenance_545 import Level220ProvenanceRecord
+from .level_route_ranking_545 import LevelRouteRankingRecord545
 from .level_lowering_obligation_545 import LevelLoweringObligationRecord
 from .quantifier_safety_audit_545 import QuantifierSafetyAuditRecord
 from .sage_conductor_sanity_samples_545 import SageConductorSanityManifestRecord
@@ -36,6 +37,7 @@ def adversarial_review_checklist_545_markdown(
     level_220_provenance_rows: Iterable[Level220ProvenanceRecord] = (),
     abc_prime_removal_rows: Iterable[ABCPrimeRemovalAuditRecord] = (),
     sage_conductor_sanity_rows: Iterable[SageConductorSanityManifestRecord] = (),
+    level_route_rows: Iterable[LevelRouteRankingRecord545] = (),
 ) -> str:
     """Render a human adversarial checklist."""
     qrows = list(quantifier_rows)
@@ -48,12 +50,15 @@ def adversarial_review_checklist_545_markdown(
     prows = list(level_220_provenance_rows)
     arows = list(abc_prime_removal_rows)
     srows = list(sage_conductor_sanity_rows)
+    rrows = list(level_route_rows)
     dependency_status = ";".join(f"{row.dependency_id}:{row.current_status}" for row in drows) or "not_generated"
     conductor_status = ";".join(f"{row.prime_or_symbol}:{row.audit_label}" for row in crows) or "not_generated"
     conductor_exponent_status = ";".join(f"{row.prime_symbol}:{row.audit_label}" for row in erows) or "not_generated"
     provenance_status = ";".join(f"{row.factor}:{row.provenance_label}" for row in prows) or "not_generated"
     abc_status = ";".join(f"{row.prime_symbol}:{row.removal_label}" for row in arows) or "not_generated"
     sage_sanity_status = ";".join(f"{row.artifact}:{row.mathematical_status}" for row in srows) or "not_generated"
+    level_route_status = rrows[0].aggregate_route_label if rrows else "level_data_insufficient"
+    level_route_top = ";".join(f"{row.level}:{row.level_trace_label}" for row in rrows[:5]) or "not_generated"
     bad_prime_status = ";".join(f"q={row.prime}:{row.audit_label}" for row in brows) or "not_generated"
     level_status = ";".join(f"{row.obligation_id}:{row.current_status}" for row in lrows) or "not_generated"
     validity_label = vrows[0].validity_label if vrows else "not_scored"
@@ -70,11 +75,15 @@ def adversarial_review_checklist_545_markdown(
         f"- Bad-prime local summary: `{bad_prime_status}`.",
         f"- Level-lowering summary: `{level_status}`.",
         f"- Sage sanity summary: `{sage_sanity_status}`.",
+        f"- Candidate-level route summary: `{level_route_status}`; top rows `{level_route_top}`.",
         "- Route ceiling: `worth_human_modular_review`.",
         "",
         "## Core Modular-Method Checks",
         "",
         "- [ ] Is level `220` truly the lowered level for the attached Frey curve?",
+        "- [ ] Do the candidate levels without factor 11 change the trace-filter outcome?",
+        "- [ ] If multiple candidate levels show trace pressure, is there an independent conductor reason to prefer one?",
+        "- [ ] If a candidate level has surviving newforms, does the route become level-sensitive?",
         "- [ ] Is the factor `11` formula-derived, local-audit-derived with a theorem, or only a heuristic route artifact?",
         "- [ ] Are the exponents `2^2`, `5`, and `11` derived by local conductor analysis rather than inherited from the exploratory route?",
         "- [ ] Is the proposed Frey curve attached to every primitive solution case, including signs and normalization?",
@@ -95,6 +104,7 @@ def adversarial_review_checklist_545_markdown(
         "## Current Conditional Evidence To Recheck",
         "",
         "- [ ] Recompute the q-expansion coefficients for the two level-220 newform slots independently.",
+        "- [ ] Run `sage_candidate_level_expander_545.sage` and import `candidate_level_newforms_545.json` before comparing non-220 levels.",
         "- [ ] Treat `sage_conductor_sanity_545.sage` as a formula sanity tool only, not as route evidence.",
         "- [ ] Recompute the allowed multiplicative residues `+/-(q+1) mod 5` at q=13, q=17, q=41, and q=61.",
         "- [ ] Verify newform 0 has complete same-prime branch coverage at q=17 or q=41.",
@@ -124,6 +134,7 @@ def write_adversarial_review_checklist_545_markdown(
     level_220_provenance_rows: Iterable[Level220ProvenanceRecord] = (),
     abc_prime_removal_rows: Iterable[ABCPrimeRemovalAuditRecord] = (),
     sage_conductor_sanity_rows: Iterable[SageConductorSanityManifestRecord] = (),
+    level_route_rows: Iterable[LevelRouteRankingRecord545] = (),
 ) -> Path:
     """Write `ADVERSARIAL_REVIEW_CHECKLIST_545.md`."""
     path.write_text(
@@ -138,6 +149,7 @@ def write_adversarial_review_checklist_545_markdown(
             level_220_provenance_rows,
             abc_prime_removal_rows,
             sage_conductor_sanity_rows,
+            level_route_rows,
         ),
         encoding="utf-8",
     )

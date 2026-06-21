@@ -14,6 +14,7 @@ from .conductor_exponent_model_545 import ConductorExponentModelRecord
 from .conditional_route_validity_score_545 import ConditionalRouteValidityScoreRecord
 from .frey_curve_derivation_545 import FreyCurveDerivationRecord
 from .level_220_provenance_545 import Level220ProvenanceRecord
+from .level_route_ranking_545 import LevelRouteRankingRecord545
 from .level_lowering_obligation_545 import LevelLoweringObligationRecord
 from .quantifier_safety_audit_545 import QuantifierSafetyAuditRecord
 from .sage_conductor_sanity_samples_545 import SageConductorSanityManifestRecord
@@ -59,6 +60,7 @@ def conditional_theorem_packet_545_markdown(
     level_220_provenance_rows: Iterable[Level220ProvenanceRecord] = (),
     abc_prime_removal_rows: Iterable[ABCPrimeRemovalAuditRecord] = (),
     sage_conductor_sanity_rows: Iterable[SageConductorSanityManifestRecord] = (),
+    level_route_rows: Iterable[LevelRouteRankingRecord545] = (),
 ) -> str:
     """Render the conditional theorem packet."""
     qrows = list(quantifier_rows)
@@ -71,12 +73,15 @@ def conditional_theorem_packet_545_markdown(
     prows = list(level_220_provenance_rows)
     arows = list(abc_prime_removal_rows)
     srows = list(sage_conductor_sanity_rows)
+    rrows = list(level_route_rows)
     newforms = _newform_rows(qrows)
     aggregate_label = _aggregate_label(qrows)
     validity = vrows[0] if vrows else None
     level_11_status = next((row.provenance_label for row in prows if row.factor == "11"), "level_11_factor_unjustified")
     level_220_status = next((row.provenance_label for row in prows if row.factor == "220"), "level_220_heuristic_target")
     abc_status = ";".join(f"{row.prime_symbol}:{row.removal_label}" for row in arows) or "not_generated"
+    level_route_status = rrows[0].aggregate_route_label if rrows else "level_data_insufficient"
+    top_levels = ";".join(f"{row.level}:{row.level_trace_label}" for row in rrows[:5]) or "not_generated"
     lines = [
         "# Conditional Theorem Packet For `(5,4,5)`",
         "",
@@ -138,6 +143,7 @@ def conditional_theorem_packet_545_markdown(
         f"- Candidate level provenance: `{level_220_status}`.",
         f"- Factor 11 provenance: `{level_11_status}`.",
         f"- ABC-prime removal status: `{abc_status}`.",
+        f"- Candidate-level search label: `{level_route_status}`.",
         "- Level 220 remains a heuristic target until those provenance and removal obligations are supplied.",
         "- A human must prove the Frey curve attachment, then derive a minimal model and conductor.",
         "- A human must prove which primes remain in the lowered level and why primes dividing `ABC` disappear.",
@@ -152,10 +158,11 @@ def conditional_theorem_packet_545_markdown(
         f"| bad-prime Tate checks | `{';'.join(f'q={row.prime}:{row.audit_label}' for row in brows) or 'not_generated'}` |",
         f"| level lowering | `{';'.join(f'{row.obligation_id}:{row.current_status}' for row in lrows) or 'not_generated'}` |",
         f"| Sage conductor sanity samples | `{';'.join(f'{row.artifact}:{row.mathematical_status}' for row in srows) or 'not_generated'}` |",
+        f"| candidate-level search | `{top_levels}` |",
         "",
         "## Exact Theorem A Human Must Prove",
         "",
-        "For every primitive solution of `A^5 + B^4 = C^5`, the curve `E: y^2 = x(x - A^5)(x + B^4)` must be the correct Frey object; its symbolic invariants must be converted into a minimal local conductor calculation; the factors `2^2`, `5`, and `11` in level `220` must be derived rather than assumed; every prime dividing `ABC` must be removed by a valid level-lowering theorem; the residual mod-5 representation must satisfy irreducibility and ramification hypotheses; the two level-220 newforms must exhaust the target space with justified coefficient-field reductions; and the local branch analysis at q=13, q=17, and q=41 must cover the unit, A_only, B_only, C_only, and pairwise masks used in the quantifier-safe elimination.",
+        "For every primitive solution of `A^5 + B^4 = C^5`, the curve `E: y^2 = x(x - A^5)(x + B^4)` must be the correct Frey object; its symbolic invariants must be converted into a minimal local conductor calculation; the factors in the final comparison level must be derived rather than assumed; every prime dividing `ABC` must be removed by a valid level-lowering theorem; the residual mod-5 representation must satisfy irreducibility and ramification hypotheses; the relevant newforms at the justified level must exhaust the target space with justified coefficient-field reductions; and the local branch analysis at q=13, q=17, and q=41 must cover the unit, A_only, B_only, C_only, and pairwise masks used in the quantifier-safe elimination.",
         "",
         "## Why This Is Not A Completed Argument",
         "",
@@ -181,6 +188,7 @@ def write_conditional_theorem_packet_545_markdown(
     level_220_provenance_rows: Iterable[Level220ProvenanceRecord] = (),
     abc_prime_removal_rows: Iterable[ABCPrimeRemovalAuditRecord] = (),
     sage_conductor_sanity_rows: Iterable[SageConductorSanityManifestRecord] = (),
+    level_route_rows: Iterable[LevelRouteRankingRecord545] = (),
 ) -> Path:
     """Write `CONDITIONAL_THEOREM_PACKET_545.md`."""
     path.write_text(
@@ -196,6 +204,7 @@ def write_conditional_theorem_packet_545_markdown(
             level_220_provenance_rows,
             abc_prime_removal_rows,
             sage_conductor_sanity_rows,
+            level_route_rows,
         ),
         encoding="utf-8",
     )
