@@ -104,6 +104,8 @@ jobs:
             runs/${{ env.RUN_ID }}/trace_filter_case_coverage_545.csv
             runs/${{ env.RUN_ID }}/local_gap_summary_545.csv
             runs/${{ env.RUN_ID }}/LOCAL_GAP_SUMMARY_545.md
+            runs/${{ env.RUN_ID }}/proof_gap_summary.csv
+            runs/${{ env.RUN_ID }}/proof_gap_report.md
             runs/${{ env.RUN_ID }}/FOCUSED_545_REVIEW.md
             runs/${{ env.RUN_ID }}/sage_import_results.csv
             runs/${{ env.RUN_ID }}/sage_known_case_calibration.csv
@@ -170,6 +172,8 @@ jobs:
             "runs/$RUN_ID/trace_filter_case_coverage_545.csv" \
             "runs/$RUN_ID/local_gap_summary_545.csv" \
             "runs/$RUN_ID/LOCAL_GAP_SUMMARY_545.md" \
+            "runs/$RUN_ID/proof_gap_summary.csv" \
+            "runs/$RUN_ID/proof_gap_report.md" \
             "runs/$RUN_ID/FOCUSED_545_REVIEW.md" \
             "runs/$RUN_ID/sage_import_results.csv" \
             "runs/$RUN_ID/sage_known_case_calibration.csv" \
