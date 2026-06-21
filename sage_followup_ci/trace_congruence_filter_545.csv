@@ -1,0 +1,45 @@
+signature,level,prime,newform_index,newform_label,coefficient_field,coefficient_field_kind,frey_trace_values,newform_coefficient,coefficient_mod_5,prime_above_5_metadata,comparison_mode,filter_classification,reason,contradiction_claim_allowed
+5-4-5,220,3,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,0,-2,3,,mod_5,eliminated,No Frey trace matches under the selected comparison mode.,False
+5-4-5,220,7,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-4;0;4,-4,1,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,13,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-6;-2;2;6,-4,1,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,17,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-6;-2;2;6,0,0,,mod_5,eliminated,No Frey trace matches under the selected comparison mode.,False
+5-4-5,220,19,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-8;-4;0;4;8,-4,1,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,23,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-8;-4;0;4;8,-6,4,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,29,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-10;-6;-2;2;6;10,-6,4,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,31,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-8;-4;0;4;8,8,3,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,37,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-10;-6;-2;2;6;10,2,2,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,41,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-6;2;10,6,1,,mod_5,eliminated,No Frey trace matches under the selected comparison mode.,False
+5-4-5,220,43,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-12;-8;-4;0;4;8;12,8,3,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,47,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-12;-8;-4;0;4;8;12,6,1,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,53,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-14;-10;-6;-2;2;6;10;14,-6,4,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,59,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-12;-8;-4;0;4;8;12,-12,3,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,61,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-2;6;10;14,2,2,,mod_5,eliminated,No Frey trace matches under the selected comparison mode.,False
+5-4-5,220,67,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-16;-12;-8;-4;0;4;8;12;16,-10,0,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,71,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-16;-12;-8;-4;0;4;8;12;16,-12,3,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,73,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-14;-10;-6;-2;2;6;10;14,-16,4,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,79,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-16;-12;-8;-4;0;4;8;12;16,8,3,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,83,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-16;-12;-8;-4;0;4;8;12;16,0,0,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,89,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-18;-14;-10;-6;-2;2;6;10;14;18,6,1,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,97,0,q - 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-18;-14;-10;-6;-2;2;6;10;14;18,14,4,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,3,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,0,2,2,,mod_5,eliminated,No Frey trace matches under the selected comparison mode.,False
+5-4-5,220,7,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-4;0;4,0,0,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,13,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-6;-2;2;6,0,0,,mod_5,eliminated,No Frey trace matches under the selected comparison mode.,False
+5-4-5,220,17,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-6;-2;2;6,-4,1,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,19,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-8;-4;0;4;8,-4,1,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,23,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-8;-4;0;4;8,6,1,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,29,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-10;-6;-2;2;6;10,2,2,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,31,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-8;-4;0;4;8,0,0,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,37,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-10;-6;-2;2;6;10,-6,4,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,41,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-6;2;10,-10,0,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,43,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-12;-8;-4;0;4;8;12,4,4,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,47,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-12;-8;-4;0;4;8;12,10,0,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,53,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-14;-10;-6;-2;2;6;10;14,2,2,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,59,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-12;-8;-4;0;4;8;12,-4,1,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,61,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-2;6;10;14,-14,1,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,67,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-16;-12;-8;-4;0;4;8;12;16,2,2,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,71,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-16;-12;-8;-4;0;4;8;12;16,4,4,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,73,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-14;-10;-6;-2;2;6;10;14,-4,1,,mod_5,survives,A Frey trace is congruent to the coefficient modulo 5.,False
+5-4-5,220,79,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-16;-12;-8;-4;0;4;8;12;16,-8,2,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,83,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-16;-12;-8;-4;0;4;8;12;16,12,2,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,89,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-18;-14;-10;-6;-2;2;6;10;14;18,6,1,,exact,survives,A Frey trace equals the newform coefficient exactly.,False
+5-4-5,220,97,1,q + 2*q^3 + q^5 + O(q^6),Rational Field,rational_integer,-18;-14;-10;-6;-2;2;6;10;14;18,6,1,,exact,survives,A Frey trace equals the newform coefficient exactly.,False

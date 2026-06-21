@@ -1,0 +1,2 @@
+signature,level,weight,sage_status,schema_valid,newform_count,selected_good_prime_count,coefficient_row_count,rational_integer_coefficient_count,nonrational_coefficient_count,unclear_coefficient_count,error_message,source_path
+5-4-5,220,2,completed,True,2,22,44,44,0,0,,runs/sage_followup_ci/level_220_newform_coefficients.json
