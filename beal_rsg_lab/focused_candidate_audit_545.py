@@ -47,6 +47,12 @@ from .local_coverage_audit_545 import (
     local_coverage_audit_markdown,
 )
 from .local_valuation_case_545 import LocalValuationCaseRecord, build_local_valuation_cases_545
+from .nonunit_elimination_545 import NonunitEliminationRecord, build_nonunit_eliminations_545
+from .nonunit_newform_filter_545 import (
+    NonunitNewformFilterRecord,
+    build_nonunit_newform_filters_545,
+    local_case_decision_tree_545_markdown,
+)
 from .newform_coefficient_importer import (
     NewformCoefficientImportSummary,
     NewformCoefficientRow,
@@ -55,6 +61,10 @@ from .newform_coefficient_importer import (
 from .obstruction_progress_score import ObstructionProgressRecord, score_obstruction_progress_545
 from .proof_gap_report import ProofGapRecord, build_proof_gap_records_545, proof_gap_report_markdown
 from .sage_level_220_newform_expander import write_sage_level_220_newform_expander
+from .singular_reduction_trace_545 import (
+    SingularReductionTraceRecord,
+    build_singular_reduction_traces_545,
+)
 from .small_prime_sensitivity_545 import (
     SmallPrimeSensitivityRecord,
     build_small_prime_sensitivity_545,
@@ -120,6 +130,10 @@ class Focused545Artifacts:
     trace_filter_case_coverage_path: str
     local_gap_summary_path: str
     local_gap_summary_report_path: str
+    nonunit_eliminations_path: str
+    singular_reduction_traces_path: str
+    nonunit_newform_filter_path: str
+    local_case_decision_tree_path: str
     assumption_register_path: str
     proof_gap_summary_path: str
     proof_gap_report_path: str
@@ -250,6 +264,9 @@ def focused_545_markdown(
     reduction_rows: list[FreyReductionCaseRecord],
     case_coverage_rows: list[TraceFilterCaseCoverageRecord],
     local_gap_summary: LocalGapSummaryRecord,
+    nonunit_rows: list[NonunitEliminationRecord],
+    singular_reduction_rows: list[SingularReductionTraceRecord],
+    nonunit_filter_rows: list[NonunitNewformFilterRecord],
     assumption_rows: list[AssumptionRecord],
     gap_rows: list[ProofGapRecord],
     known_mismatches: int,
@@ -272,6 +289,9 @@ def focused_545_markdown(
     nearby_incomplete = sum(1 for row in robustness_rows if row.level != 220 and row.robustness_label == "level_data_insufficient")
     q13_case = next((row for row in case_coverage_rows if row.prime == 13), None)
     q17_case = next((row for row in case_coverage_rows if row.prime == 17), None)
+    nonunit_decision_by_prime = {row.prime: row for row in nonunit_filter_rows}
+    q13_nonunit = nonunit_decision_by_prime.get(13)
+    q17_nonunit = nonunit_decision_by_prime.get(17)
     lines = [
         "# Focused Modular Review: `(5,4,5)`",
         "",
@@ -487,6 +507,26 @@ def focused_545_markdown(
             "",
             f"Local gap summary: `{local_gap_summary.overall_local_gap_label}`. Exact next lemma: {local_gap_summary.exact_next_human_lemma}",
             "",
+            "### Focused q=13/q=17 Nonunit Branch Audit",
+            "",
+            "| q | unit eliminations | possible nonunit masks | unresolved masks | reduction argument masks | full nonunit resolution | safe label |",
+            "| ---: | ---: | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for row in nonunit_filter_rows:
+        lines.append(
+            f"| {row.prime} | {row.unit_eliminated_newform_count} | `{row.possible_nonunit_masks or 'none'}` | "
+            f"`{row.unresolved_nonunit_masks or 'none'}` | `{row.reduction_argument_masks or 'none'}` | "
+            f"`{row.full_nonunit_resolution}` | `{row.safe_label}` |"
+        )
+    lines.extend(
+        [
+            "",
+            f"- q=13 focused nonunit label: `{q13_nonunit.safe_label if q13_nonunit else 'missing'}`.",
+            f"- q=17 focused nonunit label: `{q17_nonunit.safe_label if q17_nonunit else 'missing'}`.",
+            "- Pairwise nonunit masks are primitive-forbidden, but `A_only`, `B_only`, and `C_only` remain locally stable and need a separate Frey reduction argument.",
+            "- Because the focused q=13/q=17 nonunit branches are not fully resolved, the route keeps `local_coverage_gap` and `unit_only_trace_mismatch_candidate` scope.",
+            "",
             "### Level Robustness",
             "",
             "| level | newforms | coefficient status | trace status | label |",
@@ -579,6 +619,10 @@ def focused_545_markdown(
             f"- `{(run_dir / 'trace_filter_case_coverage_545.csv').as_posix()}`",
             f"- `{(run_dir / 'local_gap_summary_545.csv').as_posix()}`",
             f"- `{(run_dir / 'LOCAL_GAP_SUMMARY_545.md').as_posix()}`",
+            f"- `{(run_dir / 'nonunit_eliminations_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'singular_reduction_traces_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'nonunit_newform_filter_545.csv').as_posix()}`",
+            f"- `{(run_dir / 'LOCAL_CASE_DECISION_TREE_545.md').as_posix()}`",
             f"- `{(run_dir / 'assumption_register_545.csv').as_posix()}`",
             f"- `{(run_dir / 'proof_gap_summary.csv').as_posix()}`",
             f"- `{(run_dir / 'proof_gap_report.md').as_posix()}`",
@@ -649,6 +693,13 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     reduction_rows = build_frey_reduction_cases_545(valuation_rows, lift_rows)
     case_coverage_rows = build_trace_filter_case_coverage_545(filter_rows, reduction_rows)
     local_gap_summary = build_local_gap_summary_545(case_coverage_rows)
+    nonunit_rows = build_nonunit_eliminations_545(good_prime_rows)
+    singular_reduction_rows = build_singular_reduction_traces_545(nonunit_rows)
+    nonunit_filter_rows = build_nonunit_newform_filters_545(
+        filter_rows,
+        nonunit_rows,
+        singular_reduction_rows,
+    )
     skeleton_rows = build_theorem_skeleton_obligations_545(
         progress_row=progress_row,
         sensitivity_rows=sensitivity_rows,
@@ -689,6 +740,10 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     case_coverage_path = run_dir / "trace_filter_case_coverage_545.csv"
     local_gap_path = run_dir / "local_gap_summary_545.csv"
     local_gap_report_path = run_dir / "LOCAL_GAP_SUMMARY_545.md"
+    nonunit_path = run_dir / "nonunit_eliminations_545.csv"
+    singular_reduction_path = run_dir / "singular_reduction_traces_545.csv"
+    nonunit_filter_path = run_dir / "nonunit_newform_filter_545.csv"
+    local_case_decision_tree_path = run_dir / "LOCAL_CASE_DECISION_TREE_545.md"
     assumptions_path = run_dir / "assumption_register_545.csv"
     gaps_path = run_dir / "proof_gap_summary.csv"
     gap_report_path = run_dir / "proof_gap_report.md"
@@ -714,6 +769,9 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     _write_csv(reduction_path, [row.to_flat_dict() for row in reduction_rows])
     _write_csv(case_coverage_path, [row.to_flat_dict() for row in case_coverage_rows])
     _write_csv(local_gap_path, [local_gap_summary.to_flat_dict()])
+    _write_csv(nonunit_path, [row.to_flat_dict() for row in nonunit_rows])
+    _write_csv(singular_reduction_path, [row.to_flat_dict() for row in singular_reduction_rows])
+    _write_csv(nonunit_filter_path, [row.to_flat_dict() for row in nonunit_filter_rows])
     _write_csv(assumptions_path, [row.to_flat_dict() for row in assumption_rows])
     _write_csv(gaps_path, [row.to_flat_dict() for row in gap_rows])
     provenance_report_path.write_text(trace_mismatch_provenance_markdown(provenance_rows), encoding="utf-8")
@@ -723,6 +781,15 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
     robustness_report_path.write_text(level_robustness_markdown(robustness_rows), encoding="utf-8")
     skeleton_path.write_text(theorem_skeleton_markdown(skeleton_rows), encoding="utf-8")
     local_gap_report_path.write_text(local_gap_summary_markdown(local_gap_summary), encoding="utf-8")
+    local_case_decision_tree_path.write_text(
+        local_case_decision_tree_545_markdown(
+            filter_rows=filter_rows,
+            nonunit_rows=nonunit_rows,
+            reduction_rows=singular_reduction_rows,
+            newform_filter_rows=nonunit_filter_rows,
+        ),
+        encoding="utf-8",
+    )
     gap_report_path.write_text(proof_gap_report_markdown(output_dir=run_dir, rows=gap_rows), encoding="utf-8")
     focused_report_path.write_text(
         focused_545_markdown(
@@ -752,6 +819,9 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
             reduction_rows=reduction_rows,
             case_coverage_rows=case_coverage_rows,
             local_gap_summary=local_gap_summary,
+            nonunit_rows=nonunit_rows,
+            singular_reduction_rows=singular_reduction_rows,
+            nonunit_filter_rows=nonunit_filter_rows,
             assumption_rows=assumption_rows,
             gap_rows=gap_rows,
             known_mismatches=known_mismatches,
@@ -790,6 +860,10 @@ def generate_focused_545_review(run_dir: Path) -> Focused545Artifacts:
         trace_filter_case_coverage_path=case_coverage_path.as_posix(),
         local_gap_summary_path=local_gap_path.as_posix(),
         local_gap_summary_report_path=local_gap_report_path.as_posix(),
+        nonunit_eliminations_path=nonunit_path.as_posix(),
+        singular_reduction_traces_path=singular_reduction_path.as_posix(),
+        nonunit_newform_filter_path=nonunit_filter_path.as_posix(),
+        local_case_decision_tree_path=local_case_decision_tree_path.as_posix(),
         assumption_register_path=assumptions_path.as_posix(),
         proof_gap_summary_path=gaps_path.as_posix(),
         proof_gap_report_path=gap_report_path.as_posix(),

@@ -127,7 +127,7 @@ def build_theorem_skeleton_obligations_545(
             current_evidence=local_gap_evidence,
             status="local_coverage_gap" if coverage_gaps else "computed_route_evidence",
             risk_level="high" if coverage_gaps else "medium",
-            next_action="Prove the local valuation and reduction case split for q | ABC, including single-divisibility masks and singular Frey reductions.",
+            next_action="Prove the q=13/q=17 local valuation and reduction case split for q | ABC, including A_only, B_only, C_only, and singular Frey reductions.",
         ),
         TheoremSkeletonObligationRecord(
             signature="5-4-5",
@@ -200,7 +200,7 @@ def theorem_skeleton_markdown(rows: list[TheoremSkeletonObligationRecord]) -> st
             "- The minimal conductor and lowered level are exactly the level used for comparison.",
             "- The residual mod-5 representation is the correct irreducible representation for the trace comparison.",
             "- The relevant level-220 newforms are exhausted by the imported Sage query.",
-            "- The good-prime local enumeration covers all reductions required by the modular argument.",
+            "- The q=13 and q=17 good-prime local enumeration covers all reductions required by the modular argument, including single-divisibility branches.",
             "",
             "## Why This Is Not A Proof",
             "",

@@ -104,6 +104,10 @@ jobs:
             runs/${{ env.RUN_ID }}/trace_filter_case_coverage_545.csv
             runs/${{ env.RUN_ID }}/local_gap_summary_545.csv
             runs/${{ env.RUN_ID }}/LOCAL_GAP_SUMMARY_545.md
+            runs/${{ env.RUN_ID }}/nonunit_eliminations_545.csv
+            runs/${{ env.RUN_ID }}/singular_reduction_traces_545.csv
+            runs/${{ env.RUN_ID }}/nonunit_newform_filter_545.csv
+            runs/${{ env.RUN_ID }}/LOCAL_CASE_DECISION_TREE_545.md
             runs/${{ env.RUN_ID }}/proof_gap_summary.csv
             runs/${{ env.RUN_ID }}/proof_gap_report.md
             runs/${{ env.RUN_ID }}/FOCUSED_545_REVIEW.md
@@ -172,6 +176,10 @@ jobs:
             "runs/$RUN_ID/trace_filter_case_coverage_545.csv" \
             "runs/$RUN_ID/local_gap_summary_545.csv" \
             "runs/$RUN_ID/LOCAL_GAP_SUMMARY_545.md" \
+            "runs/$RUN_ID/nonunit_eliminations_545.csv" \
+            "runs/$RUN_ID/singular_reduction_traces_545.csv" \
+            "runs/$RUN_ID/nonunit_newform_filter_545.csv" \
+            "runs/$RUN_ID/LOCAL_CASE_DECISION_TREE_545.md" \
             "runs/$RUN_ID/proof_gap_summary.csv" \
             "runs/$RUN_ID/proof_gap_report.md" \
             "runs/$RUN_ID/FOCUSED_545_REVIEW.md" \
