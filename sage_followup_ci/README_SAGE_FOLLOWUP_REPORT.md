@@ -14,28 +14,27 @@ Every imported row sets `contradiction_claim_allowed` to `False`. The strongest 
 - Sage import rows: `13`.
 - Known-case Sage calibration rows: `19`.
 - Known-case overpromotion rows: `0`.
-- Sage status `completed`: `10`.
-- Sage status `timeout`: `3`.
-- Updated label `modular_followup_candidate`: `3`.
-- Updated label `needs_external_sage_check`: `3`.
-- Updated label `sage_checked_inconclusive`: `7`.
+- Sage status `completed`: `8`.
+- Sage status `timeout`: `5`.
+- Updated label `needs_external_sage_check`: `5`.
+- Updated label `sage_checked_inconclusive`: `8`.
 
 ## Human Review Queue
 
 | rank | signature | previous label | Sage status | trace status | updated label | priority |
 | ---: | --- | --- | --- | --- | --- | ---: |
-| 1 | `5-4-5` | `mixed_needs_external_check` | `completed` | `narrow` | `modular_followup_candidate` | 7.25 |
-| 2 | `7-4-7` | `needs_external_sage_check` | `completed` | `narrow` | `modular_followup_candidate` | 7.0 |
-| 3 | `4-7-7` | `needs_external_sage_check` | `completed` | `narrow` | `modular_followup_candidate` | 7.0 |
-| 4 | `4-3-3` | `newform_check_candidate` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 4.25 |
-| 5 | `3-4-3` | `newform_check_candidate` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 4.25 |
-| 6 | `5-5-4` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
-| 7 | `5-3-5` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
-| 8 | `4-5-5` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
-| 9 | `3-3-5` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
-| 10 | `3-3-4` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
-| 11 | `7-7-4` | `needs_external_sage_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
-| 12 | `5-5-7` | `mixed_needs_external_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
+| 1 | `4-3-3` | `newform_check_candidate` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 4.25 |
+| 2 | `3-4-3` | `newform_check_candidate` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 4.25 |
+| 3 | `5-5-4` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 4 | `5-4-5` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 5 | `4-7-7` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 6 | `4-5-5` | `mixed_needs_external_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 7 | `3-3-5` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 8 | `3-3-4` | `needs_external_sage_check` | `completed` | `inconclusive` | `sage_checked_inconclusive` | 3.5 |
+| 9 | `7-7-4` | `needs_external_sage_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
+| 10 | `7-4-7` | `needs_external_sage_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
+| 11 | `5-5-7` | `mixed_needs_external_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
+| 12 | `5-3-5` | `mixed_needs_external_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
 | 13 | `3-5-5` | `needs_external_sage_check` | `timeout` | `not_checked` | `needs_external_sage_check` | 1.5 |
 
 ## Files
@@ -49,6 +48,10 @@ Every imported row sets `contradiction_claim_allowed` to `False`. The strongest 
 - `modular_confidence_summary.csv`: conservative confidence updates.
 - `sage_roundtrip_summary.csv`: one-row-per-job import and review summary.
 - `candidate_dossier_index.md`: dossier links for queued signatures.
+- `modular_candidate_deep_audit.csv`: deep-audit rows for modular follow-up candidates.
+- `newform_trace_matrix.csv`: trace/newform comparison matrix rows.
+- `level_explanations.csv`: heuristic level provenance and factorization.
+- `timeout_retry_manifest.csv`: retry plan for timed-out Sage jobs.
 - `sage_jobs/`: per-signature `.sage` jobs and batch runner.
 - `sage_results/`: expected JSON output directory.
 

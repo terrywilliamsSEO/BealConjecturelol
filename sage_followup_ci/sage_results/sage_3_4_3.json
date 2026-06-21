@@ -36,6 +36,7 @@
     "source_run": "sage_followup_ci"
   },
   "newform_count": 0,
+  "newform_trace_rows": [],
   "route_label": "newform_check_candidate",
   "sage_status": "completed",
   "signature": [

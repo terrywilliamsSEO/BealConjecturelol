@@ -1,17 +1,21 @@
 {
   "checked_levels": [
-    220
+    110,
+    220,
+    440,
+    550,
+    1210
   ],
   "contradiction_claim_allowed": false,
   "errors": [],
-  "followup_label": "modular_followup_candidate",
+  "followup_label": "sage_checked_inconclusive",
   "job_id": "sage_5_4_5",
   "level_rows": [
     {
-      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "error": "",
       "level": 110,
-      "newform_count": 0,
-      "status": "unsupported"
+      "newform_count": 4,
+      "status": "completed"
     },
     {
       "error": "",
@@ -20,22 +24,22 @@
       "status": "completed"
     },
     {
-      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "error": "",
       "level": 440,
-      "newform_count": 0,
-      "status": "unsupported"
+      "newform_count": 7,
+      "status": "completed"
     },
     {
-      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "error": "",
       "level": 550,
-      "newform_count": 0,
-      "status": "unsupported"
+      "newform_count": 14,
+      "status": "completed"
     },
     {
-      "error": "Please specify a name to be used when generating names for generators of Hecke eigenvalue fields corresponding to the newforms.",
+      "error": "",
       "level": 1210,
-      "newform_count": 0,
-      "status": "unsupported"
+      "newform_count": 22,
+      "status": "completed"
     }
   ],
   "metadata": {
@@ -69,7 +73,3145 @@
     ],
     "source_run": "sage_followup_ci"
   },
-  "newform_count": 2,
+  "newform_count": 49,
+  "newform_trace_rows": [
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 110,
+      "newform_index": 0,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 110,
+      "newform_index": 0,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 110,
+      "newform_index": 0,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 110,
+      "newform_index": 0,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-7",
+      "error": "",
+      "level": 110,
+      "newform_index": 0,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 110,
+      "newform_index": 0,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 110,
+      "newform_index": 0,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-7",
+      "error": "",
+      "level": 110,
+      "newform_index": 0,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 110,
+      "newform_index": 1,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 110,
+      "newform_index": 1,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 110,
+      "newform_index": 1,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-7",
+      "error": "",
+      "level": 110,
+      "newform_index": 1,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 110,
+      "newform_index": 1,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 110,
+      "newform_index": 1,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 110,
+      "newform_index": 1,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 110,
+      "newform_index": 1,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 110,
+      "newform_index": 2,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 110,
+      "newform_index": 2,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 110,
+      "newform_index": 2,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 110,
+      "newform_index": 2,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 110,
+      "newform_index": 2,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 110,
+      "newform_index": 2,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-9",
+      "error": "",
+      "level": 110,
+      "newform_index": 2,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 110,
+      "newform_index": 2,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a3 + 1/2",
+      "error": "",
+      "level": 110,
+      "newform_index": 3,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a3 - 1/2",
+      "error": "",
+      "level": 110,
+      "newform_index": 3,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 110,
+      "newform_index": 3,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a3 - 5/2",
+      "error": "",
+      "level": 110,
+      "newform_index": 3,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a3 + 9/2",
+      "error": "",
+      "level": 110,
+      "newform_index": 3,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a3 - 5",
+      "error": "",
+      "level": 110,
+      "newform_index": 3,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a3 - 5/2",
+      "error": "",
+      "level": 110,
+      "newform_index": 3,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a3 - 1/2",
+      "error": "",
+      "level": 110,
+      "newform_index": 3,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 220,
+      "newform_index": 0,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 220,
+      "newform_index": 0,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 220,
+      "newform_index": 0,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 220,
+      "newform_index": 0,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 220,
+      "newform_index": 0,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 220,
+      "newform_index": 0,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 220,
+      "newform_index": 0,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "8",
+      "error": "",
+      "level": 220,
+      "newform_index": 0,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 220,
+      "newform_index": 1,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 220,
+      "newform_index": 1,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 220,
+      "newform_index": 1,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 220,
+      "newform_index": 1,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 220,
+      "newform_index": 1,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 220,
+      "newform_index": 1,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 220,
+      "newform_index": 1,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 220,
+      "newform_index": 1,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 440,
+      "newform_index": 0,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 440,
+      "newform_index": 0,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 440,
+      "newform_index": 0,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 440,
+      "newform_index": 0,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-8",
+      "error": "",
+      "level": 440,
+      "newform_index": 0,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-8",
+      "error": "",
+      "level": 440,
+      "newform_index": 0,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "10",
+      "error": "",
+      "level": 440,
+      "newform_index": 0,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "8",
+      "error": "",
+      "level": 440,
+      "newform_index": 0,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 440,
+      "newform_index": 1,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 440,
+      "newform_index": 1,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 440,
+      "newform_index": 1,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 440,
+      "newform_index": 1,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 440,
+      "newform_index": 1,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 440,
+      "newform_index": 1,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 440,
+      "newform_index": 1,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 440,
+      "newform_index": 1,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 440,
+      "newform_index": 2,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 440,
+      "newform_index": 2,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 440,
+      "newform_index": 2,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 440,
+      "newform_index": 2,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 440,
+      "newform_index": 2,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 440,
+      "newform_index": 2,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 440,
+      "newform_index": 2,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "8",
+      "error": "",
+      "level": 440,
+      "newform_index": 2,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 440,
+      "newform_index": 3,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 440,
+      "newform_index": 3,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 440,
+      "newform_index": 3,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 440,
+      "newform_index": 3,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 440,
+      "newform_index": 3,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 440,
+      "newform_index": 3,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 440,
+      "newform_index": 3,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 440,
+      "newform_index": 3,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a4",
+      "error": "",
+      "level": 440,
+      "newform_index": 4,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a4",
+      "error": "",
+      "level": 440,
+      "newform_index": 4,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 440,
+      "newform_index": 4,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a4 + 2",
+      "error": "",
+      "level": 440,
+      "newform_index": 4,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a4",
+      "error": "",
+      "level": 440,
+      "newform_index": 4,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2*a4",
+      "error": "",
+      "level": 440,
+      "newform_index": 4,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3*a4 + 2",
+      "error": "",
+      "level": 440,
+      "newform_index": 4,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a4 + 4",
+      "error": "",
+      "level": 440,
+      "newform_index": 4,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a5",
+      "error": "",
+      "level": 440,
+      "newform_index": 5,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a5 + 2",
+      "error": "",
+      "level": 440,
+      "newform_index": 5,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2*a5",
+      "error": "",
+      "level": 440,
+      "newform_index": 5,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a5 + 4",
+      "error": "",
+      "level": 440,
+      "newform_index": 5,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a5 + 4",
+      "error": "",
+      "level": 440,
+      "newform_index": 5,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2*a5 + 4",
+      "error": "",
+      "level": 440,
+      "newform_index": 5,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a5 - 2",
+      "error": "",
+      "level": 440,
+      "newform_index": 5,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3*a5 + 4",
+      "error": "",
+      "level": 440,
+      "newform_index": 5,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a6",
+      "error": "",
+      "level": 440,
+      "newform_index": 6,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a6 + 2",
+      "error": "",
+      "level": 440,
+      "newform_index": 6,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2*a6 + 4",
+      "error": "",
+      "level": 440,
+      "newform_index": 6,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3*a6",
+      "error": "",
+      "level": 440,
+      "newform_index": 6,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a6 + 4",
+      "error": "",
+      "level": 440,
+      "newform_index": 6,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2*a6 - 4",
+      "error": "",
+      "level": 440,
+      "newform_index": 6,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a6 + 6",
+      "error": "",
+      "level": 440,
+      "newform_index": 6,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a6 - 4",
+      "error": "",
+      "level": 440,
+      "newform_index": 6,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 550,
+      "newform_index": 0,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 550,
+      "newform_index": 0,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 550,
+      "newform_index": 0,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 550,
+      "newform_index": 0,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-7",
+      "error": "",
+      "level": 550,
+      "newform_index": 0,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 550,
+      "newform_index": 0,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 550,
+      "newform_index": 0,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 550,
+      "newform_index": 0,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 550,
+      "newform_index": 1,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 550,
+      "newform_index": 1,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 1,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 550,
+      "newform_index": 1,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 550,
+      "newform_index": 1,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 1,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 550,
+      "newform_index": 1,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 1,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 550,
+      "newform_index": 2,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 550,
+      "newform_index": 2,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 550,
+      "newform_index": 2,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 550,
+      "newform_index": 2,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 550,
+      "newform_index": 2,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 550,
+      "newform_index": 2,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-10",
+      "error": "",
+      "level": 550,
+      "newform_index": 2,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-8",
+      "error": "",
+      "level": 550,
+      "newform_index": 2,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 550,
+      "newform_index": 3,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 550,
+      "newform_index": 3,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 550,
+      "newform_index": 3,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 550,
+      "newform_index": 3,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 550,
+      "newform_index": 3,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 550,
+      "newform_index": 3,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-9",
+      "error": "",
+      "level": 550,
+      "newform_index": 3,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 550,
+      "newform_index": 3,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 550,
+      "newform_index": 4,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 4,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 550,
+      "newform_index": 4,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 4,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 550,
+      "newform_index": 4,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 550,
+      "newform_index": 4,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 550,
+      "newform_index": 4,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "7",
+      "error": "",
+      "level": 550,
+      "newform_index": 4,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 550,
+      "newform_index": 5,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 5,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 550,
+      "newform_index": 5,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "7",
+      "error": "",
+      "level": 550,
+      "newform_index": 5,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 550,
+      "newform_index": 5,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 550,
+      "newform_index": 5,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 550,
+      "newform_index": 5,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 5,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 550,
+      "newform_index": 6,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 550,
+      "newform_index": 6,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 550,
+      "newform_index": 6,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 550,
+      "newform_index": 6,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-7",
+      "error": "",
+      "level": 550,
+      "newform_index": 6,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "8",
+      "error": "",
+      "level": 550,
+      "newform_index": 6,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 550,
+      "newform_index": 6,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 550,
+      "newform_index": 6,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 7,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 550,
+      "newform_index": 7,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 550,
+      "newform_index": 7,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 550,
+      "newform_index": 7,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-7",
+      "error": "",
+      "level": 550,
+      "newform_index": 7,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-8",
+      "error": "",
+      "level": 550,
+      "newform_index": 7,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 550,
+      "newform_index": 7,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 550,
+      "newform_index": 7,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 550,
+      "newform_index": 8,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 550,
+      "newform_index": 8,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 550,
+      "newform_index": 8,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 8,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-7",
+      "error": "",
+      "level": 550,
+      "newform_index": 8,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 550,
+      "newform_index": 8,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 8,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-7",
+      "error": "",
+      "level": 550,
+      "newform_index": 8,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 550,
+      "newform_index": 9,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 550,
+      "newform_index": 9,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 550,
+      "newform_index": 9,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 550,
+      "newform_index": 9,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 550,
+      "newform_index": 9,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 550,
+      "newform_index": 9,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 550,
+      "newform_index": 9,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "7",
+      "error": "",
+      "level": 550,
+      "newform_index": 9,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 550,
+      "newform_index": 10,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 550,
+      "newform_index": 10,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 550,
+      "newform_index": 10,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 550,
+      "newform_index": 10,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 550,
+      "newform_index": 10,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 550,
+      "newform_index": 10,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-10",
+      "error": "",
+      "level": 550,
+      "newform_index": 10,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-8",
+      "error": "",
+      "level": 550,
+      "newform_index": 10,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 550,
+      "newform_index": 11,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 550,
+      "newform_index": 11,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 550,
+      "newform_index": 11,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 550,
+      "newform_index": 11,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 550,
+      "newform_index": 11,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 550,
+      "newform_index": 11,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 550,
+      "newform_index": 11,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 11,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 550,
+      "newform_index": 12,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 550,
+      "newform_index": 12,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 550,
+      "newform_index": 12,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 550,
+      "newform_index": 12,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-7",
+      "error": "",
+      "level": 550,
+      "newform_index": 12,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 550,
+      "newform_index": 12,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 550,
+      "newform_index": 12,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 550,
+      "newform_index": 12,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a13 + 1/2",
+      "error": "",
+      "level": 550,
+      "newform_index": 13,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a13 - 1/2",
+      "error": "",
+      "level": 550,
+      "newform_index": 13,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 550,
+      "newform_index": 13,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a13 + 3/2",
+      "error": "",
+      "level": 550,
+      "newform_index": 13,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a13 + 7/2",
+      "error": "",
+      "level": 550,
+      "newform_index": 13,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a13 + 3",
+      "error": "",
+      "level": 550,
+      "newform_index": 13,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a13 - 3/2",
+      "error": "",
+      "level": 550,
+      "newform_index": 13,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a13 + 1/2",
+      "error": "",
+      "level": 550,
+      "newform_index": 13,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 0,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 0,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 0,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 0,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 0,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 0,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 0,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 0,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 1,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 1,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 1,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "7",
+      "error": "",
+      "level": 1210,
+      "newform_index": 1,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 1,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 1,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 1,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 1,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 2,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 2,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 2,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-8",
+      "error": "",
+      "level": 1210,
+      "newform_index": 2,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-8",
+      "error": "",
+      "level": 1210,
+      "newform_index": 2,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 2,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 2,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 2,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 3,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 3,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 3,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 3,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 3,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 3,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "9",
+      "error": "",
+      "level": 1210,
+      "newform_index": 3,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 3,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 4,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 4,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 4,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 4,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 4,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 4,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "9",
+      "error": "",
+      "level": 1210,
+      "newform_index": 4,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 4,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 5,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 5,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 5,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 5,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 5,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 5,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 5,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-10",
+      "error": "",
+      "level": 1210,
+      "newform_index": 5,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 6,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 6,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 6,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 6,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 6,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 6,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 6,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 6,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 7,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 7,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 7,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 7,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 7,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 7,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 7,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 7,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 8,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 8,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 8,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 8,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 8,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 8,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-9",
+      "error": "",
+      "level": 1210,
+      "newform_index": 8,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 8,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 9,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 9,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 9,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "8",
+      "error": "",
+      "level": 1210,
+      "newform_index": 9,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "8",
+      "error": "",
+      "level": 1210,
+      "newform_index": 9,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 9,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 9,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 9,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 10,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 10,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 10,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 10,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "7",
+      "error": "",
+      "level": 1210,
+      "newform_index": 10,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 10,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 10,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-7",
+      "error": "",
+      "level": 1210,
+      "newform_index": 10,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 11,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 11,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 11,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 11,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 11,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 11,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 11,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-10",
+      "error": "",
+      "level": 1210,
+      "newform_index": 11,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 12,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 12,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 12,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 12,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 12,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 12,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 12,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 12,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a13 + 1/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 13,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 13,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2*a13 + 10",
+      "error": "",
+      "level": 1210,
+      "newform_index": 13,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5/2*a13 - 19/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 13,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3/2*a13 + 13/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 13,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 13,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a13 + 3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 13,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3*a13 - 9",
+      "error": "",
+      "level": 1210,
+      "newform_index": 13,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a14 - 1/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 14,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a14 + 2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 14,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a14 - 3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 14,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 14,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a14 + 3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 14,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a14 + 3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 14,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-8",
+      "error": "",
+      "level": 1210,
+      "newform_index": 14,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 14,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a15 + 1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 15,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a15 - 3/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 15,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a15 + 1/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 15,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a15 + 3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 15,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5/2*a15 - 3/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 15,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3/2*a15 + 7/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 15,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a15 - 1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 15,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a15 - 5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 15,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a16 + 1/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 16,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "0",
+      "error": "",
+      "level": 1210,
+      "newform_index": 16,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2*a16 - 10",
+      "error": "",
+      "level": 1210,
+      "newform_index": 16,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-5/2*a16 + 19/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 16,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3/2*a16 - 13/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 16,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-6",
+      "error": "",
+      "level": 1210,
+      "newform_index": 16,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a16 - 3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 16,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3*a16 - 9",
+      "error": "",
+      "level": 1210,
+      "newform_index": 16,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a17 + 1/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 17,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a17 + 1/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 17,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 17,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a17 + 5/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 17,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a17 - 9/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 17,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a17 - 5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 17,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a17 + 5/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 17,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a17 - 1/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 17,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a18 - 1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 18,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2*a18 - 3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 18,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-2*a18 + 4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 18,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 18,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2*a18 - 4",
+      "error": "",
+      "level": 1210,
+      "newform_index": 18,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2*a18 + 2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 18,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "8",
+      "error": "",
+      "level": 1210,
+      "newform_index": 18,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 18,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a19 + 1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 19,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a19 + 3/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 19,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a19 - 1/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 19,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a19 - 3",
+      "error": "",
+      "level": 1210,
+      "newform_index": 19,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "5/2*a19 + 3/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 19,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3/2*a19 + 7/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 19,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a19 + 1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 19,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a19 - 5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 19,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a20 - 1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 20,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a20^3 - a20^2 + 2*a20 - 5/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 20,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3/2*a20^3 + 4*a20^2 - 7*a20 - 11/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 20,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a20^3 + 5*a20^2 + 2*a20 - 8",
+      "error": "",
+      "level": 1210,
+      "newform_index": 20,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3/2*a20^3 - 5*a20^2 + 5*a20 + 17/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 20,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a20^3 - 3*a20^2 - 4*a20 + 11/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 20,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a20^3 - 6*a20^2 - 6*a20 + 9",
+      "error": "",
+      "level": 1210,
+      "newform_index": 20,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3*a20^3 + 10*a20^2 - 6*a20 - 5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 20,
+      "prime": 31,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a21 - 1",
+      "error": "",
+      "level": 1210,
+      "newform_index": 21,
+      "prime": 3,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-1/2*a21^3 + a21^2 + 2*a21 + 5/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 21,
+      "prime": 7,
+      "status": "completed"
+    },
+    {
+      "coefficient": "3/2*a21^3 - 4*a21^2 - 7*a21 + 11/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 21,
+      "prime": 13,
+      "status": "completed"
+    },
+    {
+      "coefficient": "a21^3 - 5*a21^2 + 2*a21 + 8",
+      "error": "",
+      "level": 1210,
+      "newform_index": 21,
+      "prime": 17,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3/2*a21^3 + 5*a21^2 + 5*a21 - 17/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 21,
+      "prime": 19,
+      "status": "completed"
+    },
+    {
+      "coefficient": "1/2*a21^3 - 3*a21^2 + 4*a21 + 11/2",
+      "error": "",
+      "level": 1210,
+      "newform_index": 21,
+      "prime": 23,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-a21^3 + 6*a21^2 - 6*a21 - 9",
+      "error": "",
+      "level": 1210,
+      "newform_index": 21,
+      "prime": 29,
+      "status": "completed"
+    },
+    {
+      "coefficient": "-3*a21^3 + 10*a21^2 + 6*a21 - 5",
+      "error": "",
+      "level": 1210,
+      "newform_index": 21,
+      "prime": 31,
+      "status": "completed"
+    }
+  ],
   "route_label": "mixed_needs_external_check",
   "sage_status": "completed",
   "signature": [
@@ -78,7 +3220,7 @@
     5
   ],
   "source_run": "sage_followup_ci",
-  "trace_match_status": "narrow",
+  "trace_match_status": "inconclusive",
   "trace_rows": [
     {
       "ell": 11,
