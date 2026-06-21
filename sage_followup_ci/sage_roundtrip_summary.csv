@@ -2,13 +2,13 @@ job_id,signature,source_route_label,sage_status,trace_match_status,newform_count
 sage_3_3_4,3-3-4,needs_external_sage_check,completed,inconclusive,14,sage_checked_inconclusive,sage_checked_inconclusive,False,False,3.5
 sage_3_3_5,3-3-5,needs_external_sage_check,completed,inconclusive,0,sage_checked_inconclusive,sage_checked_inconclusive,False,False,3.5
 sage_3_4_3,3-4-3,newform_check_candidate,completed,inconclusive,0,sage_checked_inconclusive,sage_checked_inconclusive,False,False,4.25
-sage_3_5_5,3-5-5,needs_external_sage_check,completed,inconclusive,0,sage_checked_inconclusive,sage_checked_inconclusive,False,False,3.5
+sage_3_5_5,3-5-5,needs_external_sage_check,timeout,not_checked,0,needs_external_sage_check,needs_external_sage_check,False,False,1.5
 sage_4_3_3,4-3-3,newform_check_candidate,completed,inconclusive,14,sage_checked_inconclusive,sage_checked_inconclusive,False,False,4.25
 sage_4_5_5,4-5-5,mixed_needs_external_check,completed,inconclusive,0,sage_checked_inconclusive,sage_checked_inconclusive,False,False,3.5
 sage_4_7_7,4-7-7,needs_external_sage_check,completed,narrow,0,modular_followup_candidate,worth_human_modular_review,False,False,7.0
 sage_5_3_5,5-3-5,mixed_needs_external_check,completed,inconclusive,5,sage_checked_inconclusive,sage_checked_inconclusive,False,False,3.5
 sage_5_4_5,5-4-5,mixed_needs_external_check,completed,narrow,2,modular_followup_candidate,worth_human_modular_review,False,False,7.25
 sage_5_5_4,5-5-4,mixed_needs_external_check,completed,inconclusive,0,sage_checked_inconclusive,sage_checked_inconclusive,False,False,3.5
-sage_5_5_7,5-5-7,mixed_needs_external_check,completed,rigid,0,modular_followup_candidate,worth_human_modular_review,False,False,8.0
+sage_5_5_7,5-5-7,mixed_needs_external_check,timeout,not_checked,0,needs_external_sage_check,needs_external_sage_check,False,False,1.5
 sage_7_4_7,7-4-7,needs_external_sage_check,completed,narrow,0,modular_followup_candidate,worth_human_modular_review,False,False,7.0
-sage_7_7_4,7-7-4,needs_external_sage_check,completed,narrow,0,modular_followup_candidate,worth_human_modular_review,False,False,7.0
+sage_7_7_4,7-7-4,needs_external_sage_check,timeout,not_checked,0,needs_external_sage_check,needs_external_sage_check,False,False,1.5
