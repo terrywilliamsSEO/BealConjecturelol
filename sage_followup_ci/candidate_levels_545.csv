@@ -1,0 +1,25 @@
+signature,level,factorization,exponent_2,exponent_5,exponent_11,includes_11,is_current_baseline_220,conductor_plausibility_score,conductor_plausibility_label,bad_prime_core_source,route_ceiling_label,reason
+5-4-5,20,2^2 * 5,2,1,0,False,False,8,plausible_without_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level tests the route after removing the currently unjustified factor 11.
+5-4-5,4,2^2,2,0,0,False,False,7,plausible_without_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level tests the route after removing the currently unjustified factor 11.
+5-4-5,10,2 * 5,1,1,0,False,False,7,plausible_without_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level tests the route after removing the currently unjustified factor 11.
+5-4-5,40,2^3 * 5,3,1,0,False,False,7,plausible_without_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level tests the route after removing the currently unjustified factor 11.
+5-4-5,100,2^2 * 5^2,2,2,0,False,False,7,plausible_without_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level tests the route after removing the currently unjustified factor 11.
+5-4-5,220,2^2 * 5 * 11,2,1,1,True,True,7,current_baseline_heuristic,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,"Current level-220 route target retained as the baseline, but factor 11 remains unjustified."
+5-4-5,2,2,1,0,0,False,False,6,plausible_without_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level tests the route after removing the currently unjustified factor 11.
+5-4-5,5,5,0,1,0,False,False,6,plausible_without_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level tests the route after removing the currently unjustified factor 11.
+5-4-5,8,2^3,3,0,0,False,False,6,plausible_without_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level tests the route after removing the currently unjustified factor 11.
+5-4-5,50,2 * 5^2,1,2,0,False,False,6,plausible_without_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level tests the route after removing the currently unjustified factor 11.
+5-4-5,200,2^3 * 5^2,3,2,0,False,False,6,plausible_without_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level tests the route after removing the currently unjustified factor 11.
+5-4-5,44,2^2 * 11,2,0,1,True,False,6,plausible_with_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level keeps factor 11 as an exploratory variant pending conductor provenance.
+5-4-5,110,2 * 5 * 11,1,1,1,True,False,6,plausible_with_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level keeps factor 11 as an exploratory variant pending conductor provenance.
+5-4-5,440,2^3 * 5 * 11,3,1,1,True,False,6,plausible_with_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level keeps factor 11 as an exploratory variant pending conductor provenance.
+5-4-5,1100,2^2 * 5^2 * 11,2,2,1,True,False,6,plausible_with_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level keeps factor 11 as an exploratory variant pending conductor provenance.
+5-4-5,1,1,0,0,0,False,False,5,exploratory_low_bad_prime_support,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,"Both 2 and 5 are absent, so this is a low-support exploratory comparison level."
+5-4-5,25,5^2,0,2,0,False,False,5,plausible_without_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level tests the route after removing the currently unjustified factor 11.
+5-4-5,22,2 * 11,1,0,1,True,False,5,plausible_with_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level keeps factor 11 as an exploratory variant pending conductor provenance.
+5-4-5,55,5 * 11,0,1,1,True,False,5,plausible_with_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level keeps factor 11 as an exploratory variant pending conductor provenance.
+5-4-5,88,2^3 * 11,3,0,1,True,False,5,plausible_with_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level keeps factor 11 as an exploratory variant pending conductor provenance.
+5-4-5,550,2 * 5^2 * 11,1,2,1,True,False,5,plausible_with_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level keeps factor 11 as an exploratory variant pending conductor provenance.
+5-4-5,2200,2^3 * 5^2 * 11,3,2,1,True,False,5,plausible_with_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level keeps factor 11 as an exploratory variant pending conductor provenance.
+5-4-5,11,11,0,0,1,True,False,4,exploratory_low_bad_prime_support,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,"Both 2 and 5 are absent, so this is a low-support exploratory comparison level."
+5-4-5,275,5^2 * 11,0,2,1,True,False,4,plausible_with_11,2^0..3 * 5^0..2 * 11^0..1,worth_human_modular_review,This level keeps factor 11 as an exploratory variant pending conductor provenance.

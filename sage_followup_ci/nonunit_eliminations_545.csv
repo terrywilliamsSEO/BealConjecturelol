@@ -1,4 +1,11 @@
 signature,prime,valuation_mask,possible_mod_q,possible_mod_q2,possible_mod_q3,primitive_forbidden,valuation_growth_detected,unresolved,branch_label,reason
+5-4-5,3,AB,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,3,ABC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,3,AC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,3,A_only,True,True,True,False,False,True,unresolved,Single-divisibility branch is locally stable but not handled by the unit trace comparison.
+5-4-5,3,BC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,3,B_only,True,True,True,False,False,True,unresolved,Single-divisibility branch is locally stable but not handled by the unit trace comparison.
+5-4-5,3,C_only,True,True,True,False,False,True,unresolved,Single-divisibility branch is locally stable but not handled by the unit trace comparison.
 5-4-5,13,AB,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
 5-4-5,13,ABC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
 5-4-5,13,AC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
@@ -13,3 +20,17 @@ signature,prime,valuation_mask,possible_mod_q,possible_mod_q2,possible_mod_q3,pr
 5-4-5,17,BC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
 5-4-5,17,B_only,True,True,True,False,False,True,unresolved,Single-divisibility branch is locally stable but not handled by the unit trace comparison.
 5-4-5,17,C_only,True,True,True,False,False,True,unresolved,Single-divisibility branch is locally stable but not handled by the unit trace comparison.
+5-4-5,41,AB,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,41,ABC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,41,AC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,41,A_only,True,True,True,False,False,True,unresolved,Single-divisibility branch is locally stable but not handled by the unit trace comparison.
+5-4-5,41,BC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,41,B_only,True,True,True,False,False,True,unresolved,Single-divisibility branch is locally stable but not handled by the unit trace comparison.
+5-4-5,41,C_only,True,True,True,False,False,True,unresolved,Single-divisibility branch is locally stable but not handled by the unit trace comparison.
+5-4-5,61,AB,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,61,ABC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,61,AC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,61,A_only,True,True,True,False,False,True,unresolved,Single-divisibility branch is locally stable but not handled by the unit trace comparison.
+5-4-5,61,BC,False,False,False,True,False,False,primitive_forbidden,"If a primitive solution has q dividing at least two of A,B,C, the equation forces common q-divisibility or is excluded by primitivity."
+5-4-5,61,B_only,True,True,True,False,False,True,unresolved,Single-divisibility branch is locally stable but not handled by the unit trace comparison.
+5-4-5,61,C_only,True,True,True,False,False,True,unresolved,Single-divisibility branch is locally stable but not handled by the unit trace comparison.

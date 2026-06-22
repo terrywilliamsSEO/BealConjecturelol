@@ -1,4 +1,11 @@
 signature,prime,valuation_mask,branch_label,frey_reduction_classification,current_trace_comparison_applies,needs_human_reduction_argument,reason
+5-4-5,3,AB,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,3,ABC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,3,AC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,3,A_only,unresolved,needs_human_reduction_argument,False,True,"The branch is locally stable but makes the current Frey template singular or non-good modulo q; a hand minimal-model/reduction argument must decide whether it is multiplicative, additive, or otherwise compatible with the trace filter."
+5-4-5,3,BC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,3,B_only,unresolved,needs_human_reduction_argument,False,True,"The branch is locally stable but makes the current Frey template singular or non-good modulo q; a hand minimal-model/reduction argument must decide whether it is multiplicative, additive, or otherwise compatible with the trace filter."
+5-4-5,3,C_only,unresolved,needs_human_reduction_argument,False,True,"The branch is locally stable but makes the current Frey template singular or non-good modulo q; a hand minimal-model/reduction argument must decide whether it is multiplicative, additive, or otherwise compatible with the trace filter."
 5-4-5,13,AB,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
 5-4-5,13,ABC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
 5-4-5,13,AC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
@@ -13,3 +20,17 @@ signature,prime,valuation_mask,branch_label,frey_reduction_classification,curren
 5-4-5,17,BC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
 5-4-5,17,B_only,unresolved,needs_human_reduction_argument,False,True,"The branch is locally stable but makes the current Frey template singular or non-good modulo q; a hand minimal-model/reduction argument must decide whether it is multiplicative, additive, or otherwise compatible with the trace filter."
 5-4-5,17,C_only,unresolved,needs_human_reduction_argument,False,True,"The branch is locally stable but makes the current Frey template singular or non-good modulo q; a hand minimal-model/reduction argument must decide whether it is multiplicative, additive, or otherwise compatible with the trace filter."
+5-4-5,41,AB,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,41,ABC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,41,AC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,41,A_only,unresolved,needs_human_reduction_argument,False,True,"The branch is locally stable but makes the current Frey template singular or non-good modulo q; a hand minimal-model/reduction argument must decide whether it is multiplicative, additive, or otherwise compatible with the trace filter."
+5-4-5,41,BC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,41,B_only,unresolved,needs_human_reduction_argument,False,True,"The branch is locally stable but makes the current Frey template singular or non-good modulo q; a hand minimal-model/reduction argument must decide whether it is multiplicative, additive, or otherwise compatible with the trace filter."
+5-4-5,41,C_only,unresolved,needs_human_reduction_argument,False,True,"The branch is locally stable but makes the current Frey template singular or non-good modulo q; a hand minimal-model/reduction argument must decide whether it is multiplicative, additive, or otherwise compatible with the trace filter."
+5-4-5,61,AB,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,61,ABC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,61,AC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,61,A_only,unresolved,needs_human_reduction_argument,False,True,"The branch is locally stable but makes the current Frey template singular or non-good modulo q; a hand minimal-model/reduction argument must decide whether it is multiplicative, additive, or otherwise compatible with the trace filter."
+5-4-5,61,BC,primitive_forbidden,template_unknown,False,False,This branch is excluded by primitivity before the Frey reduction type is needed.
+5-4-5,61,B_only,unresolved,needs_human_reduction_argument,False,True,"The branch is locally stable but makes the current Frey template singular or non-good modulo q; a hand minimal-model/reduction argument must decide whether it is multiplicative, additive, or otherwise compatible with the trace filter."
+5-4-5,61,C_only,unresolved,needs_human_reduction_argument,False,True,"The branch is locally stable but makes the current Frey template singular or non-good modulo q; a hand minimal-model/reduction argument must decide whether it is multiplicative, additive, or otherwise compatible with the trace filter."

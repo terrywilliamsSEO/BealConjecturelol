@@ -1,0 +1,431 @@
+signature,level,weight,newform_index,newform_label,prime,coefficient,coefficient_field,coefficient_field_kind,is_rational_integer,reduction_mod_5_available,coefficient_mod_5,prime_above_5_metadata,row_status
+5-4-5,20,2,0,q - 2*q^3 - q^5 + O(q^6),3,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,20,2,0,q - 2*q^3 - q^5 + O(q^6),13,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,20,2,0,q - 2*q^3 - q^5 + O(q^6),17,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,20,2,0,q - 2*q^3 - q^5 + O(q^6),41,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,20,2,0,q - 2*q^3 - q^5 + O(q^6),61,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,40,2,0,q + q^5 + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,40,2,0,q + q^5 + O(q^6),13,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,40,2,0,q + q^5 + O(q^6),17,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,40,2,0,q + q^5 + O(q^6),41,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,40,2,0,q + q^5 + O(q^6),61,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,100,2,0,q + 2*q^3 + O(q^6),3,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,100,2,0,q + 2*q^3 + O(q^6),13,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,100,2,0,q + 2*q^3 + O(q^6),17,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,100,2,0,q + 2*q^3 + O(q^6),41,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,100,2,0,q + 2*q^3 + O(q^6),61,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,220,2,0,q - 2*q^3 + q^5 + O(q^6),3,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,220,2,0,q - 2*q^3 + q^5 + O(q^6),13,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,220,2,0,q - 2*q^3 + q^5 + O(q^6),17,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,220,2,0,q - 2*q^3 + q^5 + O(q^6),41,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,220,2,0,q - 2*q^3 + q^5 + O(q^6),61,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,220,2,1,q + 2*q^3 + q^5 + O(q^6),3,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,220,2,1,q + 2*q^3 + q^5 + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,220,2,1,q + 2*q^3 + q^5 + O(q^6),17,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,220,2,1,q + 2*q^3 + q^5 + O(q^6),41,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,220,2,1,q + 2*q^3 + q^5 + O(q^6),61,-14,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,50,2,0,q - q^2 + q^3 + q^4 + O(q^6),3,1,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,50,2,0,q - q^2 + q^3 + q^4 + O(q^6),13,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,50,2,0,q - q^2 + q^3 + q^4 + O(q^6),17,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,50,2,0,q - q^2 + q^3 + q^4 + O(q^6),41,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,50,2,0,q - q^2 + q^3 + q^4 + O(q^6),61,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,50,2,1,q + q^2 - q^3 + q^4 + O(q^6),3,-1,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,50,2,1,q + q^2 - q^3 + q^4 + O(q^6),13,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,50,2,1,q + q^2 - q^3 + q^4 + O(q^6),17,3,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,50,2,1,q + q^2 - q^3 + q^4 + O(q^6),41,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,50,2,1,q + q^2 - q^3 + q^4 + O(q^6),61,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,200,2,0,q - 3*q^3 + O(q^6),3,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,200,2,0,q - 3*q^3 + O(q^6),13,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,200,2,0,q - 3*q^3 + O(q^6),17,5,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,200,2,0,q - 3*q^3 + O(q^6),41,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,200,2,0,q - 3*q^3 + O(q^6),61,10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,200,2,1,q - 2*q^3 + O(q^6),3,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,200,2,1,q - 2*q^3 + O(q^6),13,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,200,2,1,q - 2*q^3 + O(q^6),17,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,200,2,1,q - 2*q^3 + O(q^6),41,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,200,2,1,q - 2*q^3 + O(q^6),61,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,200,2,2,q + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,200,2,2,q + O(q^6),13,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,200,2,2,q + O(q^6),17,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,200,2,2,q + O(q^6),41,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,200,2,2,q + O(q^6),61,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,200,2,3,q + 2*q^3 + O(q^6),3,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,200,2,3,q + 2*q^3 + O(q^6),13,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,200,2,3,q + 2*q^3 + O(q^6),17,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,200,2,3,q + 2*q^3 + O(q^6),41,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,200,2,3,q + 2*q^3 + O(q^6),61,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,200,2,4,q + 3*q^3 + O(q^6),3,3,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,200,2,4,q + 3*q^3 + O(q^6),13,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,200,2,4,q + 3*q^3 + O(q^6),17,-5,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,200,2,4,q + 3*q^3 + O(q^6),41,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,200,2,4,q + 3*q^3 + O(q^6),61,10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,44,2,0,q + q^3 - 3*q^5 + O(q^6),3,1,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,44,2,0,q + q^3 - 3*q^5 + O(q^6),13,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,44,2,0,q + q^3 - 3*q^5 + O(q^6),17,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,44,2,0,q + q^3 - 3*q^5 + O(q^6),41,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,44,2,0,q + q^3 - 3*q^5 + O(q^6),61,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,110,2,0,q - q^2 + q^3 + q^4 - q^5 + O(q^6),3,1,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,110,2,0,q - q^2 + q^3 + q^4 - q^5 + O(q^6),13,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,110,2,0,q - q^2 + q^3 + q^4 - q^5 + O(q^6),17,3,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,110,2,0,q - q^2 + q^3 + q^4 - q^5 + O(q^6),41,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,110,2,0,q - q^2 + q^3 + q^4 - q^5 + O(q^6),61,-1,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,110,2,1,q + q^2 - q^3 + q^4 + q^5 + O(q^6),3,-1,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,110,2,1,q + q^2 - q^3 + q^4 + q^5 + O(q^6),13,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,110,2,1,q + q^2 - q^3 + q^4 + q^5 + O(q^6),17,-7,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,110,2,1,q + q^2 - q^3 + q^4 + q^5 + O(q^6),41,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,110,2,1,q + q^2 - q^3 + q^4 + q^5 + O(q^6),61,7,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,110,2,2,q + q^2 + q^3 + q^4 - q^5 + O(q^6),3,1,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,110,2,2,q + q^2 + q^3 + q^4 - q^5 + O(q^6),13,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,110,2,2,q + q^2 + q^3 + q^4 - q^5 + O(q^6),17,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,110,2,2,q + q^2 + q^3 + q^4 - q^5 + O(q^6),41,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,110,2,2,q + q^2 + q^3 + q^4 - q^5 + O(q^6),61,5,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,110,2,3,q - q^2 + (-1/2*a3 - 1/2)*q^3 + q^4 + q^5 + O(q^6),3,-1/2*a3 - 1/2,Number Field in a3 with defining polynomial x^2 - 33,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,110,2,3,q - q^2 + (-1/2*a3 - 1/2)*q^3 + q^4 + q^5 + O(q^6),13,2,Number Field in a3 with defining polynomial x^2 - 33,number_field,True,True,2,,completed
+5-4-5,110,2,3,q - q^2 + (-1/2*a3 - 1/2)*q^3 + q^4 + q^5 + O(q^6),17,1/2*a3 - 3/2,Number Field in a3 with defining polynomial x^2 - 33,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,110,2,3,q - q^2 + (-1/2*a3 - 1/2)*q^3 + q^4 + q^5 + O(q^6),41,-2*a3,Number Field in a3 with defining polynomial x^2 - 33,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,110,2,3,q - q^2 + (-1/2*a3 - 1/2)*q^3 + q^4 + q^5 + O(q^6),61,-1/2*a3 - 5/2,Number Field in a3 with defining polynomial x^2 - 33,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,0,q - q^5 + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,440,2,0,q - q^5 + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,440,2,0,q - q^5 + O(q^6),17,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,440,2,0,q - q^5 + O(q^6),41,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,440,2,0,q - q^5 + O(q^6),61,10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,440,2,1,q - q^5 + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,440,2,1,q - q^5 + O(q^6),13,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,440,2,1,q - q^5 + O(q^6),17,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,440,2,1,q - q^5 + O(q^6),41,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,440,2,1,q - q^5 + O(q^6),61,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,440,2,2,q + q^5 + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,440,2,2,q + q^5 + O(q^6),13,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,440,2,2,q + q^5 + O(q^6),17,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,440,2,2,q + q^5 + O(q^6),41,10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,440,2,2,q + q^5 + O(q^6),61,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,440,2,3,q + 3*q^3 + q^5 + O(q^6),3,3,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,440,2,3,q + 3*q^3 + q^5 + O(q^6),13,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,440,2,3,q + 3*q^3 + q^5 + O(q^6),17,3,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,440,2,3,q + 3*q^3 + q^5 + O(q^6),41,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,440,2,3,q + 3*q^3 + q^5 + O(q^6),61,1,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,440,2,4,q - a4*q^3 + q^5 + O(q^6),3,-a4,Number Field in a4 with defining polynomial x^2 - x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,4,q - a4*q^3 + q^5 + O(q^6),13,2,Number Field in a4 with defining polynomial x^2 - x - 4,number_field,True,True,2,,completed
+5-4-5,440,2,4,q - a4*q^3 + q^5 + O(q^6),17,-a4 + 2,Number Field in a4 with defining polynomial x^2 - x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,4,q - a4*q^3 + q^5 + O(q^6),41,2,Number Field in a4 with defining polynomial x^2 - x - 4,number_field,True,True,2,,completed
+5-4-5,440,2,4,q - a4*q^3 + q^5 + O(q^6),61,-3*a4 + 10,Number Field in a4 with defining polynomial x^2 - x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,5,q - 1/2*a5*q^3 - q^5 + O(q^6),3,-1/2*a5,Number Field in a5 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,5,q - 1/2*a5*q^3 - q^5 + O(q^6),13,-a5,Number Field in a5 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,5,q - 1/2*a5*q^3 - q^5 + O(q^6),17,1/2*a5 + 4,Number Field in a5 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,5,q - 1/2*a5*q^3 - q^5 + O(q^6),41,-10,Number Field in a5 with defining polynomial x^2 + 2*x - 16,number_field,True,True,0,,completed
+5-4-5,440,2,5,q - 1/2*a5*q^3 - q^5 + O(q^6),61,-1/2*a5 - 2,Number Field in a5 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,6,q - a6*q^3 - q^5 + O(q^6),3,-a6,Number Field in a6 with defining polynomial x^2 + x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,6,q - a6*q^3 - q^5 + O(q^6),13,2*a6 + 4,Number Field in a6 with defining polynomial x^2 + x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,6,q - a6*q^3 - q^5 + O(q^6),17,3*a6,Number Field in a6 with defining polynomial x^2 + x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,6,q - a6*q^3 - q^5 + O(q^6),41,4*a6 - 2,Number Field in a6 with defining polynomial x^2 + x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,440,2,6,q - a6*q^3 - q^5 + O(q^6),61,a6 - 10,Number Field in a6 with defining polynomial x^2 + x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,1100,2,0,q - 2*q^3 + O(q^6),3,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,1100,2,0,q - 2*q^3 + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,1100,2,0,q - 2*q^3 + O(q^6),17,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,1100,2,0,q - 2*q^3 + O(q^6),41,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,1100,2,0,q - 2*q^3 + O(q^6),61,-14,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,1100,2,1,q - q^3 + O(q^6),3,-1,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,1100,2,1,q - q^3 + O(q^6),13,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,1100,2,1,q - q^3 + O(q^6),17,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,1100,2,1,q - q^3 + O(q^6),41,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,1100,2,1,q - q^3 + O(q^6),61,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,1100,2,2,q + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,1100,2,2,q + O(q^6),13,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,1100,2,2,q + O(q^6),17,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,1100,2,2,q + O(q^6),41,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,1100,2,2,q + O(q^6),61,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,1100,2,3,q + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,1100,2,3,q + O(q^6),13,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,1100,2,3,q + O(q^6),17,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,1100,2,3,q + O(q^6),41,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,1100,2,3,q + O(q^6),61,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,1100,2,4,q + 2*q^3 + O(q^6),3,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,1100,2,4,q + 2*q^3 + O(q^6),13,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,1100,2,4,q + 2*q^3 + O(q^6),17,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,1100,2,4,q + 2*q^3 + O(q^6),41,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,1100,2,4,q + 2*q^3 + O(q^6),61,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,1100,2,5,q + a5*q^3 + O(q^6),3,a5,Number Field in a5 with defining polynomial x^2 + 3*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,1100,2,5,q + a5*q^3 + O(q^6),13,-2*a5 - 1,Number Field in a5 with defining polynomial x^2 + 3*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,1100,2,5,q + a5*q^3 + O(q^6),17,-a5 - 4,Number Field in a5 with defining polynomial x^2 + 3*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,1100,2,5,q + a5*q^3 + O(q^6),41,4*a5 + 7,Number Field in a5 with defining polynomial x^2 + 3*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,1100,2,5,q + a5*q^3 + O(q^6),61,a5 + 3,Number Field in a5 with defining polynomial x^2 + 3*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,1100,2,6,q - 1/2*a6*q^3 + O(q^6),3,-1/2*a6,Number Field in a6 with defining polynomial x^2 - 2*x - 20,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a6)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a6 - 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,6,q - 1/2*a6*q^3 + O(q^6),13,-1,Number Field in a6 with defining polynomial x^2 - 2*x - 20,number_field,True,True,4,,completed
+5-4-5,1100,2,6,q - 1/2*a6*q^3 + O(q^6),17,1/2*a6 - 2,Number Field in a6 with defining polynomial x^2 - 2*x - 20,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a6)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a6 - 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,6,q - 1/2*a6*q^3 + O(q^6),41,a6 - 7,Number Field in a6 with defining polynomial x^2 - 2*x - 20,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a6)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a6 - 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,6,q - 1/2*a6*q^3 + O(q^6),61,-1/2*a6 + 7,Number Field in a6 with defining polynomial x^2 - 2*x - 20,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a6)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a6 - 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,7,q - a7*q^3 + O(q^6),3,-a7,Number Field in a7 with defining polynomial x^2 + x - 5,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7 + 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,7,q - a7*q^3 + O(q^6),13,1,Number Field in a7 with defining polynomial x^2 + x - 5,number_field,True,True,1,,completed
+5-4-5,1100,2,7,q - a7*q^3 + O(q^6),17,a7 + 2,Number Field in a7 with defining polynomial x^2 + x - 5,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7 + 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,7,q - a7*q^3 + O(q^6),41,-2*a7 - 7,Number Field in a7 with defining polynomial x^2 + x - 5,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7 + 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,7,q - a7*q^3 + O(q^6),61,a7 + 7,Number Field in a7 with defining polynomial x^2 + x - 5,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7 + 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,8,q + 1/2*a8*q^3 + O(q^6),3,1/2*a8,Number Field in a8 with defining polynomial x^2 - 6*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,1100,2,8,q + 1/2*a8*q^3 + O(q^6),13,-a8 + 1,Number Field in a8 with defining polynomial x^2 - 6*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,1100,2,8,q + 1/2*a8*q^3 + O(q^6),17,-1/2*a8 + 4,Number Field in a8 with defining polynomial x^2 - 6*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,1100,2,8,q + 1/2*a8*q^3 + O(q^6),41,-2*a8 + 7,Number Field in a8 with defining polynomial x^2 - 6*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,1100,2,8,q + 1/2*a8*q^3 + O(q^6),61,-1/2*a8 + 3,Number Field in a8 with defining polynomial x^2 - 6*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,1100,2,9,q + 1/2*a9*q^3 + O(q^6),3,1/2*a9,Number Field in a9 with defining polynomial x^4 - 44*x^2 + 256,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/16*a9^3 - 5/4*a9 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/16*a9^3 - 5/4*a9 - 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,9,q + 1/2*a9*q^3 + O(q^6),13,-1/16*a9^3 + 11/4*a9,Number Field in a9 with defining polynomial x^4 - 44*x^2 + 256,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/16*a9^3 - 5/4*a9 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/16*a9^3 - 5/4*a9 - 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,9,q + 1/2*a9*q^3 + O(q^6),17,1/16*a9^3 - 7/4*a9,Number Field in a9 with defining polynomial x^4 - 44*x^2 + 256,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/16*a9^3 - 5/4*a9 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/16*a9^3 - 5/4*a9 - 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,9,q + 1/2*a9*q^3 + O(q^6),41,1/2*a9^2 - 10,Number Field in a9 with defining polynomial x^4 - 44*x^2 + 256,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/16*a9^3 - 5/4*a9 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/16*a9^3 - 5/4*a9 - 1)""}]",coefficient_field_unclear
+5-4-5,1100,2,9,q + 1/2*a9*q^3 + O(q^6),61,-1/2*a9^2 + 10,Number Field in a9 with defining polynomial x^4 - 44*x^2 + 256,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/16*a9^3 - 5/4*a9 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/16*a9^3 - 5/4*a9 - 1)""}]",coefficient_field_unclear
+5-4-5,55,2,0,q + q^2 - q^4 + q^5 + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,55,2,0,q + q^2 - q^4 + q^5 + O(q^6),13,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,55,2,0,q + q^2 - q^4 + q^5 + O(q^6),17,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,55,2,0,q + q^2 - q^4 + q^5 + O(q^6),41,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,55,2,0,q + q^2 - q^4 + q^5 + O(q^6),61,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,55,2,1,q + a1*q^2 + (-2*a1 + 2)*q^3 + (2*a1 - 1)*q^4 - q^5 + O(q^6),3,-2*a1 + 2,Number Field in a1 with defining polynomial x^2 - 2*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,55,2,1,q + a1*q^2 + (-2*a1 + 2)*q^3 + (2*a1 - 1)*q^4 - q^5 + O(q^6),13,2*a1 - 6,Number Field in a1 with defining polynomial x^2 - 2*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,55,2,1,q + a1*q^2 + (-2*a1 + 2)*q^3 + (2*a1 - 1)*q^4 - q^5 + O(q^6),17,2*a1 + 2,Number Field in a1 with defining polynomial x^2 - 2*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,55,2,1,q + a1*q^2 + (-2*a1 + 2)*q^3 + (2*a1 - 1)*q^4 - q^5 + O(q^6),41,6,Number Field in a1 with defining polynomial x^2 - 2*x - 1,number_field,True,True,1,,completed
+5-4-5,55,2,1,q + a1*q^2 + (-2*a1 + 2)*q^3 + (2*a1 - 1)*q^4 - q^5 + O(q^6),61,-8*a1 + 10,Number Field in a1 with defining polynomial x^2 - 2*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,88,2,0,q - 3*q^3 - 3*q^5 + O(q^6),3,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,88,2,0,q - 3*q^3 - 3*q^5 + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,88,2,0,q - 3*q^3 - 3*q^5 + O(q^6),17,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,88,2,0,q - 3*q^3 - 3*q^5 + O(q^6),41,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,88,2,0,q - 3*q^3 - 3*q^5 + O(q^6),61,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,88,2,1,q - 1/2*a1*q^3 + (1/2*a1 + 2)*q^5 + O(q^6),3,-1/2*a1,Number Field in a1 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,88,2,1,q - 1/2*a1*q^3 + (1/2*a1 + 2)*q^5 + O(q^6),13,-a1 - 2,Number Field in a1 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,88,2,1,q - 1/2*a1*q^3 + (1/2*a1 + 2)*q^5 + O(q^6),17,2,Number Field in a1 with defining polynomial x^2 + 2*x - 16,number_field,True,True,2,,completed
+5-4-5,88,2,1,q - 1/2*a1*q^3 + (1/2*a1 + 2)*q^5 + O(q^6),41,-a1 + 2,Number Field in a1 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,88,2,1,q - 1/2*a1*q^3 + (1/2*a1 + 2)*q^5 + O(q^6),61,a1 - 2,Number Field in a1 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,550,2,0,q - q^2 - 2*q^3 + q^4 + O(q^6),3,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,0,q - q^2 - 2*q^3 + q^4 + O(q^6),13,5,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,0,q - q^2 - 2*q^3 + q^4 + O(q^6),17,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,0,q - q^2 - 2*q^3 + q^4 + O(q^6),41,12,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,0,q - q^2 - 2*q^3 + q^4 + O(q^6),61,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,1,q - q^2 - 2*q^3 + q^4 + O(q^6),3,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,1,q - q^2 - 2*q^3 + q^4 + O(q^6),13,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,1,q - q^2 - 2*q^3 + q^4 + O(q^6),17,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,550,2,1,q - q^2 - 2*q^3 + q^4 + O(q^6),41,8,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,1,q - q^2 - 2*q^3 + q^4 + O(q^6),61,10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,2,q - q^2 - 2*q^3 + q^4 + O(q^6),3,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,2,q - q^2 - 2*q^3 + q^4 + O(q^6),13,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,2,q - q^2 - 2*q^3 + q^4 + O(q^6),17,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,550,2,2,q - q^2 - 2*q^3 + q^4 + O(q^6),41,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,2,q - q^2 - 2*q^3 + q^4 + O(q^6),61,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,3,q - q^2 - q^3 + q^4 + O(q^6),3,-1,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,550,2,3,q - q^2 - q^3 + q^4 + O(q^6),13,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,3,q - q^2 - q^3 + q^4 + O(q^6),17,3,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,3,q - q^2 - q^3 + q^4 + O(q^6),41,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,550,2,3,q - q^2 - q^3 + q^4 + O(q^6),61,5,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,4,q - q^2 + q^3 + q^4 + O(q^6),3,1,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,550,2,4,q - q^2 + q^3 + q^4 + O(q^6),13,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,550,2,4,q - q^2 + q^3 + q^4 + O(q^6),17,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,4,q - q^2 + q^3 + q^4 + O(q^6),41,-8,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,4,q - q^2 + q^3 + q^4 + O(q^6),61,-13,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,5,q - q^2 + q^3 + q^4 + O(q^6),3,1,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,550,2,5,q - q^2 + q^3 + q^4 + O(q^6),13,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,550,2,5,q - q^2 + q^3 + q^4 + O(q^6),17,7,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,5,q - q^2 + q^3 + q^4 + O(q^6),41,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,5,q - q^2 + q^3 + q^4 + O(q^6),61,7,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,6,q - q^2 + 3*q^3 + q^4 + O(q^6),3,3,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,6,q - q^2 + 3*q^3 + q^4 + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,6,q - q^2 + 3*q^3 + q^4 + O(q^6),17,5,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,6,q - q^2 + 3*q^3 + q^4 + O(q^6),41,-8,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,6,q - q^2 + 3*q^3 + q^4 + O(q^6),61,5,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,7,q + q^2 - 3*q^3 + q^4 + O(q^6),3,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,7,q + q^2 - 3*q^3 + q^4 + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,7,q + q^2 - 3*q^3 + q^4 + O(q^6),17,-5,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,7,q + q^2 - 3*q^3 + q^4 + O(q^6),41,-8,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,7,q + q^2 - 3*q^3 + q^4 + O(q^6),61,5,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,8,q + q^2 - q^3 + q^4 + O(q^6),3,-1,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,550,2,8,q + q^2 - q^3 + q^4 + O(q^6),13,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,8,q + q^2 - q^3 + q^4 + O(q^6),17,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,8,q + q^2 - q^3 + q^4 + O(q^6),41,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,550,2,8,q + q^2 - q^3 + q^4 + O(q^6),61,-1,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,550,2,9,q + q^2 - q^3 + q^4 + O(q^6),3,-1,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,550,2,9,q + q^2 - q^3 + q^4 + O(q^6),13,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,550,2,9,q + q^2 - q^3 + q^4 + O(q^6),17,3,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,9,q + q^2 - q^3 + q^4 + O(q^6),41,-8,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,9,q + q^2 - q^3 + q^4 + O(q^6),61,-13,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,10,q + q^2 + 2*q^3 + q^4 + O(q^6),3,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,10,q + q^2 + 2*q^3 + q^4 + O(q^6),13,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,10,q + q^2 + 2*q^3 + q^4 + O(q^6),17,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,550,2,10,q + q^2 + 2*q^3 + q^4 + O(q^6),41,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,10,q + q^2 + 2*q^3 + q^4 + O(q^6),61,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,11,q + q^2 + 2*q^3 + q^4 + O(q^6),3,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,11,q + q^2 + 2*q^3 + q^4 + O(q^6),13,3,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,11,q + q^2 + 2*q^3 + q^4 + O(q^6),17,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,550,2,11,q + q^2 + 2*q^3 + q^4 + O(q^6),41,8,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,550,2,11,q + q^2 + 2*q^3 + q^4 + O(q^6),61,10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,12,q + q^2 + 2*q^3 + q^4 + O(q^6),3,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,12,q + q^2 + 2*q^3 + q^4 + O(q^6),13,-5,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,12,q + q^2 + 2*q^3 + q^4 + O(q^6),17,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,12,q + q^2 + 2*q^3 + q^4 + O(q^6),41,12,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,550,2,12,q + q^2 + 2*q^3 + q^4 + O(q^6),61,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,550,2,13,q + q^2 + (-a13 + 1)*q^3 + q^4 + O(q^6),3,-a13 + 1,Number Field in a13 with defining polynomial x^2 - x - 8,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,550,2,13,q + q^2 + (-a13 + 1)*q^3 + q^4 + O(q^6),13,-2,Number Field in a13 with defining polynomial x^2 - x - 8,number_field,True,True,3,,completed
+5-4-5,550,2,13,q + q^2 + (-a13 + 1)*q^3 + q^4 + O(q^6),17,a13 + 1,Number Field in a13 with defining polynomial x^2 - x - 8,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,550,2,13,q + q^2 + (-a13 + 1)*q^3 + q^4 + O(q^6),41,4*a13 - 2,Number Field in a13 with defining polynomial x^2 - x - 8,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,550,2,13,q + q^2 + (-a13 + 1)*q^3 + q^4 + O(q^6),61,a13 - 3,Number Field in a13 with defining polynomial x^2 - x - 8,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,0,q - 3*q^3 + O(q^6),3,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,2200,2,0,q - 3*q^3 + O(q^6),13,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,2200,2,0,q - 3*q^3 + O(q^6),17,-3,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,2200,2,0,q - 3*q^3 + O(q^6),41,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,2200,2,0,q - 3*q^3 + O(q^6),61,1,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,2200,2,1,q - 2*q^3 + O(q^6),3,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,2200,2,1,q - 2*q^3 + O(q^6),13,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,2200,2,1,q - 2*q^3 + O(q^6),17,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,2200,2,1,q - 2*q^3 + O(q^6),41,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,2200,2,1,q - 2*q^3 + O(q^6),61,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,2,q - 2*q^3 + O(q^6),3,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,2200,2,2,q - 2*q^3 + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,2,q - 2*q^3 + O(q^6),17,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,2200,2,2,q - 2*q^3 + O(q^6),41,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,2,q - 2*q^3 + O(q^6),61,14,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,3,q - q^3 + O(q^6),3,-1,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,3,q - q^3 + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,3,q - q^3 + O(q^6),17,1,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,2200,2,3,q - q^3 + O(q^6),41,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,3,q - q^3 + O(q^6),61,-7,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,2200,2,4,q + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,4,q + O(q^6),13,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,4,q + O(q^6),17,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,2200,2,4,q + O(q^6),41,10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,4,q + O(q^6),61,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,2200,2,5,q + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,5,q + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,5,q + O(q^6),17,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,5,q + O(q^6),41,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,2200,2,5,q + O(q^6),61,10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,6,q + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,6,q + O(q^6),13,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,6,q + O(q^6),17,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,6,q + O(q^6),41,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,2200,2,6,q + O(q^6),61,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,7,q + q^3 + O(q^6),3,1,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,2200,2,7,q + q^3 + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,7,q + q^3 + O(q^6),17,-1,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,7,q + q^3 + O(q^6),41,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,7,q + q^3 + O(q^6),61,-7,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,2200,2,8,q + 2*q^3 + O(q^6),3,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,2200,2,8,q + 2*q^3 + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,8,q + 2*q^3 + O(q^6),17,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,8,q + 2*q^3 + O(q^6),41,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,8,q + 2*q^3 + O(q^6),61,14,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,9,q + 2*q^3 + O(q^6),3,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,2200,2,9,q + 2*q^3 + O(q^6),13,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,9,q + 2*q^3 + O(q^6),17,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,2200,2,9,q + 2*q^3 + O(q^6),41,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,2200,2,9,q + 2*q^3 + O(q^6),61,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,10,q + 3*q^3 + O(q^6),3,3,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,2200,2,10,q + 3*q^3 + O(q^6),13,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,2200,2,10,q + 3*q^3 + O(q^6),17,6,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,2200,2,10,q + 3*q^3 + O(q^6),41,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,10,q + 3*q^3 + O(q^6),61,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,2200,2,11,q + a11*q^3 + O(q^6),3,a11,Number Field in a11 with defining polynomial x^2 + x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,11,q + a11*q^3 + O(q^6),13,-2*a11 - 4,Number Field in a11 with defining polynomial x^2 + x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,11,q + a11*q^3 + O(q^6),17,-3*a11,Number Field in a11 with defining polynomial x^2 + x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,11,q + a11*q^3 + O(q^6),41,4*a11 - 2,Number Field in a11 with defining polynomial x^2 + x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,11,q + a11*q^3 + O(q^6),61,a11 - 10,Number Field in a11 with defining polynomial x^2 + x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,12,q + 1/2*a12*q^3 + O(q^6),3,1/2*a12,Number Field in a12 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,12,q + 1/2*a12*q^3 + O(q^6),13,a12,Number Field in a12 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,12,q + 1/2*a12*q^3 + O(q^6),17,-1/2*a12 - 4,Number Field in a12 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,12,q + 1/2*a12*q^3 + O(q^6),41,-10,Number Field in a12 with defining polynomial x^2 + 2*x - 16,number_field,True,True,0,,completed
+5-4-5,2200,2,12,q + 1/2*a12*q^3 + O(q^6),61,-1/2*a12 - 2,Number Field in a12 with defining polynomial x^2 + 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,13,q - a13*q^3 + O(q^6),3,-a13,Number Field in a13 with defining polynomial x^2 - x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a13 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,13,q - a13*q^3 + O(q^6),13,2*a13 - 1,Number Field in a13 with defining polynomial x^2 - x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a13 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,13,q - a13*q^3 + O(q^6),17,3*a13,Number Field in a13 with defining polynomial x^2 - x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a13 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,13,q - a13*q^3 + O(q^6),41,8*a13 - 5,Number Field in a13 with defining polynomial x^2 - x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a13 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,13,q - a13*q^3 + O(q^6),61,5*a13 - 1,Number Field in a13 with defining polynomial x^2 - x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a13 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,14,q - 1/2*a14*q^3 + O(q^6),3,-1/2*a14,Number Field in a14 with defining polynomial x^2 - 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,14,q - 1/2*a14*q^3 + O(q^6),13,-a14 + 2,Number Field in a14 with defining polynomial x^2 - 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,14,q - 1/2*a14*q^3 + O(q^6),17,-2,Number Field in a14 with defining polynomial x^2 - 2*x - 16,number_field,True,True,3,,completed
+5-4-5,2200,2,14,q - 1/2*a14*q^3 + O(q^6),41,a14 + 2,Number Field in a14 with defining polynomial x^2 - 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,14,q - 1/2*a14*q^3 + O(q^6),61,-a14 - 2,Number Field in a14 with defining polynomial x^2 - 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,15,q + 1/2*a15*q^3 + O(q^6),3,1/2*a15,Number Field in a15 with defining polynomial x^2 + 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a15 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,15,q + 1/2*a15*q^3 + O(q^6),13,-2*a15 - 3,Number Field in a15 with defining polynomial x^2 + 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a15 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,15,q + 1/2*a15*q^3 + O(q^6),17,5/2*a15 + 2,Number Field in a15 with defining polynomial x^2 + 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a15 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,15,q + 1/2*a15*q^3 + O(q^6),41,-3*a15 - 7,Number Field in a15 with defining polynomial x^2 + 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a15 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,15,q + 1/2*a15*q^3 + O(q^6),61,5/2*a15 - 5,Number Field in a15 with defining polynomial x^2 + 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a15 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,16,q - 1/2*a16*q^3 + O(q^6),3,-1/2*a16,Number Field in a16 with defining polynomial x^2 + 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a16 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,16,q - 1/2*a16*q^3 + O(q^6),13,2*a16 + 3,Number Field in a16 with defining polynomial x^2 + 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a16 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,16,q - 1/2*a16*q^3 + O(q^6),17,-5/2*a16 - 2,Number Field in a16 with defining polynomial x^2 + 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a16 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,16,q - 1/2*a16*q^3 + O(q^6),41,-3*a16 - 7,Number Field in a16 with defining polynomial x^2 + 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a16 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,16,q - 1/2*a16*q^3 + O(q^6),61,5/2*a16 - 5,Number Field in a16 with defining polynomial x^2 + 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a16 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,17,q + 1/2*a17*q^3 + O(q^6),3,1/2*a17,Number Field in a17 with defining polynomial x^2 - 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a17 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,17,q + 1/2*a17*q^3 + O(q^6),13,-a17 + 1,Number Field in a17 with defining polynomial x^2 - 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a17 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,17,q + 1/2*a17*q^3 + O(q^6),17,-3/2*a17,Number Field in a17 with defining polynomial x^2 - 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a17 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,17,q + 1/2*a17*q^3 + O(q^6),41,4*a17 - 5,Number Field in a17 with defining polynomial x^2 - 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a17 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,17,q + 1/2*a17*q^3 + O(q^6),61,5/2*a17 - 1,Number Field in a17 with defining polynomial x^2 - 2*x - 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a17 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,18,q + 1/2*a18*q^3 + O(q^6),3,1/2*a18,Number Field in a18 with defining polynomial x^2 - 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,18,q + 1/2*a18*q^3 + O(q^6),13,-2,Number Field in a18 with defining polynomial x^2 - 2*x - 16,number_field,True,True,3,,completed
+5-4-5,2200,2,18,q + 1/2*a18*q^3 + O(q^6),17,1/2*a18 - 2,Number Field in a18 with defining polynomial x^2 - 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,18,q + 1/2*a18*q^3 + O(q^6),41,2,Number Field in a18 with defining polynomial x^2 - 2*x - 16,number_field,True,True,2,,completed
+5-4-5,2200,2,18,q + 1/2*a18*q^3 + O(q^6),61,-3/2*a18 + 10,Number Field in a18 with defining polynomial x^2 - 2*x - 16,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,19,q + 1/2*a19*q^3 + O(q^6),3,1/2*a19,Number Field in a19 with defining polynomial x^3 + 6*x^2 - 12*x - 48,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a19 - 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/4*a19^2 + 2*a19 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,19,q + 1/2*a19*q^3 + O(q^6),13,a19 + 3,Number Field in a19 with defining polynomial x^3 + 6*x^2 - 12*x - 48,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a19 - 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/4*a19^2 + 2*a19 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,19,q + 1/2*a19*q^3 + O(q^6),17,1/2*a19^2 + 3/2*a19 - 6,Number Field in a19 with defining polynomial x^3 + 6*x^2 - 12*x - 48,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a19 - 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/4*a19^2 + 2*a19 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,19,q + 1/2*a19*q^3 + O(q^6),41,1/4*a19^2 + 1/2*a19 - 2,Number Field in a19 with defining polynomial x^3 + 6*x^2 - 12*x - 48,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a19 - 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/4*a19^2 + 2*a19 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,19,q + 1/2*a19*q^3 + O(q^6),61,-3/4*a19^2 - 2*a19 + 10,Number Field in a19 with defining polynomial x^3 + 6*x^2 - 12*x - 48,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a19 - 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/4*a19^2 + 2*a19 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,20,q - a20*q^3 + O(q^6),3,-a20,Number Field in a20 with defining polynomial x^3 - x^2 - 7*x + 6,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,20,q - a20*q^3 + O(q^6),13,-1,Number Field in a20 with defining polynomial x^3 - x^2 - 7*x + 6,number_field,True,True,4,,completed
+5-4-5,2200,2,20,q - a20*q^3 + O(q^6),17,-a20 + 2,Number Field in a20 with defining polynomial x^3 - x^2 - 7*x + 6,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,20,q - a20*q^3 + O(q^6),41,-a20^2 + a20 + 6,Number Field in a20 with defining polynomial x^3 - x^2 - 7*x + 6,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,20,q - a20*q^3 + O(q^6),61,a20^2 + 2*a20 - 6,Number Field in a20 with defining polynomial x^3 - x^2 - 7*x + 6,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,21,q - a21*q^3 + O(q^6),3,-a21,Number Field in a21 with defining polynomial x^3 + x^2 - 7*x - 6,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,21,q - a21*q^3 + O(q^6),13,1,Number Field in a21 with defining polynomial x^3 + x^2 - 7*x - 6,number_field,True,True,1,,completed
+5-4-5,2200,2,21,q - a21*q^3 + O(q^6),17,-a21 - 2,Number Field in a21 with defining polynomial x^3 + x^2 - 7*x - 6,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,21,q - a21*q^3 + O(q^6),41,-a21^2 - a21 + 6,Number Field in a21 with defining polynomial x^3 + x^2 - 7*x - 6,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,21,q - a21*q^3 + O(q^6),61,a21^2 - 2*a21 - 6,Number Field in a21 with defining polynomial x^3 + x^2 - 7*x - 6,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,2200,2,22,q + 1/2*a22*q^3 + O(q^6),3,1/2*a22,Number Field in a22 with defining polynomial x^3 - 6*x^2 - 12*x + 48,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a22 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/4*a22^2 - 2*a22 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,22,q + 1/2*a22*q^3 + O(q^6),13,a22 - 3,Number Field in a22 with defining polynomial x^3 - 6*x^2 - 12*x + 48,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a22 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/4*a22^2 - 2*a22 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,22,q + 1/2*a22*q^3 + O(q^6),17,-1/2*a22^2 + 3/2*a22 + 6,Number Field in a22 with defining polynomial x^3 - 6*x^2 - 12*x + 48,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a22 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/4*a22^2 - 2*a22 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,22,q + 1/2*a22*q^3 + O(q^6),41,1/4*a22^2 - 1/2*a22 - 2,Number Field in a22 with defining polynomial x^3 - 6*x^2 - 12*x + 48,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a22 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/4*a22^2 - 2*a22 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,22,q + 1/2*a22*q^3 + O(q^6),61,-3/4*a22^2 + 2*a22 + 10,Number Field in a22 with defining polynomial x^3 - 6*x^2 - 12*x + 48,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/2*a22 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (1/4*a22^2 - 2*a22 + 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,23,q - a23*q^3 + O(q^6),3,-a23,Number Field in a23 with defining polynomial x^4 - x^3 - 9*x^2 + 3*x + 2,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a23^3 + 11*a23 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (3*a23^3 + 8*a23^2 - a23 - 3)""}]",coefficient_field_unclear
+5-4-5,2200,2,23,q - a23*q^3 + O(q^6),13,-4,Number Field in a23 with defining polynomial x^4 - x^3 - 9*x^2 + 3*x + 2,number_field,True,True,1,,completed
+5-4-5,2200,2,23,q - a23*q^3 + O(q^6),17,-3/2*a23^3 + a23^2 + 29/2*a23 - 3,Number Field in a23 with defining polynomial x^4 - x^3 - 9*x^2 + 3*x + 2,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a23^3 + 11*a23 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (3*a23^3 + 8*a23^2 - a23 - 3)""}]",coefficient_field_unclear
+5-4-5,2200,2,23,q - a23*q^3 + O(q^6),41,-2*a23^3 + 2*a23^2 + 18*a23 - 2,Number Field in a23 with defining polynomial x^4 - x^3 - 9*x^2 + 3*x + 2,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a23^3 + 11*a23 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (3*a23^3 + 8*a23^2 - a23 - 3)""}]",coefficient_field_unclear
+5-4-5,2200,2,23,q - a23*q^3 + O(q^6),61,1/2*a23^3 - a23^2 - 11/2*a23 + 11,Number Field in a23 with defining polynomial x^4 - x^3 - 9*x^2 + 3*x + 2,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a23^3 + 11*a23 + 1)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (3*a23^3 + 8*a23^2 - a23 - 3)""}]",coefficient_field_unclear
+5-4-5,2200,2,24,q + 1/2*a24*q^3 + O(q^6),3,1/2*a24,Number Field in a24 with defining polynomial x^4 - 2*x^3 - 36*x^2 + 24*x + 32,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/2*a24 - 2)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, -3/16*a24^3 + 1/4*a24^2 + 21/4*a24 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,24,q + 1/2*a24*q^3 + O(q^6),13,4,Number Field in a24 with defining polynomial x^4 - 2*x^3 - 36*x^2 + 24*x + 32,number_field,True,True,4,,completed
+5-4-5,2200,2,24,q + 1/2*a24*q^3 + O(q^6),17,3/16*a24^3 - 1/4*a24^2 - 29/4*a24 + 3,Number Field in a24 with defining polynomial x^4 - 2*x^3 - 36*x^2 + 24*x + 32,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/2*a24 - 2)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, -3/16*a24^3 + 1/4*a24^2 + 21/4*a24 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,24,q + 1/2*a24*q^3 + O(q^6),41,-1/4*a24^3 + 1/2*a24^2 + 9*a24 - 2,Number Field in a24 with defining polynomial x^4 - 2*x^3 - 36*x^2 + 24*x + 32,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/2*a24 - 2)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, -3/16*a24^3 + 1/4*a24^2 + 21/4*a24 - 1)""}]",coefficient_field_unclear
+5-4-5,2200,2,24,q + 1/2*a24*q^3 + O(q^6),61,1/16*a24^3 - 1/4*a24^2 - 11/4*a24 + 11,Number Field in a24 with defining polynomial x^4 - 2*x^3 - 36*x^2 + 24*x + 32,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, 1/2*a24 - 2)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5, -3/16*a24^3 + 1/4*a24^2 + 21/4*a24 - 1)""}]",coefficient_field_unclear
+5-4-5,11,2,0,q - 2*q^2 - q^3 + 2*q^4 + q^5 + O(q^6),3,-1,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,11,2,0,q - 2*q^2 - q^3 + 2*q^4 + q^5 + O(q^6),13,4,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,11,2,0,q - 2*q^2 - q^3 + 2*q^4 + q^5 + O(q^6),17,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,11,2,0,q - 2*q^2 - q^3 + 2*q^4 + q^5 + O(q^6),41,-8,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,11,2,0,q - 2*q^2 - q^3 + 2*q^4 + q^5 + O(q^6),61,12,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,275,2,0,q - q^2 - q^4 + O(q^6),3,0,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,275,2,0,q - q^2 - q^4 + O(q^6),13,-2,Rational Field,rational_integer,True,True,3,,completed
+5-4-5,275,2,0,q - q^2 - q^4 + O(q^6),17,-6,Rational Field,rational_integer,True,True,4,,completed
+5-4-5,275,2,0,q - q^2 - q^4 + O(q^6),41,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,275,2,0,q - q^2 - q^4 + O(q^6),61,-10,Rational Field,rational_integer,True,True,0,,completed
+5-4-5,275,2,1,q + 2*q^2 + q^3 + 2*q^4 + O(q^6),3,1,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,275,2,1,q + 2*q^2 + q^3 + 2*q^4 + O(q^6),13,-4,Rational Field,rational_integer,True,True,1,,completed
+5-4-5,275,2,1,q + 2*q^2 + q^3 + 2*q^4 + O(q^6),17,2,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,275,2,1,q + 2*q^2 + q^3 + 2*q^4 + O(q^6),41,-8,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,275,2,1,q + 2*q^2 + q^3 + 2*q^4 + O(q^6),61,12,Rational Field,rational_integer,True,True,2,,completed
+5-4-5,275,2,2,q + a2*q^2 + (-2*a2 - 2)*q^3 + (-2*a2 - 1)*q^4 + O(q^6),3,-2*a2 - 2,Number Field in a2 with defining polynomial x^2 + 2*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,2,q + a2*q^2 + (-2*a2 - 2)*q^3 + (-2*a2 - 1)*q^4 + O(q^6),13,2*a2 + 6,Number Field in a2 with defining polynomial x^2 + 2*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,2,q + a2*q^2 + (-2*a2 - 2)*q^3 + (-2*a2 - 1)*q^4 + O(q^6),17,2*a2 - 2,Number Field in a2 with defining polynomial x^2 + 2*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,2,q + a2*q^2 + (-2*a2 - 2)*q^3 + (-2*a2 - 1)*q^4 + O(q^6),41,6,Number Field in a2 with defining polynomial x^2 + 2*x - 1,number_field,True,True,1,,completed
+5-4-5,275,2,2,q + a2*q^2 + (-2*a2 - 2)*q^3 + (-2*a2 - 1)*q^4 + O(q^6),61,8*a2 + 10,Number Field in a2 with defining polynomial x^2 + 2*x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,3,q + a3*q^2 + (a3 - 1)*q^3 + (-a3 - 1)*q^4 + O(q^6),3,a3 - 1,Number Field in a3 with defining polynomial x^2 + x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a3 - 1)""}]",coefficient_field_unclear
+5-4-5,275,2,3,q + a3*q^2 + (a3 - 1)*q^3 + (-a3 - 1)*q^4 + O(q^6),13,2*a3 - 3,Number Field in a3 with defining polynomial x^2 + x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a3 - 1)""}]",coefficient_field_unclear
+5-4-5,275,2,3,q + a3*q^2 + (a3 - 1)*q^3 + (-a3 - 1)*q^4 + O(q^6),17,-a3 - 1,Number Field in a3 with defining polynomial x^2 + x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a3 - 1)""}]",coefficient_field_unclear
+5-4-5,275,2,3,q + a3*q^2 + (a3 - 1)*q^3 + (-a3 - 1)*q^4 + O(q^6),41,-3,Number Field in a3 with defining polynomial x^2 + x - 1,number_field,True,True,2,,completed
+5-4-5,275,2,3,q + a3*q^2 + (a3 - 1)*q^3 + (-a3 - 1)*q^4 + O(q^6),61,-5*a3 - 8,Number Field in a3 with defining polynomial x^2 + x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a3 - 1)""}]",coefficient_field_unclear
+5-4-5,275,2,4,q + a4*q^2 + (-a4 - 1)*q^3 + (-a4 + 1)*q^4 + O(q^6),3,-a4 - 1,Number Field in a4 with defining polynomial x^2 + x - 3,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,4,q + a4*q^2 + (-a4 - 1)*q^3 + (-a4 + 1)*q^4 + O(q^6),13,-5,Number Field in a4 with defining polynomial x^2 + x - 3,number_field,True,True,0,,completed
+5-4-5,275,2,4,q + a4*q^2 + (-a4 - 1)*q^3 + (-a4 + 1)*q^4 + O(q^6),17,-3*a4 - 3,Number Field in a4 with defining polynomial x^2 + x - 3,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,4,q + a4*q^2 + (-a4 - 1)*q^3 + (-a4 + 1)*q^4 + O(q^6),41,-2*a4 - 3,Number Field in a4 with defining polynomial x^2 + x - 3,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,4,q + a4*q^2 + (-a4 - 1)*q^3 + (-a4 + 1)*q^4 + O(q^6),61,-3*a4 - 4,Number Field in a4 with defining polynomial x^2 + x - 3,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,5,q + a5*q^2 + (-a5 + 1)*q^3 + (a5 + 1)*q^4 + O(q^6),3,-a5 + 1,Number Field in a5 with defining polynomial x^2 - x - 3,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,5,q + a5*q^2 + (-a5 + 1)*q^3 + (a5 + 1)*q^4 + O(q^6),13,5,Number Field in a5 with defining polynomial x^2 - x - 3,number_field,True,True,0,,completed
+5-4-5,275,2,5,q + a5*q^2 + (-a5 + 1)*q^3 + (a5 + 1)*q^4 + O(q^6),17,-3*a5 + 3,Number Field in a5 with defining polynomial x^2 - x - 3,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,5,q + a5*q^2 + (-a5 + 1)*q^3 + (a5 + 1)*q^4 + O(q^6),41,2*a5 - 3,Number Field in a5 with defining polynomial x^2 - x - 3,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,5,q + a5*q^2 + (-a5 + 1)*q^3 + (a5 + 1)*q^4 + O(q^6),61,3*a5 - 4,Number Field in a5 with defining polynomial x^2 - x - 3,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (5)""}]",coefficient_field_unclear
+5-4-5,275,2,6,q + a6*q^2 + (a6 + 1)*q^3 + (a6 - 1)*q^4 + O(q^6),3,a6 + 1,Number Field in a6 with defining polynomial x^2 - x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a6 + 1)""}]",coefficient_field_unclear
+5-4-5,275,2,6,q + a6*q^2 + (a6 + 1)*q^3 + (a6 - 1)*q^4 + O(q^6),13,2*a6 + 3,Number Field in a6 with defining polynomial x^2 - x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a6 + 1)""}]",coefficient_field_unclear
+5-4-5,275,2,6,q + a6*q^2 + (a6 + 1)*q^3 + (a6 - 1)*q^4 + O(q^6),17,-a6 + 1,Number Field in a6 with defining polynomial x^2 - x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a6 + 1)""}]",coefficient_field_unclear
+5-4-5,275,2,6,q + a6*q^2 + (a6 + 1)*q^3 + (a6 - 1)*q^4 + O(q^6),41,-3,Number Field in a6 with defining polynomial x^2 - x - 1,number_field,True,True,2,,completed
+5-4-5,275,2,6,q + a6*q^2 + (a6 + 1)*q^3 + (a6 - 1)*q^4 + O(q^6),61,5*a6 - 8,Number Field in a6 with defining polynomial x^2 - x - 1,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-2*a6 + 1)""}]",coefficient_field_unclear
+5-4-5,275,2,7,q + a7*q^2 + (-1/2*a7^3 + 7/2*a7)*q^3 + (a7^2 - 2)*q^4 + O(q^6),3,-1/2*a7^3 + 7/2*a7,Number Field in a7 with defining polynomial x^4 - 7*x^2 + 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a7^2 + a7 + 3)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7^2 + a7 - 3)""}]",coefficient_field_unclear
+5-4-5,275,2,7,q + a7*q^2 + (-1/2*a7^3 + 7/2*a7)*q^3 + (a7^2 - 2)*q^4 + O(q^6),13,0,Number Field in a7 with defining polynomial x^4 - 7*x^2 + 4,number_field,True,True,0,,completed
+5-4-5,275,2,7,q + a7*q^2 + (-1/2*a7^3 + 7/2*a7)*q^3 + (a7^2 - 2)*q^4 + O(q^6),17,a7^3 - 7*a7,Number Field in a7 with defining polynomial x^4 - 7*x^2 + 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a7^2 + a7 + 3)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7^2 + a7 - 3)""}]",coefficient_field_unclear
+5-4-5,275,2,7,q + a7*q^2 + (-1/2*a7^3 + 7/2*a7)*q^3 + (a7^2 - 2)*q^4 + O(q^6),41,2*a7^2 - 4,Number Field in a7 with defining polynomial x^4 - 7*x^2 + 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a7^2 + a7 + 3)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7^2 + a7 - 3)""}]",coefficient_field_unclear
+5-4-5,275,2,7,q + a7*q^2 + (-1/2*a7^3 + 7/2*a7)*q^3 + (a7^2 - 2)*q^4 + O(q^6),61,-2*a7^2 + 12,Number Field in a7 with defining polynomial x^4 - 7*x^2 + 4,number_field,False,False,,"[{""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (-a7^2 + a7 + 3)""}, {""error"": ""too many values to unpack (expected 2)"", ""prime_above_5"": ""Fractional ideal (a7^2 + a7 - 3)""}]",coefficient_field_unclear
